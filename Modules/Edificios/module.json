@@ -1,0 +1,13 @@
+{
+    "name": "Edificios",
+    "alias": "edificios",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Edificios\\Providers\\EdificiosServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
