@@ -104,21 +104,23 @@ $(function () {
     var id = $(this).attr("id");
 
     if (id == '1') {
-      url = currentURL + '/precio-gas';
-      table = ' #precio-gas';
-    } else if (id == '2') {
       url = currentURL + '/usuarios';
-      table = ' #usuarios';
+      table = ' #table-usuarios';
+    } else if (id == '2') {
+      url = currentURL + '/precio-gas';
+      table = ' #table-precio-gas';
     } else if (id == '3') {
       url = currentURL + '/servicios';
-      table = ' #servicios';
+      table = ' #table-servicios';
     }
 
     $.get(url, function (data, textStatus, jqXHR) {
       $(".viewResult").html(data);
+      /*
       $('.viewResult' + table).DataTable({
-        "lengthChange": true
+          "lengthChange": true
       });
+      */
     });
   });
 });
@@ -369,15 +371,223 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_config/usuarios.js":
+/*!************************************************!*\
+  !*** ./resources/js/module_config/usuarios.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".newUsuario", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Nuevo Usuario');
+    $('#action').removeClass('updateUsuario');
+    $('#action').addClass('saveUsuario');
+    var url = currentURL + '/usuarios/create';
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para mostrar el formulario de edicion de un canal
+   */
+
+  $(document).on("click", ".editUsuario", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Editar Usuario');
+    $('#action').removeClass('saveUsuario');
+    $('#action').addClass('updateUsuario');
+    var id = $("#idSeleccionado").val();
+    var url = currentURL + "/usuarios/" + id + "/edit";
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para guardar el nuevo modulo
+   */
+
+  $(document).on('click', '.saveUsuario', function (event) {
+    event.preventDefault();
+    var name = $("#name").val();
+    var email = $("#email").val();
+    var password = $("#password").val();
+    var password_confirmation = $("#password_confirmation").val();
+    var rol = $("#rol").val();
+    var arr = $('[name="permisos[]"]:checked').map(function () {
+      return this.value;
+    }).get();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/usuarios';
+    $.post(url, {
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation,
+      rol: rol,
+      arr: arr,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.viewResult').html(data);
+    }).done(function () {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para mostrar el formulario editar modulo
+   */
+
+  $(document).on('click', '#table-usuarios tbody tr', function (event) {
+    event.preventDefault();
+    var id = $(this).data("id");
+    $(".editUsuario").slideDown();
+    $(".deleteUsuario").slideDown();
+    $("#idSeleccionado").val(id);
+    $("#table-usuarios tbody tr").removeClass('table-primary');
+    $(this).addClass('table-primary');
+  });
+  /**
+   * Evento para editar el modulo
+   */
+
+  $(document).on('click', '.updateUsuario', function (event) {
+    event.preventDefault();
+    var name = $("#name").val();
+    var email = $("#email").val();
+    var password = $("#password").val();
+    var password_confirmation = $("#password_confirmation").val();
+    var rol = $("#rol").val();
+    var arr = $('[name="permisos[]"]:checked').map(function () {
+      return this.value;
+    }).get();
+    var id = $("#id_user").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var _method = "PUT";
+    var url = currentURL + '/usuarios/' + id;
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {
+        name: name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+        rol: rol,
+        arr: arr,
+        _token: _token,
+        _method: _method
+      },
+      success: function success(result) {
+        $('.viewResult').html(result);
+        $('.viewCreate').slideUp();
+      }
+    }).done(function (data) {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido actualizado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para eliminar el modulo
+   */
+
+  $(document).on('click', '.deleteUsuario', function (event) {
+    event.preventDefault();
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Deseas eliminar el registro seleccionado!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then(function (result) {
+      if (result.value) {
+        var id = $("#idSeleccionado").val();
+
+        var _token = $("input[name=_token]").val();
+
+        var _method = "DELETE";
+        var url = currentURL + '/usuarios/' + id;
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            _token: _token,
+            _method: _method
+          },
+          success: function success(result) {
+            $('.viewResult').html(result);
+            $('.viewCreate').slideUp();
+            Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
+          }
+        });
+      }
+    });
+  });
+  /**
+   * Evento para mostrar los permisos por menu
+   */
+
+  $(document).on('click', '.modulo', function () {
+    var id = $(this).data("value");
+
+    if ($(this).prop('checked')) {
+      $("#sub_cat_" + id).slideDown();
+    } else {
+      $("#sub_cat_" + id).slideUp();
+    }
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ 0:
-/*!*********************************************************************************************!*\
-  !*** multi ./resources/js/module_config/menu.js ./resources/js/module_config/precio-gas.js ***!
-  \*********************************************************************************************/
+/*!**************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_config/menu.js ./resources/js/module_config/precio-gas.js ./resources/js/module_config/usuarios.js ***!
+  \**************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/html/admigas2/resources/js/module_config/menu.js */"./resources/js/module_config/menu.js");
-module.exports = __webpack_require__(/*! /var/www/html/admigas2/resources/js/module_config/precio-gas.js */"./resources/js/module_config/precio-gas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\menu.js */"./resources/js/module_config/menu.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\precio-gas.js */"./resources/js/module_config/precio-gas.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\usuarios.js */"./resources/js/module_config/usuarios.js");
 
 
 /***/ })

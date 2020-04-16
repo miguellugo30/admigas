@@ -4,18 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdmigasMenus extends Model
+class AdmigasCatModulos extends Model
 {
-    /**
+        /**
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'ruta', 'icono',
+        'nombre', 'activo',
     ];
     /**
      * Nombre de la tabla
      */
-    protected $table = 'admigas_menus';
+    protected $table = 'admigas_cat_modulos';
     /**
      * Funcion para obtener solo los registros activos
      */
@@ -28,8 +28,8 @@ class AdmigasMenus extends Model
     | RELACIONES DE BASE DE DATOS
     |--------------------------------------------------------------------------
     */
-    public function Modulos()
+    public function Menus()
     {
-        return $this->hasMany('App\AdmigasCatModulos', 'id', 'admigas_cat_modulos_id');
+        return $this->hasMany('App\AdmigasMenus', 'admigas_cat_modulos_id', 'id');
     }
 }

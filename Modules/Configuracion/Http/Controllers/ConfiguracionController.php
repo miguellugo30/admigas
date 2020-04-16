@@ -16,14 +16,18 @@ class ConfiguracionController extends Controller
 {
     public function __construct(Dispatcher $events)
     {
+
+        $this->middleware('auth');
+
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            $menus = AdmigasMenus::active()->where('modulo', 4)->orderBy('orden', 'asc')->get();
+            $menus = AdmigasMenus::active()->where('admigas_cat_modulos_id', 4)->orderBy('orden', 'asc')->get();
             foreach ($menus as $v) {
                 $event->menu->add([
                     'text' => $v->nombre,
                     'id' => $v->id,
                     'url' => $v->url,
                     'icon' => $v->icono,
+                    'permiso' => $v->permiso,
                     'clase' => 'menu',
                 ]);
             }
