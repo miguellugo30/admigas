@@ -15,7 +15,7 @@ Route::prefix('configuracion')->group(function() {
     Route::get('/', 'ConfiguracionController@index');
 });
 /*
- * Rutas para CRUD de Precio Gas
+ * Rutas para CRUD de Usuarios
  */
 Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
     Route::resource('usuarios','UsuariosController');
@@ -27,8 +27,13 @@ Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix'
     Route::resource('precio-gas','PrecioGasController');
 });
 /*
- * Rutas para CRUD de Precio Gas
+ * Rutas para CRUD de Menis
  */
 Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
     Route::resource('menus','MenusController');
+});/*
+ * Rutas para CRUD de Empresas
+ */
+Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
+    Route::resource('empresas','EmpresasController');
 });

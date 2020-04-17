@@ -1,37 +1,43 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            <i class="fas fa-align-justify"></i>
-            Menus
+            <i class="fas fa-industry"></i>
+            Empresas
           </h3>
           <div class="card-tools">
             @can('delete menus')
-                <button type="button" class="btn btn-danger btn-sm deleteMenu" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
+                <button type="button" class="btn btn-danger btn-sm deleteEmpresa" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
             @endcan
             @can('edit menus')
-                <button type="button" class="btn btn-warning btn-sm editMenu" style="display:none"><i class="fas fa-edit"></i> Editar</button>
+                <button type="button" class="btn btn-warning btn-sm editEmpresa" style="display:none"><i class="fas fa-edit"></i> Editar</button>
             @endcan
             @can('create menus')
-                <button type="button" class="btn btn-primary btn-sm newMenu"><i class="fas fa-plus"></i> Nuevo</button>
+                <button type="button" class="btn btn-primary btn-sm newEmpresa"><i class="fas fa-plus"></i> Nuevo</button>
             @endcan
                 <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
         </div>
     </div>
     <div class="card-body">
-        <table id="table-menus" class="table table-sm">
+        <table id="table-empresas" class="table table-sm">
             <thead class="thead-light">
-                <th>Nombre</th>
-                <th>URL</th>
-                <th>Icono</th>
-                <th>Modulo</th>
+                <th>Razon Social</th>
+                <th>RFC</th>
+                <th>Calle</th>
+                <th>Numero</th>
+                <th>Colonia</th>
+                <th>Municipio</th>
+                <th>C.P.</th>
             </thead>
             <tbody>
-                @foreach ($menus as $menu)
-                    <tr data-id="{{ $menu->id }}">
-                        <td>{{ $menu->nombre }}</td>
-                        <td>{{ $menu->url }}</td>
-                        <td> <i class="{{ $menu->icono }}"></i> </td>
-                        <td>{{ $menu->Modulos()->first()->nombre }}</td>
+                @foreach ($empresas as $empresa)
+                    <tr data-id="{{ $empresa->id }}">
+                        <td>{{ $empresa->razon_social }}</td>
+                        <td>{{ $empresa->rfc }}</td>
+                        <td>{{ $empresa->calle }}</td>
+                        <td>{{ $empresa->numero }}</td>
+                        <td>{{ $empresa->colonia }}</td>
+                        <td>{{ $empresa->municipio }}</td>
+                        <td>{{ $empresa->cp }}</td>
                     </tr>
                 @endforeach
             </tbody>

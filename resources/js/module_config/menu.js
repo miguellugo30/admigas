@@ -20,6 +20,9 @@ $(function() {
         } else if (id == '5') {
             url = currentURL + '/menus';
             table = ' #table-menus';
+        } else if (id == '6') {
+            url = currentURL + '/empresas';
+            table = ' #table-empresas';
         }
 
         $.get(url, function(data, textStatus, jqXHR) {

@@ -30,6 +30,7 @@ class AddFkCatModulosMenus extends Migration
     {
         Schema::table('admigas_menus', function (Blueprint $table) {
             $table->dropForeign('admigas_cat_modulos_id');
+            $table->dropColumn('admigas_cat_modulos_id');
         });
     }
 }

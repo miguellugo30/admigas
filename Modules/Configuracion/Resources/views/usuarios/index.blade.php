@@ -5,9 +5,15 @@
             Usuarios
           </h3>
           <div class="card-tools">
-              <button type="button" class="btn btn-danger btn-sm deleteUsuario" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
-              <button type="button" class="btn btn-warning btn-sm editUsuario" style="display:none"><i class="fas fa-edit"></i> Editar</button>
-              <button type="button" class="btn btn-primary btn-sm newUsuario"><i class="fas fa-plus"></i> Nuevo</button>
+            @can('delete usuarios')
+                <button type="button" class="btn btn-danger btn-sm deleteUsuario" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
+            @endcan
+            @can('edit usuarios')
+                <button type="button" class="btn btn-warning btn-sm editUsuario" style="display:none"><i class="fas fa-edit"></i> Editar</button>
+            @endcan
+            @can('create usuarios')
+                <button type="button" class="btn btn-primary btn-sm newUsuario"><i class="fas fa-plus"></i> Nuevo</button>
+            @endcan
               <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
         </div>
     </div>
