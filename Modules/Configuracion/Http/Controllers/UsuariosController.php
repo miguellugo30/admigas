@@ -104,6 +104,10 @@ class UsuariosController extends Controller
     public function edit($id)
     {
         /**
+         * Limpiamos la cache
+         */
+        Artisan::call('cache:clear');
+        /**
          * Obtenemos la información del usuario a editar
          */
         $user = User::findOrFail( $id );

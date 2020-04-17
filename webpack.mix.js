@@ -14,7 +14,10 @@ const mix = require('laravel-mix');
 mix.js([
     'resources/js/module_config/menu.js',
     'resources/js/module_config/precio-gas.js',
-    'resources/js/module_config/usuarios.js'
+    'resources/js/module_config/usuarios.js',
+    'resources/js/module_config/mensajes.js',
+    'resources/js/module_config/empresas.js',
+    'resources/js/module_config/menus.js',
 ], 'public/js/configuracion.js');
 /*
     .sass('resources/sass/app.scss', 'public/css');

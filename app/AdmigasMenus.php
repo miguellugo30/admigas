@@ -10,7 +10,7 @@ class AdmigasMenus extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'ruta', 'icono',
+        'nombre', 'url', 'icono', 'permiso', 'admigas_cat_modulos_id',
     ];
     /**
      * Nombre de la tabla

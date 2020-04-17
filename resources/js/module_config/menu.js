@@ -17,6 +17,9 @@ $(function() {
         } else if (id == '3') {
             url = currentURL + '/servicios';
             table = ' #table-servicios';
+        } else if (id == '5') {
+            url = currentURL + '/menus';
+            table = ' #table-menus';
         }
 
         $.get(url, function(data, textStatus, jqXHR) {

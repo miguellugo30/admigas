@@ -58,5 +58,13 @@ class MenusSeeder extends Seeder
             'admigas_cat_modulos_id' => '4',
         ]);
 
+        DB::table('admigas_menus')->insert([
+            'nombre' => 'Empresas',
+            'url' => '/empresas',
+            'icono' => 'fas fa-industry',
+            'permiso' => 'view empresas',
+            'admigas_cat_modulos_id' => '4',
+        ]);
+
     }
 }

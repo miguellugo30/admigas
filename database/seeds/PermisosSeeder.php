@@ -112,5 +112,25 @@ class PermisosSeeder extends Seeder
             'name' => 'delete menus',
             'guard_name' => 'web',
         ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'view empresas',
+            'guard_name' => 'web',
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'create empresas',
+            'guard_name' => 'web',
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'edit empresas',
+            'guard_name' => 'web',
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'delete empresas',
+            'guard_name' => 'web',
+        ]);
     }
 }
