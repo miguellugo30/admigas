@@ -27,11 +27,18 @@ Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix'
     Route::resource('precio-gas','PrecioGasController');
 });
 /*
- * Rutas para CRUD de Menis
+ * Rutas para CRUD de Menus
  */
 Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
     Route::resource('menus','MenusController');
-});/*
+});
+/*
+ * Rutas para CRUD de Mensajes
+ */
+Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
+    Route::resource('mensajes','MensajesController');
+});
+/*
  * Rutas para CRUD de Empresas
  */
 Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {

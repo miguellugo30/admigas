@@ -1,37 +1,33 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-            <i class="fas fa-users"></i>
-            Usuarios
+            <i class="fas fa-comment-dots"></i>
+            Mensajes
           </h3>
           <div class="card-tools">
-            @can('delete usuarios')
-                <button type="button" class="btn btn-danger btn-sm deleteUsuario" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
+            @can('delete mensajes')
+                <button type="button" class="btn btn-danger btn-sm deleteMensaje" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
             @endcan
-            @can('edit usuarios')
-                <button type="button" class="btn btn-warning btn-sm editUsuario" style="display:none"><i class="fas fa-edit"></i> Editar</button>
+            @can('edit mensajes')
+                <button type="button" class="btn btn-warning btn-sm editMensaje" style="display:none"><i class="fas fa-edit"></i> Editar</button>
             @endcan
-            @can('create usuarios')
-                <button type="button" class="btn btn-primary btn-sm newUsuario"><i class="fas fa-plus"></i> Nuevo</button>
+            @can('create mensajes')
+                <button type="button" class="btn btn-primary btn-sm newMensaje"><i class="fas fa-plus"></i> Nuevo</button>
             @endcan
-              <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
+                <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
         </div>
     </div>
     <div class="card-body">
-        <table id="table-usuarios" class="table table-sm">
+        <table id="table-mensajes" class="table table-sm">
             <thead class="thead-light">
                 <th>Nombre</th>
-                <th>Correo</th>
-                <th>Rol</th>
-                <th>Empresa</th>
+                <th>Mensaje</th>
             </thead>
             <tbody>
-                @foreach ($users as $user)
-                    <tr data-id="{{ $user->id }}">
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ $user->getRoleNames()->first() }}</td>
-                        <td>{{ $user->Empresas()->first()->razon_social }}</td>
+                @foreach ($mensajes as $mensaje)
+                    <tr data-id="{{ $mensaje->id }}">
+                        <td>{{ $mensaje->nombre }}</td>
+                        <td>{{ $mensaje->mensaje }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -41,7 +37,7 @@
 
 <!-- MODAL -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="tituloModal"></h5>
@@ -60,4 +56,3 @@
     </div>
 </div>
 <!-- FIN MODAL -->
-

@@ -4,32 +4,38 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdmigasCatModulos extends Model
+class AdmigasMensajes extends Model
 {
     /**
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'activo',
+        'nombre', 'mensaje', 'admigas_empresas_id'
     ];
     /**
      * Nombre de la tabla
      */
-    protected $table = 'admigas_cat_modulos';
+    protected $table = 'admigas_mensajes';
     /**
      * Funcion para obtener solo los registros activos
      */
     public function scopeActive($query)
     {
         return $query->where('activo', 1);
+    }/**
+     * Funcion para obtener solo los registros activos
+     */
+    public function scopeEmpresa($query, $empresa_id)
+    {
+        return $query->where('admigas_empresas_id', $empresa_id );
     }
     /*
     |--------------------------------------------------------------------------
     | RELACIONES DE BASE DE DATOS
     |--------------------------------------------------------------------------
     */
-    public function Menus()
+    public function Empresas()
     {
-        return $this->hasMany('App\AdmigasMenus', 'admigas_cat_modulos_id', 'id');
+        return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
     }
 }

@@ -23,4 +23,24 @@ class AdmigasEmpresas extends Model
     {
         return $query->where('activo', 1);
     }
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONES DE BASE DE DATOS
+    |--------------------------------------------------------------------------
+    */
+    /**
+     * Relacion uno a muchos con usuarios
+     */
+    public function Usuarios()
+    {
+        return $this->hasMany('App\Users', 'id', 'admigas_empresas_id');
+
+    }
+    /**
+     * Relacion uno a muchos con mensajes
+     */
+    public function Mensajes()
+    {
+        return $this->hasMany('App\AdmigasMensajes', 'id', 'admigas_empresas_id');
+    }
 }

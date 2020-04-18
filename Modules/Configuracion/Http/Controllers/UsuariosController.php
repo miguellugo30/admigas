@@ -7,13 +7,14 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
+use Modules\Configuracion\Http\Requests\UsuariosRequest;
 /**
  * Modelos
  */
 use App\User;
 use App\AdmigasCatModulos;
-use Modules\Configuracion\Http\Requests\UsuariosRequest;
 use Spatie\Permission\Models\Role;
+use App\AdmigasEmpresas;
 
 class UsuariosController extends Controller
 {
@@ -26,7 +27,7 @@ class UsuariosController extends Controller
         /**
          * Obtenemos todos los usuarios dados de alta
          */
-        $users = User::all();
+        $users = User::with('Empresas')->get();
 
         return view('configuracion::usuarios.index', compact('users'));
     }
@@ -45,8 +46,12 @@ class UsuariosController extends Controller
          * Obtenemos todas los modulos del sistema
          */
         $modulos = AdmigasCatModulos::active()->with('Menus')->get();
+        /**
+         * Recuperamos las empresas activas
+         */
+        $empresas = AdmigasEmpresas::active()->get();
 
-        return view('configuracion::usuarios.create', compact('roles', 'modulos'));
+        return view('configuracion::usuarios.create', compact('roles', 'modulos', 'empresas'));
     }
 
     /**
@@ -119,8 +124,12 @@ class UsuariosController extends Controller
          * Obtenemos todas los modulos del sistema
          */
         $modulos = AdmigasCatModulos::active()->with('Menus')->get();
+        /**
+         * Recuperamos las empresas activas
+         */
+        $empresas = AdmigasEmpresas::active()->get();
 
-        return view('configuracion::usuarios.edit', compact('roles', 'user', 'modulos'));
+        return view('configuracion::usuarios.edit', compact('roles', 'user', 'modulos', 'empresas'));
     }
 
     /**
@@ -140,7 +149,8 @@ class UsuariosController extends Controller
                                             ->update([
                                                 'name' => $request->name,
                                                 'email'   => $request->email,
-                                                'password' => Hash::make( $request->password )
+                                                'password' => Hash::make( $request->password ),
+                                                'admigas_empresas_id' => $request->admigas_empresas_id,
                                                 ]);
         }
         else
@@ -148,7 +158,8 @@ class UsuariosController extends Controller
             $user = User::where( 'id', $id )
                                             ->update([
                                                 'name' => $request->name,
-                                                'email'   => $request->email
+                                                'email'   => $request->email,
+                                                'admigas_empresas_id' => $request->admigas_empresas_id,
                                                 ]);
         }
         /**

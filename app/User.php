@@ -19,8 +19,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'admigas_empresas_id',
     ];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -39,4 +40,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONES DE BASE DE DATOS
+    |--------------------------------------------------------------------------
+    */
+    public function Empresas()
+    {
+        return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
+    }
 }

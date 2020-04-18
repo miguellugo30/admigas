@@ -47,6 +47,7 @@ $(function() {
         let email = $("#email").val();
         let password = $("#password").val();
         let password_confirmation = $("#password_confirmation").val();
+        let admigas_empresas_id = $("#empresa").val();
         let rol = $("#rol").val();
         let arr = $('[name="permisos[]"]:checked').map(function() {
             return this.value;
@@ -60,6 +61,7 @@ $(function() {
             email: email,
             password: password,
             password_confirmation: password_confirmation,
+            admigas_empresas_id: admigas_empresas_id,
             rol: rol,
             arr: arr,
             _token: _token
@@ -103,6 +105,7 @@ $(function() {
         let email = $("#email").val();
         let password = $("#password").val();
         let password_confirmation = $("#password_confirmation").val();
+        let admigas_empresas_id = $("#empresa").val();
         let rol = $("#rol").val();
         let arr = $('[name="permisos[]"]:checked').map(function() {
             return this.value;
@@ -121,6 +124,7 @@ $(function() {
                 email: email,
                 password: password,
                 password_confirmation: password_confirmation,
+                admigas_empresas_id: admigas_empresas_id,
                 rol: rol,
                 arr: arr,
                 _token: _token,
