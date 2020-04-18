@@ -23,4 +23,20 @@ class AdmigasPrecioGas extends Model
     {
         return $query->where('activo', 1);
     }
+    /**
+     * Funcion para obtener solo los registros activos
+     */
+    public function scopeEmpresa($query, $empresa_id)
+    {
+        return $query->where('admigas_empresas_id', $empresa_id );
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONES DE BASE DE DATOS
+    |--------------------------------------------------------------------------
+    */
+    public function Empresas()
+    {
+        return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
+    }
 }

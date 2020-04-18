@@ -20,7 +20,7 @@
             <tbody>
                 @foreach ($precios as $precio)
                 <tr data-id="{{ $precio->id }}">
-                    <td>{{ $precio->precio }}</td>
+                    <td>{{ '$ '.number_format( $precio->precio,2 ) }}</td>
                     <td>{{ date('d-m-Y', strtotime( $precio->fecha )) }}</td>
                 </tr>
                 @endforeach

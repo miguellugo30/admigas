@@ -5,6 +5,9 @@ namespace Modules\Configuracion\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\Configuracion\Http\Requests\PrecioGasRequest;
+use Carbon\Carbon;
 /**
  * Modelos
  */
@@ -12,13 +15,26 @@ use App\AdmigasPrecioGas;
 
 class PrecioGasController extends Controller
 {
+    private $empresa_id;
+    /**
+     * Constructor para obtener el id empresa
+     * con base al usuario que esta usando la sesion
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->empresa_id = Auth::user()->admigas_empresas_id;
+
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        $precios = AdmigasPrecioGas::active()->get();
+        $precios = AdmigasPrecioGas::empresa( $this->empresa_id )->active()->get();
 
         return view('configuracion::precio-gas.index', compact('precios'));
     }
@@ -37,9 +53,27 @@ class PrecioGasController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(PrecioGasRequest $request)
     {
-        //
+        /**
+         * Actualizamos todos los registros anteriores a inactivos
+         */
+        AdmigasPrecioGas::where( 'admigas_empresas_id', $this->empresa_id )
+                        ->update([
+                            'activo' => 0
+                        ]);
+        /**
+         * Insertamos el nuevo registro
+         */
+        AdmigasPrecioGas::create([
+            'precio' => $request->precio,
+            'fecha' =>  Carbon::now(),
+            'admigas_empresas_id' => $this->empresa_id
+        ]);
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('precio-gas.index');
     }
 
     /**

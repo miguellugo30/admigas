@@ -22,7 +22,8 @@ class AdmigasServicios extends Model
     public function scopeActive($query)
     {
         return $query->where('activo', 1);
-    }/**
+    }
+    /**
      * Funcion para obtener solo los registros activos
      */
     public function scopeEmpresa($query, $empresa_id)
