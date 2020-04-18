@@ -44,3 +44,9 @@ Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix'
 Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
     Route::resource('empresas','EmpresasController');
 });
+/*
+ * Rutas para CRUD de Servicios
+ */
+Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
+    Route::resource('servicios','ServiciosController');
+});

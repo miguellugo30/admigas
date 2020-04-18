@@ -18,6 +18,7 @@ mix.js([
     'resources/js/module_config/mensajes.js',
     'resources/js/module_config/empresas.js',
     'resources/js/module_config/menus.js',
+    'resources/js/module_config/servicios.js',
 ], 'public/js/configuracion.js');
 /*
     .sass('resources/sass/app.scss', 'public/css');

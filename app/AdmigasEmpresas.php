@@ -43,4 +43,11 @@ class AdmigasEmpresas extends Model
     {
         return $this->hasMany('App\AdmigasMensajes', 'id', 'admigas_empresas_id');
     }
+    /**
+     * Relacion uno a muchos con mensajes
+     */
+    public function Servicios()
+    {
+        return $this->hasMany('App\AdmigasServicios', 'id', 'admigas_empresas_id');
+    }
 }
