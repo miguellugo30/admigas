@@ -31,6 +31,8 @@ $(function() {
         let colonia = $("#colonia").val();
         let municipio = $("#municipio").val();
         let cp = $("#cp").val();
+        let cuenta = $("#cuenta").val();
+        let clabe = $("#clabe").val();
 
         let _token = $("input[name=_token]").val();
         let url = currentURL + '/empresas';
@@ -43,6 +45,8 @@ $(function() {
             colonia: colonia,
             municipio: municipio,
             cp: cp,
+            cuenta: cuenta,
+            clabe: clabe,
             _token: _token
         }, function(data, textStatus, xhr) {
 
@@ -106,6 +110,8 @@ $(function() {
         let colonia = $("#colonia").val();
         let municipio = $("#municipio").val();
         let cp = $("#cp").val();
+        let cuenta = $("#cuenta").val();
+        let clabe = $("#clabe").val();
         let id = $("#idSeleccionado").val();
 
         let _token = $("input[name=_token]").val();
@@ -123,6 +129,8 @@ $(function() {
                 colonia: colonia,
                 municipio: municipio,
                 cp: cp,
+                cuenta: cuenta,
+                clabe: clabe,
                 _token: _token,
                 _method: _method
             },

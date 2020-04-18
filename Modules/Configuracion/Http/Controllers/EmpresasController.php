@@ -5,11 +5,12 @@ namespace Modules\Configuracion\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Configuracion\Http\Requests\EmpresasRequest;
 /**
  * Modelos
  */
 use App\AdmigasEmpresas;
-use Modules\Configuracion\Http\Requests\EmpresasRequest;
+use App\AdmigasCuentasBancarias;
 
 class EmpresasController extends Controller
 {
@@ -22,7 +23,7 @@ class EmpresasController extends Controller
         /**
          * Obtenemos las empresas activas
          */
-        $empresas = AdmigasEmpresas::active()->get();
+        $empresas = AdmigasEmpresas::with('Cuentas')->active()->get();
 
         return view('configuracion::empresas.index', compact('empresas'));
     }
@@ -46,7 +47,23 @@ class EmpresasController extends Controller
         /**
          * Creamos el nuevo registro
          */
-        AdmigasEmpresas::create(  $request->all() );
+        $empresa = AdmigasEmpresas::create([
+                                    'razon_social' => $request->nombre,
+                                    'rfc' => $request->razon_social,
+                                    'calle' => $request->rfc,
+                                    'numero' => $request->numero,
+                                    'colonia' => $request->colonia,
+                                    'municipio' => $request->municipio,
+                                    'cp' => $request->cp,
+                                ]);
+
+        AdmigasCuentasBancarias::create([
+                                    'cuenta' => $request->cuenta,
+                                    'clabe' => $request->clabe,
+                                    'admigas_empresas_id' => $empresa->id
+                                ]);
+
+
         /**
          * Redirigimos a la ruta index
          */
@@ -73,7 +90,7 @@ class EmpresasController extends Controller
         /**
          * Obtenemos el registro a editar
          */
-        $empresa = AdmigasEmpresas::where( 'id', $id )->get()->first();
+        $empresa = AdmigasEmpresas::with('Cuentas')->where( 'id', $id )->get()->first();
 
         return view('configuracion::empresas.edit', compact('empresa'));
     }
@@ -99,6 +116,12 @@ class EmpresasController extends Controller
                             'municipio' => $request->municipio,
                             'cp' => $request->cp,
                         ]);
+
+        AdmigasCuentasBancarias::where( 'admigas_empresas_id', $id )
+                                ->update([
+                                    'cuenta' => $request->cuenta,
+                                    'clabe' => $request->clabe,
+                                ]);
         /**
          * Redirigimos a la ruta index
          */

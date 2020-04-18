@@ -123,6 +123,8 @@ $(function () {
     var colonia = $("#colonia").val();
     var municipio = $("#municipio").val();
     var cp = $("#cp").val();
+    var cuenta = $("#cuenta").val();
+    var clabe = $("#clabe").val();
 
     var _token = $("input[name=_token]").val();
 
@@ -135,6 +137,8 @@ $(function () {
       colonia: colonia,
       municipio: municipio,
       cp: cp,
+      cuenta: cuenta,
+      clabe: clabe,
       _token: _token
     }, function (data, textStatus, xhr) {
       $('.viewResult').html(data);
@@ -188,6 +192,8 @@ $(function () {
     var colonia = $("#colonia").val();
     var municipio = $("#municipio").val();
     var cp = $("#cp").val();
+    var cuenta = $("#cuenta").val();
+    var clabe = $("#clabe").val();
     var id = $("#idSeleccionado").val();
 
     var _token = $("input[name=_token]").val();
@@ -205,6 +211,8 @@ $(function () {
         colonia: colonia,
         municipio: municipio,
         cp: cp,
+        cuenta: cuenta,
+        clabe: clabe,
         _token: _token,
         _method: _method
       },

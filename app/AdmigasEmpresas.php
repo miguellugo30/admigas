@@ -33,28 +33,34 @@ class AdmigasEmpresas extends Model
      */
     public function Usuarios()
     {
-        return $this->hasMany('App\Users', 'id', 'admigas_empresas_id');
-
+        return $this->hasMany('App\Users', 'admigas_empresas_id', 'id');
     }
     /**
      * Relacion uno a muchos con mensajes
      */
     public function Mensajes()
     {
-        return $this->hasMany('App\AdmigasMensajes', 'id', 'admigas_empresas_id');
+        return $this->hasMany('App\AdmigasMensajes', 'admigas_empresas_id', 'id');
     }
     /**
      * Relacion uno a muchos con mensajes
      */
     public function Servicios()
     {
-        return $this->hasMany('App\AdmigasServicios', 'id', 'admigas_empresas_id');
+        return $this->hasMany('App\AdmigasServicios', 'admigas_empresas_id', 'id');
     }
     /**
      * Relacion uno a muchos con mensajes
      */
     public function PrecioGas()
     {
-        return $this->hasMany('App\AdmigasPrecioGas', 'id', 'admigas_empresas_id');
+        return $this->hasMany('App\AdmigasPrecioGas', 'admigas_empresas_id', 'id');
+    }
+    /**
+     * Relacion uno a muchos con cuentas bancarias
+     */
+    public function Cuentas()
+    {
+        return $this->hasOne('App\AdmigasCuentasBancarias', 'admigas_empresas_id', 'id');
     }
 }

@@ -15,7 +15,9 @@ class EmpresasRequest extends FormRequest
     {
         return [
             'razon_social' => 'required',
-            'rfc' => 'required'
+            'rfc' => 'required',
+            'cuenta' => 'required',
+            'clabe' => 'required'
         ];
     }
 
@@ -33,7 +35,9 @@ class EmpresasRequest extends FormRequest
     {
         return[
             'razon_social' => 'Razon Social',
-            'rfc' => 'RFC'
+            'rfc' => 'RFC',
+            'cuenta' => 'Cuenta Bancaria',
+            'clabe' => 'Clabe Interbancaria'
         ];
     }
 }

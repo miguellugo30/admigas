@@ -22,22 +22,16 @@
             <thead class="thead-light">
                 <th>Razon Social</th>
                 <th>RFC</th>
-                <th>Calle</th>
-                <th>Numero</th>
-                <th>Colonia</th>
-                <th>Municipio</th>
-                <th>C.P.</th>
+                <th>Cuenta Bancaria</th>
+                <th>Clabe Interbancaria</th>
             </thead>
             <tbody>
                 @foreach ($empresas as $empresa)
                     <tr data-id="{{ $empresa->id }}">
                         <td>{{ $empresa->razon_social }}</td>
                         <td>{{ $empresa->rfc }}</td>
-                        <td>{{ $empresa->calle }}</td>
-                        <td>{{ $empresa->numero }}</td>
-                        <td>{{ $empresa->colonia }}</td>
-                        <td>{{ $empresa->municipio }}</td>
-                        <td>{{ $empresa->cp }}</td>
+                        <td>{{ $empresa->Cuentas()->first()->cuenta }}</td>
+                        <td>{{ $empresa->Cuentas()->first()->clabe }}</td>
                     </tr>
                 @endforeach
             </tbody>
