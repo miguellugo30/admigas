@@ -1,0 +1,1011 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/module_edificios/captura_lectura.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/module_edificios/captura_lectura.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".capturarLecturas", function (e) {
+    e.preventDefault();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    $('.list-deptos').slideUp();
+    var url = currentURL + '/captura-lecturas/' + admigas_condominios_id;
+    $.get(url, function (data, textStatus, jqXHR) {
+      $(".list-deptos-capture").html(data);
+      $(".list-deptos-capture").slideDown();
+    });
+  });
+  /**
+   * Evento para saber si la lectura actual es menor a la anterior
+   */
+
+  $(document).on("change", ".nueva_lectura", function (e) {
+    var numero = parseFloat($(this).data('posicion'));
+    var lectura = parseFloat($(this).data("lectura_anterior"));
+    var cantidad = $(this).val();
+    var diferencia = Math.floor((cantidad - lectura) * 1000) / 1000;
+    $(".diferencia_" + numero).html(diferencia);
+
+    if (cantidad < lectura) {
+      Swal.fire('Tenemos un problema!', 'La Lectura Actual es menor a la anterior.', 'warning');
+
+      if (!lectura > 9500 && cantidad < 1000) {
+        $(".mensaje" + numero).html("La lectura Actual es menor");
+      }
+    } else {
+      $(".mensaje" + numero).html(" ");
+    }
+  });
+  /**
+   * Evento para cuando se pierda el foco del cursor
+   * se iguale la lectura
+   */
+
+  $(document).on("blur", ".nueva_lectura", function (e) {
+    var cantidad = parseFloat($(this).val());
+    var lectura = parseFloat($(this).data("lectura_anterior"));
+
+    if (isNaN(cantidad)) {
+      $(this).val(lectura);
+    }
+
+    ;
+  });
+  /**
+   * Evento para guardar el nuevo modulo
+   */
+
+  $(document).on('click', '.saveLecturas', function (event) {
+    event.preventDefault();
+    var fecha_lectura = $("#fecha_lectura").val();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var data = $('#formLecturasCapture').serializeArray();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/captura-lecturas';
+
+    if (fecha_lectura == null) {
+      Swal.fire('Error!', 'Debe ingresar una Fecha de Lectura.', 'error');
+    } else {
+      $.post(url, {
+        data: data,
+        fecha_lectura: fecha_lectura,
+        admigas_condominios_id: admigas_condominios_id,
+        _token: _token
+      }, function (data, textStatus, xhr) {
+        $('.viewResult').html(data);
+      }).done(function () {
+        Swal.fire('Correcto!', 'Las lecturas sean guardado correctamente.', 'success');
+      }).fail(function (data) {
+        printErrorMsg(data.responseJSON.errors);
+      });
+    }
+  });
+  /**
+   * Evento para mostrar regresar a zonas
+   */
+
+  $(document).on('change', '#tipo', function (event) {
+    if ($(this).val() == 1) {
+      $(".tipo-punto-venta").slideUp();
+    } else {
+      $(".tipo-punto-venta").slideDown();
+    }
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/module_edificios/condominios.js":
+/*!******************************************************!*\
+  !*** ./resources/js/module_edificios/condominios.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".newEdificio", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Nuevo Edificio');
+    $('#action').removeClass('updateEdificio');
+    $('#action').addClass('saveEdificio');
+    var admigas_unidades_id = $("#admigas_unidades_id").val();
+    var url = currentURL + '/condominios-create/' + admigas_unidades_id;
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-edificios').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para guardar el nuevo modulo
+   */
+
+  $(document).on('click', '.saveEdificio', function (event) {
+    event.preventDefault();
+    var tipo = $("#tipo").val();
+    var nombre = $("#nombre").val();
+    var descuento = $("#descuento").val();
+    var factor = $("#factor").val();
+    var gasto_admin = $("#gasto_admin").val();
+    var fecha_lectura = $("#fecha_lectura").val();
+    var admigas_unidades_id = $("#admigas_unidades_id").val();
+    var tanques = $('[name="tanques[]"]:checked').map(function () {
+      return this.value;
+    }).get();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/condominios';
+
+    if (tanques.length == 0) {
+      Swal.fire('Error!', 'Debe vincular por lo menos un tanque al edificio.', 'error');
+    } else {
+      $.post(url, {
+        tipo: tipo,
+        nombre: nombre,
+        descuento: descuento,
+        factor: factor,
+        gasto_admin: gasto_admin,
+        fecha_lectura: fecha_lectura,
+        tanques: tanques,
+        admigas_unidades_id: admigas_unidades_id,
+        _token: _token
+      }, function (data, textStatus, xhr) {
+        $('.sidebar').html(data);
+      }).done(function () {
+        $('.modal-backdrop ').css('display', 'none');
+        $('#modal-edificios').modal('hide');
+        Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
+      }).fail(function (data) {
+        printErrorMsg(data.responseJSON.errors);
+      });
+    }
+  });
+  /**
+   * Evento para mostrar el una registro
+   */
+
+  $(document).on('click', '.viewEdificio', function (event) {
+    event.preventDefault();
+    var id = $(this).attr("id");
+    var url = currentURL + "/condominios/" + id;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        $('.viewResult').html(result);
+        $('#table-departamentos').DataTable({
+          "responsive": true,
+          "autoWidth": false
+        });
+      }
+    });
+  });
+  /**
+   * Evento para mostrar regresar a zonas
+   */
+
+  $(document).on('change', '#tipo', function (event) {
+    if ($(this).val() == 1) {
+      $(".tipo-punto-venta").slideUp();
+    } else {
+      $(".tipo-punto-venta").slideDown();
+    }
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/module_edificios/departamentos.js":
+/*!********************************************************!*\
+  !*** ./resources/js/module_edificios/departamentos.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".newDepartamento", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Nuevo Departamento');
+    $('#action').removeClass('updateDepartamento');
+    $('#action').addClass('saveDepartamento');
+    var url = currentURL + '/departamentos/create';
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para guardar el nuevo modulo
+   */
+
+  $(document).on('click', '.saveDepartamento', function (event) {
+    event.preventDefault();
+    var numero_departamento = $("#numero_departamento").val();
+    var numero_referencia = $("#numero_referencia").val();
+    var nombre = $("#nombre").val();
+    var apellidos = $("#apellidos").val();
+    var telefono = $("#telefono").val();
+    var celular = $("#celular").val();
+    var correo_electronico = $("#correo_electronico").val();
+    var tipo = $("#tipo").val();
+    var marca = $("#marca").val();
+    var numero_serie = $("#numero_serie").val();
+    var lectura = $("#lectura").val();
+    var fecha_lectura = $("#fecha_lectura").val();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/departamentos';
+    $.post(url, {
+      numero_departamento: numero_departamento,
+      numero_referencia: numero_referencia,
+      nombre: nombre,
+      apellidos: apellidos,
+      telefono: telefono,
+      celular: celular,
+      correo_electronico: correo_electronico,
+      tipo: tipo,
+      marca: marca,
+      numero_serie: numero_serie,
+      lectura: lectura,
+      fecha_lectura: fecha_lectura,
+      admigas_condominios_id: admigas_condominios_id,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.viewResult').html(data);
+    }).done(function () {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para mostrar el formulario de edicion de un canal
+   */
+
+  $(document).on("click", ".editDepartamento", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Editar Departamento');
+    $('#action').removeClass('saveDepartamento');
+    $('#action').addClass('updateDepartamento');
+    var id = $("#idSeleccionado").val();
+    var url = currentURL + "/departamentos/" + id + "/edit";
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para mostrar el formulario editar modulo
+   */
+
+  $(document).on('click', '#table-departamentos tbody tr', function (event) {
+    event.preventDefault();
+    var id = $(this).data("id");
+    $(".editDepartamento").slideDown();
+    $(".deleteDepartamento").slideDown();
+    $("#idSeleccionado").val(id);
+    $("#table-departamentos tbody tr").removeClass('table-primary');
+    $(this).addClass('table-primary');
+  });
+  /**
+   * Evento para editar el modulo
+   */
+
+  $(document).on('click', '.updateDepartamento', function (event) {
+    event.preventDefault();
+    var nombre = $("#nombre").val();
+    var mensaje = $("#mensaje").val();
+    var id = $("#idSeleccionado").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var _method = "PUT";
+    var url = currentURL + '/departamentos/' + id;
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {
+        nombre: nombre,
+        mensaje: mensaje,
+        _token: _token,
+        _method: _method
+      },
+      success: function success(result) {
+        $('.viewResult').html(result);
+        $('.viewCreate').slideUp();
+      }
+    }).done(function (data) {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido actualizado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para eliminar el modulo
+   */
+
+  $(document).on('click', '.deleteDepartamento', function (event) {
+    event.preventDefault();
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Deseas eliminar el registro seleccionado!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then(function (result) {
+      if (result.value) {
+        var id = $("#idSeleccionado").val();
+
+        var _token = $("input[name=_token]").val();
+
+        var _method = "DELETE";
+        var url = currentURL + '/departamentos/' + id;
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            _token: _token,
+            _method: _method
+          },
+          success: function success(result) {
+            $('.viewResult').html(result);
+            $('.viewCreate').slideUp();
+            Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
+          }
+        });
+      }
+    });
+  });
+  /**
+   * Evento para mostrar los permisos por menu
+   */
+
+  $(document).on('click', '.modulo', function () {
+    var id = $(this).data("value");
+
+    if ($(this).prop('checked')) {
+      $("#sub_cat_" + id).slideDown();
+    } else {
+      $("#sub_cat_" + id).slideUp();
+    }
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/module_edificios/recibos.js":
+/*!**************************************************!*\
+  !*** ./resources/js/module_edificios/recibos.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevos recibos
+   */
+
+  $(document).on("click", ".generarRecibos", function (e) {
+    e.preventDefault();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    $('.list-deptos').slideUp();
+    var url = currentURL + '/generar-recibos/' + admigas_condominios_id;
+    $.get(url, function (data, textStatus, jqXHR) {
+      $(".list-deptos-capture").html(data);
+      $(".list-deptos-capture").slideDown();
+    });
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/module_edificios/tanques.js":
+/*!**************************************************!*\
+  !*** ./resources/js/module_edificios/tanques.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".newTanque", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Nuevo Tanque');
+    $('#action').removeClass('updateTanque');
+    $('#action').addClass('saveTanque');
+    var url = currentURL + '/tanques/create';
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-edificios').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para guardar el nuevo modulo
+   */
+
+  $(document).on('click', '.saveTanque', function (event) {
+    event.preventDefault();
+    var num_serie = $("#num_serie").val();
+    var marca = $("#marca").val();
+    var estado_al_recibir = $("#estado_al_recibir").val();
+    var capacidad = $("#capacidad").val();
+    var inventario = $("#inventario").val();
+    var admigas_unidades_id = $("#admigas_unidades_id").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/tanques';
+    $.post(url, {
+      num_serie: num_serie,
+      marca: marca,
+      estado_al_recibir: estado_al_recibir,
+      capacidad: capacidad,
+      inventario: inventario,
+      admigas_unidades_id: admigas_unidades_id,
+      _token: _token
+    }, function (data, textStatus, xhr) {//$('.sidebar').html(data);
+    }).done(function () {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal-edificios').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para mostrar el una registro
+   */
+
+  $(document).on('click', '.viewTanque', function (event) {
+    event.preventDefault();
+    var id = $(this).attr("id");
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + "/tanques/" + id;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        $('.sidebar').html(result);
+      }
+    });
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/module_edificios/unidades.js":
+/*!***************************************************!*\
+  !*** ./resources/js/module_edificios/unidades.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".newUnidad", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Nuevo Unidad');
+    $('#action').removeClass('updateUnidad');
+    $('#action').addClass('saveUnidad');
+    var url = currentURL + '/unidades/create';
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-edificios').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para guardar el nuevo modulo
+   */
+
+  $(document).on('click', '.saveUnidad', function (event) {
+    event.preventDefault();
+    var nombre = $("#nombre").val();
+    var calle = $("#calle").val();
+    var numero = $("#numero").val();
+    var colonia = $("#colonia").val();
+    var municipio = $("#municipio").val();
+    var cp = $("#cp").val();
+    var estado = $("#estado").val();
+    var entre_calles = $("#entre_calles").val();
+    var admigas_zonas_id = $("#admigas_zonas_id").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/unidades';
+    $.post(url, {
+      nombre: nombre,
+      calle: calle,
+      numero: numero,
+      colonia: colonia,
+      municipio: municipio,
+      cp: cp,
+      estado: estado,
+      entre_calles: entre_calles,
+      admigas_zonas_id: admigas_zonas_id,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.sidebar').html(data);
+    }).done(function () {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal-edificios').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para mostrar un registro
+   */
+
+  $(document).on('click', '.viewUnidad', function (event) {
+    event.preventDefault();
+    var id = $(this).attr("id");
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + "/unidades/" + id;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        $('.sidebar').html(result);
+      }
+    });
+  });
+  /**
+   * Evento para mostrar regresar a zonas
+   */
+
+  $(document).on('click', '.returnUnidad', function (event) {
+    event.preventDefault();
+    var admigas_zonas_id = $("#admigas_zonas_id").val();
+    var url = currentURL + "/zonas-unidades/" + admigas_zonas_id;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        $('.sidebar').html(result);
+      }
+    });
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/module_edificios/zonas.js":
+/*!************************************************!*\
+  !*** ./resources/js/module_edificios/zonas.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  $.get(currentURL + '/zonas', function (data, textStatus, jqXHR) {
+    $('.sidebar').html(data);
+  });
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".newZona", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Nuevo Zona');
+    $('#action').removeClass('updateZona');
+    $('#action').addClass('saveZona');
+    var url = currentURL + '/zonas/create';
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-edificios').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para guardar el nuevo modulo
+   */
+
+  $(document).on('click', '.saveZona', function (event) {
+    event.preventDefault();
+    var nombre = $("#nombre").val();
+    var descripcion = $("#descripcion").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/zonas';
+    $.post(url, {
+      nombre: nombre,
+      descripcion: descripcion,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.sidebar').html(data);
+    }).done(function () {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal-edificios').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para mostrar el una registro
+   */
+
+  $(document).on('click', '.viewZonas', function (event) {
+    event.preventDefault();
+    var id = $(this).attr("id");
+    var url = currentURL + "/zonas/" + id;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        $('.sidebar').html(result);
+      }
+    });
+  });
+  /**
+   * Evento para mostrar regresar a zonas
+   */
+
+  $(document).on('click', '.returnZona', function (event) {
+    event.preventDefault();
+    var url = currentURL + "/zonas";
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        $('.sidebar').html(result);
+      }
+    });
+  });
+  /**
+   * Evento para mostrar el formulario de edicion de un canal
+   */
+
+  $(document).on("click", ".editZona", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Editar Zona');
+    $('#action').removeClass('saveZona');
+    $('#action').addClass('updateZona');
+    var id = $("#idSeleccionado").val();
+    var url = currentURL + "/zonas/" + id + "/edit";
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para editar el modulo
+   */
+
+  $(document).on('click', '.updateZona', function (event) {
+    event.preventDefault();
+    var nombre = $("#nombre").val();
+    var descripcion = $("#descripcion").val();
+    var id = $("#idSeleccionado").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var _method = "PUT";
+    var url = currentURL + '/zonas/' + id;
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {
+        nombre: nombre,
+        descripcion: descripcion,
+        _token: _token,
+        _method: _method
+      },
+      success: function success(result) {
+        $('.sidebar').html(result);
+      }
+    }).done(function (data) {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido actualizado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para eliminar el modulo
+   */
+
+  $(document).on('click', '.deleteZona', function (event) {
+    event.preventDefault();
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Deseas eliminar el registro seleccionado!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then(function (result) {
+      if (result.value) {
+        var id = $("#idSeleccionado").val();
+
+        var _token = $("input[name=_token]").val();
+
+        var _method = "DELETE";
+        var url = currentURL + '/zonas/' + id;
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            _token: _token,
+            _method: _method
+          },
+          success: function success(result) {
+            $('.viewResult').html(result);
+            $('.viewCreate').slideUp();
+            Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
+          }
+        });
+      }
+    });
+  });
+  /**
+   * Evento para mostrar los permisos por menu
+   */
+
+  $(document).on('click', '.modulo', function () {
+    var id = $(this).data("value");
+
+    if ($(this).prop('checked')) {
+      $("#sub_cat_" + id).slideDown();
+    } else {
+      $("#sub_cat_" + id).slideUp();
+    }
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ 1:
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_edificios/zonas.js ./resources/js/module_edificios/unidades.js ./resources/js/module_edificios/condominios.js ./resources/js/module_edificios/tanques.js ./resources/js/module_edificios/departamentos.js ./resources/js/module_edificios/captura_lectura.js ./resources/js/module_edificios/recibos.js ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
+
+
+/***/ })
+
+/******/ });

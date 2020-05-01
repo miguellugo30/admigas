@@ -1,49 +1,25 @@
 <?php
 
-namespace Modules\Configuracion\Http\Controllers;
+namespace Modules\Edificios\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Contracts\Events\Dispatcher;
-use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
+use Modules\Edificios\Http\Requests\TanquesRequest;
 /**
- * Modelos
+ * Modelo
  */
-use App\AdmigasMenus;
+use App\AdmigasTanques;
 
-class ConfiguracionController extends Controller
+class TanquesController extends Controller
 {
-    public function __construct(Dispatcher $events)
-    {
-
-        $this->middleware('auth');
-
-        $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            $menus = AdmigasMenus::active()->where('admigas_cat_modulos_id', 4)->orderBy('orden', 'asc')->get();
-            foreach ($menus as $v) {
-                $event->menu->add([
-                    'text' => $v->nombre,
-                    'id' => $v->id,
-                    'url' => $v->url,
-                    'icon' => $v->icono,
-                    'permiso' => $v->permiso,
-                    'clase' => 'menu',
-                ]);
-            }
-
-        });
-    }
-
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        $modulo = 4;
-
-        return view('configuracion::index', compact('modulo'));
+        return view('edificios::tanques.index');
     }
 
     /**
@@ -52,7 +28,7 @@ class ConfiguracionController extends Controller
      */
     public function create()
     {
-        return view('configuracion::create');
+        return view('edificios::tanques.create');
     }
 
     /**
@@ -60,9 +36,19 @@ class ConfiguracionController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(TanquesRequest $request)
     {
-        //
+        /**
+         * Creamos el nuevo registro
+         */
+        AdmigasTanques::create([
+            'num_serie' => $request->num_serie,
+            'marca' =>  $request->marca,
+            'estado_al_recibir' =>  $request->estado_al_recibir,
+            'capacidad' =>  $request->capacidad,
+            'inventario' =>  $request->inventario,
+            'admigas_unidades_id' => $request->admigas_unidades_id
+        ]);
     }
 
     /**
@@ -72,7 +58,7 @@ class ConfiguracionController extends Controller
      */
     public function show($id)
     {
-        return view('configuracion::show');
+        return view('edificios::tanques.show');
     }
 
     /**
@@ -82,7 +68,7 @@ class ConfiguracionController extends Controller
      */
     public function edit($id)
     {
-        return view('configuracion::edit');
+        return view('edificios::tanques.edit');
     }
 
     /**

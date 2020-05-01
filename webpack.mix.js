@@ -12,14 +12,23 @@ const mix = require('laravel-mix');
  */
 
 mix.js([
-    'resources/js/module_config/menu.js',
-    'resources/js/module_config/precio-gas.js',
-    'resources/js/module_config/usuarios.js',
-    'resources/js/module_config/mensajes.js',
-    'resources/js/module_config/empresas.js',
-    'resources/js/module_config/menus.js',
-    'resources/js/module_config/servicios.js',
-], 'public/js/configuracion.js');
+        'resources/js/module_config/menu.js',
+        'resources/js/module_config/precio-gas.js',
+        'resources/js/module_config/usuarios.js',
+        'resources/js/module_config/mensajes.js',
+        'resources/js/module_config/empresas.js',
+        'resources/js/module_config/menus.js',
+        'resources/js/module_config/servicios.js',
+    ], 'public/js/configuracion.js')
+    .js([
+        'resources/js/module_edificios/zonas.js',
+        'resources/js/module_edificios/unidades.js',
+        'resources/js/module_edificios/condominios.js',
+        'resources/js/module_edificios/tanques.js',
+        'resources/js/module_edificios/departamentos.js',
+        'resources/js/module_edificios/captura_lectura.js',
+        'resources/js/module_edificios/recibos.js',
+    ], 'public/js/edificios.js');
 /*
     .sass('resources/sass/app.scss', 'public/css');
 */

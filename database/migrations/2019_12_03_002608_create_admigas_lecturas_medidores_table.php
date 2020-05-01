@@ -16,7 +16,7 @@ class CreateAdmigasLecturasMedidoresTable extends Migration
         Schema::create('admigas_lecturas_medidores', function (Blueprint $table) {
             $table->increments('id');
             $table->float('lectura', 12,3);
-            $table->date('fecha_desintalacion');
+            $table->date('fecha_lectura');
             $table->tinyInteger('activo')->unsigned()->default(1);
             $table->integer('admigas_departamentos_id')->unsigned();
             $table->integer('admigas_medidores_id')->unsigned();

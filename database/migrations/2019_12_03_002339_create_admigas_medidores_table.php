@@ -17,8 +17,6 @@ class CreateAdmigasMedidoresTable extends Migration
             $table->increments('id');
             $table->string('marca', 50);
             $table->string('numero_serie', 50);
-            $table->date('fecha_instalacion');
-            $table->date('fecha_desintalacion');
             $table->float('lectura', 12,3);
             $table->tinyInteger('tipo')->unsigned()->default(1);;
             $table->tinyInteger('activo')->unsigned()->default(1);;

@@ -61,10 +61,10 @@ class MensajesController extends Controller
          * Creamos el nuevo mensaje
          */
         AdmigasMensajes::create([
-            'nombre' => $request->nombre,
-            'mensaje' =>  $request->mensaje,
-            'admigas_empresas_id' => $this->empresa_id
-        ]);
+                                    'nombre' => $request->nombre,
+                                    'mensaje' =>  $request->mensaje,
+                                    'admigas_empresas_id' => $this->empresa_id
+                                ]);
         /**
          * Redirigimos a la ruta index
          */

@@ -19,7 +19,6 @@ class CreateAdmigasDepartamentosTable extends Migration
             $table->string('numero_referencia', 50);
             $table->float('factor', 8,2);
             $table->float('descuento', 8,2);
-            $table->date('fecha_lectura', 100);
             $table->tinyInteger('suministro')->unsigned()->default(1);
             $table->tinyInteger('activo')->unsigned()->default(1);
             $table->integer('admigas_condominios_id')->unsigned();

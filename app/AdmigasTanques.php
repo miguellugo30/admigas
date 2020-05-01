@@ -4,18 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdmigasZonas extends Model
+class AdmigasTanques extends Model
 {
     /**
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'descripcion', 'ruta_imagen', 'activo', 'admigas_empresas_id',
+        'num_serie', 'marca', 'capacidad', 'estado_al_recibir', 'inventario', 'admigas_unidades_id',
     ];
     /**
      * Nombre de la tabla
      */
-    protected $table = 'admigas_zonas';
+    protected $table = 'admigas_tanques';
     /**
      * Funcion para obtener solo los registros activos
      */
@@ -26,9 +26,9 @@ class AdmigasZonas extends Model
     /**
      * Funcion para obtener solo los registros activos
      */
-    public function scopeEmpresa($query, $empresa_id)
+    public function scopeUnidad($query, $unidad_id)
     {
-        return $query->where('admigas_empresas_id', $empresa_id );
+        return $query->where('admigas_unidades_id', $unidad_id );
     }
     /*
     |--------------------------------------------------------------------------
@@ -36,17 +36,17 @@ class AdmigasZonas extends Model
     |--------------------------------------------------------------------------
     */
     /**
-     * Relacion muchos a una con empresa
-     */
-    public function Empresas()
-    {
-        return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
-    }
-    /**
-     * Relacion uno a muchos con unidades
+     * Relacion muchos a uno con Unidades
      */
     public function Unidades()
     {
-        return $this->hasMany('App\AdmigasUnidades', 'admigas_zonas_id', 'id');
+        return $this->belongsTo('App\AdmigasUnidades', 'admigas_unidades_id', 'id');
+    }
+    /**
+     * Relacion muchos a muchos con condominio
+     */
+    public function Condominios()
+    {
+        return $this->belongsToMany('App\AdmigasEdificios', 'admigas_tanques_condominio', 'admigas_condominio_id', 'admigas_tanques_id');
     }
 }

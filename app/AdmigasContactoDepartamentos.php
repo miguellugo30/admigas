@@ -4,18 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AdmigasZonas extends Model
+class AdmigasContactoDepartamentos extends Model
 {
     /**
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'descripcion', 'ruta_imagen', 'activo', 'admigas_empresas_id',
+        'nombre', 'apellidos', 'telefono', 'celular', 'correo_electronico', 'admigas_departamentos_id',
     ];
     /**
      * Nombre de la tabla
      */
-    protected $table = 'admigas_zonas';
+    protected $table = 'admigas_contacto_departamentos';
     /**
      * Funcion para obtener solo los registros activos
      */
@@ -26,9 +26,9 @@ class AdmigasZonas extends Model
     /**
      * Funcion para obtener solo los registros activos
      */
-    public function scopeEmpresa($query, $empresa_id)
+    public function scopeDepartamento($query, $departamentos_id)
     {
-        return $query->where('admigas_empresas_id', $empresa_id );
+        return $query->where('admigas_departamentos_id', $departamentos_id );
     }
     /*
     |--------------------------------------------------------------------------
@@ -36,17 +36,10 @@ class AdmigasZonas extends Model
     |--------------------------------------------------------------------------
     */
     /**
-     * Relacion muchos a una con empresa
+     * Relacion uno a uno con Departamentos
      */
-    public function Empresas()
+    public function Departamento_Contacto()
     {
-        return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
-    }
-    /**
-     * Relacion uno a muchos con unidades
-     */
-    public function Unidades()
-    {
-        return $this->hasMany('App\AdmigasUnidades', 'admigas_zonas_id', 'id');
+        return $this->belongsTo('App\AdmigasDepartamentos', 'id', 'admigas_condominios_id');
     }
 }

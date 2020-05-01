@@ -5,8 +5,6 @@ namespace Modules\Edificios\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Contracts\Events\Dispatcher;
-use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 /**
  * Modelos
  */
@@ -14,32 +12,20 @@ use App\AdmigasZonas;
 
 class EdificiosController extends Controller
 {
-    public function __construct(Dispatcher $events)
+
+    public function __construct()
     {
-        $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            $menus = AdmigasZonas::active()->get();
-            foreach ($menus as $v) {
-                $event->menu->add([
-                    'text' => $v->nombre,
-                    'url' => $v->url,
-                    'icon' => 'fas fa-map-marker',
-                    'id' => $v->id,
-                    'clase' => 'zonas',
-                ]);
-            }
-
-        });
+        $this->middleware('auth');
     }
-
-
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
+        $modulo = 1;
 
-        return view('edificios::index');
+        return view('edificios::index', compact('modulo'));
     }
 
     /**
