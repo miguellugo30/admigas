@@ -10,12 +10,10 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent" style="font-size: 0.8rem;margin-left: -25px;">
             <li class="breadcrumb-item returnZona">
-                <i class="fas fa-home text-white"></i>
-                <a class="text-white-50" >{{ $unidad->first()->Zonas()->first()->nombre }}</a>
+                <a class="text-white-50" > / {{ $unidad->first()->Zonas()->first()->nombre }}</a>
             </li>
             <li class="breadcrumb-item returnUnidad">
-                <i class="fas fa-city text-white"></i>
-                <a class="text-white-50" >{{ $unidad->first()->nombre }}</a>
+                <a class="text-white-50" > / {{ $unidad->first()->nombre }}</a>
             </li>
         </ol>
     </nav>

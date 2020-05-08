@@ -1211,13 +1211,13 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\menu.js */"./resources/js/module_config/menu.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\precio-gas.js */"./resources/js/module_config/precio-gas.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\usuarios.js */"./resources/js/module_config/usuarios.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\mensajes.js */"./resources/js/module_config/mensajes.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\empresas.js */"./resources/js/module_config/empresas.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\menus.js */"./resources/js/module_config/menus.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_config\servicios.js */"./resources/js/module_config/servicios.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_config\menu.js */"./resources/js/module_config/menu.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_config\precio-gas.js */"./resources/js/module_config/precio-gas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_config\usuarios.js */"./resources/js/module_config/usuarios.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_config\mensajes.js */"./resources/js/module_config/mensajes.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_config\empresas.js */"./resources/js/module_config/empresas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_config\menus.js */"./resources/js/module_config/menus.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_config\servicios.js */"./resources/js/module_config/servicios.js");
 
 
 /***/ })

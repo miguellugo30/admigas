@@ -85,6 +85,13 @@ $(function() {
             }
         });
     });
+    /**
+     * Eliminamos las clases agregadas dinamicamente
+     */
+    $("#modal-edificios").on("hide.bs.modal", function() {
+        $('#action').removeClass('updateZona');
+        $('#action').removeClass('saveZona');
+    });
 
 
 
@@ -189,17 +196,6 @@ $(function() {
                 });
             }
         });
-    });
-    /**
-     * Evento para mostrar los permisos por menu
-     */
-    $(document).on('click', '.modulo', function() {
-        var id = $(this).data("value");
-        if ($(this).prop('checked')) {
-            $("#sub_cat_" + id).slideDown();
-        } else {
-            $("#sub_cat_" + id).slideUp();
-        }
     });
     /**
      * Funcion para mostrar los errores de los formularios

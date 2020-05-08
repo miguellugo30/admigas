@@ -3,8 +3,7 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent">
                 <li class="breadcrumb-item returnZona">
-                    <i class="fas fa-home text-white"></i>
-                    <a class="text-white-50" >{{ $zona->first()->nombre }}</a>
+                    <a class="text-white-50" > / {{ $zona->first()->nombre }}</a>
                 </li>
             </ol>
         </nav>

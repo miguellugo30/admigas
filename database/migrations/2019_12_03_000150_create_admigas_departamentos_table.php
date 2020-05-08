@@ -16,9 +16,9 @@ class CreateAdmigasDepartamentosTable extends Migration
         Schema::create('admigas_departamentos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('numero_departamento', 50);
-            $table->string('numero_referencia', 50);
-            $table->float('factor', 8,2);
-            $table->float('descuento', 8,2);
+            $table->string('numero_referencia', 50)->unique();
+            $table->float('factor', 8,2)->nullable();
+            $table->float('descuento', 8,2)->nullable();
             $table->tinyInteger('suministro')->unsigned()->default(1);
             $table->tinyInteger('activo')->unsigned()->default(1);
             $table->integer('admigas_condominios_id')->unsigned();

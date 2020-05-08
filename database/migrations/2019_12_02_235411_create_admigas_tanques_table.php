@@ -18,9 +18,9 @@ class CreateAdmigasTanquesTable extends Migration
             $table->string('num_serie', 100);
             $table->string('marca', 100);
             $table->string('capacidad', 100);
-            $table->date('fecha_instalacion');
-            $table->date('fecha_desintalacion');
-            $table->date('fecha_fabricacion');
+            $table->date('fecha_instalacion')->nullable();
+            $table->date('fecha_desintalacion')->nullable();
+            $table->date('fecha_fabricacion')->nullable();
             $table->string('estado_al_recibir');
             $table->string('inventario');
             $table->tinyInteger('activo')->unsigned()->default(1);;

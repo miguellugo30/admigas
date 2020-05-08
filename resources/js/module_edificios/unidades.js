@@ -100,6 +100,13 @@ $(function() {
         });
     });
     /**
+     * Eliminamos las clases agregadas dinamicamente
+     */
+    $("#modal-edificios").on("hide.bs.modal", function() {
+        $('#action').removeClass('updateUnidad');
+        $('#action').removeClass('saveUnidad');
+    });
+    /**
      * Funcion para mostrar los errores de los formularios
      */
     function printErrorMsg(msg) {

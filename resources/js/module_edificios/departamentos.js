@@ -185,15 +185,11 @@ $(function() {
         });
     });
     /**
-     * Evento para mostrar los permisos por menu
+     * Eliminamos las clases agregadas dinamicamente
      */
-    $(document).on('click', '.modulo', function() {
-        var id = $(this).data("value");
-        if ($(this).prop('checked')) {
-            $("#sub_cat_" + id).slideDown();
-        } else {
-            $("#sub_cat_" + id).slideUp();
-        }
+    $("#modal-edificios").on("hide.bs.modal", function() {
+        $('#action').removeClass('saveDepartamento');
+        $('#action').removeClass('updateDepartamento');
     });
     /**
      * Funcion para mostrar los errores de los formularios

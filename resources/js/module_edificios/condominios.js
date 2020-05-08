@@ -107,7 +107,13 @@ $(function() {
         } else {
             $(".tipo-punto-venta").slideDown();
         }
-
+    });
+    /**
+     * Eliminamos las clases agregadas dinamicamente
+     */
+    $("#modal-edificios").on("hide.bs.modal", function() {
+        $('#action').removeClass('updateEdificio');
+        $('#action').removeClass('saveEdificio');
     });
     /**
      * Funcion para mostrar los errores de los formularios

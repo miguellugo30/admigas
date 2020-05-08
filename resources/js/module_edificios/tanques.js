@@ -79,6 +79,13 @@ $(function() {
 
     });
     /**
+     * Eliminamos las clases agregadas dinamicamente
+     */
+    $("#modal-edificios").on("hide.bs.modal", function() {
+        $('#action').removeClass('updateTanque');
+        $('#action').removeClass('saveTanque');
+    });
+    /**
      * Funcion para mostrar los errores de los formularios
      */
     function printErrorMsg(msg) {

@@ -310,6 +310,14 @@ $(function () {
     }
   });
   /**
+   * Eliminamos las clases agregadas dinamicamente
+   */
+
+  $("#modal-edificios").on("hide.bs.modal", function () {
+    $('#action').removeClass('updateEdificio');
+    $('#action').removeClass('saveEdificio');
+  });
+  /**
    * Funcion para mostrar los errores de los formularios
    */
 
@@ -506,17 +514,12 @@ $(function () {
     });
   });
   /**
-   * Evento para mostrar los permisos por menu
+   * Eliminamos las clases agregadas dinamicamente
    */
 
-  $(document).on('click', '.modulo', function () {
-    var id = $(this).data("value");
-
-    if ($(this).prop('checked')) {
-      $("#sub_cat_" + id).slideDown();
-    } else {
-      $("#sub_cat_" + id).slideUp();
-    }
+  $("#modal-edificios").on("hide.bs.modal", function () {
+    $('#action').removeClass('saveDepartamento');
+    $('#action').removeClass('updateDepartamento');
   });
   /**
    * Funcion para mostrar los errores de los formularios
@@ -643,6 +646,14 @@ $(function () {
     });
   });
   /**
+   * Eliminamos las clases agregadas dinamicamente
+   */
+
+  $("#modal-edificios").on("hide.bs.modal", function () {
+    $('#action').removeClass('updateTanque');
+    $('#action').removeClass('saveTanque');
+  });
+  /**
    * Funcion para mostrar los errores de los formularios
    */
 
@@ -763,6 +774,14 @@ $(function () {
     });
   });
   /**
+   * Eliminamos las clases agregadas dinamicamente
+   */
+
+  $("#modal-edificios").on("hide.bs.modal", function () {
+    $('#action').removeClass('updateUnidad');
+    $('#action').removeClass('saveUnidad');
+  });
+  /**
    * Funcion para mostrar los errores de los formularios
    */
 
@@ -868,6 +887,14 @@ $(function () {
     });
   });
   /**
+   * Eliminamos las clases agregadas dinamicamente
+   */
+
+  $("#modal-edificios").on("hide.bs.modal", function () {
+    $('#action').removeClass('updateZona');
+    $('#action').removeClass('saveZona');
+  });
+  /**
    * Evento para mostrar el formulario de edicion de un canal
    */
 
@@ -957,19 +984,6 @@ $(function () {
     });
   });
   /**
-   * Evento para mostrar los permisos por menu
-   */
-
-  $(document).on('click', '.modulo', function () {
-    var id = $(this).data("value");
-
-    if ($(this).prop('checked')) {
-      $("#sub_cat_" + id).slideDown();
-    } else {
-      $("#sub_cat_" + id).slideUp();
-    }
-  });
-  /**
    * Funcion para mostrar los errores de los formularios
    */
 
@@ -997,13 +1011,13 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
 
 
 /***/ })

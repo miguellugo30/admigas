@@ -10,7 +10,7 @@ class AdmigasCuentasBancarias extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'cuenta', 'clabe', 'admigas_empresas_id'
+        'cuenta', 'clabe', 'convenio_cie', 'admigas_empresas_id'
     ];
     /**
      * Nombre de la tabla
