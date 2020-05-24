@@ -24,6 +24,7 @@
                 <th>RFC</th>
                 <th>Cuenta Bancaria</th>
                 <th>Clabe Interbancaria</th>
+                <th>Convenio CIE</th>
             </thead>
             <tbody>
                 @foreach ($empresas as $empresa)
@@ -32,6 +33,7 @@
                         <td>{{ $empresa->rfc }}</td>
                         <td>{{ $empresa->Cuentas()->first()->cuenta }}</td>
                         <td>{{ $empresa->Cuentas()->first()->clabe }}</td>
+                        <td>{{ $empresa->Cuentas()->first()->convenio_cie }}</td>
                     </tr>
                 @endforeach
             </tbody>

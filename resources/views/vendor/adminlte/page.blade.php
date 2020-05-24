@@ -153,8 +153,8 @@
             @endif
 
             <div class="content-header">
-                <div class="{{config('adminlte.classes_content_header', 'container-fluid')}}">
-                    @yield('content_header')
+                <div class="container-fluid breadcrumb">
+                    {{--@yield('content_header')--}}
                 </div>
             </div>
 

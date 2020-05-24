@@ -43,6 +43,7 @@ $(function() {
             $('.sidebar').html(data);
 
         }).done(function() {
+            $("#modal-body").html('');
             $('.modal-backdrop ').css('display', 'none');
             $('#modal-edificios').modal('hide');
             Swal.fire(
@@ -69,6 +70,18 @@ $(function() {
                 $('.sidebar').html(result);
             }
         });
+        /**
+         * Mostrar el breacrumd
+         */
+        let urlb = currentURL + "/zonas-breadcrumb/" + id;
+
+        $.ajax({
+            url: urlb,
+            type: 'GET',
+            success: function(result) {
+                $('.breadcrumb').html(result);
+            }
+        });
     });
     /**
      * Evento para mostrar regresar a zonas
@@ -84,6 +97,9 @@ $(function() {
                 $('.sidebar').html(result);
             }
         });
+
+        $('.breadcrumb').html("");
+        $('.viewResult').html("");
     });
     /**
      * Eliminamos las clases agregadas dinamicamente
@@ -92,15 +108,8 @@ $(function() {
         $('#action').removeClass('updateZona');
         $('#action').removeClass('saveZona');
     });
-
-
-
-
-
-
-
     /**
-     * Evento para mostrar el formulario de edicion de un canal
+     * Evento para mostrar el formulario de edicion
      */
     $(document).on("click", ".editZona", function(e) {
 
@@ -109,12 +118,12 @@ $(function() {
         $('#action').removeClass('saveZona');
         $('#action').addClass('updateZona');
 
-        let id = $("#idSeleccionado").val();
+        let id = $('.returnUnidad').data('zona-id');
 
         let url = currentURL + "/zonas/" + id + "/edit";
 
         $.get(url, function(data, textStatus, jqXHR) {
-            $('#modal').modal('show');
+            $('#modal-edificios').modal('show');
             $("#modal-body").html(data);
         });
     });
@@ -126,7 +135,7 @@ $(function() {
 
         let nombre = $("#nombre").val();
         let descripcion = $("#descripcion").val();
-        let id = $("#idSeleccionado").val();
+        let id = $("#zona_id").val();
 
         let _token = $("input[name=_token]").val();
         let _method = "PUT";
@@ -142,7 +151,10 @@ $(function() {
                 _method: _method
             },
             success: function(result) {
-                $('.sidebar').html(result);
+                $("#modal-body").html('');
+                $('.modal-backdrop ').css('display', 'none');
+                $('#modal-edificios').modal('hide');
+                $('.breadcrumb').html(result);
             }
         }).done(function(data) {
             $('.modal-backdrop ').css('display', 'none');
@@ -172,7 +184,8 @@ $(function() {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.value) {
-                let id = $("#idSeleccionado").val();
+                let id = $('.returnUnidad').data('zona-id');
+
                 let _token = $("input[name=_token]").val();
                 let _method = "DELETE";
                 let url = currentURL + '/zonas/' + id;
@@ -185,8 +198,8 @@ $(function() {
                         _method: _method
                     },
                     success: function(result) {
-                        $('.viewResult').html(result);
-                        $('.viewCreate').slideUp();
+                        $('.breadcrumb').html("");
+                        $('.sidebar').html(result);
                         Swal.fire(
                             'Eliminado!',
                             'El registro ha sido eliminado.',

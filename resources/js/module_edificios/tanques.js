@@ -7,15 +7,15 @@ $(function() {
     $(document).on("click", ".newTanque", function(e) {
 
         e.preventDefault();
-        $('#tituloModal').html('Nuevo Tanque');
-        $('#action').removeClass('updateTanque');
-        $('#action').addClass('saveTanque');
+        $('#modal-edificios #tituloModal').html('Nuevo Tanque');
+        $('#modal-edificios #action').removeClass('updateTanque');
+        $('#modal-edificios #action').addClass('saveTanque');
 
         let url = currentURL + '/tanques/create';
 
         $.get(url, function(data, textStatus, jqXHR) {
             $('#modal-edificios').modal('show');
-            $("#modal-body").html(data);
+            $("#modal-edificios #modal-body").html(data);
         });
     });
     /**
@@ -65,8 +65,6 @@ $(function() {
     $(document).on('click', '.viewTanque', function(event) {
         event.preventDefault();
         let id = $(this).attr("id");
-        let _token = $("input[name=_token]").val();
-
         let url = currentURL + "/tanques/" + id;
 
         $.ajax({

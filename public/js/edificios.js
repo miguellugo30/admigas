@@ -223,14 +223,15 @@ $(function () {
 
   $(document).on("click", ".newEdificio", function (e) {
     e.preventDefault();
-    $('#tituloModal').html('Nuevo Edificio');
-    $('#action').removeClass('updateEdificio');
-    $('#action').addClass('saveEdificio');
+    $('#modal-condominio #tituloModal').html('Nuevo Edificio');
+    $('#modal-condominio #action').removeClass('updateEdificio');
+    $('#modal-condominio #action').addClass('saveEdificio');
     var admigas_unidades_id = $("#admigas_unidades_id").val();
     var url = currentURL + '/condominios-create/' + admigas_unidades_id;
     $.get(url, function (data, textStatus, jqXHR) {
-      $('#modal-edificios').modal('show');
-      $("#modal-body").html(data);
+      console.log(data);
+      $('#modal-condominio').modal('show');
+      $("#modal-condominio #modal-body").html(data);
     });
   });
   /**
@@ -270,6 +271,7 @@ $(function () {
       }, function (data, textStatus, xhr) {
         $('.sidebar').html(data);
       }).done(function () {
+        $("#modal-edificios #modal-body").html('');
         $('.modal-backdrop ').css('display', 'none');
         $('#modal-edificios').modal('hide');
         Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
@@ -314,8 +316,143 @@ $(function () {
    */
 
   $("#modal-edificios").on("hide.bs.modal", function () {
-    $('#action').removeClass('updateEdificio');
-    $('#action').removeClass('saveEdificio');
+    $('#modal-condominio #action').removeClass('updateEdificio');
+    $('#modal-condominio #action').removeClass('saveEdificio');
+  });
+  /**
+   * Evento para mostrar el formulario de edicion
+   */
+
+  $(document).on("click", ".editCondominio", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Editar Condominio');
+    $('#modal-condominio #action').removeClass('saveEdificio');
+    $('#modal-condominio #action').addClass('updateEdificio');
+    var id = $('#id_condominio').val();
+    var url = currentURL + "/condominios/" + id + "/edit";
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-condominio').modal('show');
+      $("#modal-condominio #modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para editar el modulo
+   */
+
+  $(document).on('click', '.updateEdificio', function (event) {
+    event.preventDefault();
+    var tipo = $("#tipo").val();
+    var nombre = $("#nombre").val();
+    var descuento = $("#descuento").val();
+    var factor = $("#factor").val();
+    var gasto_admin = $("#gasto_admin").val();
+    var fecha_lectura = $("#fecha_lectura").val();
+    var id = $("#id_condominio").val();
+    var tanques = $('[name="tanques[]"]:checked').map(function () {
+      return this.value;
+    }).get();
+
+    var _token = $("input[name=_token]").val();
+
+    var _method = "PUT";
+    var url = currentURL + '/condominios/' + id;
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {
+        tipo: tipo,
+        nombre: nombre,
+        descuento: descuento,
+        factor: factor,
+        gasto_admin: gasto_admin,
+        fecha_lectura: fecha_lectura,
+        tanques: tanques,
+        _token: _token,
+        _method: _method
+      },
+      success: function success(result) {
+        var id_unidad = $("#admigas_unidades_id").val();
+        var url = currentURL + "/unidades/" + id_unidad;
+        $.ajax({
+          url: url,
+          type: 'GET',
+          success: function success(result) {
+            $('.sidebar').html(result);
+          }
+        });
+        var urlb = currentURL + "/condominios/" + id;
+        $.ajax({
+          url: urlb,
+          type: 'GET',
+          success: function success(result) {
+            $('.viewResult').html(result);
+            $('#table-departamentos').DataTable({
+              "responsive": true,
+              "autoWidth": false
+            });
+          }
+        });
+      }
+    }).done(function (data) {
+      $("#modal-edificios #modal-body").html('');
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal-condominio').modal('hide');
+      /*
+      Swal.fire(
+          'Correcto!',
+          'El registro ha sido actualizado.',
+          'success'
+      )
+      */
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para eliminar un registro
+   */
+
+  $(document).on('click', '.deleteCondominio', function (event) {
+    event.preventDefault();
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Deseas eliminar el registro seleccionado!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then(function (result) {
+      if (result.value) {
+        var id = $('#id_condominio').val();
+
+        var _token = $("input[name=_token]").val();
+
+        var _method = "DELETE";
+        var url = currentURL + '/condominios/' + id;
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            _token: _token,
+            _method: _method
+          },
+          success: function success(result) {
+            $('.viewResult').html(result);
+            var id_unidad = $("#admigas_unidades_id").val();
+            var url = currentURL + "/unidades/" + id_unidad;
+            $.ajax({
+              url: url,
+              type: 'GET',
+              success: function success(result) {
+                $('.sidebar').html(result);
+              }
+            });
+          }
+        });
+      }
+    });
   });
   /**
    * Funcion para mostrar los errores de los formularios
@@ -584,13 +721,13 @@ $(function () {
 
   $(document).on("click", ".newTanque", function (e) {
     e.preventDefault();
-    $('#tituloModal').html('Nuevo Tanque');
-    $('#action').removeClass('updateTanque');
-    $('#action').addClass('saveTanque');
+    $('#modal-edificios #tituloModal').html('Nuevo Tanque');
+    $('#modal-edificios #action').removeClass('updateTanque');
+    $('#modal-edificios #action').addClass('saveTanque');
     var url = currentURL + '/tanques/create';
     $.get(url, function (data, textStatus, jqXHR) {
       $('#modal-edificios').modal('show');
-      $("#modal-body").html(data);
+      $("#modal-edificios #modal-body").html(data);
     });
   });
   /**
@@ -633,9 +770,6 @@ $(function () {
   $(document).on('click', '.viewTanque', function (event) {
     event.preventDefault();
     var id = $(this).attr("id");
-
-    var _token = $("input[name=_token]").val();
-
     var url = currentURL + "/tanques/" + id;
     $.ajax({
       url: url,
@@ -689,7 +823,7 @@ $(function () {
 
   $(document).on("click", ".newUnidad", function (e) {
     e.preventDefault();
-    $('#tituloModal').html('Nuevo Unidad');
+    $('#tituloModal').html('Nueva Unidad');
     $('#action').removeClass('updateUnidad');
     $('#action').addClass('saveUnidad');
     var url = currentURL + '/unidades/create';
@@ -731,6 +865,7 @@ $(function () {
     }, function (data, textStatus, xhr) {
       $('.sidebar').html(data);
     }).done(function () {
+      $("#modal-body").html('');
       $('.modal-backdrop ').css('display', 'none');
       $('#modal-edificios').modal('hide');
       Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
@@ -745,15 +880,20 @@ $(function () {
   $(document).on('click', '.viewUnidad', function (event) {
     event.preventDefault();
     var id = $(this).attr("id");
-
-    var _token = $("input[name=_token]").val();
-
     var url = currentURL + "/unidades/" + id;
     $.ajax({
       url: url,
       type: 'GET',
       success: function success(result) {
         $('.sidebar').html(result);
+      }
+    });
+    var urlb = currentURL + "/unidades-breadcrumb/" + id;
+    $.ajax({
+      url: urlb,
+      type: 'GET',
+      success: function success(result) {
+        $('.breadcrumb').html(result);
       }
     });
   });
@@ -763,6 +903,7 @@ $(function () {
 
   $(document).on('click', '.returnUnidad', function (event) {
     event.preventDefault();
+    $('.viewResult').html("");
     var admigas_zonas_id = $("#admigas_zonas_id").val();
     var url = currentURL + "/zonas-unidades/" + admigas_zonas_id;
     $.ajax({
@@ -770,6 +911,18 @@ $(function () {
       type: 'GET',
       success: function success(result) {
         $('.sidebar').html(result);
+      }
+    });
+    /**
+     * Mostrar el breacrumd
+     */
+
+    var urlb = currentURL + "/zonas-breadcrumb/" + admigas_zonas_id;
+    $.ajax({
+      url: urlb,
+      type: 'GET',
+      success: function success(result) {
+        $('.breadcrumb').html(result);
       }
     });
   });
@@ -780,6 +933,127 @@ $(function () {
   $("#modal-edificios").on("hide.bs.modal", function () {
     $('#action').removeClass('updateUnidad');
     $('#action').removeClass('saveUnidad');
+  });
+  /**
+   * Evento para mostrar el formulario de edicion
+   */
+
+  $(document).on("click", ".editUnidad", function (e) {
+    e.preventDefault();
+    $('#tituloModal').html('Editar Unidad');
+    $('#action').removeClass('saveUnidad');
+    $('#action').addClass('updateUnidad');
+    var id = $('.unidad').data('unidad-id');
+    var url = currentURL + "/unidades/" + id + "/edit";
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-edificios').modal('show');
+      $("#modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para editar el modulo
+   */
+
+  $(document).on('click', '.updateUnidad', function (event) {
+    event.preventDefault();
+    var nombre = $("#nombre").val();
+    var calle = $("#calle").val();
+    var numero = $("#numero").val();
+    var colonia = $("#colonia").val();
+    var municipio = $("#municipio").val();
+    var cp = $("#cp").val();
+    var estado = $("#estado").val();
+    var entre_calles = $("#entre_calles").val();
+    var id = $("#unidad_id").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var _method = "PUT";
+    var url = currentURL + '/unidades/' + id;
+    $.ajax({
+      url: url,
+      type: 'POST',
+      data: {
+        nombre: nombre,
+        calle: calle,
+        numero: numero,
+        colonia: colonia,
+        municipio: municipio,
+        cp: cp,
+        estado: estado,
+        entre_calles: entre_calles,
+        _token: _token,
+        _method: _method
+      },
+      success: function success(result) {
+        $('.breadcrumb').html(result);
+      }
+    }).done(function (data) {
+      $("#modal-body").html('');
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal-edificios').modal('hide');
+      Swal.fire('Correcto!', 'El registro ha sido actualizado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para eliminar un registro
+   */
+
+  $(document).on('click', '.deleteUnidad', function (event) {
+    event.preventDefault();
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Deseas eliminar el registro seleccionado!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then(function (result) {
+      if (result.value) {
+        var id = $('.unidad').data('unidad-id');
+
+        var _token = $("input[name=_token]").val();
+
+        var _method = "DELETE";
+        var url = currentURL + '/unidades/' + id;
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            _token: _token,
+            _method: _method
+          },
+          success: function success(result) {
+            var id = $('.returnUnidad').data('zona-id');
+            var url = currentURL + "/zonas/" + id;
+            $.ajax({
+              url: url,
+              type: 'GET',
+              success: function success(result) {
+                $('.sidebar').html(result);
+              }
+            });
+            /**
+             * Mostrar el breacrumd
+             */
+
+            var urlb = currentURL + "/zonas-breadcrumb/" + id;
+            $.ajax({
+              url: urlb,
+              type: 'GET',
+              success: function success(result) {
+                $('.breadcrumb').html(result);
+              }
+            });
+            Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
+          }
+        });
+      }
+    });
   });
   /**
    * Funcion para mostrar los errores de los formularios
@@ -848,6 +1122,7 @@ $(function () {
     }, function (data, textStatus, xhr) {
       $('.sidebar').html(data);
     }).done(function () {
+      $("#modal-body").html('');
       $('.modal-backdrop ').css('display', 'none');
       $('#modal-edificios').modal('hide');
       Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
@@ -870,6 +1145,18 @@ $(function () {
         $('.sidebar').html(result);
       }
     });
+    /**
+     * Mostrar el breacrumd
+     */
+
+    var urlb = currentURL + "/zonas-breadcrumb/" + id;
+    $.ajax({
+      url: urlb,
+      type: 'GET',
+      success: function success(result) {
+        $('.breadcrumb').html(result);
+      }
+    });
   });
   /**
    * Evento para mostrar regresar a zonas
@@ -885,6 +1172,8 @@ $(function () {
         $('.sidebar').html(result);
       }
     });
+    $('.breadcrumb').html("");
+    $('.viewResult').html("");
   });
   /**
    * Eliminamos las clases agregadas dinamicamente
@@ -895,7 +1184,7 @@ $(function () {
     $('#action').removeClass('saveZona');
   });
   /**
-   * Evento para mostrar el formulario de edicion de un canal
+   * Evento para mostrar el formulario de edicion
    */
 
   $(document).on("click", ".editZona", function (e) {
@@ -903,10 +1192,10 @@ $(function () {
     $('#tituloModal').html('Editar Zona');
     $('#action').removeClass('saveZona');
     $('#action').addClass('updateZona');
-    var id = $("#idSeleccionado").val();
+    var id = $('.returnUnidad').data('zona-id');
     var url = currentURL + "/zonas/" + id + "/edit";
     $.get(url, function (data, textStatus, jqXHR) {
-      $('#modal').modal('show');
+      $('#modal-edificios').modal('show');
       $("#modal-body").html(data);
     });
   });
@@ -918,7 +1207,7 @@ $(function () {
     event.preventDefault();
     var nombre = $("#nombre").val();
     var descripcion = $("#descripcion").val();
-    var id = $("#idSeleccionado").val();
+    var id = $("#zona_id").val();
 
     var _token = $("input[name=_token]").val();
 
@@ -934,7 +1223,10 @@ $(function () {
         _method: _method
       },
       success: function success(result) {
-        $('.sidebar').html(result);
+        $("#modal-body").html('');
+        $('.modal-backdrop ').css('display', 'none');
+        $('#modal-edificios').modal('hide');
+        $('.breadcrumb').html(result);
       }
     }).done(function (data) {
       $('.modal-backdrop ').css('display', 'none');
@@ -961,7 +1253,7 @@ $(function () {
       cancelButtonText: 'Cancelar'
     }).then(function (result) {
       if (result.value) {
-        var id = $("#idSeleccionado").val();
+        var id = $('.returnUnidad').data('zona-id');
 
         var _token = $("input[name=_token]").val();
 
@@ -975,8 +1267,8 @@ $(function () {
             _method: _method
           },
           success: function success(result) {
-            $('.viewResult').html(result);
-            $('.viewCreate').slideUp();
+            $('.breadcrumb').html("");
+            $('.sidebar').html(result);
             Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
           }
         });
@@ -1011,13 +1303,13 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
 
 
 /***/ })

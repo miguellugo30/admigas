@@ -1,9 +1,8 @@
-
-    <div class="form-group">
-        <label for="nombre">Nombre *:</label>
-        <input type="text" class="form-control form-control-sm" id="nombre" placeholder="Nombre">
-        @csrf
-    </div>
+<div class="form-group">
+    <label for="nombre">Nombre *:</label>
+    <input type="text" class="form-control form-control-sm" id="nombre" placeholder="Nombre">
+    @csrf
+</div>
 <div class="row">
     <div class="col">
         <div class="form-group">

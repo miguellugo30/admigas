@@ -17,7 +17,8 @@ class EmpresasRequest extends FormRequest
             'razon_social' => 'required',
             'rfc' => 'required',
             'cuenta' => 'required',
-            'clabe' => 'required'
+            'clabe' => 'required',
+            'convenio_cie' => 'required'
         ];
     }
 
@@ -37,7 +38,8 @@ class EmpresasRequest extends FormRequest
             'razon_social' => 'Razon Social',
             'rfc' => 'RFC',
             'cuenta' => 'Cuenta Bancaria',
-            'clabe' => 'Clabe Interbancaria'
+            'clabe' => 'Clabe Interbancaria',
+            'convenio_cie' => 'Convenio CIE'
         ];
     }
 }

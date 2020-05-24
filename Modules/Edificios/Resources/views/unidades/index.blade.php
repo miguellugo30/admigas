@@ -1,14 +1,5 @@
 <div class="row">
-    <div class="col-10">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent">
-                <li class="breadcrumb-item returnZona">
-                    <a class="text-white-50" > / {{ $zona->first()->nombre }}</a>
-                </li>
-            </ol>
-        </nav>
-    </div>
-    <div class="col-2 mt-2 mb-2 text-right">
+    <div class="col mt-2 mb-2 text-right">
         <button type="button" class="btn btn-info btn-sm newUnidad" alt="Nueva Unidad">
             <i class="fas fa-plus"></i>
         </button>

@@ -60,6 +60,7 @@ class EmpresasController extends Controller
         AdmigasCuentasBancarias::create([
                                     'cuenta' => $request->cuenta,
                                     'clabe' => $request->clabe,
+                                    'convenio_cie' => $request->convenio_cie,
                                     'admigas_empresas_id' => $empresa->id
                                 ]);
 
@@ -121,6 +122,7 @@ class EmpresasController extends Controller
                                 ->update([
                                     'cuenta' => $request->cuenta,
                                     'clabe' => $request->clabe,
+                                    'convenio_cie' => $request->convenio_cie,
                                 ]);
         /**
          * Redirigimos a la ruta index

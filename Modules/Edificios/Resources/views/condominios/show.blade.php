@@ -3,19 +3,35 @@
         <h3 class="card-title">
             <i class="far fa-building"></i>
             <b>{{ $condominio->first()->nombre }}</b>
+            <input type="hidden" name="id_condominio" id="id_condominio" value="{{ $condominio->first()->id }}">
           </h3>
           <div class="card-tools">
               <button type="button" class="btn btn-info btn-sm capturarLecturas" ><i class="fas fa-list-ol"></i> Lecturas</button>
               <button type="button" class="btn btn-info btn-sm generarRecibos" ><i class="fas fa-money-check-alt"></i> Recibos</button>
             @can('delete departamentos')
-                <button type="button" class="btn btn-danger btn-sm deleteDepartamento" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
             @endcan
+            <button type="button" class="btn btn-danger btn-sm deleteDepartamento" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
             @can('edit departamentos')
-                <button type="button" class="btn btn-warning btn-sm editDepartamento" style="display:none"><i class="fas fa-edit"></i> Editar</button>
             @endcan
+            <button type="button" class="btn btn-warning btn-sm editDepartamento" style="display:none"><i class="fas fa-edit"></i> Editar</button>
             @can('create departamentos')
-                <button type="button" class="btn btn-primary btn-sm newDepartamento"><i class="fas fa-plus"></i> Nuevo</button>
             @endcan
+            <button type="button" class="btn btn-primary btn-sm newDepartamento"><i class="fas fa-plus"></i> Nuevo</button>
+            <div class="dropdown float-sm-right dropleft ml-1">
+                <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cogs"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item editCondominio" href="#">
+                        <i class="fas fa-pencil-alt"></i>
+                        Editar Condominio
+                    </a>
+                    <a class="dropdown-item deleteCondominio" href="#">
+                        <i class="fas fa-trash-alt"></i>
+                        Eliminar Condominio
+                    </a>
+                </div>
+            </div>
               <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
               <input type="hidden" name="admigas_condominios_id" id="admigas_condominios_id" value="{{ $condominio->first()->id }}">
         </div>

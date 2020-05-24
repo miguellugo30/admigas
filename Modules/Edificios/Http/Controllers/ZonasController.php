@@ -16,17 +16,20 @@ Use App\AdmigasZonas;
 class ZonasController extends Controller
 {
     private $empresa_id;
+    private $zonas;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
      */
-    public function __construct()
+    public function __construct(AdmigasZonas $zonas)
     {
         $this->middleware(function ($request, $next) {
             $this->empresa_id = Auth::user()->admigas_empresas_id;
 
             return $next($request);
         });
+
+        $this->zonas = $zonas;
     }
     /**
      * Display a listing of the resource.
@@ -37,8 +40,7 @@ class ZonasController extends Controller
         /**
          * Obtenemos todas las zonas activas
          */
-        $zonas = AdmigasZonas::empresa( $this->empresa_id )->active()->get();
-
+        $zonas = $this->zonas->empresa( $this->empresa_id )->active()->get();
         return view('edificios::zonas.index', compact('zonas'));
     }
 
@@ -67,8 +69,8 @@ class ZonasController extends Controller
                                 'admigas_empresas_id' => $this->empresa_id
                             ]);
         /**
-        * Redirigimos a la ruta index
-        */
+         * Redirigimos a la ruta index
+         */
         return redirect()->route('zonas.index');
     }
 
@@ -98,7 +100,12 @@ class ZonasController extends Controller
      */
     public function edit($id)
     {
-        return view('edificios::edit');
+        /**
+         * Recuperamos la informacion de la zona
+         */
+        $zona = AdmigasZonas::where('id', $id)->first();
+
+        return view('edificios::zonas.edit', compact('zona'));
     }
 
     /**
@@ -109,7 +116,17 @@ class ZonasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /**
+         * Actualizamos el registro
+         */
+        AdmigasZonas::where( 'id', $id )
+                    ->update([
+                        'nombre' => $request->nombre,
+                        'descripcion' => $request->descripcion
+                    ]);
+
+        return redirect()->route('zona.breadcrumb', ['id_zona' => $id]);
+
     }
 
     /**
@@ -119,6 +136,29 @@ class ZonasController extends Controller
      */
     public function destroy($id)
     {
-        //
+         /**
+         * Actualizamos el registro
+         */
+        AdmigasZonas::where( 'id', $id )
+                    ->update([
+                        'activo' => 0
+                    ]);
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('zonas.index');
+
+    }
+
+    public function breadcrumb($id)
+    {
+        /**
+         * Recuperamos la informacion de la zona
+         */
+        $zona = AdmigasZonas::where('id', $id)->get();
+        /**
+        * Redirigimos a la ruta index
+        */
+        return view('edificios::zonas.breadcrumd', compact('zona'));
     }
 }

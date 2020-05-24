@@ -85,7 +85,7 @@ class UnidadesController extends Controller
         /**
          * Recuperamos los edificios de la unidad
          */
-        $edificios = AdmigasEdificios::unidad( $id )->get();
+        $edificios = AdmigasEdificios::active()->unidad( $id )->get();
 
         return view('edificios::condominios.index', compact( 'unidad', 'edificios' ));
     }
@@ -97,7 +97,12 @@ class UnidadesController extends Controller
      */
     public function edit($id)
     {
-        return view('edificios::unidades.edit');
+        /**
+         * Recuperamos la informacion de la zona
+         */
+        $unidad = AdmigasUnidades::where('id', $id)->first();
+
+        return view('edificios::unidades.edit', compact('unidad'));
     }
 
     /**
@@ -108,7 +113,19 @@ class UnidadesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        AdmigasUnidades::where('id', $id)
+        ->update([
+            'nombre' => $request->nombre,
+            'calle' =>  $request->calle,
+            'numero' =>  $request->numero,
+            'colonia' =>  $request->colonia,
+            'delegacion_municipio' =>  $request->municipio,
+            'cp' =>  $request->cp,
+            'estado' =>  $request->estado,
+            'entre_calle' =>  $request->entre_calles,
+        ]);
+
+        return redirect()->route('unidades.breadcrumb', ['id_unidad' => $id]);
     }
 
     /**
@@ -118,6 +135,21 @@ class UnidadesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        AdmigasUnidades::where('id', $id)
+        ->update([
+            'activo' => 0
+        ]);
+    }
+
+    public function breadcrumb($id)
+    {
+        /**
+         * Recuperamos la infor de la unidad
+         */
+        $unidad = AdmigasUnidades::where('id', $id)->with('Zonas')->get();
+        /**
+        * Redirigimos a la ruta index
+        */
+        return view('edificios::unidades.breadcrumd', compact('unidad'));
     }
 }

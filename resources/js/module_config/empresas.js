@@ -33,6 +33,7 @@ $(function() {
         let cp = $("#cp").val();
         let cuenta = $("#cuenta").val();
         let clabe = $("#clabe").val();
+        let convenio_cie = $("#convenio_cie").val();
 
         let _token = $("input[name=_token]").val();
         let url = currentURL + '/empresas';
@@ -47,6 +48,7 @@ $(function() {
             cp: cp,
             cuenta: cuenta,
             clabe: clabe,
+            convenio_cie: convenio_cie,
             _token: _token
         }, function(data, textStatus, xhr) {
 
@@ -112,6 +114,7 @@ $(function() {
         let cp = $("#cp").val();
         let cuenta = $("#cuenta").val();
         let clabe = $("#clabe").val();
+        let convenio_cie = $("#convenio_cie").val();
         let id = $("#idSeleccionado").val();
 
         let _token = $("input[name=_token]").val();
@@ -131,6 +134,7 @@ $(function() {
                 cp: cp,
                 cuenta: cuenta,
                 clabe: clabe,
+                convenio_cie: convenio_cie,
                 _token: _token,
                 _method: _method
             },

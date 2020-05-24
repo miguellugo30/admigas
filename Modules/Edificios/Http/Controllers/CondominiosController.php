@@ -29,7 +29,7 @@ class CondominiosController extends Controller
         /**
          * Recuperamos los edificios de la unidad
          */
-        $edificios = AdmigasEdificios::unidad( $id )->get();
+        $edificios = AdmigasEdificios::active()->unidad( $id )->get();
 
         return view('edificios::condominios.index', compact( 'unidad', 'edificios' ));
     }
@@ -86,7 +86,7 @@ class CondominiosController extends Controller
         /**
          * Obtenemos el registro selecionado
          */
-        $condominio = AdmigasEdificios::where('id', $id)->get();
+        $condominio = AdmigasEdificios::active()->where('id', $id)->get();
         /**
          * Obtenemos los departamentos del condominios
          */
@@ -102,7 +102,17 @@ class CondominiosController extends Controller
      */
     public function edit($id)
     {
-        return view('edificios::edit');
+        /**
+         * Recuperamos la informacion de la zona
+         */
+        $condominio = AdmigasEdificios::where('id', $id)->first();
+        $tanquesCondominio = $condominio->Tanques->pluck('id')->toArray();
+        /**
+         * Recuperamos los tanques de la unidad
+         */
+        $tanques = AdmigasTanques::where( 'admigas_unidades_id', $condominio->admigas_unidades_id )->get();
+
+        return view('edificios::condominios.edit',compact('condominio', 'tanques', 'tanquesCondominio'));
     }
 
     /**
@@ -113,7 +123,22 @@ class CondominiosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /**
+         * Creamos el nuevo registro
+         */
+        $condominio = AdmigasEdificios::find( $id );
+
+        $condominio->tipo = $request->tipo;
+        $condominio->nombre = $request->nombre;
+        $condominio->descuento = $request->descuento;
+        $condominio->factor = $request->factor;
+        $condominio->gasto_admin = $request->gasto_admin;
+        $condominio->fecha_lectura = $request->fecha_lectura;
+
+        $condominio->save();
+
+        $condominio->Tanques()->detach();
+        $condominio->Tanques()->attach($request->tanques);
     }
 
     /**
@@ -123,6 +148,9 @@ class CondominiosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        AdmigasEdificios::where('id', $id)
+        ->update([
+            'activo' => 0
+        ]);
     }
 }

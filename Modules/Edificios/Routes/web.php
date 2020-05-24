@@ -19,6 +19,7 @@ Route::prefix('edificios')->group(function() {
  */
 Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
     Route::resource('zonas','ZonasController');
+    Route::get('zonas-breadcrumb/{id_zona}', 'ZonasController@breadcrumb' )->name('zona.breadcrumb');
 });
 /*
  * Rutas para CRUD de Unidades
@@ -26,6 +27,7 @@ Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 
 Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
     Route::resource('unidades','UnidadesController');
     Route::get('zonas-unidades/{id_zona}', 'UnidadesController@index' )->name('zona.unidades');
+    Route::get('unidades-breadcrumb/{id_unidad}', 'UnidadesController@breadcrumb' )->name('unidades.breadcrumb');
 });
 /*
  * Rutas para CRUD de Condominios

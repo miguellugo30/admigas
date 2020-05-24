@@ -43,6 +43,10 @@
             <input type="text" class="form-control form-control-sm" id="clabe" placeholder="Clabe Interbancaria">
         </div>
         <div class="form-group">
+            <label for="clabe">Convenio CIE *:</label>
+            <input type="text" class="form-control form-control-sm" id="convenio_cie" placeholder="Convenio CIE">
+        </div>
+        <div class="form-group">
             <small class="form-text text-muted"> <b>*Campos obligatorios.</b></small>
         </div>
         <div class="alert alert-danger print-error-msg" role="alert" style="display:none">
