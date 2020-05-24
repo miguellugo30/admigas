@@ -19,6 +19,7 @@ mix.js([
         'resources/js/module_config/empresas.js',
         'resources/js/module_config/menus.js',
         'resources/js/module_config/servicios.js',
+        'resources/js/module_config/lecturistas.js',
     ], 'public/js/configuracion.js')
     .js([
         'resources/js/module_edificios/zonas.js',

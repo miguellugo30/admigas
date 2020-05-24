@@ -26,6 +26,9 @@ $(function() {
         } else if (id == '6') {
             url = currentURL + '/empresas';
             table = ' #table-empresas';
+        } else if (id == '7') {
+            url = currentURL + '/lecturistas';
+            table = ' #table-lecturistas';
         }
 
         $.get(url, function(data, textStatus, jqXHR) {

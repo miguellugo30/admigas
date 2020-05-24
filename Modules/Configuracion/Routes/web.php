@@ -50,3 +50,9 @@ Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix'
 Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
     Route::resource('servicios','ServiciosController');
 });
+/*
+ * Rutas para CRUD de Lecturistas
+ */
+Route::group(['namespace' => '\Modules\Configuracion\Http\Controllers', 'prefix' => 'configuracion', 'middleware' => 'auth'], function() {
+    Route::resource('lecturistas','LecturistasController');
+});
