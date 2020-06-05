@@ -180,12 +180,21 @@ $(function () {
    * Evento para mostrar regresar a zonas
    */
 
-  $(document).on('change', '#tipo', function (event) {
-    if ($(this).val() == 1) {
-      $(".tipo-punto-venta").slideUp();
-    } else {
-      $(".tipo-punto-venta").slideDown();
-    }
+  $(document).on('click', '.returnCondominio', function (event) {
+    event.preventDefault();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var url = currentURL + "/condominios/" + admigas_condominios_id;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        $('.viewResult').html(result);
+        $('#table-departamentos').DataTable({
+          "responsive": true,
+          "autoWidth": false
+        });
+      }
+    });
   });
   /**
    * Funcion para mostrar los errores de los formularios
@@ -582,20 +591,33 @@ $(function () {
 
   $(document).on('click', '.updateDepartamento', function (event) {
     event.preventDefault();
+    var numero_departamento = $("#numero_departamento").val();
+    var numero_referencia = $("#numero_referencia").val();
     var nombre = $("#nombre").val();
-    var mensaje = $("#mensaje").val();
-    var id = $("#idSeleccionado").val();
+    var apellidos = $("#apellidos").val();
+    var telefono = $("#telefono").val();
+    var celular = $("#celular").val();
+    var correo_electronico = $("#correo_electronico").val();
+    var admigas_departamentos_id = $("#admigas_departamentos_id").val();
+    var id_condominio = $("#id_condominio").val();
 
     var _token = $("input[name=_token]").val();
 
     var _method = "PUT";
-    var url = currentURL + '/departamentos/' + id;
+    var url = currentURL + '/departamentos/' + admigas_departamentos_id;
     $.ajax({
       url: url,
       type: 'POST',
       data: {
+        numero_departamento: numero_departamento,
+        numero_referencia: numero_referencia,
         nombre: nombre,
-        mensaje: mensaje,
+        apellidos: apellidos,
+        telefono: telefono,
+        celular: celular,
+        correo_electronico: correo_electronico,
+        admigas_departamentos_id: admigas_departamentos_id,
+        id_condominio: id_condominio,
         _token: _token,
         _method: _method
       },
@@ -643,7 +665,10 @@ $(function () {
           },
           success: function success(result) {
             $('.viewResult').html(result);
-            $('.viewCreate').slideUp();
+            $('#table-departamentos').DataTable({
+              "responsive": true,
+              "autoWidth": false
+            });
             Swal.fire('Eliminado!', 'El registro ha sido eliminado.', 'success');
           }
         });
@@ -701,6 +726,39 @@ $(function () {
       $(".list-deptos-capture").html(data);
       $(".list-deptos-capture").slideDown();
     });
+  });
+  /**
+   * Evento para generar recibos
+   */
+
+  $(document).on('click', '.generateRecibos', function (event) {
+    event.preventDefault();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var fecha_recibo = $("#fecha_recibo").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/recibos';
+
+    if (fecha_recibo == "") {
+      Swal.fire('Tenemos un problema!', 'No se ha seleccionado una fecha de recibo.', 'error');
+    } else {
+      $.post(url, {
+        admigas_condominios_id: admigas_condominios_id,
+        fecha_recibo: fecha_recibo,
+        _token: _token
+      }, function (data, textStatus, xhr) {
+        $('.viewResult').html(result);
+        $('#table-departamentos').DataTable({
+          "responsive": true,
+          "autoWidth": false
+        });
+      }).done(function () {
+        Swal.fire('Correcto!', 'Se ha generado correctamente los recibos.', 'success');
+      }).fail(function (data) {
+        printErrorMsg(data.responseJSON.errors);
+      });
+    }
   });
 });
 

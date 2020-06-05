@@ -40,6 +40,6 @@ class AdmigasContactoDepartamentos extends Model
      */
     public function Departamento_Contacto()
     {
-        return $this->belongsTo('App\AdmigasDepartamentos', 'id', 'admigas_condominios_id');
+        return $this->belongsTo('App\AdmigasDepartamentos', 'id', 'admigas_departamentos_id');
     }
 }

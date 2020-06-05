@@ -19,11 +19,12 @@ class DeptosEjemploSeeder extends Seeder
             /**
              * Creamos el nuevo departamento
              */
+            $referencia = $faker->creditCardNumber;
             $depto = DB::table('admigas_departamentos')->insertGetId([
-                                                                    'numero_departamento' => $faker->randomNumber(3,false),
-                                                                    'numero_referencia' =>  $faker->creditCardNumber,
-                                                                    'admigas_condominios_id' => 1
-                                                                ]);
+                                                                        'numero_departamento' => $faker->randomNumber(3,false),
+                                                                        'numero_referencia' =>  $faker->creditCardNumber,
+                                                                        'admigas_condominios_id' => 1
+                                                                    ]);
             /**
             * Creamos el contacto del departamento
             */
@@ -35,6 +36,16 @@ class DeptosEjemploSeeder extends Seeder
                                                                     'correo_electronico' => $faker->unique()->email,
                                                                     'admigas_departamentos_id' => $depto
                                                                 ]);
+            /**
+             * Creamos el saldo inicial
+             */
+            DB::table('admigas_saldos')->insert([
+                                                    'referencia' => $referencia,
+                                                    'total_recibos' => 0,
+                                                    'total_pagos' => 0,
+                                                    'saldo' => 0,
+                                                    'admigas_departamentos_id' => $depto
+                                                ]);
             /**
             * Creamos el medidor
             */

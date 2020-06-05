@@ -63,4 +63,18 @@ class AdmigasDepartamentos extends Model
     {
         return $this->hasMany('App\AdmigasLecturasMedidores', 'admigas_departamentos_id', 'id');
     }
+    /**
+     * Relacion uno a uno con Saldos
+     */
+    public function Saldo()
+    {
+        return $this->hasOne('App\AdmigasSaldos', 'admigas_departamentos_id', 'id');
+    }
+    /**
+     * Relacion uno a muchos con recibos
+     */
+    public function Recibos()
+    {
+        return $this->hasMany('App\AdmigasRecibos', 'admigas_departamentos_id', 'id');
+    }
 }

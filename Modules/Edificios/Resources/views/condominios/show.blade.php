@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="card-body">
-        <table id="table-departamentos" class="table table-sm table-bordered table-striped dataTable" role="grid">
+        <table id="table-departamentos" class="table table-sm table-bordered table-striped dataTable compact" role="grid">
             <thead class="thead-light">
                 <tr>
                     <th>Depto</th>
@@ -51,10 +51,18 @@
                 @foreach ($deptos as $depto)
                     <tr data-id='{{ $depto->id }}'>
                         <td>{{ $depto->numero_departamento }}</td>
-                        <td>{{ $depto->Contacto_Depto()->first()->nombre." ".$depto->Contacto_Depto()->first()->apellidos }}</td>
-                        <td>{{ $depto->Medidores()->first()->numero_serie }}</td>
-                        <td>{{ $depto->Medidores()->first()->lectura }}</td>
-                        <td>Estatus</td>
+                        <td>{{ $depto->Contacto_Depto->nombre." ".$depto->Contacto_Depto->apellidos }}</td>
+                        <td>{{ $depto->Medidores->numero_serie }}</td>
+                        <td>{{ $depto->Medidores->lectura }}</td>
+                        <td class="text-center">
+                            @if ( $depto->Saldo->saldo == 0 )
+                                <i class="fas fa-circle text-success"></i>
+                            @elseif( $depto->Saldo->saldo > 0  )
+                                <i class="fas fa-circle text-danger"></i>
+                            @elseif( $depto->Saldo->saldo < 0  )
+                                <i class="fas fa-circle text-primary"></i>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

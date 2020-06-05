@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "nwidart/laravel-modules": "^6.2",
+        "qoraiche/laravel-mail-editor": "^2.0",
         "spatie/laravel-permission": "^3.11"
     },
     "require-dev": {

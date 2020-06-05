@@ -4,17 +4,38 @@ namespace Modules\Edificios\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
+use App\Http\Controllers\QuerysJoinController;
 use DB;
 /**
  * Modelos
  */
 use App\AdmigasEdificios;
-use App\AdmigasDepartamentos;
-
+use App\AdmigasLecturistas;
 
 class CapturaLecturaController extends Controller
 {
+    private $empresa_id;
+    private $edificio;
+    private $query;
+    private $lecturistas;
+    /**
+     * Constructor para obtener el id empresa
+     * con base al usuario que esta usando la sesion
+     */
+    public function __construct(AdmigasEdificios $edificio, QuerysJoinController $query, AdmigasLecturistas $lecturistas)
+    {
+        $this->middleware(function ($request, $next) {
+            $this->empresa_id = Auth::user()->admigas_empresas_id;
+
+            return $next($request);
+        });
+
+        $this->edificio = $edificio;
+        $this->query = $query;
+        $this->lecturistas = $lecturistas;
+    }
     /**
      * Display a listing of the resource.
      * @return Response
@@ -31,28 +52,19 @@ class CapturaLecturaController extends Controller
     public function create( $id )
     {
         /**
+         * Obtenemos los lecturistas de la empresa
+         */
+        $lecturistas = $this->lecturistas->empresa( $this->empresa_id )->active()->get();
+        /**
          * Obtenemos el registro selecionado
          */
-        $condominio = AdmigasEdificios::where('id', $id)->get();
+        $condominio = $this->edificio->where('id', $id)->get();
         /**
          * Obtenemos los departamentos del condominios
          */
-        $deptos = DB::table('admigas_departamentos')
-                        ->join( 'admigas_contacto_departamentos', 'admigas_departamentos.id', '=', 'admigas_contacto_departamentos.admigas_departamentos_id' )
-                        ->join( 'admigas_medidores', 'admigas_departamentos.id', '=', 'admigas_medidores.admigas_departamentos_id' )
-                        ->select(
-                                    'admigas_departamentos.id AS departamento_id',
-                                    'admigas_departamentos.numero_departamento',
-                                    'admigas_contacto_departamentos.nombre',
-                                    'admigas_contacto_departamentos.apellidos',
-                                    'admigas_medidores.id AS medidor_id',
-                                    'admigas_medidores.numero_serie',
-                                    DB::raw("(SELECT admigas_lecturas_medidores.lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1 ) AS lectura_anterior")
-                                )
-                        ->where('admigas_departamentos.admigas_condominios_id', $id)
-                        ->get();
+        $deptos = $this->query->queryCapturaLecturas( $id );
 
-        return view('edificios::captura.create', compact('condominio', 'deptos'));
+        return view('edificios::captura.create', compact('condominio', 'deptos', 'lecturistas'));
     }
 
     /**

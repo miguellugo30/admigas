@@ -90,7 +90,9 @@ class CondominiosController extends Controller
         /**
          * Obtenemos los departamentos del condominios
          */
-        $deptos = AdmigasDepartamentos::active()->where( 'admigas_condominios_id', $id )->with('Contacto_Depto')->with('Medidores')->get();
+        $deptos = AdmigasDepartamentos::active()->where( 'admigas_condominios_id', $id )->with('Contacto_Depto')->with('Medidores')->with('Saldo')->get();
+
+        //dd( $deptos );
 
         return view('edificios::condominios.show', compact('condominio', 'deptos'));
     }

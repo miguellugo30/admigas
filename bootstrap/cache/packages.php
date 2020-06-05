@@ -70,6 +70,17 @@
       'Module' => 'Nwidart\\Modules\\Facades\\Module',
     ),
   ),
+  'qoraiche/laravel-mail-editor' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'qoraiche\\mailEclipse\\mailEclipseServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'mailEclipse' => 'qoraiche\\mailEclipse\\Facades\\mailEclipse',
+    ),
+  ),
   'spatie/laravel-permission' => 
   array (
     'providers' => 

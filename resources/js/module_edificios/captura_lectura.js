@@ -102,24 +102,28 @@ $(function() {
             });
         }
     });
-
-
-
-
-
-
-
-
     /**
      * Evento para mostrar regresar a zonas
      */
-    $(document).on('change', '#tipo', function(event) {
+    $(document).on('click', '.returnCondominio', function(event) {
+        event.preventDefault();
 
-        if ($(this).val() == 1) {
-            $(".tipo-punto-venta").slideUp();
-        } else {
-            $(".tipo-punto-venta").slideDown();
-        }
+        let admigas_condominios_id = $("#admigas_condominios_id").val();
+
+        let url = currentURL + "/condominios/" + admigas_condominios_id;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function(result) {
+                $('.viewResult').html(result);
+                $('#table-departamentos').DataTable({
+                    "responsive": true,
+                    "autoWidth": false,
+                });
+            }
+        });
+
 
     });
     /**
@@ -136,4 +140,5 @@ $(function() {
             }
         }
     }
+
 });

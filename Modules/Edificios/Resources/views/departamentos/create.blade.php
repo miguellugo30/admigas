@@ -43,11 +43,11 @@
     <div class="col-4">
         <fieldset>
             <legend>Datos Medidor</legend>
-            <div class="form-group">
+            <!--div class="form-group">
                 <label for="tipo">Tipo *:</label>
-                <input type="text" class="form-control form-control-sm" id="tipo" placeholder="tipo">
-            </div>
+            </div-->
             <div class="form-group">
+                <input type="hidden" class="form-control form-control-sm" id="tipo" placeholder="tipo" value="1">
                 <label for="marca">Marca :</label>
                 <input type="text" class="form-control form-control-sm" id="marca" placeholder="Marca">
             </div>

@@ -13,9 +13,34 @@ use App\AdmigasDepartamentos;
 use App\AdmigasContactoDepartamentos;
 use App\AdmigasMedidores;
 use App\AdmigasLecturasMedidores;
+use App\AdmigasSaldos;
 
 class DepartamentosController extends Controller
 {
+    private $departamentos;
+    private $contactoDepartamento;
+    private $medidores;
+    private $lecturasMedidores;
+    private $saldos;
+    /**
+     * Constructor para obtener el id empresa
+     * con base al usuario que esta usando la sesion
+     */
+    public function __construct(
+        AdmigasDepartamentos $departamentos,
+        AdmigasContactoDepartamentos $contactoDepartamento,
+        AdmigasMedidores $medidores,
+        AdmigasLecturasMedidores $lecturasMedidores,
+        AdmigasSaldos $saldos
+    )
+    {
+
+        $this->departamentos = $departamentos;
+        $this->contactoDepartamento = $contactoDepartamento;
+        $this->medidores = $medidores;
+        $this->lecturasMedidores = $lecturasMedidores;
+        $this->saldos = $saldos;
+    }
     /**
      * Display a listing of the resource.
      * @return Response
@@ -44,7 +69,7 @@ class DepartamentosController extends Controller
         /**
          * Creamos el nuevo departamento
          */
-        $depto = AdmigasDepartamentos::create([
+        $depto = $this->departamentos->create([
                                                 'numero_departamento' => $request->numero_departamento,
                                                 'numero_referencia' =>  $request->numero_referencia,
                                                 'admigas_condominios_id' => $request->admigas_condominios_id
@@ -52,7 +77,7 @@ class DepartamentosController extends Controller
         /**
          * Creamos el contacto del departamento
          */
-        AdmigasContactoDepartamentos::create([
+        $this->contactoDepartamento->create([
                                                 'nombre' => $request->nombre,
                                                 'apellidos' =>  $request->apellidos,
                                                 'telefono' => $request->telefono,
@@ -61,9 +86,19 @@ class DepartamentosController extends Controller
                                                 'admigas_departamentos_id' => $depto->id
                                             ]);
         /**
+         * Damos de alta su nuevo saldo
+         */
+        $this->saldos->create([
+                                'referencia' => $request->numero_referencia,
+                                'total_recibos' => 0,
+                                'total_pagos' => 0,
+                                'saldo' => 0,
+                                'admigas_departamentos_id' => $depto->id,
+                            ]);
+        /**
          * Creamos el medidor
          */
-        $medidor = AdmigasMedidores::create([
+        $medidor = $this->medidores->create([
                                                 'tipo' => $request->tipo,
                                                 'marca' =>  $request->marca,
                                                 'numero_serie' => $request->numero_serie,
@@ -73,7 +108,7 @@ class DepartamentosController extends Controller
         /**
          * Insertamos la lectura inicial de los medidores
          */
-        AdmigasLecturasMedidores::create([
+        $this->lecturasMedidores->create([
                                             'lectura' => $request->lectura,
                                             'fecha_lectura' =>  $request->fecha_lectura,
                                             'admigas_departamentos_id' => $depto->id,
@@ -104,7 +139,11 @@ class DepartamentosController extends Controller
      */
     public function edit($id)
     {
-        return view('edificios::departamentos.edit');
+        $depto = $this->departamentos->where( 'id', $id )->with('Medidores')->with('Contacto_Depto')->first();
+
+        //dd( $depto );
+
+        return view('edificios::departamentos.edit', compact('depto'));
     }
 
     /**
@@ -115,7 +154,29 @@ class DepartamentosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /**
+         * Creamos el nuevo departamento
+         */
+        $this->departamentos->where('id', $request->admigas_departamentos_id)
+                                    ->update([
+                                            'numero_departamento' => $request->numero_departamento,
+                                            'numero_referencia' =>  $request->numero_referencia
+                                        ]);
+        /**
+        * Creamos el contacto del departamento
+        */
+        $this->contactoDepartamento->where('admigas_departamentos_id', $request->admigas_departamentos_id)
+                                    ->update([
+                                        'nombre' => $request->nombre,
+                                        'apellidos' =>  $request->apellidos,
+                                        'telefono' => $request->telefono,
+                                        'celular' => $request->celular,
+                                        'correo_electronico' => $request->correo_electronico
+                                    ]);
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('condominios.show', [$request->id_condominio]);
     }
 
     /**
@@ -125,6 +186,16 @@ class DepartamentosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $idCondominio = $this->departamentos->select('admigas_condominios_id')->where('id', $id)->first();
+
+        $this->departamentos->where('id', $id)
+                                    ->update([
+                                            'activo' => 0
+                                        ]);
+         /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('condominios.show', [$idCondominio->admigas_condominios_id]);
+
     }
 }

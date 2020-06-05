@@ -61,5 +61,6 @@ Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 
  */
 Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
     Route::get('generar-recibos/{id_condominios}', 'RecibosController@create' )->name('captura.lectura');
+    Route::get('enviar-recibos/{id_condominios}', 'RecibosController@sendRecibos' )->name('envio.recibos');
     Route::resource('recibos','RecibosController');
 });

@@ -110,20 +110,33 @@ $(function() {
     $(document).on('click', '.updateDepartamento', function(event) {
         event.preventDefault();
 
+        let numero_departamento = $("#numero_departamento").val();
+        let numero_referencia = $("#numero_referencia").val();
         let nombre = $("#nombre").val();
-        let mensaje = $("#mensaje").val();
-        let id = $("#idSeleccionado").val();
+        let apellidos = $("#apellidos").val();
+        let telefono = $("#telefono").val();
+        let celular = $("#celular").val();
+        let correo_electronico = $("#correo_electronico").val();
+        let admigas_departamentos_id = $("#admigas_departamentos_id").val();
+        let id_condominio = $("#id_condominio").val();
 
         let _token = $("input[name=_token]").val();
         let _method = "PUT";
-        let url = currentURL + '/departamentos/' + id;
+        let url = currentURL + '/departamentos/' + admigas_departamentos_id;
 
         $.ajax({
             url: url,
             type: 'POST',
             data: {
+                numero_departamento: numero_departamento,
+                numero_referencia: numero_referencia,
                 nombre: nombre,
-                mensaje: mensaje,
+                apellidos: apellidos,
+                telefono: telefono,
+                celular: celular,
+                correo_electronico: correo_electronico,
+                admigas_departamentos_id: admigas_departamentos_id,
+                id_condominio: id_condominio,
                 _token: _token,
                 _method: _method
             },
@@ -173,7 +186,10 @@ $(function() {
                     },
                     success: function(result) {
                         $('.viewResult').html(result);
-                        $('.viewCreate').slideUp();
+                        $('#table-departamentos').DataTable({
+                            "responsive": true,
+                            "autoWidth": false,
+                        });
                         Swal.fire(
                             'Eliminado!',
                             'El registro ha sido eliminado.',
