@@ -103,7 +103,23 @@ class RecibosController extends Controller
      */
     public function show($id)
     {
-        return view('edificios::recibos.show');
+        /**
+         * Obtenemos los recibos del condominio
+         */
+        $recibos = $this->recibos->where('admigas_condominios_id', $id)->where('fecha_recibo', 'like', '2020-05%')->take(2)->get();
+
+        $pdf = app('dompdf.wrapper');
+
+        //$url_recibo = file_get_contents( \Storage::url('recibo/recibo_2G.jpg') );
+        $url_recibo = file_get_contents( public_path('storage\recibo\recibo_2G.jpg') );
+
+        return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo' ) )
+                    ->setPaper(array(0, 0, 595.28, 756.00))
+                    ->stream('archivo.pdf');
+
+        //return $pdf->stream('archivo.pdf');
+        //return $pdf->download('mi-archivo.pdf');
+        //return view('edificios::recibos.show', compact( 'recibos', 'url_recibo' ) );
     }
 
     /**
