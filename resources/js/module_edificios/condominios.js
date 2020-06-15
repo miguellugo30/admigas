@@ -17,7 +17,6 @@ $(function() {
         let url = currentURL + '/condominios-create/' + admigas_unidades_id;
 
         $.get(url, function(data, textStatus, jqXHR) {
-            console.log(data);
             $('#modal-condominio').modal('show');
             $("#modal-condominio #modal-body").html(data);
         });

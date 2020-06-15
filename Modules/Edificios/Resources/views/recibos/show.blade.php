@@ -6,7 +6,8 @@
     @page {
             margin: 0px 0px 0px 0px !important;
             padding: 0px 0px 0px 0px !important;
-            font-size: 12px;
+            font-size: 16px;
+            font-family: Arial, Helvetica, sans-serif;
     }
     .contenido{
         position: absolute;
@@ -24,7 +25,7 @@
         width: 100%;
         height: 140px;
         margin: 5px;
-        /*background-color: yellow;*/
+        /* background-color: yellow; */
         overflow: hidden;
     }
     .col-sm-6{
@@ -32,7 +33,31 @@
         height: auto;
         padding: 10px;
         float:left;
-        /*background-color: blue;*/
+    }
+    .folio{
+        text-align: right;
+        margin-top: 52px;
+        margin-right: 50px;
+        /* background-color: blue; */
+    }
+    .data-client{
+        width: 100%;
+        margin-top: -35px;
+        margin-left: 90px;
+        font-size: 14px;
+    }
+   .data-client .address{
+       margin-left: 18px;
+       margin-top: -14px;
+   }
+    .data-total-pay{
+        text-align: center;
+        margin-left: 175px;
+        margin-top: -10px;
+        height: 150px;
+    }
+    .data-total-pay p{
+        margin-bottom: -7px;
     }
 
 </style>
@@ -42,46 +67,25 @@
 
 <div class="fondo">
 
-    <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="800" height="1000">
-
     @foreach ($recibos as $recibo)
-
+    
+        <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
         <div class="contenido">
             <div class="invoice p-3 mb-3">
-                <!-- title row -->
-                <div class="row">
-                <div class="col-12">
-                    <h4>
-                    <i class="fas fa-globe"></i>
-                    <small class="float-right">{{ $recibo->clave_recibo }}</small>
-                    </h4>
+                <div class="col-12 folio">
+                    <h4>{{ $recibo->clave_recibo }}</h4>
                 </div>
-                <!-- /.col -->
+                <div class="col data-client">
+                    <p>{{ $recibo->condomino }}</p>
+                    <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
+                    <p class="address">{{ $recibo->colonia.", ".$recibo->delegacion.", C.P.:".$recibo->cp }}</p>
                 </div>
-                <!-- info row -->
-                <div class="row invoice-info">
-                <div class="col-sm-6 invoice-col">
-                    DATOS CLIENTE
-                    <address>
-                    <strong>Admin, Inc.</strong><br>
-                    795 Folsom Ave, Suite 600<br>
-                    San Francisco, CA 94107<br>
-                    Phone: (804) 123-5432<br>
-                    Email: info@almasaeedstudio.com
-                    </address>
-                </div>
-                <!-- /.col -->
-                <div class="col-sm-6 invoice-col">
-                    <b>PERIODO DE CONSUMO</b><br>
+                <div class="col data-total-pay">
                     <br>
-                    <b>Order ID:</b> 4F3S8J<br>
-                    <b>Payment Due:</b> 2/22/2014<br>
-                    <b>Account:</b> 968-34567
+                    <p><b>{{ "$ ".number_format( ( $recibo->importe + $recibo->adeduo_anterior + $recibo->cargos_adicionales ),2 )  }}</b></p>
+                    <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
+                    <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
                 </div>
-                <!-- /.col -->
-                </div>
-                <!-- /.row -->
-                <!-- Table row -->
                 <div class="row invoice-info">
                     <div class="col-sm-6 invoice-col">
                         ULTIMOS ^ MESES DE CONSUMO
@@ -93,7 +97,7 @@
                         Email: info@almasaeedstudio.com
                         </address>
                     </div>
-                    <!-- /.col -->
+
                     <div class="col-sm-6 invoice-col">
                         <b>DETALLE DE CONSUMO</b><br>
                         <br>

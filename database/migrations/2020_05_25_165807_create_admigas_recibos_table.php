@@ -36,7 +36,7 @@ class CreateAdmigasRecibosTable extends Migration
             $table->float('adeudo_anterior', 12,3);
             $table->float('cargos_adicionales', 12,3);
             $table->string('referencia', 45);
-            $table->string('motivo_cancelacion', 45);
+            $table->string('motivo_cancelacion', 45)->nullable();
             $table->tinyInteger('activo')->unsigned()->default(1);
             $table->integer('admigas_departamentos_id')->unsigned();
             $table->integer('admigas_condominios_id')->unsigned();

@@ -12,7 +12,9 @@ class RolesSeed extends Seeder
      */
     public function run()
     {
+        DB::select('SET FOREIGN_KEY_CHECKS = 0;');
         DB::table('roles')->truncate();
+        DB::select('SET FOREIGN_KEY_CHECKS = 1;');
 
         DB::table('roles')->insert([
             'name' => 'Super Administrador',

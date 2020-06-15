@@ -64,3 +64,10 @@ Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 
     Route::get('enviar-recibos/{id_condominios}', 'RecibosController@sendRecibos' )->name('envio.recibos');
     Route::resource('recibos','RecibosController');
 });
+/*
+ * Rutas para CRUD de Cargos Adicionales
+ */
+Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
+    Route::get('create-cargos-adicionales/{id_condominio}', 'CargosAdicionalesController@create' )->name('create.cargos-adicionales');
+    Route::resource('cargos-adicionales','CargosAdicionalesController');
+});

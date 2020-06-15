@@ -16,8 +16,8 @@ class CreateAdmigasZonasTable extends Migration
         Schema::create('admigas_zonas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre', 100);
-            $table->string('descripcion', 100);
-            $table->string('ruta_imagen', 100);
+            $table->string('descripcion', 100)->nullable();;
+            $table->string('ruta_imagen', 100)->nullable();
             $table->tinyInteger('activo')->unsigned()->default(1);;
             $table->integer('admigas_empresas_id')->unsigned();
             $table->timestamps();

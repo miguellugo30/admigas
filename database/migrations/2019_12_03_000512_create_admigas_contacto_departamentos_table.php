@@ -17,8 +17,8 @@ class CreateAdmigasContactoDepartamentosTable extends Migration
             $table->increments('id');
             $table->string('nombre', 100);
             $table->string('apellidos', 100);
-            $table->string('telefono', 10);
-            $table->string('celular', 10);
+            $table->string('telefono', 10)->nullable();
+            $table->string('celular', 10)->nullable();
             $table->string('correo_electronico', 100);
             $table->tinyInteger('activo')->unsigned()->default(1);;
             $table->integer('admigas_departamentos_id')->unsigned();

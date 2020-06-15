@@ -10,7 +10,7 @@ class AdmigasSaldos extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'referencia', 'total_recibos', 'total_pagos', 'saldo',
+        'referencia', 'total_recibos', 'total_pagos', 'saldo', 'admigas_departamentos_id'
     ];
     /**
      * Nombre de la tabla

@@ -77,4 +77,11 @@ class AdmigasDepartamentos extends Model
     {
         return $this->hasMany('App\AdmigasRecibos', 'admigas_departamentos_id', 'id');
     }
+    /**
+     * Relacion uno a muchos con cargos adicionales
+     */
+    public function CargosAdicionales()
+    {
+        return $this->hasMany('App\AdmigasCargosAdicionales', 'admigas_departamentos_id', 'id');
+    }
 }

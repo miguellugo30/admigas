@@ -39,4 +39,11 @@ class AdmigasServicios extends Model
     {
         return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
     }
+    /**
+     * Relacion uno a muchos con cargos adicionales
+     */
+    public function CargosAdicionales()
+    {
+        return $this->hasMany('App\AdmigasCargosAdicionales', 'admigas_servicios_id', 'id');
+    }
 }

@@ -65,6 +65,14 @@ class MenusSeeder extends Seeder
             'permiso' => 'view empresas',
             'admigas_cat_modulos_id' => '4',
         ]);
+        
+        DB::table('admigas_menus')->insert([
+            'nombre' => 'Lecturistas',
+            'url' => '/lecturistas',
+            'icono' => 'fas fa-user-edit',
+            'permiso' => 'view lecturistas',
+            'admigas_cat_modulos_id' => '4',
+        ]);
 
     }
 }

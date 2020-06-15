@@ -43,7 +43,7 @@ $(function() {
                 _token: _token
             }, function(data, textStatus, xhr) {
 
-                $('.viewResult').html(result);
+                $('.viewResult').html(data);
                 $('#table-departamentos').DataTable({
                     "responsive": true,
                     "autoWidth": false,

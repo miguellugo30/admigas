@@ -15,11 +15,8 @@ class CreateAdmigasCargosAdicionalesTable extends Migration
     {
         Schema::create('admigas_cargos_adicionales', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('importe', 8,2);
             $table->integer('plazo')->unsigned();
             $table->integer('periodo')->unsigned();
-            $table->integer('pago')->unsigned();
-            $table->date('fecha');
             $table->tinyInteger('activo')->unsigned()->default(1);
             $table->integer('admigas_servicios_id')->unsigned();
             $table->integer('admigas_departamentos_id')->unsigned();

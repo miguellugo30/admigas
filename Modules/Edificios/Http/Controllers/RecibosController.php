@@ -67,8 +67,13 @@ class RecibosController extends Controller
         $deptos = $this->query->queryRecibos( $id );
 
         $data = $this->query->calcularConsumos( $deptos, $condominio, $this->empresa_id );
+        
+        if ( $data->has('error')  ) {
+            return '<div class="alert alert-danger text-center" role="alert">No se ha dado de alta un <b>precio de gas<b></div>';
+        } else {
+            return view('edificios::recibos.create', compact('condominio', 'data'));
+        }
 
-        return view('edificios::recibos.create', compact('condominio', 'data'));
     }
 
     /**
@@ -88,7 +93,6 @@ class RecibosController extends Controller
         $deptos = $this->query->queryRecibos( $request->admigas_condominios_id );
 
         $this->query->generarRecibos( $deptos, $condominio, $this->empresa_id, $request->fecha_recibo );
-
         /**
          * Redirigimos a la ruta index
          */
@@ -106,15 +110,15 @@ class RecibosController extends Controller
         /**
          * Obtenemos los recibos del condominio
          */
-        $recibos = $this->recibos->where('admigas_condominios_id', $id)->where('fecha_recibo', 'like', '2020-05%')->take(2)->get();
+        $recibos = $this->recibos->where('admigas_condominios_id', $id)->where('fecha_recibo', 'like', '2020-07%')->take(2)->get();
 
         $pdf = app('dompdf.wrapper');
 
         //$url_recibo = file_get_contents( \Storage::url('recibo/recibo_2G.jpg') );
-        $url_recibo = file_get_contents( public_path('storage\recibo\recibo_2G.jpg') );
+        $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.jpeg') );
 
         return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo' ) )
-                    ->setPaper(array(0, 0, 595.28, 756.00))
+                    ->setPaper('A5')
                     ->stream('archivo.pdf');
 
         //return $pdf->stream('archivo.pdf');

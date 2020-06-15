@@ -11,7 +11,9 @@ class PermisosSeeder extends Seeder
      */
     public function run()
     {
+        DB::select('SET FOREIGN_KEY_CHECKS = 0;');
         DB::table('permissions')->truncate();
+        DB::select('SET FOREIGN_KEY_CHECKS = 1;');
 
         DB::table('permissions')->insert([
             'name' => 'view usuarios',
@@ -130,6 +132,26 @@ class PermisosSeeder extends Seeder
 
         DB::table('permissions')->insert([
             'name' => 'delete empresas',
+            'guard_name' => 'web',
+        ]);
+        
+        DB::table('permissions')->insert([
+            'name' => 'view lecturistas',
+            'guard_name' => 'web',
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'create lecturistas',
+            'guard_name' => 'web',
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'edit lecturistas',
+            'guard_name' => 'web',
+        ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'delete lecturistas',
             'guard_name' => 'web',
         ]);
     }

@@ -29,6 +29,7 @@ mix.js([
         'resources/js/module_edificios/departamentos.js',
         'resources/js/module_edificios/captura_lectura.js',
         'resources/js/module_edificios/recibos.js',
+        'resources/js/module_edificios/cargos_adicionales.js',
     ], 'public/js/edificios.js');
 /*
     .sass('resources/sass/app.scss', 'public/css');

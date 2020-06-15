@@ -5,20 +5,29 @@
       </h3>
       <div class="card-tools">
         <button type="button" class="btn btn-info btn-sm returnCondominio" ><i class="fas fa-arrow-left"></i> Regresar</button>
-          <button type="button" class="btn btn-primary btn-sm generateRecibos" ><i class="fas fa-list-ol"></i> Generar Recibos</button>
-          <button type="button" class="btn btn-success btn-sm printRecibos" ><i class="fas fa-print"></i> Imprimir Recibos</button>
-          <button type="button" class="btn btn-info btn-sm sendRecibos" ><i class="fas fa-mail-bulk"></i> Enviar Recibos</button>
-          <button type="button" class="btn btn-danger btn-sm cancelRecibos" ><i class="fas fa-trash-alt"></i> Cancelar Recibos</button>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-info btn-sm generateRecibos" ><i class="fas fa-list-ol"></i> Generar Recibos</button>
+            <button type="button" class="btn btn-info btn-sm printRecibos" ><i class="fas fa-print"></i> Imprimir Recibos</button>
+            <button type="button" class="btn btn-info btn-sm sendRecibos" ><i class="fas fa-mail-bulk"></i> Enviar Recibos</button>
+            <button type="button" class="btn btn-danger btn-sm cancelRecibos" ><i class="fas fa-trash-alt"></i> Cancelar Recibos</button>
+        </div>
           <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
           <input type="hidden" name="admigas_condominios_id" id="admigas_condominios_id" value="{{ $condominio->first()->id }}">
     </div>
 </div>
 <div class="card-body">
-    <div class="col">
-        <div class="form-group">
-            <label for="nombre">Fecha de Recibos *:</label>
-            <input type="date" class="form-control form-control-sm" id="fecha_recibo" name="fecha_recibo" placeholder="Fecha de Lectura">
-            @csrf
+    <div class="row">
+        <div class="col-10">
+            <div class="form-group row">
+                <label for="nombre" class="col-sm-3 col-form-label text-right">Fecha de Recibos*:</label>
+                <div class="col-sm-9">
+                    <input type="date" class="form-control form-control-sm" id="fecha_recibo" name="fecha_recibo" placeholder="Fecha de Lectura">
+                    @csrf
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+                <button type="button" class="btn btn-primary btn-sm cargosAdicionales" ><i class="fas fa-file-invoice-dollar"></i> Cargos Adicionales</button>
         </div>
     </div>
     <form id="formLecturasCapture">
@@ -47,10 +56,10 @@
                         <td>{{ $depto->numero_serie }}</td>
                         <td>{{ $depto->lectura_anterior }}</td>
                         <td>{{ $depto->lectura_actual }}</td>
-                        <td>{{ number_format( $depto->consumo, 2 ) }} </td>
-                        <td></td>
-                        <td>{{ number_format( $depto->saldo , 2) }}</td>
-                        <td>{{ number_format( $depto->consumo +  $depto->saldo, 2 )  }}</td>
+                        <td>{{ "$ ".number_format( $depto->consumo, 2 ) }} </td>
+                        <td><a class="viewCargo" data-id_depto="{{ $depto->departamento_id }}" style="cursor: pointer">{{ "$ ".number_format( $depto->cargos , 2 ) }}</a></td>
+                        <td>{{ "$ ".number_format( $depto->saldo , 2) }}</td>
+                        <td>{{ "$ ".number_format( $depto->consumo + $depto->saldo + $depto->cargos , 2 )  }}</td>
                     </tr>
                 @endfor
             </tbody>

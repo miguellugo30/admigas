@@ -68,4 +68,12 @@ class AdmigasRecibos extends Model
     {
         return $this->belongsTo('App\AdmigasEdificios', 'admigas_condominios_id', 'id');
     }
+     /**
+     * Relacion uno a muchos con cargos recios
+     */
+    public function CargosRecibos()
+    {
+        return $this->belongsToMany('App\AdmigasCargosAdicionales', 'admigas_cargos_recibos');
+    }
+    
 }

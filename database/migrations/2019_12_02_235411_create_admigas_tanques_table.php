@@ -22,7 +22,7 @@ class CreateAdmigasTanquesTable extends Migration
             $table->date('fecha_desintalacion')->nullable();
             $table->date('fecha_fabricacion')->nullable();
             $table->string('estado_al_recibir');
-            $table->string('inventario');
+            $table->string('inventario')->nullable();
             $table->tinyInteger('activo')->unsigned()->default(1);;
             $table->integer('admigas_unidades_id')->unsigned();
             $table->timestamps();

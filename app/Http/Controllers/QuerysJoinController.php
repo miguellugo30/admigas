@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\AdmigasPrecioGas;
 use Carbon\Carbon;
 use DB;
-use Illuminate\Support\Collection;
+/**
+ * Modelos
+ */
+use App\AdmigasPrecioGas;
+use App\AdmigasCargosAdicionales;
 
 class QuerysJoinController extends Controller
 {
 
     private $precio_gas;
+    private $cargos;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
      */
-    public function __construct( AdmigasPrecioGas $precio_gas  )
+    public function __construct( AdmigasPrecioGas $precio_gas, AdmigasCargosAdicionales $cargos  )
     {
         $this->precio_gas = $precio_gas;
+        $this->cargos = $cargos;
     }
     /**
      * Query para mostrar los departamentos y su ultima lectura
@@ -72,27 +77,56 @@ class QuerysJoinController extends Controller
                     ->where('admigas_departamentos.activo', 1)
                     ->get();
     }
-
+    /**
+     * Funcion para calcular los consumos de cada departamento
+     */
     public function calcularConsumos($deptos, $condominio, $empresa_id )
     {
         /**
          * Recuperamos el precio del gas de la empresa
          */
         $precio = $this->precio_gas->select('precio')->empresa( $empresa_id )->active()->first();
+
+        if (  $precio == NULL) {
+            return collect([ 'error' => 1]);
+            exit();
+        }
         /**
          * Calculamos los consumos de cada departamento
          */
         for ($i=0; $i < count( $deptos ); $i++)
         {
             $depto = $deptos[$i];
+
+            $cargo = $this->cargosDepto( $depto->departamento_id );
+
+
             $depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
             $depto->litros = ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor;
-            $depto->consumo = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * $precio->precio;
+            $depto->consumo = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio->precio - $condominio->first()->descuento );
+            $depto->cargos = $this->cargosDepto( $depto->departamento_id );
         }
 
         return $deptos;
     }
+    /**
+     * Funcion para obtener los cargos activos de un departamento
+     */
+    public function cargosDepto( $departamento_id )
+    {
+        $cargo = $this->cargos->depto( $departamento_id )->active()->with('Servicios')->get();
 
+        $cargosPeriodo = 0;
+        foreach ($cargo as $c) {
+            
+            $cargosPeriodo = number_format( $cargosPeriodo + $c->Servicios->costo / $c->plazo, 2);
+        }
+
+        return (float)$cargosPeriodo;
+    }
+    /**
+     * Funcion para poder almacenar los recibos del periodo
+     */
     public function generarRecibos($deptos, $condominio, $empresa_id, $fecha_recibo)
     {
         /**
@@ -131,13 +165,12 @@ class QuerysJoinController extends Controller
             $v['precio_litro'] = $precio->precio;
             $v['importe'] = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * $precio->precio ;
             $v['adeudo_anterior'] = $depto->saldo;
-            $v['cargos_adicionales'] = '0';
+            $v['cargos_adicionales'] = $this->cargosDepto( $depto->departamento_id );
             $v['referencia'] = $depto->numero_referencia;
             $v['admigas_departamentos_id'] = $depto->departamento_id;
             $v['admigas_condominios_id'] = $condominio->id;
 
             array_push( $info, $v );
-
         }
         /**
          * Creamos los recibos

@@ -217,6 +217,127 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_edificios/cargos_adicionales.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/module_edificios/cargos_adicionales.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para mostrar el formulario de crear un nuevo modulo
+   */
+
+  $(document).on("click", ".cargosAdicionales", function (e) {
+    e.preventDefault();
+    $('#modal-condominio #tituloModal').html('Cargos Adicionales');
+    $('#modal-condominio #action').removeClass('updateCargosAdicionales');
+    $('#modal-condominio #action').addClass('saveCargosAdicionales');
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var url = currentURL + '/create-cargos-adicionales/' + admigas_condominios_id;
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-condominio').modal('show');
+      $("#modal-condominio #modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para clonar finas de la tabla
+   */
+
+  $(document).on('click', '#addDeptoCargos', function (event) {
+    var clickID = $(".tableNewForm tbody tr.clonar:last").attr('id').replace('tr_', ''); // Genero el nuevo numero id
+
+    var newID = parseInt(clickID) + 1;
+    var IDInput = ['depto']; //ID de los inputs dentro de la fila
+
+    fila = $(".tableNewForm tbody tr:eq()").clone().appendTo(".tableNewForm"); //Clonamos la fila
+
+    for (var i = 0; i < IDInput.length; i++) {
+      fila.find('#' + IDInput[i]).attr('name', IDInput[i] + "_" + newID); //Cambiamos el nombre de los campos de la fila a clonar
+    }
+
+    fila.find('.btn-danger').css('display', 'initial');
+    fila.attr("id", 'tr_' + newID);
+  });
+  /**
+   * Evento para eliminar una fila de la tabla 
+   */
+
+  $(document).on('click', '.tr_clone_remove', function () {
+    var tr = $(this).closest('tr');
+    tr.remove();
+  });
+  /**
+   * Evento para guardar 
+   */
+
+  $(document).on('click', '.saveCargosAdicionales', function (event) {
+    event.preventDefault();
+    var servicio = $("#servicio").val();
+    var plazo = $("#plazo").val();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var dataForm = $("#formCargosCapture").serializeArray();
+    var data = {};
+    $(dataForm).each(function (index, obj) {
+      data[obj.name] = obj.value;
+    });
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/cargos-adicionales';
+    $.post(url, {
+      dataForm: data,
+      servicio: servicio,
+      plazo: plazo,
+      admigas_condominios_id: admigas_condominios_id,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.modal-backdrop ').css('display', 'none');
+      $('#modal-condominio').modal('hide');
+      $('.viewResult').html(data);
+      Swal.fire('Correcto!', 'El registro ha sido guardado.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Evento para mostrar los cargos adicionales de un departamento
+   */
+
+  $(document).on("click", ".viewCargo", function (e) {
+    e.preventDefault();
+    $('#modal-condominio #tituloModal').html('Cargos Adicionales al Departamento');
+    $('#modal-condominio #action').removeClass('updateCargosAdicionales');
+    $('#modal-condominio #action').addClass('saveCargosAdicionales');
+    var id_depto = $(this).data('id_depto');
+    var url = currentURL + '/cargos-adicionales/' + id_depto;
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-condominio').modal('show');
+      $("#modal-condominio #modal-body").html(data);
+    });
+  });
+  /**
+   * Evento para eliminar un cargo de un departamento
+   */
+
+  $(document).on("click", ".viewCargo", function (e) {
+    e.preventDefault();
+    $('#modal-condominio #tituloModal').html('Cargos Adicionales al Departamento');
+    $('#modal-condominio #action').removeClass('updateCargosAdicionales');
+    $('#modal-condominio #action').addClass('saveCargosAdicionales');
+    var id_depto = $(this).data('id_depto');
+    var url = currentURL + '/cargos-adicionales/' + id_depto;
+    $.get(url, function (data, textStatus, jqXHR) {
+      $('#modal-condominio').modal('show');
+      $("#modal-condominio #modal-body").html(data);
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/module_edificios/condominios.js":
 /*!******************************************************!*\
   !*** ./resources/js/module_edificios/condominios.js ***!
@@ -238,7 +359,6 @@ $(function () {
     var admigas_unidades_id = $("#admigas_unidades_id").val();
     var url = currentURL + '/condominios-create/' + admigas_unidades_id;
     $.get(url, function (data, textStatus, jqXHR) {
-      console.log(data);
       $('#modal-condominio').modal('show');
       $("#modal-condominio #modal-body").html(data);
     });
@@ -748,7 +868,7 @@ $(function () {
         fecha_recibo: fecha_recibo,
         _token: _token
       }, function (data, textStatus, xhr) {
-        $('.viewResult').html(result);
+        $('.viewResult').html(data);
         $('#table-departamentos').DataTable({
           "responsive": true,
           "autoWidth": false
@@ -1355,19 +1475,20 @@ $(function () {
 /***/ }),
 
 /***/ 1:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/module_edificios/zonas.js ./resources/js/module_edificios/unidades.js ./resources/js/module_edificios/condominios.js ./resources/js/module_edificios/tanques.js ./resources/js/module_edificios/departamentos.js ./resources/js/module_edificios/captura_lectura.js ./resources/js/module_edificios/recibos.js ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_edificios/zonas.js ./resources/js/module_edificios/unidades.js ./resources/js/module_edificios/condominios.js ./resources/js/module_edificios/tanques.js ./resources/js/module_edificios/departamentos.js ./resources/js/module_edificios/captura_lectura.js ./resources/js/module_edificios/recibos.js ./resources/js/module_edificios/cargos_adicionales.js ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/zonas.js */"./resources/js/module_edificios/zonas.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/unidades.js */"./resources/js/module_edificios/unidades.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/condominios.js */"./resources/js/module_edificios/condominios.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/tanques.js */"./resources/js/module_edificios/tanques.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/departamentos.js */"./resources/js/module_edificios/departamentos.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/recibos.js */"./resources/js/module_edificios/recibos.js");
+module.exports = __webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/cargos_adicionales.js */"./resources/js/module_edificios/cargos_adicionales.js");
 
 
 /***/ })

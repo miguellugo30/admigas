@@ -17,11 +17,11 @@ class CreateAdmigasEmpresasTable extends Migration
             $table->increments('id');
             $table->string('razon_social', 100);
             $table->string('rfc', 50);
-            $table->string('calle', 100);
-            $table->string('numero', 100);
-            $table->string('colonia', 100);
-            $table->string('municipio', 100);
-            $table->string('cp', 10);
+            $table->string('calle', 100)->nullable();
+            $table->string('numero', 100)->nullable();
+            $table->string('colonia', 100)->nullable();
+            $table->string('municipio', 100)->nullable();
+            $table->string('cp', 10)->nullable();
             $table->tinyInteger('activo')->unsigned()->default(1);
             $table->timestamps();
             $table->engine = 'InnoDB';
