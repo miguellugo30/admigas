@@ -60,4 +60,55 @@ $(function() {
             });
         }
     });
+    /**
+     * Evento para imprimir los recibos
+     */
+    $(document).on("click", ".printRecibos", function(e) {
+
+        e.preventDefault();
+        let admigas_condominios_id = $("#admigas_condominios_id").val();
+
+        let url = currentURL + '/recibos/' + admigas_condominios_id;
+
+        window.open(url, '_blank');
+        return false;
+
+    });
+    /**
+     * Evento para cancelar todos los recibos
+     */
+    $(document).on("click", ".cancelAllRecibos", function(e) {
+
+        e.preventDefault();
+        let admigas_condominios_id = $("#admigas_condominios_id").val();
+
+        $('.list-deptos').slideUp();
+
+        let url = currentURL + '/recibos/' + admigas_condominios_id;
+        let _method = "DELETE";
+        let _token = $("input[name=_token]").val();
+
+        $.post(url, {
+            cancel: 1,
+            _method: _method,
+            _token: _token
+        }, function(data, textStatus, xhr) {
+
+            $('.viewResult').html(data);
+            $('#table-departamentos').DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+
+        }).done(function() {
+            Swal.fire(
+                'Correcto!',
+                'Se ha generado correctamente los recibos.',
+                'success'
+            )
+        }).fail(function(data) {
+            printErrorMsg(data.responseJSON.errors);
+        });
+
+    });
 });

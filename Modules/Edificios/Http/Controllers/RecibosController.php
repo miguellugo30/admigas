@@ -9,12 +9,15 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuerysJoinController;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use DB;
 /**
  * Modelos
  */
 use App\AdmigasRecibos;
 use App\AdmigasEdificios;
 use App\Mail\EnvioRecibos;
+use App\AdmigasEmpresas;
 
 class RecibosController extends Controller
 {
@@ -22,6 +25,7 @@ class RecibosController extends Controller
     private $condominio;
     private $query;
     private $recibos;
+    private $empresa;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -29,7 +33,8 @@ class RecibosController extends Controller
     public function __construct(
                                     AdmigasEdificios $condominio,
                                     QuerysJoinController $query,
-                                    AdmigasRecibos $recibos
+                                    AdmigasRecibos $recibos,
+                                    AdmigasEmpresas $empresa
                                 )
     {
         $this->middleware(function ($request, $next) {
@@ -41,6 +46,7 @@ class RecibosController extends Controller
         $this->condominio = $condominio;
         $this->query = $query;
         $this->recibos = $recibos;
+        $this->empresa = $empresa;
     }
     /**
      * Display a listing of the resource.
@@ -67,7 +73,7 @@ class RecibosController extends Controller
         $deptos = $this->query->queryRecibos( $id );
 
         $data = $this->query->calcularConsumos( $deptos, $condominio, $this->empresa_id );
-        
+
         if ( $data->has('error')  ) {
             return '<div class="alert alert-danger text-center" role="alert">No se ha dado de alta un <b>precio de gas<b></div>';
         } else {
@@ -110,20 +116,10 @@ class RecibosController extends Controller
         /**
          * Obtenemos los recibos del condominio
          */
-        $recibos = $this->recibos->where('admigas_condominios_id', $id)->where('fecha_recibo', 'like', '2020-07%')->take(2)->get();
+        $recibos = $this->recibos->where('admigas_condominios_id', $id)->where('fecha_recibo', 'like', '2020-07%')->get();
 
-        $pdf = app('dompdf.wrapper');
+        return $this->createPdf( $recibos, 2 );
 
-        //$url_recibo = file_get_contents( \Storage::url('recibo/recibo_2G.jpg') );
-        $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.jpeg') );
-
-        return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo' ) )
-                    ->setPaper('A5')
-                    ->stream('archivo.pdf');
-
-        //return $pdf->stream('archivo.pdf');
-        //return $pdf->download('mi-archivo.pdf');
-        //return view('edificios::recibos.show', compact( 'recibos', 'url_recibo' ) );
     }
 
     /**
@@ -152,22 +148,76 @@ class RecibosController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
-    }
 
+        if ( $request->cancel == 1 )
+        {
+            /**
+             * Obtenemos la fecha del ultimo recibo
+             */
+            $fecha = DB::select("call fecha_ultimo_recibo( $id )");
+
+            $this->recibos->where([
+                                    'fecha_recibo' => $fecha[0]->fecha_recibo,
+                                    'admigas_condominios_id' => $id
+                                ])
+                            ->update([
+                                        'activo' => 0
+                                    ]);
+        }
+        else
+        {
+        }
+
+    }
+    /**
+     * Funcion para enviar lo recibos por correo electronico
+     */
     public function sendRecibos($id)
     {
 
-        $recibos = $this->recibos->where('admigas_condominios_id', $id)->get();
+        $recibos = $this->recibos->where('admigas_condominios_id', $id)->take(1)->get();
 
         foreach ($recibos as $recibo )
         {
 
-            Mail::to('ingmchlugo@gmail.com')->send(new EnvioRecibos( $recibo ));
+            $this->createPdf( $recibo, 1 );
+
+            $total_pagar = $recibo->cargos_adicionales + $recibo->adeudo_anterior + $recibo->importe +  $recibo->gasto_admin;
+
+            Mail::to('mchlugo@hotmail.com')->send(new EnvioRecibos( $recibo, $total_pagar ));
         }
 
 
+    }
+    /**
+     * Funcion para crear los PDF de los recibos
+     */
+    private function createPdf( $recibos, $opcion  )
+    {
+         /**
+         * Obtenemos el convenio cie de la empresa
+         */
+        $convenio = $this->empresa->where( 'id', $this->empresa_id )->with('Cuentas')->first();
+        $cie =  $convenio->Cuentas->convenio_cie;
+
+        $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.jpeg') );
+
+        /**
+         * opcion = 1 guardar en disco local
+         * opcion = 2 mostrar en navegador
+         */
+        if ( $opcion == 1 )
+        {
+            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo', 'cie', ) )->setPaper('A5')->output();
+            Storage::put('\public\recibo_'.$recibos->admigas_departamentos_id.'.pdf', $pdf);
+        }
+        elseif( $opcion == 2 )
+        {
+            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo', 'cie', ) )
+                        ->setPaper('A5')
+                        ->stream('archivo.pdf');
+        }
     }
 }

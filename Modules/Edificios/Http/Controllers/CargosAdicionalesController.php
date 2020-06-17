@@ -63,7 +63,7 @@ class CargosAdicionalesController extends Controller
         $deptos = $this->query->queryRecibos( $id );
 
         return view('edificios::cargosAdicionales.create', compact( 'servicios', 'deptos' ));
-        
+
     }
 
     /**
@@ -74,8 +74,8 @@ class CargosAdicionalesController extends Controller
     public function store(Request $request)
     {
         $j = 1;
-        for ($i=0; $i < count( $request->dataForm ); $i++) { 
-            
+        for ($i=0; $i < count( $request->dataForm ); $i++) {
+
             $this->cargos->create([
                                     'plazo' => $request->plazo,
                                     'admigas_servicios_id' => $request->servicio,
@@ -86,7 +86,7 @@ class CargosAdicionalesController extends Controller
         /**
          * Redirigimos a la ruta index
          */
-        return redirect()->route('condominios.show', [$request->admigas_condominios_id]);
+        return redirect()->route('vista.recibos', [$request->admigas_condominios_id]);
 
     }
 
@@ -128,8 +128,12 @@ class CargosAdicionalesController extends Controller
      * @param int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $this->cargos->destroy($id);
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('vista.recibos', [$request->admigas_condominios_id]);
     }
 }

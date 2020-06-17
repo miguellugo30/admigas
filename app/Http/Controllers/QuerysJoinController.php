@@ -98,13 +98,11 @@ class QuerysJoinController extends Controller
         {
             $depto = $deptos[$i];
 
-            $cargo = $this->cargosDepto( $depto->departamento_id );
-
-
             $depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
             $depto->litros = ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor;
             $depto->consumo = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio->precio - $condominio->first()->descuento );
             $depto->cargos = $this->cargosDepto( $depto->departamento_id );
+            $depto->gasto_admin = $condominio->first()->gasto_admin ;
         }
 
         return $deptos;
@@ -118,7 +116,7 @@ class QuerysJoinController extends Controller
 
         $cargosPeriodo = 0;
         foreach ($cargo as $c) {
-            
+
             $cargosPeriodo = number_format( $cargosPeriodo + $c->Servicios->costo / $c->plazo, 2);
         }
 
@@ -163,7 +161,8 @@ class QuerysJoinController extends Controller
             $v['lectura_actual'] = $depto->lectura_actual;
             $v['fecha_limite_pago'] = Carbon::now()->addDays(7);
             $v['precio_litro'] = $precio->precio;
-            $v['importe'] = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * $precio->precio ;
+            $v['importe'] = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio->precio - $condominio->descuento ) ;
+            $v['gasto_admin'] = $condominio->gasto_admin;
             $v['adeudo_anterior'] = $depto->saldo;
             $v['cargos_adicionales'] = $this->cargosDepto( $depto->departamento_id );
             $v['referencia'] = $depto->numero_referencia;

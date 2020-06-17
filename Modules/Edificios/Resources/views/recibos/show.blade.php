@@ -53,22 +53,35 @@
     .data-total-pay{
         text-align: center;
         margin-left: 175px;
-        margin-top: -10px;
+        margin-top: -19px;
         height: 150px;
     }
     .data-total-pay p{
         margin-bottom: -7px;
     }
+    .cie{
+        margin-top: -10px;
+        margin-left: 45px;
+    }
+    .referencia{
+        margin-left: 119px;
+    }
+    .invoice-col-detail-legends{
+        font-size: 10px;
+        margin-left: 150px;
+        font-weight: bold;
+    }
+    .invoice-col-detail-digist{
+        font-size: 10px;
+        margin-left: -150px;
+    }
+
 
 </style>
-
-
-@for ($i = 0; $i < (count( $recibos )/ 2); $i++)
-
 <div class="fondo">
 
     @foreach ($recibos as $recibo)
-    
+
         <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
         <div class="contenido">
             <div class="invoice p-3 mb-3">
@@ -79,31 +92,37 @@
                     <p>{{ $recibo->condomino }}</p>
                     <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
                     <p class="address">{{ $recibo->colonia.", ".$recibo->delegacion.", C.P.:".$recibo->cp }}</p>
+                    <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibo->referencia }}</legend>
                 </div>
                 <div class="col data-total-pay">
                     <br>
-                    <p><b>{{ "$ ".number_format( ( $recibo->importe + $recibo->adeduo_anterior + $recibo->cargos_adicionales ),2 )  }}</b></p>
+                    <p><b>{{ "$ ".number_format( ( $recibo->importe + $recibo->adeduo_anterior + $recibo->cargos_adicionales + $recibo->gasto_admin ),2 )  }}</b></p>
                     <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
                     <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
                 </div>
                 <div class="row invoice-info">
-                    <div class="col-sm-6 invoice-col">
-                        ULTIMOS ^ MESES DE CONSUMO
-                        <address>
-                        <strong>Admin, Inc.</strong><br>
-                        795 Folsom Ave, Suite 600<br>
-                        San Francisco, CA 94107<br>
-                        Phone: (804) 123-5432<br>
-                        Email: info@almasaeedstudio.com
-                        </address>
+                    <div class="col-sm-6 invoice-col-detail-legends">
+                        <legend>Lectura inicial</legend><br>
+                        <legend>Lectura final</legend><br>
+                        <legend>Consumo en M3</legend><br>
+                        <legend>Consumo en litros</legend><br>
+                        <legend>Consumo del mes</legend><br>
+                        <legend>Saldo a favor</legend><br>
+                        <legend>Adeudo pendiente</legend><br>
+                        <legend>Cargos del periodo</legend><br>
+                        <legend>Cuota de Admin.</legend>
                     </div>
 
-                    <div class="col-sm-6 invoice-col">
-                        <b>DETALLE DE CONSUMO</b><br>
-                        <br>
-                        <b>Order ID:</b> 4F3S8J<br>
-                        <b>Payment Due:</b> 2/22/2014<br>
-                        <b>Account:</b> 968-34567
+                    <div class="col-sm-6 invoice-col-detail-digist">
+                        <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
+                        <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
+                        <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
+                        <legend>{{ $recibo->lectura_final }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->cargos_adicionales , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->gasto_admin , 2 ) }}</legend>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -137,6 +156,3 @@
     @endforeach
 
 </div>
-
-@endfor
-

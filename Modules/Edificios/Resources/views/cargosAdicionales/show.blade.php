@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         @foreach ($cargos as $cargo)
-            <tr>
+            <tr id="tr_{{ $cargo->id }}">
                 <td>{{ $cargo->Servicios->nombre }}</td>
                 <td class="text-right">$ {{ number_format( $cargo->Servicios->costo, 2 ) }}</td>
                 <td class="text-center">{{ $cargo->plazo }}</td>

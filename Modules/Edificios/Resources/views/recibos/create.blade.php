@@ -9,7 +9,15 @@
             <button type="button" class="btn btn-info btn-sm generateRecibos" ><i class="fas fa-list-ol"></i> Generar Recibos</button>
             <button type="button" class="btn btn-info btn-sm printRecibos" ><i class="fas fa-print"></i> Imprimir Recibos</button>
             <button type="button" class="btn btn-info btn-sm sendRecibos" ><i class="fas fa-mail-bulk"></i> Enviar Recibos</button>
-            <button type="button" class="btn btn-danger btn-sm cancelRecibos" ><i class="fas fa-trash-alt"></i> Cancelar Recibos</button>
+            <div class="dropdown dropleft">
+                <button class="btn btn-sm btn-danger dropdown-toggle cancelRecibos" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item cancelAllRecibos" href="#">Cancelar todos los recibos</a>
+                  <a class="dropdown-item cancelOneRecibo" href="#">Cancelar y generar un solo recibo</a>
+                </div>
+              </div>
         </div>
           <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
           <input type="hidden" name="admigas_condominios_id" id="admigas_condominios_id" value="{{ $condominio->first()->id }}">
@@ -59,7 +67,7 @@
                         <td>{{ "$ ".number_format( $depto->consumo, 2 ) }} </td>
                         <td><a class="viewCargo" data-id_depto="{{ $depto->departamento_id }}" style="cursor: pointer">{{ "$ ".number_format( $depto->cargos , 2 ) }}</a></td>
                         <td>{{ "$ ".number_format( $depto->saldo , 2) }}</td>
-                        <td>{{ "$ ".number_format( $depto->consumo + $depto->saldo + $depto->cargos , 2 )  }}</td>
+                        <td>{{ "$ ".number_format( $depto->consumo + $depto->saldo + $depto->cargos + $depto->gasto_admin , 2 )  }}</td>
                     </tr>
                 @endfor
             </tbody>

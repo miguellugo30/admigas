@@ -30,6 +30,7 @@ class AdmigasRecibos extends Model
                                 'fecha_limite_pago',
                                 'precio_litro',
                                 'importe',
+                                'gasto_admin',
                                 'adeudo_anterior',
                                 'cargos_adicionales',
                                 'referencia',
@@ -75,5 +76,5 @@ class AdmigasRecibos extends Model
     {
         return $this->belongsToMany('App\AdmigasCargosAdicionales', 'admigas_cargos_recibos');
     }
-    
+
 }

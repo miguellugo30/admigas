@@ -204,19 +204,19 @@
 <tbody>
 <tr>
 <td class="wrap-cell" style="padding-top: 30px; padding-bottom: 30px;" valign="top">
-<table class="force-full-width" cellspacing="0" cellpadding="0">
+<table class="force-full-width" style="border-collapse: collapse; width: 100%; height: 826px;" width="864" cellspacing="0" cellpadding="0">
 <tbody>
 <tr>
-<td class="header-cell" valign="top" height="60"><img src="https://www.filepicker.io/api/file/SU2YFOjPQzahL7orjBgl" alt="logo" width="196" height="60" /></td>
+<td class="header-cell" style="width: 560px;" valign="top" height="60"><img src="https://www.filepicker.io/api/file/SU2YFOjPQzahL7orjBgl" alt="logo" width="196" height="60" /></td>
 </tr>
 <tr>
-<td class="body-cell" valign="top">
+<td class="body-cell" style="width: 560px;" valign="top">
 <table width="100%" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
 <tbody>
 <tr>
 <td style="padding-bottom: 20px; background-color: #ffffff;" valign="top">
 <p>Hola {{ $nombre }},<br /><br />Su recibo de gas, ya esta disponible.</p>
-<p>Tu fecha limite de pago es :&nbsp;<b>{{ $fecha_limite_pago }}</b></p>
+<p>Tu fecha limite de pago es :&nbsp;<strong>{{ $fecha_limite_pago }}</strong></p>
 </td>
 </tr>
 <tr>
@@ -225,13 +225,13 @@
 <tbody>
 <tr>
 <td style="padding: 20px 0;" align="center"><center>
-<table class="card" cellspacing="0" cellpadding="0">
+<table class="card" style="height: 317px;" width="456" cellspacing="0" cellpadding="0">
 <tbody>
 <tr>
-<td style="background-color: green; text-align: center; padding: 10px; color: white;">El detalle de su consumo es</td>
+<td style="background-color: green; text-align: center; padding: 10px; color: white; width: 380px;">El detalle de su consumo es</td>
 </tr>
 <tr>
-<td style="border: 1px solid green;">
+<td style="border: 1px solid green; width: 399px;">
 <table width="100%" cellspacing="0" cellpadding="20">
 <tbody>
 <tr>
@@ -247,13 +247,15 @@
 <p>Importe:</p>
 <p>Adeudo anterior:</p>
 <p>Cardos del periodo:</p>
+<p>Cuota de Admin.:</p>
 <p>TOTAL A PAGAR:</p>
 </td>
 <td class="data-value">
-<p>{{ $importe }}</p>
-<p>{{ $adeudo_anterior }}</p>
-<p>{{ $cargos_del_mes }}</p>
-<p>{{ $total_pagar }}</p>
+<p>$ {{ $importe }}</p>
+<p>$ {{ $adeudo_anterior }}</p>
+<p>$ {{ $cargos_del_mes }}</p>
+<p>$ {{ $gasto_admin }}</p>
+<p>$ {{ $total_pagar }}</p>
 </td>
 </tr>
 </tbody>
@@ -283,7 +285,7 @@
 </td>
 </tr>
 <tr>
-<td class="footer-cell" valign="top">Awesome Co<br />an Awesome Co Technologies, INC company</td>
+<td class="footer-cell" style="width: 560px;" valign="top">Awesome Co<br />an Awesome Co Technologies, INC company</td>
 </tr>
 </tbody>
 </table>

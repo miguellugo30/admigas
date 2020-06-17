@@ -60,7 +60,7 @@ Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 
  * Rutas para CRUD de Recibos
  */
 Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
-    Route::get('generar-recibos/{id_condominios}', 'RecibosController@create' )->name('captura.lectura');
+    Route::get('generar-recibos/{id_condominios}', 'RecibosController@create' )->name('vista.recibos');
     Route::get('enviar-recibos/{id_condominios}', 'RecibosController@sendRecibos' )->name('envio.recibos');
     Route::resource('recibos','RecibosController');
 });

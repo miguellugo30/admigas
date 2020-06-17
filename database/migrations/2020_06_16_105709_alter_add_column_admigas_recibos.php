@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-
-class CreateTriggerActualizarSaldosRecibos extends Migration
+class AlterAddColumnAdmigasRecibos extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +13,9 @@ class CreateTriggerActualizarSaldosRecibos extends Migration
      */
     public function up()
     {
-
+        Schema::table('admigas_recibos', function (Blueprint $table) {
+            $table->float('gasto_admin', 12,3)->after('importe');
+        });
     }
 
     /**
@@ -24,6 +25,8 @@ class CreateTriggerActualizarSaldosRecibos extends Migration
      */
     public function down()
     {
-
+        Schema::table('admigas_recibos', function (Blueprint $table) {
+            $table->dropColumn(['gasto_admin']);
+        });
     }
 }

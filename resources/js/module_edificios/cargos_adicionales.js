@@ -41,14 +41,14 @@ $(function() {
         fila.attr("id", 'tr_' + newID);
     });
     /**
-     * Evento para eliminar una fila de la tabla 
+     * Evento para eliminar una fila de la tabla
      */
-    $(document).on('click', '.tr_clone_remove', function () {
+    $(document).on('click', '.tr_clone_remove', function() {
         var tr = $(this).closest('tr');
         tr.remove();
     });
     /**
-     * Evento para guardar 
+     * Evento para guardar
      */
     $(document).on('click', '.saveCargosAdicionales', function(event) {
         event.preventDefault();
@@ -57,12 +57,12 @@ $(function() {
         let plazo = $("#plazo").val();
         let admigas_condominios_id = $("#admigas_condominios_id").val();
         let dataForm = $("#formCargosCapture").serializeArray();
-        
+
         var data = {};
         $(dataForm).each(function(index, obj) {
             data[obj.name] = obj.value;
         });
-        
+
         let _token = $("input[name=_token]").val();
         let url = currentURL + '/cargos-adicionales';
 
@@ -75,7 +75,7 @@ $(function() {
         }, function(data, textStatus, xhr) {
             $('.modal-backdrop ').css('display', 'none');
             $('#modal-condominio').modal('hide');
-            $('.viewResult').html(data);
+            $('.list-deptos-capture').html(data);
             Swal.fire(
                 'Correcto!',
                 'El registro ha sido guardado.',
@@ -84,7 +84,7 @@ $(function() {
         }).fail(function(data) {
             printErrorMsg(data.responseJSON.errors);
         });
-        
+
     });
     /**
      * Evento para mostrar los cargos adicionales de un departamento
@@ -105,24 +105,38 @@ $(function() {
             $("#modal-condominio #modal-body").html(data);
         });
     });
+
     /**
-     * Evento para eliminar un cargo de un departamento
+     * Evento para eliminar un cargo
      */
-    $(document).on("click", ".viewCargo", function(e) {
+    $(document).on('click', '.deleteCargoAdicional', function(event) {
+        event.preventDefault();
 
-        e.preventDefault();
-        $('#modal-condominio #tituloModal').html('Cargos Adicionales al Departamento');
-        $('#modal-condominio #action').removeClass('updateCargosAdicionales');
-        $('#modal-condominio #action').addClass('saveCargosAdicionales');
+        let cargo_id = $(this).data('id-cargo');
+        let admigas_condominios_id = $("#admigas_condominios_id").val();
+        let _token = $("input[name=_token]").val();
+        let _method = "DELETE";
+        let url = currentURL + '/cargos-adicionales/' + cargo_id;
 
-        let id_depto = $(this).data('id_depto');
+        $.post(url, {
+            cargo_id: cargo_id,
+            admigas_condominios_id: admigas_condominios_id,
+            _method: _method,
+            _token: _token
+        }, function(data, textStatus, xhr) {
 
-        let url = currentURL + '/cargos-adicionales/' + id_depto;
+            $("#tr_" + cargo_id).remove();
 
-        $.get(url, function(data, textStatus, jqXHR) {
-            $('#modal-condominio').modal('show');
-            $("#modal-condominio #modal-body").html(data);
+            $('.list-deptos-capture').html(data);
+            Swal.fire(
+                'Correcto!',
+                'El cargo ha sido eleminado.',
+                'success'
+            )
+        }).fail(function(data) {
+            printErrorMsg(data.responseJSON.errors);
         });
+
     });
 
 });
