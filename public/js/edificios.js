@@ -907,27 +907,48 @@ $(function () {
 
   $(document).on("click", ".cancelAllRecibos", function (e) {
     e.preventDefault();
-    var admigas_condominios_id = $("#admigas_condominios_id").val();
-    $('.list-deptos').slideUp();
-    var url = currentURL + '/recibos/' + admigas_condominios_id;
-    var _method = "DELETE";
+    Swal.fire({
+      title: '¿Estas seguro?',
+      text: "Deseas eliminar los ultimos recibos generados, esta accion es irreversible!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, deseo eliminarlos!',
+      cancelButtonText: 'No, cancelar'
+    }).then(function (result) {
+      if (result.value) {
+        Swal.fire({
+          title: 'Motivo de cancelacion',
+          input: 'text',
+          inputAttributes: {
+            autocapitalize: 'off'
+          },
+          showCancelButton: true,
+          confirmButtonText: 'Cancelar Recibos',
+          showLoaderOnConfirm: true
+        }).then(function (result) {
+          var admigas_condominios_id = $("#admigas_condominios_id").val();
+          var url = currentURL + '/recibos/' + admigas_condominios_id;
+          var _method = "DELETE";
 
-    var _token = $("input[name=_token]").val();
+          var _token = $("input[name=_token]").val();
 
-    $.post(url, {
-      cancel: 1,
-      _method: _method,
-      _token: _token
-    }, function (data, textStatus, xhr) {
-      $('.viewResult').html(data);
-      $('#table-departamentos').DataTable({
-        "responsive": true,
-        "autoWidth": false
-      });
-    }).done(function () {
-      Swal.fire('Correcto!', 'Se ha generado correctamente los recibos.', 'success');
-    }).fail(function (data) {
-      printErrorMsg(data.responseJSON.errors);
+          $.post(url, {
+            cancel: 1,
+            motivo_cancelacion: result.value,
+            _method: _method,
+            _token: _token
+          }, function (data, textStatus, xhr) {
+            $(".list-deptos-capture").html(data);
+            $(".list-deptos-capture").slideDown();
+          }).done(function () {
+            Swal.fire('Eliminado!', 'Se ha eliminado correctamente los recibos.', 'success');
+          }).fail(function (data) {
+            printErrorMsg(data.responseJSON.errors);
+          });
+        });
+      }
     });
   });
 });
@@ -1531,14 +1552,14 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\cargos_adicionales.js */"./resources/js/module_edificios/cargos_adicionales.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/zonas.js */"./resources/js/module_edificios/zonas.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/unidades.js */"./resources/js/module_edificios/unidades.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/condominios.js */"./resources/js/module_edificios/condominios.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/tanques.js */"./resources/js/module_edificios/tanques.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/departamentos.js */"./resources/js/module_edificios/departamentos.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
+__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/recibos.js */"./resources/js/module_edificios/recibos.js");
+module.exports = __webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_edificios/cargos_adicionales.js */"./resources/js/module_edificios/cargos_adicionales.js");
 
 
 /***/ })

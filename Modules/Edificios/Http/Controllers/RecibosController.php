@@ -156,19 +156,25 @@ class RecibosController extends Controller
             /**
              * Obtenemos la fecha del ultimo recibo
              */
-            $fecha = DB::select("call fecha_ultimo_recibo( $id )");
+            $fecha = DB::select("call SP_fecha_ultimo_recibo( $id )");
 
             $this->recibos->where([
                                     'fecha_recibo' => $fecha[0]->fecha_recibo,
                                     'admigas_condominios_id' => $id
                                 ])
                             ->update([
-                                        'activo' => 0
+                                        'activo' => 0,
+                                        'motivo_cancelacion' => $request->motivo_cancelacion
                                     ]);
         }
         else
         {
         }
+
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('vista.recibos', [$id]);
 
     }
     /**
@@ -210,12 +216,12 @@ class RecibosController extends Controller
          */
         if ( $opcion == 1 )
         {
-            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo', 'cie', ) )->setPaper('A5')->output();
+            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo', 'cie' ) )->setPaper('A5')->output();
             Storage::put('\public\recibo_'.$recibos->admigas_departamentos_id.'.pdf', $pdf);
         }
         elseif( $opcion == 2 )
         {
-            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo', 'cie', ) )
+            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo', 'cie' ) )
                         ->setPaper('A5')
                         ->stream('archivo.pdf');
         }

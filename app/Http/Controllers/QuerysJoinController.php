@@ -67,8 +67,8 @@ class QuerysJoinController extends Controller
                                 'admigas_contacto_departamentos.telefono',
                                 'admigas_medidores.id AS medidor_id',
                                 'admigas_medidores.numero_serie',
-                                DB::raw("(SELECT admigas_lecturas_medidores.lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1,2 ) AS lectura_anterior"),
-                                DB::raw("(SELECT admigas_lecturas_medidores.fecha_lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1,2 ) AS fecha_lectura_anterior"),
+                                DB::raw("(SELECT admigas_lecturas_medidores.lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1,1 ) AS lectura_anterior"),
+                                DB::raw("(SELECT admigas_lecturas_medidores.fecha_lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1,1 ) AS fecha_lectura_anterior"),
                                 DB::raw("(SELECT admigas_lecturas_medidores.lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1 ) AS lectura_actual"),
                                 DB::raw("(SELECT admigas_lecturas_medidores.fecha_lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1 ) AS fecha_lectura_actual"),
                                 'admigas_saldos.saldo'

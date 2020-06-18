@@ -80,35 +80,58 @@ $(function() {
     $(document).on("click", ".cancelAllRecibos", function(e) {
 
         e.preventDefault();
-        let admigas_condominios_id = $("#admigas_condominios_id").val();
 
-        $('.list-deptos').slideUp();
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "Deseas eliminar los ultimos recibos generados, esta accion es irreversible!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo eliminarlos!',
+            cancelButtonText: 'No, cancelar'
+        }).then((result) => {
+            if (result.value) {
 
-        let url = currentURL + '/recibos/' + admigas_condominios_id;
-        let _method = "DELETE";
-        let _token = $("input[name=_token]").val();
+                Swal.fire({
+                    title: 'Motivo de cancelacion',
+                    input: 'text',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Cancelar Recibos',
+                    showLoaderOnConfirm: true,
+                }).then((result) => {
 
-        $.post(url, {
-            cancel: 1,
-            _method: _method,
-            _token: _token
-        }, function(data, textStatus, xhr) {
+                    let admigas_condominios_id = $("#admigas_condominios_id").val();
 
-            $('.viewResult').html(data);
-            $('#table-departamentos').DataTable({
-                "responsive": true,
-                "autoWidth": false,
-            });
+                    let url = currentURL + '/recibos/' + admigas_condominios_id;
+                    let _method = "DELETE";
+                    let _token = $("input[name=_token]").val();
 
-        }).done(function() {
-            Swal.fire(
-                'Correcto!',
-                'Se ha generado correctamente los recibos.',
-                'success'
-            )
-        }).fail(function(data) {
-            printErrorMsg(data.responseJSON.errors);
-        });
+                    $.post(url, {
+                        cancel: 1,
+                        motivo_cancelacion: result.value,
+                        _method: _method,
+                        _token: _token
+                    }, function(data, textStatus, xhr) {
 
+                        $(".list-deptos-capture").html(data);
+                        $(".list-deptos-capture").slideDown();
+
+                    }).done(function() {
+                        Swal.fire(
+                            'Eliminado!',
+                            'Se ha eliminado correctamente los recibos.',
+                            'success'
+                        )
+                    }).fail(function(data) {
+                        printErrorMsg(data.responseJSON.errors);
+                    });
+
+                })
+            }
+        })
     });
 });
