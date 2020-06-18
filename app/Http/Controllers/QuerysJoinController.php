@@ -71,7 +71,7 @@ class QuerysJoinController extends Controller
                                 DB::raw("(SELECT admigas_lecturas_medidores.fecha_lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1,2 ) AS fecha_lectura_anterior"),
                                 DB::raw("(SELECT admigas_lecturas_medidores.lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1 ) AS lectura_actual"),
                                 DB::raw("(SELECT admigas_lecturas_medidores.fecha_lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1 ) AS fecha_lectura_actual"),
-                                'admigas_saldos.saldo',
+                                'admigas_saldos.saldo'
                             )
                     ->where('admigas_departamentos.admigas_condominios_id', $id)
                     ->where('admigas_departamentos.activo', 1)
