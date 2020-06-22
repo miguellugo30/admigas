@@ -126,9 +126,17 @@ $(function() {
 
 
     });
-    /**
-     * Funcion para mostrar los errores de los formularios
-     */
+    $(document).on('click', '.adjuntarFoto', function(event) {
+            event.preventDefault();
+
+            $('#modal-file-foto #tituloModal').html('Testigo Fotografico');
+            $('#modal-file-foto #action').removeClass('updateTestigo');
+            $('#modal-file-foto #action').addClass('saveTestigo');
+            $('#modal-file-foto').modal('show');
+        })
+        /**
+         * Funcion para mostrar los errores de los formularios
+         */
     function printErrorMsg(msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display', 'block');

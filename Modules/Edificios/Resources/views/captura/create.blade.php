@@ -64,6 +64,7 @@
                         </td>
                         <td class="diferencia_{{ $i }}"></td>
                         <td>
+                            <button data-id-depto="{{ $depto->departamento_id }}" class="btn btn-info btn-sm adjuntarFoto" >Adjuntar imagen</button>
                         </td>
                     </tr>
                 @endfor

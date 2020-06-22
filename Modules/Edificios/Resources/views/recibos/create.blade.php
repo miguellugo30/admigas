@@ -51,6 +51,7 @@
                     <th>Cargos del Periodo</th>
                     <th>Adeudo Anterior</th>
                     <th>Saldo al Corte</th>
+                    <th class="reciboCancel" style="display: none">Cancelar Recibo</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,6 +69,10 @@
                         <td><a class="viewCargo" data-id_depto="{{ $depto->departamento_id }}" style="cursor: pointer">{{ "$ ".number_format( $depto->cargos , 2 ) }}</a></td>
                         <td>{{ "$ ".number_format( $depto->saldo , 2) }}</td>
                         <td>{{ "$ ".number_format( $depto->consumo + $depto->saldo + $depto->cargos + $depto->gasto_admin , 2 )  }}</td>
+                        <td class="reciboCancel" style="display: none">
+                            <button type="button" class="btn btn-danger btn-sm reciboCancelOne" data-id-depto='{{ $depto->departamento_id }}'><i class="fas fa-trash-alt"></i></button>
+                        </td>
+
                     </tr>
                 @endfor
             </tbody>

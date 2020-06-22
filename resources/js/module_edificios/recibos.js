@@ -83,7 +83,7 @@ $(function() {
 
         Swal.fire({
             title: '¿Estas seguro?',
-            text: "Deseas eliminar los ultimos recibos generados, esta accion es irreversible!",
+            text: "Deseas eliminar los últimos recibos generados, esta acción es irreversible!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -94,7 +94,7 @@ $(function() {
             if (result.value) {
 
                 Swal.fire({
-                    title: 'Motivo de cancelacion',
+                    title: 'Motivo de cancelación',
                     input: 'text',
                     inputAttributes: {
                         autocapitalize: 'off'
@@ -134,4 +134,45 @@ $(function() {
             }
         })
     });
+    /**
+     * Evento para mostrar el boton de cancelar
+     */
+    $(document).on("click", ".cancelOneRecibo", function(e) {
+        e.preventDefault();
+        $('.reciboCancel').css('display', 'block');
+    });
+    /**
+     * Evento para cancelar un solo recibo
+     */
+    $(document).on("click", ".reciboCancelOne", function(e) {
+        e.preventDefault();
+        let departamento_id = $(this).data('id-depto');
+
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "Deseas eliminar el recibo seleccionado, esta acción te permitirá crear un nuevo recibo con la información corregida!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, deseo eliminarlo!',
+            cancelButtonText: 'No, cancelar'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: 'Motivo de cancelación',
+                    input: 'text',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Cancelar Recibos',
+                    showLoaderOnConfirm: true,
+                }).then((result) => {
+
+                })
+            }
+        })
+    });
+
 });
