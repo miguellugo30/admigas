@@ -35,6 +35,13 @@
       0 => 'JeroenNoten\\LaravelAdminLte\\AdminLteServiceProvider',
     ),
   ),
+  'laravel/legacy-factories' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Database\\Eloquent\\LegacyFactoryServiceProvider',
+    ),
+  ),
   'laravel/telescope' => 
   array (
     'providers' => 
@@ -79,17 +86,6 @@
     'aliases' => 
     array (
       'Module' => 'Nwidart\\Modules\\Facades\\Module',
-    ),
-  ),
-  'qoraiche/laravel-mail-editor' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'qoraiche\\mailEclipse\\mailEclipseServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'mailEclipse' => 'qoraiche\\mailEclipse\\Facades\\mailEclipse',
     ),
   ),
   'spatie/laravel-permission' => 
