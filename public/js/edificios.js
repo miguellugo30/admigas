@@ -1047,9 +1047,10 @@ $(function () {
     event.preventDefault();
     var num_serie = $("#num_serie").val();
     var marca = $("#marca").val();
+    var fecha_fabricacion = $("#fecha_fabricacion").val();
     var estado_al_recibir = $("#estado_al_recibir").val();
     var capacidad = $("#capacidad").val();
-    var inventario = $("#inventario").val();
+    var inventario = $('input:radio[name=inventario]:checked').val();
     var admigas_unidades_id = $("#admigas_unidades_id").val();
 
     var _token = $("input[name=_token]").val();
@@ -1058,6 +1059,7 @@ $(function () {
     $.post(url, {
       num_serie: num_serie,
       marca: marca,
+      fecha_fabricacion: fecha_fabricacion,
       estado_al_recibir: estado_al_recibir,
       capacidad: capacidad,
       inventario: inventario,

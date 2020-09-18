@@ -44,6 +44,7 @@ class TanquesController extends Controller
         AdmigasTanques::create([
             'num_serie' => $request->num_serie,
             'marca' =>  $request->marca,
+            'fecha_fabricacion' =>  $request->fecha_fabricacion,
             'estado_al_recibir' =>  $request->estado_al_recibir,
             'capacidad' =>  $request->capacidad,
             'inventario' =>  $request->inventario,

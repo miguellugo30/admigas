@@ -26,9 +26,10 @@ $(function() {
 
         let num_serie = $("#num_serie").val();
         let marca = $("#marca").val();
+        let fecha_fabricacion = $("#fecha_fabricacion").val();
         let estado_al_recibir = $("#estado_al_recibir").val();
         let capacidad = $("#capacidad").val();
-        let inventario = $("#inventario").val();
+        let inventario = $('input:radio[name=inventario]:checked').val();
         let admigas_unidades_id = $("#admigas_unidades_id").val();
 
 
@@ -38,6 +39,7 @@ $(function() {
         $.post(url, {
             num_serie: num_serie,
             marca: marca,
+            fecha_fabricacion: fecha_fabricacion,
             estado_al_recibir: estado_al_recibir,
             capacidad: capacidad,
             inventario: inventario,

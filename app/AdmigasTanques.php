@@ -10,7 +10,7 @@ class AdmigasTanques extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'num_serie', 'marca', 'capacidad', 'estado_al_recibir', 'inventario', 'admigas_unidades_id',
+        'num_serie', 'marca', 'capacidad', 'fecha_fabricacion', 'estado_al_recibir', 'inventario', 'admigas_unidades_id',
     ];
     /**
      * Nombre de la tabla

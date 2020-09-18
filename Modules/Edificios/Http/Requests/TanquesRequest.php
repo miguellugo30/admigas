@@ -17,6 +17,7 @@ class TanquesRequest extends FormRequest
             'num_serie' => 'required',
             'estado_al_recibir' => 'required',
             'capacidad' => 'required',
+            'fecha_fabricacion' => 'required',
             'inventario' => 'required',
         ];
     }
@@ -36,6 +37,7 @@ class TanquesRequest extends FormRequest
         return[
             'num_serie' => 'Numero de Serie',
             'estado_al_recibir' => 'Porcentaje Inicial',
+            'fecha_fabricacion' => 'Fecha de Fabricación',
             'capacidad' => 'Capacidad',
             'inventario' => 'Inventario',
         ];
