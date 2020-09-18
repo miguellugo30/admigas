@@ -8,12 +8,7 @@
           <div class="card-tools">
               <button type="button" class="btn btn-info btn-sm capturarLecturas" ><i class="fas fa-list-ol"></i> Lecturas</button>
               <button type="button" class="btn btn-info btn-sm generarRecibos" ><i class="fas fa-money-check-alt"></i> Recibos</button>
-            @can('delete departamentos')
-            @endcan
-            <button type="button" class="btn btn-danger btn-sm deleteDepartamento" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
-            @can('edit departamentos')
-            @endcan
-            <button type="button" class="btn btn-warning btn-sm editDepartamento" style="display:none"><i class="fas fa-edit"></i> Editar</button>
+            
             @can('create departamentos')
             @endcan
             <button type="button" class="btn btn-primary btn-sm newDepartamento"><i class="fas fa-plus"></i> Nuevo</button>

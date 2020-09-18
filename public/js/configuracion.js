@@ -1417,14 +1417,14 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/menu.js */"./resources/js/module_config/menu.js");
-__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/precio-gas.js */"./resources/js/module_config/precio-gas.js");
-__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/usuarios.js */"./resources/js/module_config/usuarios.js");
-__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/mensajes.js */"./resources/js/module_config/mensajes.js");
-__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/empresas.js */"./resources/js/module_config/empresas.js");
-__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/menus.js */"./resources/js/module_config/menus.js");
-__webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/servicios.js */"./resources/js/module_config/servicios.js");
-module.exports = __webpack_require__(/*! /home/miguellugo/Documentos/Desarrollos/Personales/admigas/resources/js/module_config/lecturistas.js */"./resources/js/module_config/lecturistas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\menu.js */"./resources/js/module_config/menu.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\precio-gas.js */"./resources/js/module_config/precio-gas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\usuarios.js */"./resources/js/module_config/usuarios.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\mensajes.js */"./resources/js/module_config/mensajes.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\empresas.js */"./resources/js/module_config/empresas.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\menus.js */"./resources/js/module_config/menus.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\servicios.js */"./resources/js/module_config/servicios.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_config\lecturistas.js */"./resources/js/module_config/lecturistas.js");
 
 
 /***/ })

@@ -1201,6 +1201,20 @@
       'table' => 'failed_jobs',
     ),
   ),
+  'sentry' => 
+  array (
+    'dsn' => 'https://1e00be1daf7648f7b6f1c059e6c1bb17@o448052.ingest.sentry.io/5428826',
+    'environment' => NULL,
+    'breadcrumbs' => 
+    array (
+      'logs' => true,
+      'sql_queries' => true,
+      'sql_bindings' => true,
+      'queue_info' => true,
+      'command_info' => true,
+    ),
+    'send_default_pii' => false,
+  ),
   'services' => 
   array (
     'mailgun' => 

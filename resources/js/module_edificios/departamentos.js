@@ -157,6 +157,23 @@ $(function() {
         });
     });
     /**
+     * Evento para ver el detalle de un departamento
+     */
+    $(document).on("dblclick", "#table-departamentos tbody tr", function (e) {
+
+        e.preventDefault();
+        let id = $(this).data("id");
+
+        $('.list-deptos').slideUp();
+
+        let url = currentURL + '/departamentos/' + id;
+
+        $.get(url, function (data, textStatus, jqXHR) {
+            $(".list-deptos-capture").html(data);
+            $(".list-deptos-capture").slideDown();
+        });
+    });
+    /**
      * Evento para eliminar el modulo
      */
     $(document).on('click', '.deleteDepartamento', function(event) {

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Edificios\Http\Requests\DepartamentosRequest;
+use DB;
 /**
  * Modelos
  */
@@ -13,6 +14,7 @@ use App\AdmigasDepartamentos;
 use App\AdmigasContactoDepartamentos;
 use App\AdmigasMedidores;
 use App\AdmigasLecturasMedidores;
+use App\AdmigasRecibos;
 use App\AdmigasSaldos;
 
 class DepartamentosController extends Controller
@@ -22,6 +24,7 @@ class DepartamentosController extends Controller
     private $medidores;
     private $lecturasMedidores;
     private $saldos;
+    private $recibos;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -31,7 +34,8 @@ class DepartamentosController extends Controller
         AdmigasContactoDepartamentos $contactoDepartamento,
         AdmigasMedidores $medidores,
         AdmigasLecturasMedidores $lecturasMedidores,
-        AdmigasSaldos $saldos
+        AdmigasSaldos $saldos,
+        AdmigasRecibos $recibos
     )
     {
 
@@ -40,6 +44,7 @@ class DepartamentosController extends Controller
         $this->medidores = $medidores;
         $this->lecturasMedidores = $lecturasMedidores;
         $this->saldos = $saldos;
+        $this->recibos = $recibos;
     }
     /**
      * Display a listing of the resource.
@@ -129,7 +134,11 @@ class DepartamentosController extends Controller
      */
     public function show($id)
     {
-        return view('edificios::departamentos.show');
+        $depto = $this->departamentos->where('id', $id)->with('Medidores')->with('Contacto_Depto')->first();
+        $recibos = $this->recibos->select('clave_recibo', 'fecha_recibo', 'fecha_limite_pago', DB::raw('importe + gasto_admin + cargos_adicionales AS importe'))->where('admigas_departamentos_id', $id)->get();
+        $saldos = $this->saldos->select('total_recibos', 'total_pagos', 'saldo')->where('admigas_departamentos_id', $id)->first();
+
+        return view('edificios::departamentos.show', compact('depto', 'recibos', 'saldos'));
     }
 
     /**
@@ -140,9 +149,6 @@ class DepartamentosController extends Controller
     public function edit($id)
     {
         $depto = $this->departamentos->where( 'id', $id )->with('Medidores')->with('Contacto_Depto')->first();
-
-        //dd( $depto );
-
         return view('edificios::departamentos.edit', compact('depto'));
     }
 
