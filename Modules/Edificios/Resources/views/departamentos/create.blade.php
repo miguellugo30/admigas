@@ -14,7 +14,7 @@
                         <input type="text" class="form-control form-control-sm" id="nombre" placeholder="Nombre">
                     </div>
                     <div class="form-group">
-                        <label for="telefono">Telefono *:</label>
+                        <label for="telefono">Telefono :</label>
                         <input type="text" class="form-control form-control-sm" id="telefono" placeholder="Telefono">
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                         <input type="text" class="form-control form-control-sm" id="apellidos" placeholder="Apellidos">
                     </div>
                     <div class="form-group">
-                        <label for="celular">Telefono Celular :</label>
+                        <label for="celular">Telefono Celular *:</label>
                         <input type="text" class="form-control form-control-sm" id="celular" placeholder="Telefono Celular">
                     </div>
                 </div>

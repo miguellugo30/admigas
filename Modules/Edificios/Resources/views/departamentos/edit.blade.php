@@ -15,7 +15,7 @@
                         <input type="text" class="form-control form-control-sm" id="nombre" placeholder="Nombre" value="{{ $depto->Contacto_Depto->nombre }}">
                     </div>
                     <div class="form-group">
-                        <label for="telefono">Telefono *:</label>
+                        <label for="telefono">Telefono :</label>
                         <input type="text" class="form-control form-control-sm" id="telefono" placeholder="Telefono" value="{{ $depto->Contacto_Depto->telefono }}">
                     </div>
                 </div>
@@ -29,7 +29,7 @@
                         <input type="text" class="form-control form-control-sm" id="apellidos" placeholder="Apellidos" value="{{ $depto->Contacto_Depto->apellidos }}">
                     </div>
                     <div class="form-group">
-                        <label for="celular">Telefono Celular :</label>
+                        <label for="celular">Telefono Celular *:</label>
                         <input type="text" class="form-control form-control-sm" id="celular" placeholder="Telefono Celular" value="{{ $depto->Contacto_Depto->celular }}">
                     </div>
                 </div>
