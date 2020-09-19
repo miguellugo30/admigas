@@ -4,32 +4,52 @@
             <legend>Datos Cliente</legend>
             <div class="row">
                 <div class="col">
-                    <div class="form-group">
-                        <label for="numero_departamento">Numero de Departamento *:</label>
-                        <input type="text" class="form-control form-control-sm" id="numero_departamento" placeholder="Numero de Departamento">
-                        @csrf
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="numero_departamento">Numero de Departamento *:</label>
+                                <input type="text" class="form-control form-control-sm" id="numero_departamento" placeholder="Numero de Departamento">
+                                @csrf
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="numero_referencia">Numero de Referencia *:</label>
+                                <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre *:</label>
                         <input type="text" class="form-control form-control-sm" id="nombre" placeholder="Nombre">
                     </div>
-                    <div class="form-group">
-                        <label for="telefono">Telefono :</label>
-                        <input type="text" class="form-control form-control-sm" id="telefono" placeholder="Telefono">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="apellido_paterno">Apellido Paterno *:</label>
+                                <input type="text" class="form-control form-control-sm" id="apellido_paterno" placeholder="Apellido Paterno">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="apellido_materno">Apellido Materno *:</label>
+                                <input type="text" class="form-control form-control-sm" id="apellido_materno" placeholder="Apellido Materno">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="numero_referencia">Numero de Referencia *:</label>
-                        <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia">
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos *:</label>
-                        <input type="text" class="form-control form-control-sm" id="apellidos" placeholder="Apellidos">
-                    </div>
-                    <div class="form-group">
-                        <label for="celular">Telefono Celular *:</label>
-                        <input type="text" class="form-control form-control-sm" id="celular" placeholder="Telefono Celular">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="telefono">Telefono :</label>
+                                <input type="text" class="form-control form-control-sm" id="telefono" placeholder="Telefono">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="celular">Telefono Celular *:</label>
+                                <input type="text" class="form-control form-control-sm" id="celular" placeholder="Telefono Celular">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

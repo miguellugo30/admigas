@@ -46,7 +46,7 @@
                 @foreach ($deptos as $depto)
                     <tr data-id='{{ $depto->id }}'>
                         <td>{{ $depto->numero_departamento }}</td>
-                        <td>{{ $depto->Contacto_Depto->nombre." ".$depto->Contacto_Depto->apellidos }}</td>
+                        <td>{{ $depto->Contacto_Depto->nombre." ".$depto->Contacto_Depto->apellido_paterno." ".$depto->Contacto_Depto->apellido_materno }}</td>
                         <td>{{ $depto->Medidores->numero_serie }}</td>
                         <td>{{ $depto->Medidores->lectura }}</td>
                         <td class="text-center">

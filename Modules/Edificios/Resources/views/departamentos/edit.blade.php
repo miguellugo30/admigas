@@ -4,33 +4,53 @@
             <legend>Datos Cliente</legend>
             <div class="row">
                 <div class="col">
-                    <div class="form-group">
-                        <label for="numero_departamento">Numero de Departamento *:</label>
-                        <input type="hidden" name="admigas_departamentos_id" id="admigas_departamentos_id" value="{{ $depto->id }}">
-                        <input type="text" class="form-control form-control-sm" id="numero_departamento" placeholder="Numero de Departamento" value="{{ $depto->numero_departamento }}">
-                        @csrf
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="numero_departamento">Numero de Departamento *:</label>
+                                <input type="hidden" name="admigas_departamentos_id" id="admigas_departamentos_id" value="{{ $depto->id }}">
+                                <input type="text" class="form-control form-control-sm" id="numero_departamento" placeholder="Numero de Departamento" value="{{ $depto->numero_departamento }}">
+                                @csrf
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="numero_referencia">Numero de Referencia *:</label>
+                                <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia" value="{{ $depto->numero_referencia }}">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre *:</label>
                         <input type="text" class="form-control form-control-sm" id="nombre" placeholder="Nombre" value="{{ $depto->Contacto_Depto->nombre }}">
                     </div>
-                    <div class="form-group">
-                        <label for="telefono">Telefono :</label>
-                        <input type="text" class="form-control form-control-sm" id="telefono" placeholder="Telefono" value="{{ $depto->Contacto_Depto->telefono }}">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="apellido_paterno">Apellido Paterno *:</label>
+                                <input type="text" class="form-control form-control-sm" id="apellido_paterno" placeholder="Apellido Paterno" value="{{ $depto->Contacto_Depto->apellido_paterno }}">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="apellido_materno">Apellido Materno *:</label>
+                                <input type="text" class="form-control form-control-sm" id="apellido_materno" placeholder="Apellido Materno" value="{{ $depto->Contacto_Depto->apellido_materno }}">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="numero_referencia">Numero de Referencia *:</label>
-                        <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia" value="{{ $depto->numero_referencia }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos *:</label>
-                        <input type="text" class="form-control form-control-sm" id="apellidos" placeholder="Apellidos" value="{{ $depto->Contacto_Depto->apellidos }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="celular">Telefono Celular *:</label>
-                        <input type="text" class="form-control form-control-sm" id="celular" placeholder="Telefono Celular" value="{{ $depto->Contacto_Depto->celular }}">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="telefono">Telefono :</label>
+                                <input type="text" class="form-control form-control-sm" id="telefono" placeholder="Telefono" value="{{ $depto->Contacto_Depto->telefono }}">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="celular">Telefono Celular *:</label>
+                                <input type="text" class="form-control form-control-sm" id="celular" placeholder="Telefono Celular" value="{{ $depto->Contacto_Depto->celular }}">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

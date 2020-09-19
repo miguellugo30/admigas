@@ -144,7 +144,7 @@ class QuerysJoinController extends Controller
             $v['clave_recibo'] = "A-".( $i + 1 ) ;
             $v['unidad'] = $condominio->Unidades->nombre ;
             $v['condominio'] = $condominio->nombre ;
-            $v['condomino'] = $depto->nombre." ".$depto->apellidos ;
+            $v['condomino'] = $depto->nombre." ".$depto->apellido_paterno." ".$depto->apellido_materno ;
             $v['numero_departamento'] = $depto->numero_departamento ;
             $v['calle'] = $condominio->Unidades->calle ;
             $v['numero_exterior'] = $condominio->Unidades->numero ;

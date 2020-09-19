@@ -654,7 +654,8 @@ $(function () {
     var numero_departamento = $("#numero_departamento").val();
     var numero_referencia = $("#numero_referencia").val();
     var nombre = $("#nombre").val();
-    var apellidos = $("#apellidos").val();
+    var apellido_paterno = $("#apellido_paterno").val();
+    var apellido_materno = $("#apellido_materno").val();
     var telefono = $("#telefono").val();
     var celular = $("#celular").val();
     var correo_electronico = $("#correo_electronico").val();
@@ -672,7 +673,8 @@ $(function () {
       numero_departamento: numero_departamento,
       numero_referencia: numero_referencia,
       nombre: nombre,
-      apellidos: apellidos,
+      apellido_paterno: apellido_paterno,
+      apellido_materno: apellido_materno,
       telefono: telefono,
       celular: celular,
       correo_electronico: correo_electronico,
@@ -731,7 +733,8 @@ $(function () {
     var numero_departamento = $("#numero_departamento").val();
     var numero_referencia = $("#numero_referencia").val();
     var nombre = $("#nombre").val();
-    var apellidos = $("#apellidos").val();
+    var apellido_paterno = $("#apellido_paterno").val();
+    var apellido_materno = $("#apellido_materno").val();
     var telefono = $("#telefono").val();
     var celular = $("#celular").val();
     var correo_electronico = $("#correo_electronico").val();
@@ -749,7 +752,8 @@ $(function () {
         numero_departamento: numero_departamento,
         numero_referencia: numero_referencia,
         nombre: nombre,
-        apellidos: apellidos,
+        apellido_paterno: apellido_paterno,
+        apellido_materno: apellido_materno,
         telefono: telefono,
         celular: celular,
         correo_electronico: correo_electronico,

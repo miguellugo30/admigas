@@ -66,7 +66,7 @@
                         <dd class="col-sm-8">{{ $depto->numero_departamento }}</dd>
 
                         <dt class="col-sm-4">Nombre completo:</dt>
-                        <dd class="col-sm-8">{{ $depto->Contacto_Depto->nombre.' '.$depto->Contacto_Depto->apellidos }}</dd>
+                        <dd class="col-sm-8">{{ $depto->Contacto_Depto->nombre.' '.$depto->Contacto_Depto->apellido_paterno.' '.$depto->Contacto_Depto->apellido_materno }}</dd>
 
                         <dt class="col-sm-4">Telefono fijo:</dt>
                         <dd class="col-sm-8">{{ $depto->Contacto_Depto->telefono }}</dd>

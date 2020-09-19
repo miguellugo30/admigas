@@ -27,7 +27,8 @@ $(function() {
         let numero_departamento = $("#numero_departamento").val();
         let numero_referencia = $("#numero_referencia").val();
         let nombre = $("#nombre").val();
-        let apellidos = $("#apellidos").val();
+        let apellido_paterno = $("#apellido_paterno").val();
+        let apellido_materno = $("#apellido_materno").val();
         let telefono = $("#telefono").val();
         let celular = $("#celular").val();
         let correo_electronico = $("#correo_electronico").val();
@@ -45,7 +46,8 @@ $(function() {
             numero_departamento: numero_departamento,
             numero_referencia: numero_referencia,
             nombre: nombre,
-            apellidos: apellidos,
+            apellido_paterno: apellido_paterno,
+            apellido_materno: apellido_materno,
             telefono: telefono,
             celular: celular,
             correo_electronico: correo_electronico,
@@ -113,7 +115,8 @@ $(function() {
         let numero_departamento = $("#numero_departamento").val();
         let numero_referencia = $("#numero_referencia").val();
         let nombre = $("#nombre").val();
-        let apellidos = $("#apellidos").val();
+        let apellido_paterno = $("#apellido_paterno").val();
+        let apellido_materno = $("#apellido_materno").val();
         let telefono = $("#telefono").val();
         let celular = $("#celular").val();
         let correo_electronico = $("#correo_electronico").val();
@@ -131,7 +134,8 @@ $(function() {
                 numero_departamento: numero_departamento,
                 numero_referencia: numero_referencia,
                 nombre: nombre,
-                apellidos: apellidos,
+                apellido_paterno: apellido_paterno,
+                apellido_materno: apellido_materno,
                 telefono: telefono,
                 celular: celular,
                 correo_electronico: correo_electronico,

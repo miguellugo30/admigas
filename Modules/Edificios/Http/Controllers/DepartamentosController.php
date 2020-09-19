@@ -84,7 +84,8 @@ class DepartamentosController extends Controller
          */
         $this->contactoDepartamento->create([
                                                 'nombre' => $request->nombre,
-                                                'apellidos' =>  $request->apellidos,
+                                                'apellido_paterno' =>  $request->apellido_paterno,
+                                                'apellido_materno' =>  $request->apellido_materno,
                                                 'telefono' => $request->telefono,
                                                 'celular' => $request->celular,
                                                 'correo_electronico' => $request->correo_electronico,
@@ -174,7 +175,8 @@ class DepartamentosController extends Controller
         $this->contactoDepartamento->where('admigas_departamentos_id', $request->admigas_departamentos_id)
                                     ->update([
                                         'nombre' => $request->nombre,
-                                        'apellidos' =>  $request->apellidos,
+                                        'apellido_paterno' =>  $request->apellido_paterno,
+                                        'apellido_materno' =>  $request->apellido_materno,
                                         'telefono' => $request->telefono,
                                         'celular' => $request->celular,
                                         'correo_electronico' => $request->correo_electronico
