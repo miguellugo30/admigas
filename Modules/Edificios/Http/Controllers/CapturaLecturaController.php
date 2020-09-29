@@ -78,19 +78,31 @@ class CapturaLecturaController extends Controller
         /**
          * Insertamos las nuevas lecturas
          */
-        for ($i=0; $i < count( $datos ); $i++) {
-            DB::table('admigas_lecturas_medidores')->insert([
-                'lectura' => $datos[$i][0],
-                'fecha_lectura' =>  $request->fecha_lectura,
-                'admigas_departamentos_id' => $datos[$i][1],
-                'admigas_medidores_id' => $datos[$i][2],
-            ]);
+        if ( $datos == 'error' )
+        {
+            return response()->json([
+                                        'message'      =>  'The given data was invalid.',
+                                        'errors'   =>  [
+                                                            'lectura_actual' => [ 'El campo Lectura Actual es obligatorio' ]
+                                                        ]
+                                    ], 422);
         }
-        /**
-         * Redireccionamo
-         */
-        return redirect()->route('condominios.show', [$request->admigas_condominios_id]);
+        else
+        {
 
+            for ($i=0; $i < count( $datos ); $i++) {
+                DB::table('admigas_lecturas_medidores')->insert([
+                    'lectura' => $datos[$i][0],
+                    'fecha_lectura' =>  $request->fecha_lectura,
+                    'admigas_departamentos_id' => $datos[$i][1],
+                    'admigas_medidores_id' => $datos[$i][2],
+                ]);
+            }
+            /**
+             * Redireccionamo
+             */
+            return redirect()->route('condominios.show', [$request->admigas_condominios_id]);
+        }
     }
 
     /**
@@ -136,10 +148,18 @@ class CapturaLecturaController extends Controller
 
     private function procesar_lecturas( $lecturas )
     {
-        for ($i=0; $i < count( $lecturas ); $i++) {
-            $data[ $lecturas[$i]['name'].'_'.$i ] = $lecturas[$i]['value'];
+        for ($i=0; $i < count( $lecturas ); $i++)
+        {
+            if ($lecturas[$i]['value'] != '')
+            {
+                $data[ $lecturas[$i]['name'].'_'.$i ] = $lecturas[$i]['value'];
+            }
+            else
+            {
+                return 'error';
+                exit;
+            }
         }
-
         return array_chunk( $data, 3 );
     }
 

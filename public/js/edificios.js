@@ -159,7 +159,7 @@ $(function () {
 
     var url = currentURL + '/captura-lecturas';
 
-    if (fecha_lectura == null) {
+    if (fecha_lectura == null || fecha_lectura == '') {
       Swal.fire('Error!', 'Debe ingresar una Fecha de Lectura.', 'error');
     } else {
       $.post(url, {
@@ -213,7 +213,7 @@ $(function () {
     $(".form-control").removeClass('is-invalid');
 
     for (var clave in msg) {
-      $("#" + clave).addClass('is-invalid');
+      $("input[name='lectura']").addClass('is-invalid');
 
       if (msg.hasOwnProperty(clave)) {
         $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');

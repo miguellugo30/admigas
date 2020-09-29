@@ -61,7 +61,7 @@
                     @endphp
                     <tr data-id='{{ $depto->departamento_id }}' class="text-center">
                         <td>{{ $depto->numero_departamento }}</td>
-                        <td>{{ $depto->nombre." ".$depto->apellidos }}</td>
+                        <td>{{ $depto->nombre." ".$depto->apellido_paterno." ".$depto->apellido_materno }}</td>
                         <td>{{ $depto->numero_serie }}</td>
                         <td>{{ $depto->lectura_anterior }}</td>
                         <td>{{ $depto->lectura_actual }}</td>

@@ -33,6 +33,9 @@
         </div>
     </div>
     <form id="formLecturasCapture" enctype="multipart/form-data" method="post">
+        <div class="alert alert-danger print-error-msg" role="alert" style="display:none">
+            <ul></ul>
+        </div>
         <table id="table-departamentos" class="table table-sm table-bordered table-striped">
             <thead class="thead-light">
                 <tr class="text-center">
@@ -54,11 +57,11 @@
                     <tr data-id='{{ $depto->departamento_id }}' class="text-center">
                         <td>{{ $i + 1 }}</td>
                         <td>{{ $depto->numero_departamento }}</td>
-                        <td>{{ $depto->nombre." ".$depto->apellidos }}</td>
+                        <td>{{ $depto->nombre." ".$depto->apellido_paterno." ".$depto->apellido_materno  }}</td>
                         <td>{{ $depto->numero_serie }}</td>
                         <td>{{ $depto->lectura_anterior }}</td>
                         <td>
-                            <input type="text" name="lectura" id="lectura_{{ $i }}" class="nueva_lectura" data-posicion="{{ $i }}" data-lectura_anterior="{{ $depto->lectura_anterior }}" size="10">
+                            <input type="text" name="lectura" id="lectura_{{ $i }}" class="nueva_lectura form-control form-control-sm" data-posicion="{{ $i }}" data-lectura_anterior="{{ $depto->lectura_anterior }}" size="10">
                             <input type="hidden" name="departamento_id" id="departamento_id_{{ $i }}" value="{{ $depto->departamento_id }}">
                             <input type="hidden" name="medidor_id" id="medidor_id_{{ $i }}" value="{{ $depto->medidor_id }}">
                         </td>
@@ -70,5 +73,6 @@
                 @endfor
             </tbody>
         </table>
+
     </form>
 </div>

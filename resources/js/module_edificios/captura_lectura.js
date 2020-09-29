@@ -71,11 +71,9 @@ $(function() {
         let fecha_lectura = $("#fecha_lectura").val();
         let admigas_condominios_id = $("#admigas_condominios_id").val();
         let data = $('#formLecturasCapture').serializeArray();
-
         let _token = $("input[name=_token]").val();
         let url = currentURL + '/captura-lecturas';
-
-        if (fecha_lectura == null) {
+        if (fecha_lectura == null || fecha_lectura == '') {
             Swal.fire(
                 'Error!',
                 'Debe ingresar una Fecha de Lectura.',
@@ -88,9 +86,7 @@ $(function() {
                 admigas_condominios_id: admigas_condominios_id,
                 _token: _token
             }, function(data, textStatus, xhr) {
-
                 $('.viewResult').html(data);
-
             }).done(function() {
                 Swal.fire(
                     'Correcto!',
@@ -101,6 +97,7 @@ $(function() {
                 printErrorMsg(data.responseJSON.errors);
             });
         }
+
     });
     /**
      * Evento para mostrar regresar a zonas
@@ -142,7 +139,7 @@ $(function() {
         $(".print-error-msg").css('display', 'block');
         $(".form-control").removeClass('is-invalid');
         for (var clave in msg) {
-            $("#" + clave).addClass('is-invalid');
+            $("input[name='lectura']").addClass('is-invalid');
             if (msg.hasOwnProperty(clave)) {
                 $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
             }
