@@ -154,7 +154,7 @@ class QuerysJoinController extends Controller
             $v['delegacion'] = $condominio->Unidades->delegacion_municipio ;
             $v['cp'] = $condominio->Unidades->cp ;
             $v['calle'] = $condominio->Unidades->calle ;
-            $v['telefono'] = $depto->telefono ;
+            $v['telefono'] = ''/*$depto->telefono*/ ;
             $v['fecha_recibo'] = $fecha_recibo;
             $v['fecha_lectura_anterior'] = $depto->fecha_lectura_anterior;
             $v['lectura_anterior'] = $depto->lectura_anterior;

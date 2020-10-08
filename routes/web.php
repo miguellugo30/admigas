@@ -15,9 +15,15 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/clientes/', function () {
+Route::get('/clientes/login', function () {
     return view('auth.login_clientes');
-});
+})->name('login_cliente');
+
+Route::get('/clientes/registro/', function () {
+    return view('auth.register_clientes');
+})->name('registro_cliente');
+
+Route::post('/clientes/registro/', 'Auth\RegisterController@register')->name('registro_cliente_form');
 
 Auth::routes();
 

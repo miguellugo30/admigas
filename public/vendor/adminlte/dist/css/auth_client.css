@@ -14,15 +14,18 @@
     color: #fff !important;
 }
 
-.login-box {
+.login-box,
+.register-box {
     background-color: rgba(54, 54, 54, 0.6) !important;
 }
 
-.login-card-body .input-group .input-group-text {
+.login-card-body .input-group .input-group-text,
+.register-card-body .input-group .input-group-text {
     color: #fff !important;
     border-top: 0px !important;
     border-right: 0px !important;
 }
+
 
 .card {
     background: none !important;
@@ -44,4 +47,8 @@
     border-bottom-width: 0px !important;
     border-bottom: 1px solid !important;
     font-weight: bold !important;
+}
+
+.form-control::placeholder{
+    color: #fff !important;
 }

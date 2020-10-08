@@ -157,7 +157,7 @@ class RecibosController extends Controller
              * Obtenemos la fecha del ultimo recibo
              */
             $fecha = DB::select("call SP_fecha_ultimo_recibo( $id )");
-
+            
             $this->recibos->where([
                                     'fecha_recibo' => $fecha[0]->fecha_recibo,
                                     'admigas_condominios_id' => $id
@@ -166,6 +166,7 @@ class RecibosController extends Controller
                                         'activo' => 0,
                                         'motivo_cancelacion' => $request->motivo_cancelacion
                                     ]);
+            
         }
         else
         {

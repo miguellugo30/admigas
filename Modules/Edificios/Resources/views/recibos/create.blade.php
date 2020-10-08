@@ -72,7 +72,6 @@
                         <td class="reciboCancel" style="display: none">
                             <button type="button" class="btn btn-danger btn-sm reciboCancelOne" data-id-depto='{{ $depto->departamento_id }}'><i class="fas fa-trash-alt"></i></button>
                         </td>
-
                     </tr>
                 @endfor
             </tbody>

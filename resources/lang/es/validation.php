@@ -175,5 +175,6 @@ return [
         'title'                 => 'título',
         'username'              => 'usuario',
         'year'                  => 'año',
+        'code'                  => 'codigo',
     ],
 ];

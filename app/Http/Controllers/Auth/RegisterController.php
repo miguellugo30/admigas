@@ -48,10 +48,42 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        /**
+         * Validador de codigo
+         */
+        Validator::extend('codigocliente', function ($field, $value, $parameters)
+        {
+                $code = User::select('remember_token')->where('email', $parameters[0])->get();
+
+                if ($code->isNotEmpty())
+                {
+                    if ($value == $code->first()->remember_token)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+
+                return false;
+
+            }, 'El codigo no es valido');
+        /**
+         * Validado de correo existente
+         */
+        Validator::extend('clientecorreo', function ($field, $value)
+        {
+            if(User::where('email', $value)->exists()) {
+                return true;
+            }
+            return false;
+        }, 'El correo no esta registrado');
+
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255' ],
+            'email' => ['required', 'string', 'email', 'max:255', 'clientecorreo' ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'code' => ['required', 'numeric','min:8', 'codigocliente:'.$data['email']],
         ]);
     }
 
@@ -63,10 +95,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+                return User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => Hash::make($data['password']),
+                ]);
     }
 }
