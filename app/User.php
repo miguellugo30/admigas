@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'admigas_empresas_id',
+        'name', 'email', 'password', 'tipo'
     ];
 
 
@@ -45,8 +45,18 @@ class User extends Authenticatable
     | RELACIONES DE BASE DE DATOS
     |--------------------------------------------------------------------------
     */
+    /**
+     * Relacion a Empresas
+     */
     public function Empresas()
     {
-        return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
+        return $this->belongsToMany('App\AdmigasEmpresas', 'admigas_users_empresas');
+    }
+    /**
+     * Relacion a tabla departamentos
+     */
+    public function Departamentos()
+    {
+        return $this->belongsToMany('App\AdmigasDepartamentos', 'admigas_departamentos');
     }
 }

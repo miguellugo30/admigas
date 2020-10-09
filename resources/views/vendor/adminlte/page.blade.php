@@ -89,8 +89,10 @@
                             <span class="sr-only">{{ __('adminlte::adminlte.toggle_navigation') }}</span>
                         </a>
                     </li>
-                    @each('adminlte::partials.menu-item-top-nav', $adminlte->menu(), 'item')
-                    @yield('content_top_nav_left')
+                    @if ( Auth::user()->tipo == 0 )
+                        @each('adminlte::partials.menu-item-top-nav', $adminlte->menu(), 'item')
+                        @yield('content_top_nav_left')
+                    @endif
                 </ul>
             @endif
                 <ul class="navbar-nav ml-auto @if(config('adminlte.layout_topnav') || View::getSection('layout_topnav'))order-1 order-md-3 navbar-no-expand @endif">
@@ -100,6 +102,7 @@
                             <a class="nav-link" href="#"
                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                             >
+                                <i class="fas fa-user-tie"></i> {{ Auth::user()->name. " || " }}
                                 <i class="fa fa-fw fa-power-off"></i> {{ __('adminlte::adminlte.log_out') }}
                             </a>
                             <form id="logout-form" action="{{ $logout_url }}" method="POST" style="display: none;">

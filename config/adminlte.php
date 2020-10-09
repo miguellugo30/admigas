@@ -178,24 +178,28 @@ return [
             'url'  => 'edificios/',
             'icon'        => 'fas fa-building',
             'topnav' => true,
+            'active' => ['edificios' ]
         ],
         [
             'text' => 'Credito y Cobranza',
             'url'  => 'credito-cobranza/',
             'icon'        => 'fas fa-hand-holding-usd',
             'topnav' => true,
+            'active' => ['credito-cobranza']
         ],
         [
             'text' => 'Reportes',
             'url'  => 'reportes/',
             'icon'        => 'fas fa-chart-line',
             'topnav' => true,
+            'active' => ['reportes']
         ],
         [
             'text' => 'Configuracion',
             'url'  => 'configuracion/',
             'icon'        => 'fas fa-cogs',
             'topnav' => true,
+            'active' => ['configuracion']
         ],
     ],
 

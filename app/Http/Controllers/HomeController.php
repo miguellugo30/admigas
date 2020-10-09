@@ -23,6 +23,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if ( \Auth::user()->tipo == 1 ) {
+            return redirect('clientes');
+        } else {
+            return view('home');
+        }
+
     }
 }

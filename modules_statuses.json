@@ -1,4 +1,5 @@
 {
     "Configuracion": true,
-    "Edificios": true
+    "Edificios": true,
+    "Clientes": true
 }

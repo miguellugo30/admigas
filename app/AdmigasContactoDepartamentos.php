@@ -10,7 +10,7 @@ class AdmigasContactoDepartamentos extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'apellido_paterno', 'apellido_materno', 'telefono', 'celular', 'correo_electronico', 'admigas_departamentos_id',
+        'nombre', 'apellido_paterno', 'apellido_materno', 'telefono', 'celular', 'correo_electronico', 'codigo_verificacion', 'admigas_departamentos_id',
     ];
     /**
      * Nombre de la tabla
@@ -41,5 +41,12 @@ class AdmigasContactoDepartamentos extends Model
     public function Departamento_Contacto()
     {
         return $this->belongsTo('App\AdmigasDepartamentos', 'id', 'admigas_departamentos_id');
+    }
+    /**
+     * Relacion uno a uno, con tabla intermedia
+     */
+    public function Usuarios()
+    {
+        return $this->belongsToMany('App\Users', 'admigas_departamentos_user');
     }
 }

@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('edificios')->group(function() {
+Route::prefix('edificios')->group( function() {
     Route::get('/', 'EdificiosController@index');
 });
 /*

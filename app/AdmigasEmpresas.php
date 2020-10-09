@@ -29,11 +29,11 @@ class AdmigasEmpresas extends Model
     |--------------------------------------------------------------------------
     */
     /**
-     * Relacion uno a muchos con usuarios
+     * Relacion uno a uno, con tabla intermedia
      */
     public function Usuarios()
     {
-        return $this->hasMany('App\Users', 'admigas_empresas_id', 'id');
+        return $this->belongsToMany('App\Users', 'admigas_users_empresas'   );
     }
     /**
      * Relacion uno a muchos con mensajes

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
+use DB;
+use App\AdmigasContactoDepartamentos;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -53,11 +55,11 @@ class RegisterController extends Controller
          */
         Validator::extend('codigocliente', function ($field, $value, $parameters)
         {
-                $code = User::select('remember_token')->where('email', $parameters[0])->get();
+                $code = AdmigasContactoDepartamentos::select('codigo_verificacion', 'id')->where('correo_electronico', $parameters[0])->get();
 
                 if ($code->isNotEmpty())
                 {
-                    if ($value == $code->first()->remember_token)
+                    if ((int)$value == $code->first()->codigo_verificacion)
                     {
                         return true;
                     }
@@ -72,7 +74,7 @@ class RegisterController extends Controller
          */
         Validator::extend('clientecorreo', function ($field, $value)
         {
-            if(User::where('email', $value)->exists()) {
+            if(AdmigasContactoDepartamentos::where('correo_electronico', $value)->exists()) {
                 return true;
             }
             return false;
@@ -80,7 +82,6 @@ class RegisterController extends Controller
 
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255' ],
             'email' => ['required', 'string', 'email', 'max:255', 'clientecorreo' ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'code' => ['required', 'numeric','min:8', 'codigocliente:'.$data['email']],
@@ -95,10 +96,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-                return User::create([
+        $info = AdmigasContactoDepartamentos::select('amigas_departamentos_id')->where('correo_electronico', $data['email'])->first();
+
+        /**
+         * Creamos el usuario y recuperamos el id del usuario
+         */
+        $user_id = User::create([
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => Hash::make($data['password']),
+                    'tipo' => 1,
                 ]);
+        /**
+         * Vinculamos el usuario con el departamentos
+         */
+        DB::table('admigas_departamentos_user')->insert([
+            'user_id' => $user_id->id,
+            'admigas_departamentos_id' => $info->id
+        ]);
+         /**
+          * Redireccionamos al modulo de clientes
+          */
+        return $user_id;
     }
 }

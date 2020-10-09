@@ -75,6 +75,11 @@
         'url' => 'edificios/',
         'icon' => 'fas fa-building',
         'topnav' => true,
+        'active' => 
+        array (
+          0 => 'edificios',
+          1 => 'configuracion',
+        ),
       ),
       1 => 
       array (
@@ -82,6 +87,11 @@
         'url' => 'credito-cobranza/',
         'icon' => 'fas fa-hand-holding-usd',
         'topnav' => true,
+        'active' => 
+        array (
+          0 => 'edificios',
+          1 => 'configuracion',
+        ),
       ),
       2 => 
       array (
@@ -89,6 +99,11 @@
         'url' => 'reportes/',
         'icon' => 'fas fa-chart-line',
         'topnav' => true,
+        'active' => 
+        array (
+          0 => 'edificios',
+          1 => 'configuracion',
+        ),
       ),
       3 => 
       array (
@@ -96,6 +111,11 @@
         'url' => 'configuracion/',
         'icon' => 'fas fa-cogs',
         'topnav' => true,
+        'active' => 
+        array (
+          0 => 'edificios',
+          1 => 'configuracion',
+        ),
       ),
     ),
     'filters' => 
@@ -1379,6 +1399,10 @@
   array (
     'proxies' => NULL,
     'headers' => 30,
+  ),
+  'clientes' => 
+  array (
+    'name' => 'Clientes',
   ),
   'configuracion' => 
   array (
