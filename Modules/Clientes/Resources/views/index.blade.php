@@ -6,7 +6,7 @@
 @section('content')
 <!-- Main content -->
 <div class="content">
-    <input type="hidden" name="id" id="id" value="{{ $recibos->first()->admigas_departamentos_id }}">
+    <input type="hidden" name="id" id="id" value="{{ \Auth::user()->Departamentos->first()->id }}">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6">
