@@ -91,7 +91,7 @@ class DepartamentosController extends Controller
                                                 'telefono' => $request->telefono,
                                                 'celular' => $request->celular,
                                                 'correo_electronico' => $request->correo_electronico,
-                                                'codigo_verifiacicion' => $codigo,
+                                                'codigo_verificacion' => $codigo,
                                                 'admigas_departamentos_id' => $depto->id
                                             ]);
         /**
