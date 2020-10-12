@@ -44,11 +44,18 @@ class AdmigasRecibos extends Model
      */
     protected $table = 'admigas_recibos';
     /**
-     * Funcion para obtener solo los registros activos
+     * Funcion para obtener solo los de un departamento
      */
     public function scopeDepartamento($query, $departamento_id)
     {
         return $query->where('admigas_departamentos_id', $departamento_id );
+    }
+    /**
+     * Funcion para obtener solo los registros activos
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('activo', 1 );
     }
     /*
     |--------------------------------------------------------------------------

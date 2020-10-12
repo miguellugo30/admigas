@@ -82,6 +82,8 @@ class DepartamentosController extends Controller
         /**
          * Creamos el contacto del departamento
          */
+        $codigo = $this->codigo();
+
         $this->contactoDepartamento->create([
                                                 'nombre' => $request->nombre,
                                                 'apellido_paterno' =>  $request->apellido_paterno,
@@ -89,6 +91,7 @@ class DepartamentosController extends Controller
                                                 'telefono' => $request->telefono,
                                                 'celular' => $request->celular,
                                                 'correo_electronico' => $request->correo_electronico,
+                                                'codigo_verifiacicion' => $codigo,
                                                 'admigas_departamentos_id' => $depto->id
                                             ]);
         /**
@@ -205,5 +208,10 @@ class DepartamentosController extends Controller
          */
         return redirect()->route('condominios.show', [$idCondominio->admigas_condominios_id]);
 
+    }
+
+    public function codigo()
+    {
+        return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8);
     }
 }

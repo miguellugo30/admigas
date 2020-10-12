@@ -32,7 +32,7 @@
 @section('body')
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ $dashboard_url }}">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</a>
+            <a href="{{ $dashboard_url }}"><img src="{{ config('adminlte.logo_img') }}" alt="{{ config('adminlte.logo_img_alt') }}" style="width: 60%;margin-top: 15px;"></a>
         </div>
         <div class="card">
             <div class="card-body login-card-body">

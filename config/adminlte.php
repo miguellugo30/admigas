@@ -30,12 +30,12 @@ return [
     |
     */
 
-    'logo' => 'Admin<b>GAS</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '2G<b>Admin</b>',
+    'logo_img' => '../storage/Logo.png',
     'logo_img_class' => 'brand-image-xl',
-    'logo_img_xl' => null,
+    'logo_img_xl' => '../storage/Logo.png',
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => '2g-admin-logo',
 
     /*
     |--------------------------------------------------------------------------
@@ -272,12 +272,12 @@ return [
         ],
         [
             'name' => 'Chartjs',
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js',
                 ],
             ],
         ],

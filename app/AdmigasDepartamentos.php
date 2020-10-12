@@ -75,7 +75,7 @@ class AdmigasDepartamentos extends Model
      */
     public function Recibos()
     {
-        return $this->hasMany('App\AdmigasRecibos', 'admigas_departamentos_id', 'id');
+        return $this->hasMany('App\AdmigasRecibos', 'admigas_departamentos_id', 'id')->orderBy('fecha_recibo', 'desc')->active();
     }
     /**
      * Relacion uno a muchos con cargos adicionales

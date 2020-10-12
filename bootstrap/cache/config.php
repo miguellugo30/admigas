@@ -6,12 +6,12 @@
     'title_postfix' => '',
     'use_ico_only' => false,
     'use_full_favicon' => false,
-    'logo' => 'Admin<b>GAS</b>',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '2G<b>Admin</b>',
+    'logo_img' => '../storage/Logo.png',
     'logo_img_class' => 'brand-image-xl',
-    'logo_img_xl' => NULL,
+    'logo_img_xl' => '../storage/Logo.png',
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => '2g-admin-logo',
     'usermenu_enabled' => true,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
@@ -78,7 +78,6 @@
         'active' => 
         array (
           0 => 'edificios',
-          1 => 'configuracion',
         ),
       ),
       1 => 
@@ -89,8 +88,7 @@
         'topnav' => true,
         'active' => 
         array (
-          0 => 'edificios',
-          1 => 'configuracion',
+          0 => 'credito-cobranza',
         ),
       ),
       2 => 
@@ -101,8 +99,7 @@
         'topnav' => true,
         'active' => 
         array (
-          0 => 'edificios',
-          1 => 'configuracion',
+          0 => 'reportes',
         ),
       ),
       3 => 
@@ -113,8 +110,7 @@
         'topnav' => true,
         'active' => 
         array (
-          0 => 'edificios',
-          1 => 'configuracion',
+          0 => 'configuracion',
         ),
       ),
     ),
@@ -172,14 +168,14 @@
       2 => 
       array (
         'name' => 'Chartjs',
-        'active' => false,
+        'active' => true,
         'files' => 
         array (
           0 => 
           array (
             'type' => 'js',
-            'asset' => false,
-            'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+            'asset' => true,
+            'location' => '//cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js',
           ),
         ),
       ),

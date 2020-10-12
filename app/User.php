@@ -57,6 +57,6 @@ class User extends Authenticatable
      */
     public function Departamentos()
     {
-        return $this->belongsToMany('App\AdmigasDepartamentos', 'admigas_departamentos');
+        return $this->belongsToMany('App\AdmigasDepartamentos', 'admigas_departamentos_user');
     }
 }

@@ -34,16 +34,22 @@
         padding: 10px;
         float:left;
     }
+    .col-sm-3{
+        width: 20%;
+        height: auto;
+        padding: 10px;
+        float:left;
+    }
     .folio{
         text-align: right;
         margin-top: 52px;
-        margin-right: 50px;
+        margin-right: 40px;
         /* background-color: blue; */
     }
     .data-client{
         width: 100%;
-        margin-top: -35px;
-        margin-left: 90px;
+        margin-top: -33px;
+        margin-left: 100px;
         font-size: 14px;
     }
    .data-client .address{
@@ -52,7 +58,7 @@
    }
     .data-total-pay{
         text-align: center;
-        margin-left: 175px;
+        margin-left: 145px;
         margin-top: -19px;
         height: 150px;
     }
@@ -60,7 +66,7 @@
         margin-bottom: -7px;
     }
     .cie{
-        margin-top: -10px;
+        margin-top: -5px;
         margin-left: 45px;
     }
     .referencia{
@@ -68,25 +74,37 @@
     }
     .invoice-col-detail-legends{
         font-size: 10px;
-        margin-left: 150px;
+        margin-top: -5px;
+        margin-left: 165px;
         font-weight: bold;
     }
     .invoice-col-detail-digist{
         font-size: 10px;
         margin-left: -150px;
     }
-
+    .invoice-info-history{
+        padding-left: 20px;
+        margin-top: 30px;
+        font-size: 12px;
+    }
+    .invoice-info-history .invoice-col-total{
+        margin-left: 25px;
+    }
 
 </style>
 <div class="fondo">
 
     @foreach ($recibos as $recibo)
 
+    @php
+        $historico = \DB::select('call SP_consumo_recibos( '.$recibo->admigas_departamentos_id.' );');
+    @endphp
+
         <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
         <div class="contenido">
             <div class="invoice p-3 mb-3">
                 <div class="col-12 folio">
-                    <h4>{{ $recibo->clave_recibo }}</h4>
+                    <h5>{{ $recibo->clave_recibo }}</h5>
                 </div>
                 <div class="col data-client">
                     <p>{{ $recibo->condomino }}</p>
@@ -96,7 +114,7 @@
                 </div>
                 <div class="col data-total-pay">
                     <br>
-                    <p><b>{{ "$ ".number_format( ( $recibo->importe + $recibo->adeduo_anterior + $recibo->cargos_adicionales + $recibo->gasto_admin ),2 )  }}</b></p>
+                    <p><b>{{ "$ ".number_format( ( $recibo->total_pagar ),2 )  }}</b></p>
                     <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
                     <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
                 </div>
@@ -117,7 +135,7 @@
                         <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
                         <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
                         <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
-                        <legend>{{ $recibo->lectura_final }}</legend><br>
+                        <legend>{{$recibo->importe }}</legend><br>
                         <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
@@ -126,24 +144,29 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                <div class="row invoice-info">
-                    <div class="col-sm-6 invoice-col">
-                        METODOS DE PAGO
-                        <address>
-                        <strong>Admin, Inc.</strong><br>
-                        795 Folsom Ave, Suite 600<br>
-                        San Francisco, CA 94107<br>
-                        Phone: (804) 123-5432<br>
-                        Email: info@almasaeedstudio.com
-                        </address>
+                <div class="row invoice-info-history">
+                    <div class="col-sm-3 invoice-col">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>{{  date('d-m-Y', strtotime($historico[$i]->fecha_recibo)) }}</legend><br>
+                        @endfor
                     </div>
                     <!-- /.col -->
-                    <div class="col-sm-6 invoice-col">
-                        <b>TOTAL A PAGAR</b><br>
-                        <br>
-                        <b>Order ID:</b> 4F3S8J<br>
-                        <b>Payment Due:</b> 2/22/2014<br>
-                        <b>Account:</b> 968-34567
+                    <div class="col-sm-3 invoice-col">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>{{ number_format( $historico[$i]->litros, 2) }}</legend><br>
+                        @endfor
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 invoice-col">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>$ {{ number_format( $historico[$i]->precio_litro, 2) }}</legend><br>
+                        @endfor
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 invoice-col-total">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>$ {{ number_format( $historico[$i]->total_pagar,2 ) }}</legend><br>
+                        @endfor
                     </div>
                 <!-- /.col -->
                 </div>

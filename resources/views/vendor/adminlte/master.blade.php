@@ -36,19 +36,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-@if ( isset( $modulo ) )
-    @if ( $modulo == 1 )
-        <script src="{{ asset('js/edificios.js') }}"></script>
-    @elseif( $modulo == 4 )
-        <script src="{{ asset('js/configuracion.js') }}"></script>
-    @endif
-@endif
 
 @include('adminlte::plugins', ['type' => 'js'])
 
 @yield('adminlte_js')
 @else
 <script src="{{ asset('js/app.js') }}"></script>
+@endif
+@if ( isset( $modulo ) )
+    @if ( $modulo == 1 )
+        <script src="{{ asset('js/edificios.js') }}"></script>
+    @elseif( $modulo == 4 )
+        <script src="{{ asset('js/configuracion.js') }}"></script> 
+    @elseif( $modulo == 5 )
+        <script src="{{ asset('js/cliente.js') }}"></script>
+    @endif
 @endif
 
 </body>
