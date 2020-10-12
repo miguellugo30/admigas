@@ -3,7 +3,6 @@
 namespace Modules\Edificios\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +37,7 @@ class RecibosController extends Controller
                                 )
     {
         $this->middleware(function ($request, $next) {
-            $this->empresa_id = Auth::user()->admigas_empresas_id;
+            $this->empresa_id = Auth::user()->Empresas->first()->id;
 
             return $next($request);
         });
@@ -116,8 +115,11 @@ class RecibosController extends Controller
         /**
          * Obtenemos los recibos del condominio
          */
-        $recibos = $this->recibos->where('admigas_condominios_id', $id)->where('fecha_recibo', 'like', '2020-07%')->get();
-
+        $recibos = $this->recibos
+                    ->where('admigas_condominios_id', $id)
+                    ->where('fecha_recibo', 'like', '2020-09%')
+                    ->active()
+                    ->get();
         return $this->createPdf( $recibos, 2 );
 
     }
@@ -157,7 +159,7 @@ class RecibosController extends Controller
              * Obtenemos la fecha del ultimo recibo
              */
             $fecha = DB::select("call SP_fecha_ultimo_recibo( $id )");
-            
+
             $this->recibos->where([
                                     'fecha_recibo' => $fecha[0]->fecha_recibo,
                                     'admigas_condominios_id' => $id
@@ -166,7 +168,6 @@ class RecibosController extends Controller
                                         'activo' => 0,
                                         'motivo_cancelacion' => $request->motivo_cancelacion
                                     ]);
-            
         }
         else
         {
@@ -209,7 +210,7 @@ class RecibosController extends Controller
         $convenio = $this->empresa->where( 'id', $this->empresa_id )->with('Cuentas')->first();
         $cie =  $convenio->Cuentas->convenio_cie;
 
-        $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.jpeg') );
+        $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.png') );
 
         /**
          * opcion = 1 guardar en disco local

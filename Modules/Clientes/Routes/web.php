@@ -13,4 +13,6 @@
 
 Route::group(['prefix' => 'clientes', 'middleware' => 'auth'], function() {
     Route::get('/', 'ClientesController@index');
+    Route::get('/{id}', 'ClientesController@show');
+    Route::get('/showRecibo/{id}', 'ClientesController@showRecibo');
 });

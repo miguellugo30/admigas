@@ -41,6 +41,9 @@ class ConfiguracionController extends Controller
      */
     public function index()
     {
+        /**
+         * Definimos el modulo del cliente
+         */
         $modulo = 4;
 
         return view('configuracion::index', compact('modulo'));
