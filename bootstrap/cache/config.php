@@ -78,7 +78,6 @@
         'active' => 
         array (
           0 => 'edificios',
-          1 => 'configuracion',
         ),
       ),
       1 => 
@@ -89,8 +88,7 @@
         'topnav' => true,
         'active' => 
         array (
-          0 => 'edificios',
-          1 => 'configuracion',
+          0 => 'credito-cobranza',
         ),
       ),
       2 => 
@@ -101,8 +99,7 @@
         'topnav' => true,
         'active' => 
         array (
-          0 => 'edificios',
-          1 => 'configuracion',
+          0 => 'reportes',
         ),
       ),
       3 => 
@@ -113,8 +110,7 @@
         'topnav' => true,
         'active' => 
         array (
-          0 => 'edificios',
-          1 => 'configuracion',
+          0 => 'configuracion',
         ),
       ),
     ),
@@ -218,6 +214,7 @@
         ),
       ),
     ),
+    'livewire' => false,
   ),
   'app' => 
   array (
@@ -230,7 +227,7 @@
     'locale' => 'es',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:V61Xts4Mtf4Ke7WutE2DZw==',
+    'key' => 'base64:9rWC+ZnH+GkiKGmTjYtY/w==',
     'cipher' => 'AES-128-CBC',
     'providers' => 
     array (
@@ -397,7 +394,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/cache/data',
+        'path' => '/var/www/html/Administradora/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -447,7 +444,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'admigas',
+        'database' => 'administradora_condominios',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -457,12 +454,12 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'admigas',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'administradora_condominios',
+        'username' => 'admigas',
+        'password' => 'Adm!G@$2019#MX',
         'unix_socket' => '',
-        'charset' => 'utf8mb4',
-        'collation' => 'utf8mb4_unicode_ci',
+        'charset' => 'utf8',
+        'collation' => 'utf8_unicode_ci',
         'prefix' => '',
         'prefix_indexes' => true,
         'strict' => true,
@@ -477,9 +474,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'admigas',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'administradora_condominios',
+        'username' => 'admigas',
+        'password' => 'Adm!G@$2019#MX',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -492,9 +489,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'admigas',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'administradora_condominios',
+        'username' => 'admigas',
+        'password' => 'Adm!G@$2019#MX',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -533,10 +530,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\fonts/',
-      'font_cache' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\mchlu\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas',
+      'font_dir' => '/var/www/html/Administradora/storage/fonts/',
+      'font_cache' => '/var/www/html/Administradora/storage/fonts/',
+      'temp_dir' => '/tmp',
+      'chroot' => '/var/www/html/Administradora',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -559,12 +556,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\app',
+        'root' => '/var/www/html/Administradora/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\app/public',
+        'root' => '/var/www/html/Administradora/storage/app/public',
         'url' => 'http://admigas.lo/storage',
         'visibility' => 'public',
       ),
@@ -610,13 +607,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\logs/laravel.log',
+        'path' => '/var/www/html/Administradora/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\logs/laravel.log',
+        'path' => '/var/www/html/Administradora/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -685,7 +682,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\resources\\views/vendor/mail',
+        0 => '/var/www/html/Administradora/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -693,7 +690,7 @@
   'maileclipse' => 
   array (
     'path' => 'maileclipse',
-    'mailables_dir' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\app\\Mail/',
+    'mailables_dir' => '/var/www/html/Administradora/app/Mail/',
     'factory' => true,
     'allowed_environments' => 
     array (
@@ -888,7 +885,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas/vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => '/var/www/html/Administradora/vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'Routes/web.php',
@@ -952,9 +949,9 @@
     ),
     'paths' => 
     array (
-      'modules' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\Modules',
-      'assets' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\public\\modules',
-      'migration' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\database/migrations',
+      'modules' => '/var/www/html/Administradora/Modules',
+      'assets' => '/var/www/html/Administradora/public/modules',
+      'migration' => '/var/www/html/Administradora/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -1089,7 +1086,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\vendor/*/*',
+        0 => '/var/www/html/Administradora/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -1117,7 +1114,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\modules_statuses.json',
+        'statuses-file' => '/var/www/html/Administradora/modules_statuses.json',
         'cache-key' => 'activator.installed',
         'cache-lifetime' => 604800,
       ),
@@ -1260,7 +1257,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/sessions',
+    'files' => '/var/www/html/Administradora/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1361,9 +1358,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\resources\\views',
+      0 => '/var/www/html/Administradora/resources/views',
     ),
-    'compiled' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework\\views',
+    'compiled' => '/var/www/html/Administradora/storage/framework/views',
   ),
   'flare' => 
   array (
