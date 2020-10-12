@@ -8,6 +8,7 @@ use DB;
 use App\AdmigasContactoDepartamentos;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -97,7 +98,6 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $info = AdmigasContactoDepartamentos::select('admigas_departamentos_id')->where('correo_electronico', $data['email'])->first();
-
         /**
          * Creamos el usuario y recuperamos el id del usuario
          */
@@ -112,8 +112,16 @@ class RegisterController extends Controller
          */
         DB::table('admigas_departamentos_user')->insert([
             'user_id' => $user_id->id,
-            'admigas_departamentos_id' => $info->id
+            'admigas_departamentos_id' => $info->admigas_departamentos_id
         ]);
+        /**
+         * Asignamos las categorias al usuario
+         */
+        $user_id->syncPermissions([33,37,29]);
+        /**
+         * Limpiamos la cache
+         */
+        Artisan::call('cache:clear');
          /**
           * Redireccionamos al modulo de clientes
           */
