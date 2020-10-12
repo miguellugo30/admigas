@@ -84,7 +84,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'clientecorreo' ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'code' => ['required', 'numeric','min:8', 'codigocliente:'.$data['email']],
+            'code' => ['required', 'string','min:8', 'codigocliente:'.$data['email']],
         ]);
     }
 
