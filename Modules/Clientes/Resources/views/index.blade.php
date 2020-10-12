@@ -18,16 +18,29 @@
                     </div>
                     <div class="card-body text-center">
                         <div class="col">
-                            <h1>$ {{ number_format( $recibos->first()->total_pagar,2 ) }}</h1>
+                            @if ( count( $recibos ) > 0 )
+                                <h1>$ {{ number_format( $recibos->first()->total_pagar,2 ) }}</h1>
+                            @else
+                                <h1>$ 0.00</h1>
+                            @endif
                         </div>
                         <div class="col">
                             <div class="row">
-                                <div class="col text-left">
-                                    <button type="button" class="btn btn-info">Ver detalle</button>
-                                </div>
-                                <div class="col text-right">
-                                    <button type="button" class="btn btn-primary ">Pagar ahora</button>
-                                </div>
+                                @if ( count( $recibos ) > 0 )
+                                    <div class="col text-left">
+                                        <button type="button" class="btn btn-info">Ver detalle</button>
+                                    </div>
+                                    <div class="col text-right">
+                                        <button type="button" class="btn btn-primary ">Pagar ahora</button>
+                                    </div>
+                                @else
+                                    <div class="col text-left">
+                                        <button type="button" class="btn btn-info" disabled>Ver detalle</button>
+                                    </div>
+                                    <div class="col text-right">
+                                        <button type="button" class="btn btn-primary" disabled>Pagar ahora</button>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -55,20 +68,27 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="col text-center">
-                            @if ( date('Y-m-d') > $recibos->first()->fecha_limite_pago )
-                                <h2 class="text-danger">{{ date('d-m-Y', strtotime( $recibos->first()->fecha_limite_pago)) }}</h2>
-                            @else
-                                <h2>{{ date('d-m-Y', strtotime( $recibos->first()->fecha_limite_pago)) }}</h2>
-                            @endif
-                        </div>
-                        <div class="col text-left" >
-                            @if ( date('Y-m-d') > $recibos->first()->fecha_limite_pago )
-                                <p class="text-danger">Su fecha de pago ha vencido, pague de manera inmediato y evite cortes en su sumistro de gas</p>
-                            @else
-                                <p>Le pedimos pagar ha tiempo, para no generar cargos adicionales</p>
-                            @endif
-                        </div>
+                        @if ( count( $recibos ) > 0 )
+                            <div class="col text-center">
+                                @if ( date('Y-m-d') > $recibos->first()->fecha_limite_pago )
+                                    <h2 class="text-danger">{{ date('d-m-Y', strtotime( $recibos->first()->fecha_limite_pago)) }}</h2>
+                                @else
+                                    <h2>{{ date('d-m-Y', strtotime( $recibos->first()->fecha_limite_pago)) }}</h2>
+                                @endif
+                            </div>
+                            <div class="col text-left" >
+                                @if ( date('Y-m-d') > $recibos->first()->fecha_limite_pago )
+                                    <p class="text-danger">Su fecha de pago ha vencido, pague de manera inmediato y evite cortes en su sumistro de gas</p>
+                                @else
+                                    <p>Le pedimos pagar ha tiempo, para no generar cargos adicionales</p>
+                                @endif
+                            </div>
+                        @else
+                            <div class="col text-left" >
+                                <h2>No se tiene fecha de limite de pago</h2>
+                                <p>En esta seccion se mostrara su fecha limite</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <!-- /.card -->
