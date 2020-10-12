@@ -96,7 +96,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $info = AdmigasContactoDepartamentos::select('amigas_departamentos_id')->where('correo_electronico', $data['email'])->first();
+        $info = AdmigasContactoDepartamentos::select('admigas_departamentos_id')->where('correo_electronico', $data['email'])->first();
 
         /**
          * Creamos el usuario y recuperamos el id del usuario
