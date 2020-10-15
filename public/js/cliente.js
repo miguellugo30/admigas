@@ -10981,7 +10981,8 @@ var _require = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jqu
     post = _require.post;
 
 $(function () {
-  var currentURL = window.location.href;
+  var URL = window.location.href;
+  var currentURL = URL.replace('#', '');
   var departamento_id = document.getElementById('id').value;
   $.get(currentURL + '/' + departamento_id, function (data, textStatus, jqXHR) {
     var ctx = document.getElementById('canvas').getContext('2d');
@@ -11040,6 +11041,8 @@ $(function () {
 
     var _token = $("input[name=_token]").val();
 
+    console.log(currentURL);
+
     if (menu_id == 8) {
       url = currentURL + "/mi_cuenta";
     } else if (menu_id == 10) {
@@ -11053,6 +11056,17 @@ $(function () {
       _token: _token
     }, function (data, textStatus, xhr) {
       $('.content').html(data);
+
+      if (menu_id == 10) {
+        $('.table').DataTable({
+          "scrollY": "380px",
+          "scrollCollapse": true,
+          "paging": false,
+          "ordering": false,
+          "searching": false,
+          "info": false
+        });
+      }
     });
   });
   $(document).on('click', '.viewDetail', function (event) {
