@@ -144,26 +144,28 @@
                 </div>
                 <div class="modal-body" id="modal-body">
                     <dl class="row">
-                        <dt class="col-sm-6">Lectura Inicial:</dt>
-                        <dd class="col-sm-6">{{ number_format( $recibos->first()->lectura_anterior,3 ) }}</dd>
-                        <dt class="col-sm-6">Lectura Final:</dt>
-                        <dd class="col-sm-6">{{ number_format( $recibos->first()->lectura_actual,3 ) }}</dd>
-                        <dt class="col-sm-6">Consumo en M3:</dt>
-                        <dd class="col-sm-6">{{ number_format( ( $recibos->first()->lectura_actual - $recibos->first()->lectura_anterior ),2 ) }}</dd>
-                        <dt class="col-sm-6">Consumo en litros:</dt>
-                        <dd class="col-sm-6">{{ number_format( ( $recibos->first()->lectura_actual - $recibos->first()->lectura_anterior ) * $depto->Condominios->factor,2 ) }}</dd>
-                        <dt class="col-sm-6">Consumo del mes:</dt>
-                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->importe,2 ) }}</dd>
-                        <dt class="col-sm-6">Saldo a favor:</dt>
-                        <dd class="col-sm-6">$ {{ number_format( 0,2 ) }}</dd>
-                        <dt class="col-sm-6">Adeudo pendiente:</dt>
-                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->adeudo_anterior,2 ) }}</dd>
-                        <dt class="col-sm-6">Cargos del periodo:</dt>
-                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->cargos_adicionales,2 ) }}</dd>
-                        <dt class="col-sm-6">Cuota de Administración:</dt>
-                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->gasto_admin,2 ) }}</dd>
-                        <dt class="col-sm-6">Total a pagar:</dt>
-                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->total_pagar,2 ) }}</dd>
+                        @if ( count( $recibos ) > 0 )
+                            <dt class="col-sm-6">Lectura Inicial:</dt>
+                            <dd class="col-sm-6">{{ number_format( $recibos->first()->lectura_anterior,3 ) }}</dd>
+                            <dt class="col-sm-6">Lectura Final:</dt>
+                            <dd class="col-sm-6">{{ number_format( $recibos->first()->lectura_actual,3 ) }}</dd>
+                            <dt class="col-sm-6">Consumo en M3:</dt>
+                            <dd class="col-sm-6">{{ number_format( ( $recibos->first()->lectura_actual - $recibos->first()->lectura_anterior ),2 ) }}</dd>
+                            <dt class="col-sm-6">Consumo en litros:</dt>
+                            <dd class="col-sm-6">{{ number_format( ( $recibos->first()->lectura_actual - $recibos->first()->lectura_anterior ) * $depto->Condominios->factor,2 ) }}</dd>
+                            <dt class="col-sm-6">Consumo del mes:</dt>
+                            <dd class="col-sm-6">$ {{ number_format( $recibos->first()->importe,2 ) }}</dd>
+                            <dt class="col-sm-6">Saldo a favor:</dt>
+                            <dd class="col-sm-6">$ {{ number_format( 0,2 ) }}</dd>
+                            <dt class="col-sm-6">Adeudo pendiente:</dt>
+                            <dd class="col-sm-6">$ {{ number_format( $recibos->first()->adeudo_anterior,2 ) }}</dd>
+                            <dt class="col-sm-6">Cargos del periodo:</dt>
+                            <dd class="col-sm-6">$ {{ number_format( $recibos->first()->cargos_adicionales,2 ) }}</dd>
+                            <dt class="col-sm-6">Cuota de Administración:</dt>
+                            <dd class="col-sm-6">$ {{ number_format( $recibos->first()->gasto_admin,2 ) }}</dd>
+                            <dt class="col-sm-6">Total a pagar:</dt>
+                            <dd class="col-sm-6">$ {{ number_format( $recibos->first()->total_pagar,2 ) }}</dd>
+                        @endif
                     </dl>
                 </div>
                 <div class="modal-footer">
