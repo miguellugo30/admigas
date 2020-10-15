@@ -14,5 +14,9 @@
 Route::group(['prefix' => 'clientes', 'middleware' => 'auth'], function() {
     Route::get('/', 'ClientesController@index');
     Route::get('/{id}', 'ClientesController@show');
-    Route::get('/showRecibo/{id}', 'ClientesController@showRecibo');
+    Route::post('/mi_cuenta', 'ClientesController@mi_cuenta');
+    Route::post('/estado_cuenta', 'ClientesController@estado_cuenta');
+    Route::post('/medios_contacto', 'ClientesController@medios_contacto');
+    Route::get('/showRecibo/{id}/{option}', 'ClientesController@showRecibo')->where(array('id' => '[0-9]+'));
+    Route::post('/update_departamento/{id}', 'ClientesController@update');
 });

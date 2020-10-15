@@ -6,6 +6,7 @@
 @section('content')
 <!-- Main content -->
 <div class="content">
+    {{ csrf_field() }}
     <input type="hidden" name="id" id="id" value="{{ \Auth::user()->Departamentos->first()->id }}">
     <div class="container-fluid">
         <div class="row">
@@ -28,14 +29,14 @@
                             <div class="row">
                                 @if ( count( $recibos ) > 0 )
                                     <div class="col text-left">
-                                        <button type="button" class="btn btn-info">Ver detalle</button>
+                                        <button type="button" class="btn btn-info viewDetail">Ver detalle</button>
                                     </div>
                                     <div class="col text-right">
                                         <button type="button" class="btn btn-primary ">Pagar ahora</button>
                                     </div>
                                 @else
                                     <div class="col text-left">
-                                        <button type="button" class="btn btn-info" disabled>Ver detalle</button>
+                                        <button type="button" class="btn btn-info viewDetail" disabled>Ver detalle</button>
                                     </div>
                                     <div class="col text-right">
                                         <button type="button" class="btn btn-primary" disabled>Pagar ahora</button>
@@ -131,6 +132,46 @@
         <!-- /.row -->
     </div>
     <!-- /.container-fluid -->
+    <!-- MODAL -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" id="modal" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModal">Detalle de Consumo del mes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-6">Lectura Inicial:</dt>
+                        <dd class="col-sm-6">{{ number_format( $recibos->first()->lectura_anterior,3 ) }}</dd>
+                        <dt class="col-sm-6">Lectura Final:</dt>
+                        <dd class="col-sm-6">{{ number_format( $recibos->first()->lectura_actual,3 ) }}</dd>
+                        <dt class="col-sm-6">Consumo en M3:</dt>
+                        <dd class="col-sm-6">{{ number_format( ( $recibos->first()->lectura_actual - $recibos->first()->lectura_anterior ),2 ) }}</dd>
+                        <dt class="col-sm-6">Consumo en litros:</dt>
+                        <dd class="col-sm-6">{{ number_format( ( $recibos->first()->lectura_actual - $recibos->first()->lectura_anterior ) * $depto->Condominios->factor,2 ) }}</dd>
+                        <dt class="col-sm-6">Consumo del mes:</dt>
+                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->importe,2 ) }}</dd>
+                        <dt class="col-sm-6">Saldo a favor:</dt>
+                        <dd class="col-sm-6">$ {{ number_format( 0,2 ) }}</dd>
+                        <dt class="col-sm-6">Adeudo pendiente:</dt>
+                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->adeudo_anterior,2 ) }}</dd>
+                        <dt class="col-sm-6">Cargos del periodo:</dt>
+                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->cargos_adicionales,2 ) }}</dd>
+                        <dt class="col-sm-6">Cuota de Administración:</dt>
+                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->gasto_admin,2 ) }}</dd>
+                        <dt class="col-sm-6">Total a pagar:</dt>
+                        <dd class="col-sm-6">$ {{ number_format( $recibos->first()->total_pagar,2 ) }}</dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary float-left" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /.content -->
 @endsection
