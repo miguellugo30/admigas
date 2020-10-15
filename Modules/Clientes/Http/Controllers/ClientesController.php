@@ -151,13 +151,18 @@ class ClientesController extends Controller
     }
     public function mi_cuenta(Request $request)
     {
-
         /**
          * Recuperamos los datos del cliente
          */
         $depto =  $this->departamentos->find($request->departamento_id);
 
         return view('clientes::mi_cuenta', compact('depto'));
+    }
+    public function estado_cuenta(Request $request)
+    {
+        $estado_cuenta = \DB::select("call SP_estado_cuenta( $request->departamento_id )");
+
+        return view('clientes::estado_cuenta', compact('estado_cuenta'));
     }
     /**
      * Mostrar recibo
