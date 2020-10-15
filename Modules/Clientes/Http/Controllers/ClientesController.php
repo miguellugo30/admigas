@@ -7,29 +7,52 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Events\Dispatcher;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 /**
  * Modelos
  */
 use App\AdmigasMenus;
 use App\AdmigasRecibos;
+use App\AdmigasContactoDepartamentos;
+use App\AdmigasDepartamentos;
+use App\AdmigasEmpresas;
 
 class ClientesController extends Controller
 {
     private $recibos;
+    private $departamentos;
+    private $contactoDepartamento;
+    private $empresas;
 
-    public function __construct(Dispatcher $events,  AdmigasRecibos $recibos)
+    public function __construct(
+        Dispatcher $events,
+        AdmigasRecibos $recibos,
+        AdmigasDepartamentos $departamentos,
+        AdmigasContactoDepartamentos $contactoDepartamento,
+        AdmigasEmpresas $empresas
+        )
     {
 
         $this->middleware('auth');
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
+
+            $event->menu->add([
+                'text' => 'Inicio',
+                'id' => 0,
+                'url' => "/clientes",
+                'icon' => 'fas fa-home',
+                'permiso' => 'view inicio',
+                'clase' => ''
+            ]);
+
             $categorias = AdmigasMenus::active()->where('admigas_cat_modulos_id',5)->orderBy('orden', 'asc')->get();
 
             foreach ($categorias as $v) {
                 $event->menu->add( [
                     'text' => $v->nombre,
                     'id' => $v->id,
-                    'url' => "",
+                    'url' => "#",
                     'icon' => $v->icono,
                     'permiso' => $v->permiso,
                     'clase' => 'menu'
@@ -38,6 +61,9 @@ class ClientesController extends Controller
         });
 
         $this->recibos = $recibos;
+        $this->departamentos = $departamentos;
+        $this->contactoDepartamento = $contactoDepartamento;
+        $this->empresas = $empresas;
     }
     /**
      * Display a listing of the resource.
@@ -49,7 +75,7 @@ class ClientesController extends Controller
         /**
          * Recuperamos los datos del cliente
          */
-        $depto = \Auth::user()->Departamentos->first();
+        $depto =  $this->departamentos->find( \Auth::user()->Departamentos->first()->id );
         /**
          * Contacto Depto
          */
@@ -64,25 +90,6 @@ class ClientesController extends Controller
         $ultimosRecibos = \DB::select('call SP_consumo_recibos( ' . \Auth::user()->Departamentos->first()->id . ' );');
 
         return view('clientes::index', compact('modulo', 'depto', 'recibos', 'ultimosRecibos'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('clientes::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -129,29 +136,54 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        /**
+         * Creamos el contacto del departamento
+         */
+        $this->contactoDepartamento->where('admigas_departamentos_id', $request->departamento_id)
+            ->update([
+                'nombre' => $request->nombre,
+                'apellido_paterno' =>  $request->apellido_paterno,
+                'apellido_materno' =>  $request->apellido_materno,
+                'telefono' => $request->telefono,
+                'celular' => $request->celular,
+                'correo_electronico' => $request->correo_electronico
+            ]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
+    public function mi_cuenta(Request $request)
     {
-        //
+
+        /**
+         * Recuperamos los datos del cliente
+         */
+        $depto =  $this->departamentos->find($request->departamento_id);
+
+        return view('clientes::mi_cuenta', compact('depto'));
     }
     /**
      * Mostrar recibo
      */
-    public function showRecibo($id)
+    public function showRecibo($id, $option)
     {
+        /**
+         * Recuperamos los datos del cliente
+         */
+        $depto =  $this->departamentos->find(\Auth::user()->Departamentos->first()->id);
+        /**
+         * Obtenemos el convenio cie de la empresa
+         */
+        $convenio = $this->empresas->where('id', $depto->condominios->Unidades->Zonas->admigas_empresas_id)->first();
+        $cie =  $convenio->Cuentas->convenio_cie;
         $recibos = $this->recibos->where('id', $id)->get();
-        dd( $recibos->Condominios );
+
         $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
 
-        return  \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie'))
-            ->setPaper('A5')
-            ->stream('archivo.pdf');
+        if ( $option == 1 ) {
+            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie'))
+                ->setPaper('A5')
+                ->stream('archivo.pdf');
+        } else {
+            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
+            //Storage::put('\public\recibo_' . $depto->id . '.pdf', $pdf);
+        }
     }
 }

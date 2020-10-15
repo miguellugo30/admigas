@@ -1,3 +1,5 @@
+const { post } = require("jquery");
+
 $(function () {
 
     let currentURL = window.location.href;
@@ -48,7 +50,6 @@ $(function () {
     document.getElementById("viewRecibo").addEventListener("click", function (event) {
 
         let recibo_id = document.getElementById('recibos').value;
-        alert(recibo_id);
         if (recibo_id === '') {
             Swal.fire(
                 'Error!',
@@ -56,7 +57,7 @@ $(function () {
                 'error'
             )
         } else {
-            alert('no es nulo');
+            window.open(currentURL+"/showRecibo/"+recibo_id+"/1", '_blank');
         }
 
     }, false);
@@ -66,7 +67,6 @@ $(function () {
     document.getElementById("downloadRecibo").addEventListener("click", function (event) {
 
         let recibo_id = document.getElementById('recibos').value;
-        alert(recibo_id);
         if (recibo_id === '') {
             Swal.fire(
                 'Error!',
@@ -74,9 +74,95 @@ $(function () {
                 'error'
             )
         } else {
-            alert('no es nulo');
+            window.open(currentURL+"/showRecibo/"+recibo_id+"/2", '_blank');
         }
 
     }, false);
 
+    $(document).on('click', '.menu', function(event) {
+        let menu_id = $(this).attr('id');
+        let departamento_id = $("#id").val();
+        let _token = $("input[name=_token]").val();
+
+        if (menu_id == 8) {
+            url = currentURL + "/mi_cuenta"
+        } else if( menu_id == 10 ) {
+            url = currentURL + "/estado_cuenta"
+        } else if( menu_id == 9 ) {
+            url = currentURL + "/medios_contacto"
+        }
+
+        $.post(url, {
+                departamento_id: departamento_id,
+                _token: _token
+            }, function(data, textStatus, xhr) {
+                $('.content').html(data);
+            });
+    });
+
+    $(document).on('click', '.viewDetail', function(event) {
+        $('#modal').modal('show');
+    });
+
+    $(document).on('click', '.editClient', function(event) {
+        $('#modal').modal('show');
+    });
+
+    $(document).on('click', '#actionSave', function(event) {
+
+        let departamento_id = $("#id").val();
+        let nombre = $("#nombre").val();
+        let apellido_paterno = $("#apellido_paterno").val();
+        let apellido_materno = $("#apellido_materno").val();
+        let telefono = $("#telefono").val();
+        let celular = $("#celular").val();
+        let correo_electronico = $("#correo_electronico").val();
+        let _token = $("input[name=_token]").val();
+        let url = currentURL + "/update_departamento/" + departamento_id
+
+        $.post(url, {
+            nombre: nombre,
+            apellido_paterno: apellido_paterno,
+            apellido_materno: apellido_materno,
+            telefono: telefono,
+            celular: celular,
+            correo_electronico: correo_electronico,
+            departamento_id: departamento_id,
+            _token: _token
+        }, function(data, textStatus, xhr) {
+
+            let url = currentURL + "/mi_cuenta";
+            $.post(url, {
+                departamento_id: departamento_id,
+                _token: _token
+            }, function(data, textStatus, xhr) {
+                $('.content').html(data);
+            });
+        }).done(function() {
+            $('.modal-backdrop ').css('display', 'none');
+            $('#modal').modal('hide');
+            Swal.fire(
+                'Correcto!',
+                'La información se actualizado correctamente.',
+                'success'
+            )
+        }).fail(function(data) {
+            printErrorMsg(data.responseJSON.errors);
+        });
+
+    });
+    /**
+     * Funcion para mostrar los errores de los formularios
+     */
+    function printErrorMsg(msg) {
+        $(".print-error-msg").find("ul").html('');
+        $(".print-error-msg").css('display', 'block');
+        $(".form-control").removeClass('is-invalid');
+        for (var clave in msg) {
+            $("#" + clave).addClass('is-invalid');
+            if (msg.hasOwnProperty(clave)) {
+                $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+            }
+        }
+    }
 });

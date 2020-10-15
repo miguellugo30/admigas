@@ -24,6 +24,19 @@
     @else
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @endif
+    <style>
+        .brand-link .brand-image-xs{
+        float: none !important;
+        max-height: 45px !important;
+        }
+
+        .logo-xl.brand-image-xs,
+        .logo-xs.brand-image-xs{
+        left: 75px !important;
+        top: 10px !important;
+        }
+
+    </style>
 </head>
 <body class="@yield('classes_body')" @yield('body_data')>
 
