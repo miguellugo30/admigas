@@ -31,7 +31,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getRoleNames()->first() }}</td>
-                        <td>{{ $user->Empresas()->first()->razon_social }}</td>
+                        <td>{{ $user->Empresas->first()->razon_social }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -27,7 +27,7 @@ class UsuariosController extends Controller
         /**
          * Obtenemos todos los usuarios dados de alta
          */
-        $users = User::with('Empresas')->get();
+        $users = User::tipo()->get();
 
         return view('configuracion::usuarios.index', compact('users'));
     }
@@ -69,6 +69,7 @@ class UsuariosController extends Controller
          * Encriptamos la contrasenia
          */
         $input['password'] = Hash::make($input['password']);
+        $input['tipo'] = 0;
         /**
          * Insertamos la informacion del formulario
          */
@@ -81,6 +82,10 @@ class UsuariosController extends Controller
          * Asignamos las categorias al usuario
          */
         $user->syncPermissions( $request->input('arr'));
+        /**
+         * Relacionamos la empresa al usuario
+         */
+        $user->Empresas()->attach(  $request->admigas_empresas_id );
         /**
          * Limpiamos la cache
          */
@@ -149,8 +154,7 @@ class UsuariosController extends Controller
                                             ->update([
                                                 'name' => $request->name,
                                                 'email'   => $request->email,
-                                                'password' => Hash::make( $request->password ),
-                                                'admigas_empresas_id' => $request->admigas_empresas_id,
+                                                'password' => Hash::make( $request->password )
                                                 ]);
         }
         else
@@ -158,8 +162,7 @@ class UsuariosController extends Controller
             $user = User::where( 'id', $id )
                                             ->update([
                                                 'name' => $request->name,
-                                                'email'   => $request->email,
-                                                'admigas_empresas_id' => $request->admigas_empresas_id,
+                                                'email'   => $request->email
                                                 ]);
         }
         /**
@@ -168,6 +171,11 @@ class UsuariosController extends Controller
          */
         $user = User::find( $id );
         $user->syncRoles([ $request->rol ]);
+        /**
+         * Relacionamos la empresa al usuario
+         */
+        $user->Empresas()->detach();
+        $user->Empresas()->attach($request->admigas_empresas_id);
 
         /**
          * Eliminamos los menus que tiene el usuario
