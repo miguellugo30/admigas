@@ -20,7 +20,7 @@
                                 <th>Abono</th>
                                 <th>Saldo</th>
                                 <th>Fecha Limite</th>
-                                <th>Fecha Aplicacion</th>
+                                <th>Fecha Aplicación</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -20,13 +20,13 @@
                             <dt class="col-sm-6">Apellido Materno:</dt>
                             <dd class="col-sm-6">{{ $depto->contacto_depto->apellido_materno }}</dd>
 
-                            <dt class="col-sm-6">Telefono fijo:</dt>
+                            <dt class="col-sm-6">Teléfono fijo:</dt>
                             <dd class="col-sm-6">{{ $depto->contacto_depto->telefono }}</dd>
 
-                            <dt class="col-sm-6">Telefono celular:</dt>
+                            <dt class="col-sm-6">Teléfono celular:</dt>
                             <dd class="col-sm-6">{{ $depto->contacto_depto->celular }}</dd>
 
-                            <dt class="col-sm-6">Correo Electronico:</dt>
+                            <dt class="col-sm-6">Correo Electrónico:</dt>
                             <dd class="col-sm-6">{{ $depto->contacto_depto->correo_electronico }}</dd>
                         </dl>
                         <div class="col text-right">
