@@ -68,20 +68,13 @@
                     <div class="row">
                         <div class="col-8">
                             {{-- Password reset link --}}
-                            @if($register_url)
-                                <p class="my-0">
-                                    <a href="{{ route('registro_cliente') }}">
-                                        {{ __('adminlte::adminlte.register_a_new_membership') }}
-                                    </a>
-                                </p>
-                            @endif
                             {{-- Register link --}}
                             @if($password_reset_url)
-                                <p class="my-0">
+                                <!--p class="my-0">
                                     <a href="{{ $password_reset_url }}">
                                         {{ __('adminlte::adminlte.i_forgot_my_password') }}
                                     </a>
-                                </p>
+                                </p-->
                             @endif
                         </div>
                         <div class="col-4">

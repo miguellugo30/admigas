@@ -105,7 +105,23 @@
                         </div>
                     @endif
                 </div>
-                <button type="submit" class="btn btn-primary btn-block btn-flat">
+                                <div class="col">
+                    <div class="icheck-primary">
+                        <input type="checkbox" class="terms" id="agreeContract" name="terms" value="agree">
+                        <label for="agreeContract">
+                            Acepto <a href="{{ \Storage::url('terminos\Contrato_2G') }}.pdf" target="_blank">Contrato de Condomino</a>
+                        </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="icheck-primary">
+                        <input type="checkbox" class="terms" id="agreeTerms" name="terms" value="agree">
+                        <label for="agreeTerms">
+                            Acepto <a href="{{ \Storage::url('terminos\Aviso_de_Privacidad_-_Protección_de_Datos') }}.pdf"  target="_blank">Aviso de privacidad</a>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" id="register" class="btn btn-primary btn-block btn-flat" disabled>
                     {{ __('adminlte::adminlte.register') }}
                 </button>
             </form>
@@ -123,4 +139,22 @@
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')
     @yield('js')
+        <script>
+        var checkboxes = document.getElementsByClassName('terms');
+        [...checkboxes].map( e => e.addEventListener("click", terms));
+
+        function terms() {
+            var suma=0;
+            for (var i = 0; i < checkboxes.length; i++)
+                if(checkboxes[i].checked != true)
+                    suma=suma+1;
+                    if ( suma == 0 ) {
+                        document.getElementById("register").disabled = false;
+                    }else{
+                        document.getElementById("register").disabled = true;
+                    }
+        }
+
+        terms();
+    </script>
 @stop
