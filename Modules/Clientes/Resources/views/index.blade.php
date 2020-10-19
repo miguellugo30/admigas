@@ -14,7 +14,7 @@
                 <div class="card">
                     <div class="card-header border-0">
                         <div class="d-flex justify-content-between">
-                            <h3 class="card-title"><b> Su saldo al dia es: </b></h3>
+                            <h3 class="card-title"><b> Su saldo al día es: </b></h3>
                         </div>
                     </div>
                     <div class="card-body text-center">
@@ -79,15 +79,15 @@
                             </div>
                             <div class="col text-left" >
                                 @if ( date('Y-m-d') > $recibos->first()->fecha_limite_pago )
-                                    <p class="text-danger">Su fecha de pago ha vencido, pague de manera inmediato y evite cortes en su sumistro de gas</p>
+                                    <p class="text-danger">Su fecha de pago ha vencido, pague de manera inmediato y evite cortes en su suministro de gas</p>
                                 @else
-                                    <p>Le pedimos pagar ha tiempo, para no generar cargos adicionales</p>
+                                    <p>Le pedimos pagar a tiempo, para no generar cargos adicionales</p>
                                 @endif
                             </div>
                         @else
                             <div class="col text-left" >
-                                <h2>No se tiene fecha de limite de pago</h2>
-                                <p>En esta seccion se mostrara su fecha limite</p>
+                                <h2>No se tiene fecha de límite de pago</h2>
+                                <p>En esta sección se mostrara su fecha limite</p>
                             </div>
                         @endif
                     </div>
@@ -98,7 +98,7 @@
                         <h3 class="card-title"><b>Consulte y descargue sus recibos</b></h3>
                     </div>
                     <div class="card-body text-center">
-                        <p>Puedes visualizar y descargar tus ultimos 6 recibos</p>
+                        <p>Puedes visualizar y descargar tus últimos 6 recibos</p>
                         @php
                             \Carbon\Carbon::setlocale(config('app.locale'));
                         @endphp

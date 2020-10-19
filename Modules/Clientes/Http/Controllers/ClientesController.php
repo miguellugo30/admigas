@@ -149,6 +149,7 @@ class ClientesController extends Controller
                 'correo_electronico' => $request->correo_electronico
             ]);
     }
+
     public function mi_cuenta(Request $request)
     {
         /**
@@ -158,11 +159,17 @@ class ClientesController extends Controller
 
         return view('clientes::mi_cuenta', compact('depto'));
     }
+
     public function estado_cuenta(Request $request)
     {
         $estado_cuenta = \DB::select("call SP_estado_cuenta( $request->departamento_id )");
 
         return view('clientes::estado_cuenta', compact('estado_cuenta'));
+    }
+
+    public function medios_contacto(Request $request)
+    {
+        return view('clientes::medios_contacto');
     }
     /**
      * Mostrar recibo
