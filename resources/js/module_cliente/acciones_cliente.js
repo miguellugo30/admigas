@@ -84,12 +84,12 @@ $(function () {
         let menu_id = $(this).attr('id');
         let departamento_id = $("#id").val();
         let _token = $("input[name=_token]").val();
-        console.log( currentURL );
+
         if (menu_id == 8) {
             url = currentURL + "/mi_cuenta"
-        } else if( menu_id == 10 ) {
-            url = currentURL + "/estado_cuenta"
         } else if( menu_id == 9 ) {
+            url = currentURL + "/estado_cuenta"
+        } else if( menu_id == 10 ) {
             url = currentURL + "/medios_contacto"
         }
 
@@ -106,6 +106,9 @@ $(function () {
                                                 "ordering": false,
                                                 "searching": false,
                                                 "info": false,
+                                                languaje:{
+                                                    url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
+                                                }
                                             } );
                 }
             });
