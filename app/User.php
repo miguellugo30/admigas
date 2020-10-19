@@ -40,6 +40,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * Funcion para obtener solo los registros activos
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('activo', 1);
+    }
+    /**
+     * Funcion para obtener solo los registros activos
+     */
+    public function scopeTipo($query)
+    {
+        return $query->where('tipo', 0);
+    }
     /*
     |--------------------------------------------------------------------------
     | RELACIONES DE BASE DE DATOS

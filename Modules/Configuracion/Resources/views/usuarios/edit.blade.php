@@ -23,7 +23,7 @@
             <select name="empresa" id="empresa" class="form-control form-control-sm">
                 <option value="">Selecciona una empresa</option>
                 @foreach( $empresas as $empresa )
-                    <option value="{{ $empresa->id }}" {{ $user->admigas_empresas_id == $empresa->id ? 'selected="selected"' : '' }}>{{ $empresa->razon_social }}</option>
+                    <option value="{{ $empresa->id }}" {{ $user->Empresas->first()->id == $empresa->id ? 'selected="selected"' : '' }}>{{ $empresa->razon_social }}</option>
                 @endforeach
             </select>
         </div>
