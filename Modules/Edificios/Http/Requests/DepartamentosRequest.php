@@ -20,7 +20,7 @@ class DepartamentosRequest extends FormRequest
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
             'celular' => 'required|numeric|min:10',
-            'correo_electronico' => 'required|email',
+            'correo_electronico' => 'required|email|unique:App\AdmigasContactoDepartamentos,correo_electronico',
             'tipo' => 'required',
             'numero_serie' => 'required',
             'lectura' => 'required',

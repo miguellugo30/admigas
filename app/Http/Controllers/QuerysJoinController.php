@@ -166,6 +166,7 @@ class QuerysJoinController extends Controller
             $v['gasto_admin'] = $condominio->gasto_admin;
             $v['adeudo_anterior'] = $depto->saldo;
             $v['cargos_adicionales'] = $this->cargosDepto( $depto->departamento_id );
+            $v['total_pagar'] = $this->cargosDepto( $depto->departamento_id ) + $depto->saldo + $condominio->gasto_admin + $condominio->gasto_admin + (($depto->lectura_actual - $depto->lectura_anterior) * $condominio->factor) * ($precio->precio - $condominio->descuento) ;
             $v['referencia'] = $depto->numero_referencia;
             $v['admigas_departamentos_id'] = $depto->departamento_id;
             $v['admigas_condominios_id'] = $condominio->id;

@@ -190,7 +190,7 @@ class RecibosController extends Controller
         foreach ($recibos as $recibo )
         {
 
-            $this->createPdf( $recibo, 1 );
+            //$this->createPdf( $recibo, 1 );
 
             $total_pagar = $recibo->cargos_adicionales + $recibo->adeudo_anterior + $recibo->importe +  $recibo->gasto_admin;
 

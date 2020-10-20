@@ -75,6 +75,8 @@
                                         {{ __('adminlte::adminlte.i_forgot_my_password') }}
                                     </a>
                                 </p-->
+
+                                
                             @endif
                         </div>
                         <div class="col-4">

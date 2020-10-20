@@ -37,11 +37,11 @@ class EnvioRecibos extends Mailable
 
         return $this->from('administradora@administradora.com')
                     ->subject("Recibo de Gas, ")
-                    ->view('maileclipse::templates.notificacionRecibos')
+                    ->view('show_mail')/*
                     ->attach( storage_path()."\app\public/recibo_".$this->recibo->admigas_departamentos_id.".pdf", [
                         'as' => 'recibo_gas.pdf',
                         'mime' => 'application/pdf',
-                    ] )
+                    ] )*/
                     ->with([
                         'nombre' => $this->recibo->condomino,
                         'fecha_limite_pago' => date('d-m-Y', strtotime( $this->recibo->fecha_limite_pago ) ),
