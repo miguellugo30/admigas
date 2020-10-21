@@ -35,5 +35,7 @@ Route::post('/clientes/registro/', 'Auth\RegisterController@register')->name('re
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', function (){
+    dd(\Storage::cloud()->listContents('/', false));
+})->name('home');
 
