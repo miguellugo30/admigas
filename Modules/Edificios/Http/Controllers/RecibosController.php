@@ -121,7 +121,7 @@ class RecibosController extends Controller
          */
         $recibos = $this->recibos
                     ->where('admigas_condominios_id', $id)
-                    ->where('fecha_recibo', 'like',date('Y-m', strtotime($fecha[0]->fecha_recibo)))
+                    ->where('fecha_recibo', 'like',date('Y-m', strtotime($fecha[0]->fecha_recibo))."%"  )
                     ->active()
                     ->get();
         return $this->createPdf( $recibos, 2 );
