@@ -23,7 +23,7 @@ class PrecioGasController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->empresa_id = Auth::user()->admigas_empresas_id;
+            $this->empresa_id = Auth::user()->Empresas->first()->id;
 
             return $next($request);
         });
