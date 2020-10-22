@@ -33,6 +33,7 @@ class AdmigasRecibos extends Model
                                 'gasto_admin',
                                 'adeudo_anterior',
                                 'cargos_adicionales',
+                                'total_pagar',
                                 'referencia',
                                 'motivo_cancelacion',
                                 'admigas_departamentos_id',

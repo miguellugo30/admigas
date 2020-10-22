@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Edificios\Http\Requests\DepartamentosRequest;
 use DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterDepto;
 /**
  * Modelos
  */
@@ -123,7 +125,11 @@ class DepartamentosController extends Controller
                                             'admigas_departamentos_id' => $depto->id,
                                             'admigas_medidores_id' => $medidor->id,
                                         ]);
-
+        /**
+         * Enviamos correo de registro
+         */
+        $nombre = $request->nombre." ".$request->apellido_paterno." ".$request->apellido_materno;
+        Mail::to($request->correo_electronico)->send(new RegisterDepto($nombre, $codigo));
         /**
          * Redirigimos a la ruta index
          */
