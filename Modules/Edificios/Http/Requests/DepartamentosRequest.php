@@ -22,8 +22,8 @@ class DepartamentosRequest extends FormRequest
             'celular' => 'required|numeric|min:10',
             'correo_electronico' => 'required|email',
             'tipo' => 'required',
-            'numero_serie' => 'required',
-            'lectura' => 'required',
+            'numero_serie' => 'required|numeric',
+            'lectura' => 'required|numeric',
             'fecha_lectura' => 'required',
         ];
     }
