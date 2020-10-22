@@ -113,11 +113,15 @@ class RecibosController extends Controller
     public function show($id)
     {
         /**
+         * Obtenemos la fecha del ultimo recibo
+         */
+        $fecha = DB::select("call SP_fecha_ultimo_recibo( $id )");
+        /**
          * Obtenemos los recibos del condominio
          */
         $recibos = $this->recibos
                     ->where('admigas_condominios_id', $id)
-                    ->where('fecha_recibo', 'like', '2020-09%')
+                    ->where('fecha_recibo', 'like',date('Y-m', strtotime($fecha[0]->fecha_recibo)))
                     ->active()
                     ->get();
         return $this->createPdf( $recibos, 2 );
