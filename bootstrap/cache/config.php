@@ -259,6 +259,7 @@
       25 => 'App\\Providers\\EventServiceProvider',
       26 => 'App\\Providers\\RouteServiceProvider',
       27 => 'App\\Providers\\TelescopeServiceProvider',
+      28 => 'App\\Providers\\GoogleDriveServiceProvider',
     ),
     'aliases' => 
     array (
@@ -550,7 +551,7 @@
   'filesystems' => 
   array (
     'default' => 'local',
-    'cloud' => 's3',
+    'cloud' => 'google',
     'disks' => 
     array (
       'local' => 
@@ -573,6 +574,14 @@
         'region' => 'us-east-1',
         'bucket' => '',
         'url' => NULL,
+      ),
+      'google' => 
+      array (
+        'driver' => 'google',
+        'clientId' => '944808039382-d5kuljo255hmirfe238qu603mp5gf4cp.apps.googleusercontent.com',
+        'clientSecret' => 'VTZTRhW6yCdfEyF812uwVc0L',
+        'refreshToken' => '1//04LT8u9Dnv5e9CgYIARAAGAQSNwF-L9IrAQnfb3_0fY-Q5YwDIOHMJtPqRYUKBo9SaZOCJ6dEz28YNUI_W7yQlafYNInBQmL6XyQ',
+        'folderId' => '1FLDpZhaJKE6HYVYPlRQZ6XYH9lCIN4e0',
       ),
     ),
   ),

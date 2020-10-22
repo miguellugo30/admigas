@@ -42,6 +42,7 @@
     38 => 'App\\Providers\\EventServiceProvider',
     39 => 'App\\Providers\\RouteServiceProvider',
     40 => 'App\\Providers\\TelescopeServiceProvider',
+    41 => 'App\\Providers\\GoogleDriveServiceProvider',
   ),
   'eager' => 
   array (
@@ -73,6 +74,7 @@
     25 => 'App\\Providers\\EventServiceProvider',
     26 => 'App\\Providers\\RouteServiceProvider',
     27 => 'App\\Providers\\TelescopeServiceProvider',
+    28 => 'App\\Providers\\GoogleDriveServiceProvider',
   ),
   'deferred' => 
   array (
