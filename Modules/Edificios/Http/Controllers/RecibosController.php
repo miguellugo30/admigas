@@ -123,6 +123,7 @@ class RecibosController extends Controller
                     ->where('admigas_condominios_id', $id)
                     ->where('fecha_recibo', 'like',date('Y-m', strtotime($fecha[0]->fecha_recibo))."%"  )
                     ->active()
+                    ->limit(2)
                     ->get();
         return $this->createPdf( $recibos, 2 );
 
@@ -227,10 +228,13 @@ class RecibosController extends Controller
         }
         elseif( $opcion == 2 )
         {
-            $url_recibo = "";
+            /*
+            return view('edificios::recibos.show', compact( 'recibos', 'cie' ));
             $url_recibo = file_get_contents(public_path('storage/recibo/recibo_blanco.png'));
-            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo', 'cie' ) )
-                        ->setPaper('A5')
+            $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
+            */
+            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'cie' ) )
+                        ->setPaper('letter', 'landscape')
                         ->stream('archivo.pdf');
         }
     }
