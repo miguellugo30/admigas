@@ -2,6 +2,8 @@
     .fondo{
         position: relative;
         display: inline-block;
+        width: 100%;
+        height: 810px;
     }
     @page {
             margin: 0px 0px 0px 0px !important;
@@ -9,12 +11,16 @@
             font-size: 16px;
             font-family: Arial, Helvetica, sans-serif;
     }
+    img{
+        margin-top: 65px;
+    }
     .contenido{
         position: absolute;
         top: 1px;
         left: 1px;
-        width: 557px;
+        width: 50%;
         height: 792px;
+        background-image: url("../../storage/recibo/recibo_2G-v2.png")
     }
     .row{
         width: 100%;
@@ -94,19 +100,14 @@
     }
 
 </style>
-<div class="fondo">
 
-    @foreach ($recibos as $recibo)
+@foreach ($recibos as $recibo)
+    <div class="fondo">
 
     @php
         $historico = \DB::select('call SP_consumo_recibos( '.$recibo->admigas_departamentos_id.' );');
     @endphp
 
-        @if ( $url_recibo == '' )
-            <img src="" alt="" width="560" height="750">
-        @else
-            <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
-        @endif
         <div class="contenido">
             <div class="invoice p-3 mb-3">
                 <div class="col-12 folio">
@@ -181,7 +182,7 @@
 
         </div>
 
+    </div>
 
     @endforeach
 
-</div>
