@@ -11,8 +11,10 @@
     }
     .contenido{
         position: absolute;
-    top: 10px;
-    left: 10px;
+        top: 1px;
+        left: 1px;
+        width: 557px;
+        height: 792px;
     }
     .row{
         width: 100%;
@@ -42,13 +44,13 @@
     }
     .folio{
         text-align: right;
-        margin-top: 52px;
+        margin-top: 88px;
         margin-right: 40px;
         /* background-color: blue; */
     }
     .data-client{
         width: 100%;
-        margin-top: -33px;
+        margin-top: 23px;
         margin-left: 100px;
         font-size: 14px;
     }
@@ -100,11 +102,15 @@
         $historico = \DB::select('call SP_consumo_recibos( '.$recibo->admigas_departamentos_id.' );');
     @endphp
 
-        <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
+        @if ( $url_recibo == '' )
+            <img src="" alt="" width="560" height="750">
+        @else
+            <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
+        @endif
         <div class="contenido">
             <div class="invoice p-3 mb-3">
                 <div class="col-12 folio">
-                    <h5>{{ $recibo->clave_recibo }}</h5>
+                    <h5>{{-- $recibo->clave_recibo --}}</h5>
                 </div>
                 <div class="col data-client">
                     <p>{{ $recibo->condomino }}</p>

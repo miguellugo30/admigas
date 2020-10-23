@@ -214,19 +214,21 @@ class RecibosController extends Controller
         $convenio = $this->empresa->where( 'id', $this->empresa_id )->with('Cuentas')->first();
         $cie =  $convenio->Cuentas->convenio_cie;
 
-        $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.png') );
-
+        
         /**
          * opcion = 1 guardar en disco local
          * opcion = 2 mostrar en navegador
          */
         if ( $opcion == 1 )
         {
+            $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.png') );
             $pdf = \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo', 'cie' ) )->setPaper('A5')->output();
             Storage::put('\public\recibo_'.$recibos->admigas_departamentos_id.'.pdf', $pdf);
         }
         elseif( $opcion == 2 )
         {
+            $url_recibo = "";
+            $url_recibo = file_get_contents(public_path('storage/recibo/recibo_blanco.png'));
             return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'url_recibo', 'cie' ) )
                         ->setPaper('A5')
                         ->stream('archivo.pdf');
