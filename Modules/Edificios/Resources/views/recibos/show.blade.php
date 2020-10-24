@@ -34,6 +34,7 @@
         height: 140px;
         margin: 5px;
         margin-left: 125px;
+        margin-top: 25px;
         /* background-color: yellow; */
         overflow: hidden;
     }
@@ -58,7 +59,7 @@
     }
     .folio{
         text-align: right;
-        margin-top: 118px;
+        margin-top: 123px;
         margin-right: 40px;
         /* background-color: blue; */
     }
@@ -68,9 +69,12 @@
         margin-left: 160px;
         font-size: 14px;
     }
+    .data-client .nombre{
+        margin-left: 18px;
+    }
    .data-client .address{
        margin-left: 18px;
-       margin-top: -14px;
+       margin-top: -11px;
    }
     .data-total-pay{
         text-align: center;
@@ -82,7 +86,7 @@
         margin-bottom: -7px;
     }
     .cie{
-        margin-top: -5px;
+        margin-top: 15px;
         margin-left: 45px;
     }
     .referencia{
@@ -90,13 +94,6 @@
     }
     .invoice-col-detail-legends{
         font-size: 10px;
-       /*
-       margin-top: -5px;
-        margin-left: 195px;
-        display: inline;
-        font-weight: bold;
-        clear: both;
-        */
     }
     .invoice-col-detail-digist{
         font-size: 10px;
@@ -104,7 +101,7 @@
     }
     .invoice-info-history{
         padding-left: 40px;
-        margin-top: 20px;
+        margin-top: 5px;
         margin-left: 50px;
         font-size: 12px;
     }
@@ -127,7 +124,7 @@
                     <h5>{{-- $recibo->clave_recibo --}}</h5>
                 </div>
                 <div class="col data-client">
-                    <p>{{ $recibo->condomino }}</p>
+                    <p class="nombre">{{ $recibo->condomino }}</p>
                     <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
                     <p class="address">{{ $recibo->colonia.", ".$recibo->delegacion.", C.P.:".$recibo->cp }}</p>
                     <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibo->referencia }}</legend>
