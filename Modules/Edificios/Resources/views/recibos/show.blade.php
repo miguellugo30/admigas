@@ -50,14 +50,14 @@
     }
     .folio{
         text-align: right;
-        margin-top: 128px;
+        margin-top: 118px;
         margin-right: 40px;
         /* background-color: blue; */
     }
     .data-client{
         width: 100%;
         margin-top: 23px;
-        margin-left: 130px;
+        margin-left: 145px;
         font-size: 14px;
     }
    .data-client .address{
@@ -91,8 +91,8 @@
         margin-left: -150px;
     }
     .invoice-info-history{
-        padding-left: 20px;
-        margin-top: 30px;
+        padding-left: 60px;
+        margin-top: 10px;
         margin-left: 40px;
         font-size: 12px;
     }
