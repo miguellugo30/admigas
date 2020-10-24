@@ -34,7 +34,7 @@
         height: 140px;
         margin: 5px;
         margin-left: 125px;
-        margin-top: 25px;
+        margin-top: 5px;
         /* background-color: yellow; */
         overflow: hidden;
     }
@@ -74,7 +74,7 @@
     }
    .data-client .address{
        margin-left: 18px;
-       margin-top: -11px;
+       margin-top: -15px;
    }
     .data-total-pay{
         text-align: center;
