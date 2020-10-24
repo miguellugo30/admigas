@@ -33,6 +33,7 @@
         width: 100%;
         height: 140px;
         margin: 5px;
+        margin-left: 125px;
         /* background-color: yellow; */
         overflow: hidden;
     }
@@ -48,9 +49,16 @@
         padding: 10px;
         float:left;
     }
+    .col-sm-4{
+        width: 23%;
+        height: auto;
+        padding: 10px;
+        float:left;
+        font-weight: bold;
+    }
     .folio{
         text-align: right;
-        margin-top: 128px;
+        margin-top: 118px;
         margin-right: 40px;
         /* background-color: blue; */
     }
@@ -82,16 +90,20 @@
     }
     .invoice-col-detail-legends{
         font-size: 10px;
-        margin-top: -5px;
-        margin-left: 245px;
+       /*
+       margin-top: -5px;
+        margin-left: 195px;
+        display: inline;
         font-weight: bold;
+        clear: both;
+        */
     }
     .invoice-col-detail-digist{
         font-size: 10px;
         margin-left: -150px;
     }
     .invoice-info-history{
-        padding-left: 60px;
+        padding-left: 40px;
         margin-top: 20px;
         margin-left: 50px;
         font-size: 12px;
@@ -127,23 +139,26 @@
                     <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
                 </div>
                 <div class="row invoice-info">
-                    <div class="col-sm-6 invoice-col-detail-legends">
+                    <div class="col-sm-4 invoice-col invoice-col-detail-legends">
                         <legend>Lectura inicial</legend><br>
                         <legend>Lectura final</legend><br>
                         <legend>Consumo en M3</legend><br>
                         <legend>Consumo en litros</legend><br>
+                    </div>
+                    <div class="col-sm-3 invoice-col invoice-col-detail-legends" >
+                        <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
+                        <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
+                        <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
+                        <legend>{{$recibo->importe }}</legend><br>
+                    </div>
+                    <div class="col-sm-4 invoice-col invoice-col-detail-legends" >
                         <legend>Consumo del mes</legend><br>
                         <legend>Saldo a favor</legend><br>
                         <legend>Adeudo pendiente</legend><br>
                         <legend>Cargos del periodo</legend><br>
                         <legend>Cuota de Admin.</legend>
                     </div>
-
-                    <div class="col-sm-6 invoice-col-detail-digist">
-                        <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
-                        <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
-                        <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
-                        <legend>{{$recibo->importe }}</legend><br>
+                    <div class="col-sm-3 invoice-col invoice-col-detail-legends" >
                         <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
@@ -153,7 +168,7 @@
                 </div>
                 <!-- /.row -->
                 <div class="row invoice-info-history">
-                    <div class="col-sm-3 invoice-col">
+                    <div class="col-sm-3 invoice-col" >
                         @for ($i = 0; $i < count( $historico ); $i++)
                             <legend>{{  date('d-m-Y', strtotime($historico[$i]->fecha_recibo)) }}</legend><br>
                         @endfor
