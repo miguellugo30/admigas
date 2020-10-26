@@ -28,6 +28,24 @@ class QuerysJoinController extends Controller
      * Query para mostrar los departamentos y su ultima lectura
      * Se usa en la captura de lecturas
      */
+    public function queryExcelLecturas($id)
+    {
+        return DB::table('admigas_departamentos')
+        ->join('admigas_medidores', 'admigas_departamentos.id', '=', 'admigas_medidores.admigas_departamentos_id')
+        ->select(
+            'admigas_departamentos.id AS departamento_id',
+            'admigas_departamentos.numero_departamento',
+            'admigas_medidores.numero_serie',
+            DB::raw("(SELECT admigas_lecturas_medidores.lectura FROM admigas_lecturas_medidores WHERE admigas_lecturas_medidores.admigas_medidores_id = admigas_medidores.id ORDER BY fecha_lectura DESC LIMIT 1 ) AS lectura_anterior"),
+        )
+            ->where('admigas_departamentos.admigas_condominios_id', $id)
+            ->where('admigas_departamentos.activo', 1)
+            ->get();
+    }
+    /**
+     * Query para mostrar los departamentos y su ultima lectura
+     * Se usa en la captura de lecturas
+     */
     public function queryCapturaLecturas($id)
     {
         return DB::table('admigas_departamentos')

@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'cloud' => env('FILESYSTEM_CLOUD', 'google'),
 
     /*
     |--------------------------------------------------------------------------
@@ -71,5 +71,4 @@ return [
             'folderId' => env('GOOGLE_DRIVE_FOLDER_ID'),
         ],
     ],
-
 ];

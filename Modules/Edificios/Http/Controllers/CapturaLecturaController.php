@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use App\Http\Controllers\QuerysJoinController;
+use Illuminate\Support\Facades\Storage;
 use DB;
 /**
  * Modelos
@@ -27,7 +28,8 @@ class CapturaLecturaController extends Controller
     public function __construct(AdmigasEdificios $edificio, QuerysJoinController $query, AdmigasLecturistas $lecturistas)
     {
         $this->middleware(function ($request, $next) {
-            $this->empresa_id = Auth::user()->admigas_empresas_id;
+
+            $this->empresa_id = Auth::user()->Empresas->first()->id;
 
             return $next($request);
         });
@@ -112,7 +114,55 @@ class CapturaLecturaController extends Controller
      */
     public function show($id)
     {
-        return view('edificios::captura.show');
+        $condominio = $this->edificio->where('id', $id)->first();
+        $dirCondomino = $condominio->nombre."_".$condominio->id;
+        $fecha = date('Y-m');
+
+        $this->validateRutaLocal($condominio->id, $fecha );
+        /**
+         * Obtenemos todos los directorios y buscamos el del condominios
+         */
+        $e = collect( Storage::cloud()->listContents('/', true) );
+        $dir = $e->where('type', '=', 'dir')->where('name', '=', $dirCondomino)->first();
+        if (!$dir)
+        {
+            return 'No existe el directorio de la empresa!';
+        }
+        /**
+         * Obtenemos los directorios del condominio
+         **/
+        $e = collect(Storage::cloud()->listContents($dir['path'], false));
+        $dirFotos = $e->where('type', '=', 'dir')->where('name', '=', 'Fotos')->first();
+        $dirLecturas = $e->where('type', '=', 'dir')->where('name', '=', 'Lecturas')->first();
+        if (!$dir)
+        {
+            return 'No existe el directorio de las fotos!';
+        }
+        if (!$dir)
+        {
+            return 'No existe el directorio de las lecturas!';
+        }
+        /**
+         * Obtenemos los contenidos de los directorios
+         */
+        $fotos = collect(Storage::cloud()->listContents($dirFotos['path'], false));
+        $lecturas = collect(Storage::cloud()->listContents($dirLecturas['path'], false));
+        $rawData = Storage::cloud()->get($lecturas[0]['path']);
+        /**
+         * Descargamos el excel de las lecturas
+         */
+        Storage::put('/' . $this->empresa_id . '\/' . $condominio->id . '\/' . $fecha . '\/' . $lecturas[0]['name'], $rawData);
+        /**
+         * Descargamos las fotos de las lecturas
+         */
+        /*
+        foreach ($fotos as  $foto) {
+            echo $foto['name'] . "<br>";
+            $rawData = Storage::cloud()->get($foto['path']);
+            Storage::put('/' . $this->empresa_id . '\/' . $condominio->id. '\/' . $fecha . '\/' . $foto['name'], $rawData);
+
+        }
+        */
     }
 
     /**
@@ -161,6 +211,28 @@ class CapturaLecturaController extends Controller
             }
         }
         return array_chunk( $data, 3 );
+    }
+
+    public function validateRutaLocal( $dirCondomino, $fecha )
+    {
+        /**
+         * Validamos que exista la carpeta de la empresa
+         */
+        if (!Storage::exists('/'.$this->empresa_id) ) {
+            Storage::makeDirectory('/'.$this->empresa_id);
+        }
+        /**
+         * Validamos que exista la carpeta del condominio
+         */
+        if ( !Storage::exists('/' . $this->empresa_id . '\/' . $dirCondomino) ) {
+            Storage::makeDirectory('/' . $this->empresa_id . '\/' . $dirCondomino);
+        }
+        /**
+         * Validamos que exista la fecha de la lectura
+         */
+        if (!Storage::exists('/' . $this->empresa_id . '\/' .$dirCondomino . '\/' . $fecha)) {
+            Storage::makeDirectory('/' . $this->empresa_id. '\/' . $dirCondomino . '\/' . $fecha);
+        }
     }
 
 }

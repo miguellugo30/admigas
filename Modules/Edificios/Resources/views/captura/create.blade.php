@@ -5,6 +5,7 @@
       </h3>
       <div class="card-tools">
           <button type="button" class="btn btn-info btn-sm returnCondominio" ><i class="fas fa-arrow-left"></i> Regresar</button>
+          <button type="button" class="btn btn-info btn-sm sincronizarLecturas" ><i class="fas fa-sync-alt"></i> Sincronizar Lecturas</button>
           <button type="button" class="btn btn-info btn-sm saveLecturas" ><i class="fas fa-list-ol"></i> Guardar Lecturas</button>
           <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
           <input type="hidden" name="admigas_condominios_id" id="admigas_condominios_id" value="{{ $condominio->first()->id }}">
@@ -67,7 +68,7 @@
                         </td>
                         <td class="diferencia_{{ $i }}"></td>
                         <td>
-                            <button data-id-depto="{{ $depto->departamento_id }}" class="btn btn-info btn-sm adjuntarFoto" >Adjuntar imagen</button>
+                            <!--button data-id-depto="{{-- $depto->departamento_id --}}" class="btn btn-info btn-sm adjuntarFoto" >Adjuntar imagen</button-->
                         </td>
                     </tr>
                 @endfor

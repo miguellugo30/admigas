@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.3",
         "barryvdh/laravel-dompdf": "^0.8.6",
+        "binarytorch/larecipe": "^2.4",
         "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
         "google/apiclient": "^2.7",
@@ -20,6 +21,7 @@
         "laravel/telescope": "^4.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "maatwebsite/excel": "^3.1",
         "nao-pon/flysystem-google-drive": "~1.1",
         "nwidart/laravel-modules": "^6.2",
         "sentry/sentry-laravel": "^1.9",
