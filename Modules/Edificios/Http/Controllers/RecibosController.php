@@ -234,7 +234,7 @@ class RecibosController extends Controller
             $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
             */
             return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'cie' ) )
-                        ->setPaper('letter', 'landscape')
+                        ->setPaper('legal', 'landscape')
                         ->stream('archivo.pdf');
         }
     }

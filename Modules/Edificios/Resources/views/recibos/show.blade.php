@@ -1,81 +1,52 @@
 <style>
-    .fondo{
-        position: relative;
-        display: inline-block;
+ @page {
+    margin: 0px 0px 0px 0px !important;
+    padding: 0px 0px 0px 0px !important;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+
+@foreach ($recibos as $recibo)
+    <style>
+    .page-break {
+        page-break-after: always;
+    }
+    .cols {
         width: 100%;
-        height: 810px;
+        overflow: auto;
     }
-    @page {
-            margin: 0px 0px 0px 0px !important;
-            padding: 0px 0px 0px 0px !important;
-            font-size: 16px;
-            font-family: Arial, Helvetica, sans-serif;
+    .cols div {
+        flex: 1;
     }
-    img{
-        margin-top: 65px;
-    }
-    .contenido{
-        position: absolute;
-        top: 1px;
-        left: 1px;
+    .col1 {
+        float: left;
         width: 50%;
-        height: 792px;
-        background-image: url("../../storage/recibo/recibo_2G-v2.png")
+        clear: both;
     }
-    .row{
-        width: 100%;
-    }
-    .invoice{
-        /*background-color: red;*/
-        height: 430px;
-    }
-    .invoice-info{
-        width: 100%;
-        height: 140px;
-        margin: 5px;
-        margin-left: 125px;
-        margin-top: 15px;
-        /* background-color: yellow; */
-        overflow: hidden;
-    }
-    .col-sm-6{
+    .col2 {
         width: 50%;
-        height: auto;
-        padding: 10px;
-        float:left;
-    }
-    .col-sm-3{
-        width: 20%;
-        height: auto;
-        padding: 10px;
-        float:left;
-    }
-    .col-sm-4{
-        width: 23%;
-        height: auto;
-        padding: 10px;
-        float:left;
-        font-weight: bold;
-    }
-    .folio{
-        text-align: right;
-        margin-top: 123px;
-        margin-right: 40px;
-        /* background-color: blue; */
+        float: right;
     }
     .data-client{
-        width: 100%;
-        margin-top: 23px;
+        /*width: 100%;*/
+        margin-top: 140px;
         margin-left: 160px;
         font-size: 14px;
     }
-    .data-client .nombre{
+    .cie{
+        margin-top: 15px;
+        margin-left: 45px;
+    }
+    .referencia{
+        margin-left: 119px;
+    }
+    .data-client .nombre, .data-client .address{
         margin-left: 18px;
     }
-   .data-client .address{
-       margin-left: 18px;
+    .data-client .address{
        margin-top: -15px;
-   }
+    }
     .data-total-pay{
         text-align: center;
         margin-left: 145px;
@@ -85,77 +56,105 @@
     .data-total-pay p{
         margin-bottom: -7px;
     }
-    .cie{
-        margin-top: 15px;
-        margin-left: 45px;
+    .invoice-info-page{
+        font-size: 10px;
+        margin-top: 20px;
     }
-    .referencia{
-        margin-left: 119px;
+    .row{
+        width: 100%;
+        height: 100px;
+        overflow: auto;
     }
+    .row div {
+        flex: 1;
+    }
+    .izq{
+        float: left;
+        width: 50%;
+        clear: both;
+    }
+    .izq div {
+        flex: 1;
+    }
+    .der{
+        width: 50%;
+        float: right;
+    }
+    .izq .hijo-izq, .der .hijo-izq{
+        float: left;
+        width: 50%;
+        margin-left: 120px;
+        clear: both;
+    }
+    .izq .hijo-der, .der .hijo-der{
+        width: 30%;
+        float: right;
+        margin: auto;
+        margin-left: 160px;
+    }
+    .izq .hijo-izq{
+        font-weight: bold;
+    }
+    .izq .hijo-der{
+         margin-left: 220px;
+     }
+    .der .hijo-izq{
+        margin-left: 20px !important;
+        font-weight: bold;
+    }
+    .der .hijo-der{
+        margin-left: 120px;
+    }
+
     .invoice-col-detail-legends{
         font-size: 10px;
     }
-    .invoice-col-detail-digist{
-        font-size: 10px;
-        margin-left: -150px;
-    }
     .invoice-info-history{
-        padding-left: 40px;
-        margin-top: 5px;
-        margin-left: 50px;
+        margin-top: 50px;
         font-size: 12px;
     }
-    .invoice-info-history .invoice-col-total{
-        margin-left: 25px;
-    }
-
-</style>
-
-@foreach ($recibos as $recibo)
-    <div class="fondo">
-
+    </style>
     @php
         $historico = \DB::select('call SP_consumo_recibos( '.$recibo->admigas_departamentos_id.' );');
     @endphp
-
-        <div class="contenido">
-            <div class="invoice p-3 mb-3">
-                <div class="col-12 folio">
-                    <h5>{{-- $recibo->clave_recibo --}}</h5>
-                </div>
-                <div class="col data-client">
-                    <p class="nombre">{{ $recibo->condomino }}</p>
-                    <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
-                    <p class="address">{{ $recibo->colonia.", ".$recibo->delegacion.", C.P.:".$recibo->cp }}</p>
-                    <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibo->referencia }}</legend>
-                </div>
-                <div class="col data-total-pay">
-                    <br>
-                    <p><b>{{ "$ ".number_format( ( $recibo->total_pagar ),2 )  }}</b></p>
-                    <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
-                    <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
-                </div>
-                <div class="row invoice-info">
-                    <div class="col-sm-4 invoice-col invoice-col-detail-legends">
+    <div class="cols">
+        <div class="col1">
+            <div class="col data-client">
+                <p class="nombre">{{ $recibo->condomino }}</p>
+                <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
+                <p class="address">{{ $recibo->colonia.", ".$recibo->delegacion.", C.P.:".$recibo->cp }}</p>
+                <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibo->referencia }}</legend>
+            </div>
+            <div class="col data-total-pay">
+                <br>
+                <p><b>{{ "$ ".number_format( ( $recibo->total_pagar ),2 )  }}</b></p>
+                <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
+                <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
+            </div>
+            <div class="row invoice-info-page">
+                <div class="izq">
+                    <div class="hijo-izq">
                         <legend>Lectura inicial</legend><br>
                         <legend>Lectura final</legend><br>
                         <legend>Consumo en M3</legend><br>
                         <legend>Consumo en litros</legend><br>
                     </div>
-                    <div class="col-sm-3 invoice-col invoice-col-detail-legends" >
+                    <div class="hijo-der">
                         <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
                         <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
                         <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
                         <legend>{{$recibo->importe }}</legend><br>
                     </div>
-                    <div class="col-sm-4 invoice-col invoice-col-detail-legends" >
+                </div>
+                <div class="der">
+                    <div class="hijo-izq">
                         <legend>Consumo del mes</legend><br>
                         <legend>Saldo a favor</legend><br>
                         <legend>Adeudo pendiente</legend><br>
                         <legend>Cargos del periodo</legend><br>
                         <legend>Cuota de Admin.</legend>
                     </div>
-                    <div class="col-sm-3 invoice-col invoice-col-detail-legends" >
+                    <div class="hijo-der">
                         <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
@@ -163,39 +162,108 @@
                         <legend>$ {{ number_format( $recibo->gasto_admin , 2 ) }}</legend>
                     </div>
                 </div>
-                <!-- /.row -->
-                <div class="row invoice-info-history">
-                    <div class="col-sm-3 invoice-col" >
+            </div>
+            <div class="row invoice-info-history">
+                <div class="izq">
+                    <div class="hijo-izq">
                         @for ($i = 0; $i < count( $historico ); $i++)
                             <legend>{{  date('d-m-Y', strtotime($historico[$i]->fecha_recibo)) }}</legend><br>
                         @endfor
                     </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 invoice-col">
+                    <div class="hijo-der">
                         @for ($i = 0; $i < count( $historico ); $i++)
                             <legend>{{ number_format( $historico[$i]->litros, 2) }}</legend><br>
                         @endfor
                     </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 invoice-col">
+                </div>
+                <div class="der">
+                    <div class="hijo-izq">
                         @for ($i = 0; $i < count( $historico ); $i++)
                             <legend>$ {{ number_format( $historico[$i]->precio_litro, 2) }}</legend><br>
                         @endfor
                     </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 invoice-col-total">
+                    <div class="hijo-der">
                         @for ($i = 0; $i < count( $historico ); $i++)
                             <legend>$ {{ number_format( $historico[$i]->total_pagar,2 ) }}</legend><br>
                         @endfor
                     </div>
-                <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-
         </div>
-
+        <div class="col2">
+            <div class="col data-client">
+                <p class="nombre">{{ $recibo->condomino }}</p>
+                <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
+                <p class="address">{{ $recibo->colonia.", ".$recibo->delegacion.", C.P.:".$recibo->cp }}</p>
+                <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibo->referencia }}</legend>
+            </div>
+            <div class="col data-total-pay">
+                <br>
+                <p><b>{{ "$ ".number_format( ( $recibo->total_pagar ),2 )  }}</b></p>
+                <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
+                <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
+            </div>
+            <div class="row invoice-info-page">
+                <div class="izq">
+                    <div class="hijo-izq">
+                        <legend>Lectura inicial</legend><br>
+                        <legend>Lectura final</legend><br>
+                        <legend>Consumo en M3</legend><br>
+                        <legend>Consumo en litros</legend><br>
+                    </div>
+                    <div class="hijo-der">
+                        <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
+                        <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
+                        <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
+                        <legend>{{$recibo->importe }}</legend><br>
+                    </div>
+                </div>
+                <div class="der">
+                    <div class="hijo-izq">
+                        <legend>Consumo del mes</legend><br>
+                        <legend>Saldo a favor</legend><br>
+                        <legend>Adeudo pendiente</legend><br>
+                        <legend>Cargos del periodo</legend><br>
+                        <legend>Cuota de Admin.</legend>
+                    </div>
+                    <div class="hijo-der">
+                        <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->cargos_adicionales , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->gasto_admin , 2 ) }}</legend>
+                    </div>
+                </div>
+            </div>
+            <div class="row invoice-info-history">
+                <div class="izq">
+                    <div class="hijo-izq">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>{{  date('d-m-Y', strtotime($historico[$i]->fecha_recibo)) }}</legend><br>
+                        @endfor
+                    </div>
+                    <div class="hijo-der">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>{{ number_format( $historico[$i]->litros, 2) }}</legend><br>
+                        @endfor
+                    </div>
+                </div>
+                <div class="der">
+                    <div class="hijo-izq">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>$ {{ number_format( $historico[$i]->precio_litro, 2) }}</legend><br>
+                        @endfor
+                    </div>
+                    <div class="hijo-der">
+                        @for ($i = 0; $i < count( $historico ); $i++)
+                            <legend>$ {{ number_format( $historico[$i]->total_pagar,2 ) }}</legend><br>
+                        @endfor
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    @endforeach
-
+    @if (!$loop->last)
+        <div class="page-break"></div>
+    @endif
+@endforeach
