@@ -15,7 +15,7 @@ class DepartamentosRequest extends FormRequest
     {
         return [
             'numero_departamento' => 'required',
-            'numero_referencia' => 'required',
+            'numero_referencia' => 'required|unique:App\AdmigasDepartamentos,numero_referencia',
             'nombre' => 'required',
             'apellido_paterno' => 'required',
             'apellido_materno' => 'required',
