@@ -70,7 +70,7 @@
                             {{ $data[$i][4] - $depto->lectura_anterior }}
                         </td>
                         <td>
-                            <img src="{{ \Storage::url( $empresa_id.'/'.$condominio->id.'/'.date('Y-m').'/'.$depto->departamento_id."_".$depto->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                            <img src="{{ \Storage::url( $empresa_id.'/'.$condominio->id.'/'.date('m-Y', strtotime($fecha_lectura)).'/'.$depto->departamento_id."_".$depto->numero_departamento.".jpeg" ) }}" alt="" width="140px">
                         </td>
                     </tr>
                 @endfor
