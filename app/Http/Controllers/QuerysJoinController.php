@@ -40,6 +40,7 @@ class QuerysJoinController extends Controller
         )
             ->where('admigas_departamentos.admigas_condominios_id', $id)
             ->where('admigas_departamentos.activo', 1)
+            ->orderBy('admigas_departamentos.id', 'asc')
             ->get();
     }
     /**
@@ -65,6 +66,7 @@ class QuerysJoinController extends Controller
                             )
                     ->where('admigas_departamentos.admigas_condominios_id', $id)
                     ->where('admigas_departamentos.activo', 1)
+                    ->orderBy('admigas_departamentos.id', 'asc')
                     ->get();
     }
     /**

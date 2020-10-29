@@ -78,7 +78,8 @@ $(function() {
                 'Error!',
                 'Debe ingresar una Fecha de Lectura.',
                 'error'
-            )
+            );
+            $("#fecha_lectura").addClass('is-invalid');
         } else {
             $.post(url, {
                 data: data,
@@ -123,17 +124,47 @@ $(function() {
 
 
     });
-    $(document).on('click', '.adjuntarFoto', function(event) {
-            event.preventDefault();
+    /**
+     * Funcion para sincronizar las fotos y lecturas
+     * desde Google Drive
+     */
+    $(document).on('click', '.sincronizarLecturas', function(event) {
+        event.preventDefault();
+        let admigas_condominios_id = $("#admigas_condominios_id").val();
+        let fecha_lectura = $("#fecha_lectura").val();
+        let _token = $("input[name=_token]").val();
 
-            $('#modal-file-foto #tituloModal').html('Testigo Fotografico');
-            $('#modal-file-foto #action').removeClass('updateTestigo');
-            $('#modal-file-foto #action').addClass('saveTestigo');
-            $('#modal-file-foto').modal('show');
-        })
-        /**
-         * Funcion para mostrar los errores de los formularios
-         */
+        if (fecha_lectura == null || fecha_lectura == '') {
+            Swal.fire(
+                'Error!',
+                'Debe ingresar una Fecha de Lectura.',
+                'error'
+            )
+            $("#fecha_lectura").addClass('is-invalid');
+        } else {
+            let url = currentURL + "/sincroniza-lecturas";
+            $.post(url, {
+                admigas_condominios_id: admigas_condominios_id,
+                fecha_lectura: fecha_lectura,
+                _token: _token
+            }, function(data, textStatus, xhr) {
+                $(".list-deptos-capture").html(data);
+                $("#fecha_lectura").val(fecha_lectura);
+            }).done(function() {
+                Swal.fire(
+                    'Correcto!',
+                    'Las lecturas sean descargado correctamente.',
+                    'success'
+                )
+            }).fail(function(data) {
+                printErrorMsg(data.responseJSON.errors);
+            });
+        }
+
+    });
+    /**
+     * Funcion para mostrar los errores de los formularios
+     */
     function printErrorMsg(msg) {
         $(".print-error-msg").find("ul").html('');
         $(".print-error-msg").css('display', 'block');
