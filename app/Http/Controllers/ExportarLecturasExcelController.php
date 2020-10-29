@@ -18,11 +18,10 @@ class ExportarLecturasExcelController extends Controller
         $this->query = $query;
     }
 
-    public function exportLecturasExcel($id)
+    public function exportLecturasExcel($id, $path)
     {
 
-        $deptos =  $this->query->queryExcelLecturas(1);
-        Excel::store(new DepartamentosExport($deptos), '/1sK-Y6A0Bm-VHFR4vvV_-Pe2TFX0skVZ5/13CDwYFECsNZcMtaqllKdacV9Vur5Gfcv/1XA5j6bw0GNU4SDdUdjX_XQ2YkH5Kxn8U/lecturas.xlsx', 'google' );
-        //return (new DepartamentosExport($deptos))->download('lecturas.xlsx');
+        $deptos =  $this->query->queryExcelLecturas( $id );
+        Excel::store(new DepartamentosExport($deptos), $path.'/lecturas.xlsx', 'google' );
     }
 }
