@@ -106,7 +106,15 @@ class donwloadFotosLecturasController extends Controller
          */
         Storage::put('/' . $empresa_id . '\/' . $condominio->id . '\/' . $fecha_lectura . '\/' . $lecturas[0]['name'], $rawData);
 
-        return Excel::toCollection(new LecturasDepartamentosExport(), '/' . $empresa_id . '\/' . $condominio->id . '\/' . $fecha_lectura . '\/' . $lecturas[0]['name'])->first();
+        if( Storage::exists('/' . $empresa_id . '\/' . $condominio->id . '\/' . $fecha_lectura . '\/' . $lecturas[0]['name']) )
+        {
+            return Excel::toCollection(new LecturasDepartamentosExport(), '/' . $empresa_id . '\/' . $condominio->id . '\/' . $fecha_lectura . '\/' . $lecturas[0]['name'])->first();
+        }
+        else
+        {
+            return false;
+        }
+
 
     }
     /**
