@@ -119,7 +119,7 @@ class CapturaLecturaController extends Controller
     public function syncData(Request  $request)
     {
 
-        //date('m-Y', strtotime($request->fecha_lectura));
+        $fecha_lectura = $request->fecha_lectura;
 
         $condominio = $this->edificio->where('id', $request->admigas_condominios_id)->first();
         /**
@@ -138,7 +138,6 @@ class CapturaLecturaController extends Controller
         } else {
             $data = $this->donwload->importLecturas($condominio, $this->empresa_id, date('m-Y', strtotime($request->fecha_lectura)));
         }
-        
         /**
          * Obtenemos los lecturistas de la empresa
          */
@@ -150,7 +149,7 @@ class CapturaLecturaController extends Controller
 
         $empresa_id = $this->empresa_id;
 
-        return view('edificios::captura.create_sync', compact('condominio', 'deptos', 'lecturistas', 'data', 'empresa_id'));
+        return view('edificios::captura.create_sync', compact('condominio', 'deptos', 'lecturistas', 'data', 'empresa_id', 'fecha_lectura'));
     }
 
     /**
