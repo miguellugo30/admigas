@@ -82,7 +82,7 @@ class donwloadFotosLecturasController extends Controller
      */
     public function importLecturas($condominio, $empresa_id, $fecha_lectura)
     {
-        $dirCondomino = $condominio->nombre . "_" . $condominio->id;
+        $dirCondomino = str_replace( " ", "_", $condominio->nombre . "_" . $condominio->id );
 
         $this->validateRutaLocal($condominio->id, $fecha_lectura, $empresa_id);
         $dir = $this->dirCloud($dirCondomino);
