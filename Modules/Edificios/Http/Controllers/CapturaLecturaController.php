@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use App\Http\Controllers\QuerysJoinController;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use DB;
 use App\Http\Controllers\donwloadFotosLecturasController;
 /**
@@ -129,7 +129,16 @@ class CapturaLecturaController extends Controller
         /**
          * Descargamos las lecturas y obtenemos la informacion
          */
-        $data = $this->donwload->importLecturas($condominio, $this->empresa_id, date('m-Y', strtotime($request->fecha_lectura)));
+        if ( !$this->donwload->importLecturas($condominio, $this->empresa_id, date('m-Y', strtotime($request->fecha_lectura))) ) {
+            Log::error('No se encuentra el archivo o no se descargo correctamente');
+            return Response::json(array(
+                'code'      =>  401,
+                'message'   =>  'No se encuentra el archivo o no se descargo correctamente'
+            ), 401);
+        } else {
+            $data = $this->donwload->importLecturas($condominio, $this->empresa_id, date('m-Y', strtotime($request->fecha_lectura)));
+        }
+        
         /**
          * Obtenemos los lecturistas de la empresa
          */
