@@ -34,11 +34,8 @@ Route::get('/clientes/registro-pagina/', function () {
 Route::post('/clientes/registro/', 'Auth\RegisterController@register')->name('registro_cliente_form');
 
 Auth::routes();
+Route::get('/home', 'HomeController@directorios');
 
-Route::get('/home', function (){
-    dd(\Storage::cloud()->listContents('/', false));
-})->name('home');
-
-
+/*
 Route::get('/exportar/{id}', 'ExportarLecturasExcelController@exportLecturasExcel')->name('home');
-
+*/

@@ -54,7 +54,7 @@ Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 
  */
 Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
     Route::get('captura-lecturas/{id_condominios}', 'CapturaLecturaController@create' )->name('captura.lectura');
-    Route::get('sincroniza-lecturas/{id_condominios}', 'CapturaLecturaController@show' )->name('sincroniza.lectura');
+    Route::post('sincroniza-lecturas', 'CapturaLecturaController@syncData' )->name('sincroniza.lectura');
     Route::post('captura-lecturas', 'CapturaLecturaController@store' )->name('captura.lectura.create');
 });
 /*

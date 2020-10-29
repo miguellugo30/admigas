@@ -660,7 +660,7 @@
   ),
   'filesystems' => 
   array (
-    'default' => 'local',
+    'default' => 'public',
     'cloud' => 'google',
     'disks' => 
     array (
@@ -1339,7 +1339,7 @@
   ),
   'sentry' => 
   array (
-    'dsn' => 'https://1e00be1daf7648f7b6f1c059e6c1bb17@o448052.ingest.sentry.io/5428826',
+    'dsn' => NULL,
     'environment' => NULL,
     'breadcrumbs' => 
     array (

@@ -22,7 +22,7 @@ class ExportarLecturasExcelController extends Controller
     {
 
         $deptos =  $this->query->queryExcelLecturas(1);
-        Excel::store(new DepartamentosExport($deptos), 'lecturas.xlsx', 'google' );
+        Excel::store(new DepartamentosExport($deptos), '/1sK-Y6A0Bm-VHFR4vvV_-Pe2TFX0skVZ5/13CDwYFECsNZcMtaqllKdacV9Vur5Gfcv/1XA5j6bw0GNU4SDdUdjX_XQ2YkH5Kxn8U/lecturas.xlsx', 'google' );
         //return (new DepartamentosExport($deptos))->download('lecturas.xlsx');
     }
 }
