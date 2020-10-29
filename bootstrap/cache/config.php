@@ -254,12 +254,14 @@
       20 => 'Illuminate\\Validation\\ValidationServiceProvider',
       21 => 'Illuminate\\View\\ViewServiceProvider',
       22 => 'Spatie\\Permission\\PermissionServiceProvider',
-      23 => 'App\\Providers\\AppServiceProvider',
-      24 => 'App\\Providers\\AuthServiceProvider',
-      25 => 'App\\Providers\\EventServiceProvider',
-      26 => 'App\\Providers\\RouteServiceProvider',
-      27 => 'App\\Providers\\TelescopeServiceProvider',
-      28 => 'App\\Providers\\GoogleDriveServiceProvider',
+      23 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+      24 => 'Barryvdh\\DomPDF\\ServiceProvider',
+      25 => 'App\\Providers\\AppServiceProvider',
+      26 => 'App\\Providers\\AuthServiceProvider',
+      27 => 'App\\Providers\\EventServiceProvider',
+      28 => 'App\\Providers\\RouteServiceProvider',
+      29 => 'App\\Providers\\TelescopeServiceProvider',
+      30 => 'App\\Providers\\GoogleDriveServiceProvider',
     ),
     'aliases' => 
     array (
@@ -298,6 +300,8 @@
       'URL' => 'Illuminate\\Support\\Facades\\URL',
       'Validator' => 'Illuminate\\Support\\Facades\\Validator',
       'View' => 'Illuminate\\Support\\Facades\\View',
+      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
+      'PDF' => 'Barryvdh\\DomPDF\\Facade',
     ),
   ),
   'auth' => 
@@ -548,6 +552,112 @@
       'enable_html5_parser' => false,
     ),
   ),
+  'excel' => 
+  array (
+    'exports' => 
+    array (
+      'chunk_size' => 1000,
+      'pre_calculate_formulas' => false,
+      'strict_null_comparison' => false,
+      'csv' => 
+      array (
+        'delimiter' => ',',
+        'enclosure' => '"',
+        'line_ending' => '
+',
+        'use_bom' => false,
+        'include_separator_line' => false,
+        'excel_compatibility' => false,
+      ),
+      'properties' => 
+      array (
+        'creator' => '',
+        'lastModifiedBy' => '',
+        'title' => '',
+        'description' => '',
+        'subject' => '',
+        'keywords' => '',
+        'category' => '',
+        'manager' => '',
+        'company' => '',
+      ),
+    ),
+    'imports' => 
+    array (
+      'read_only' => true,
+      'ignore_empty' => false,
+      'heading_row' => 
+      array (
+        'formatter' => 'slug',
+      ),
+      'csv' => 
+      array (
+        'delimiter' => ',',
+        'enclosure' => '"',
+        'escape_character' => '\\',
+        'contiguous' => false,
+        'input_encoding' => 'UTF-8',
+      ),
+      'properties' => 
+      array (
+        'creator' => '',
+        'lastModifiedBy' => '',
+        'title' => '',
+        'description' => '',
+        'subject' => '',
+        'keywords' => '',
+        'category' => '',
+        'manager' => '',
+        'company' => '',
+      ),
+    ),
+    'extension_detector' => 
+    array (
+      'xlsx' => 'Xlsx',
+      'xlsm' => 'Xlsx',
+      'xltx' => 'Xlsx',
+      'xltm' => 'Xlsx',
+      'xls' => 'Xls',
+      'xlt' => 'Xls',
+      'ods' => 'Ods',
+      'ots' => 'Ods',
+      'slk' => 'Slk',
+      'xml' => 'Xml',
+      'gnumeric' => 'Gnumeric',
+      'htm' => 'Html',
+      'html' => 'Html',
+      'csv' => 'Csv',
+      'tsv' => 'Csv',
+      'pdf' => 'Dompdf',
+    ),
+    'value_binder' => 
+    array (
+      'default' => 'Maatwebsite\\Excel\\DefaultValueBinder',
+    ),
+    'cache' => 
+    array (
+      'driver' => 'memory',
+      'batch' => 
+      array (
+        'memory_limit' => 60000,
+      ),
+      'illuminate' => 
+      array (
+        'store' => NULL,
+      ),
+    ),
+    'transactions' => 
+    array (
+      'handler' => 'db',
+    ),
+    'temporary_files' => 
+    array (
+      'local_path' => '/var/www/html/Administradora/storage/framework/laravel-excel',
+      'remote_disk' => NULL,
+      'remote_prefix' => NULL,
+      'force_resync_remote' => NULL,
+    ),
+  ),
   'filesystems' => 
   array (
     'default' => 'local',
@@ -578,10 +688,10 @@
       'google' => 
       array (
         'driver' => 'google',
-        'clientId' => '944808039382-d5kuljo255hmirfe238qu603mp5gf4cp.apps.googleusercontent.com',
-        'clientSecret' => 'VTZTRhW6yCdfEyF812uwVc0L',
-        'refreshToken' => '1//04LT8u9Dnv5e9CgYIARAAGAQSNwF-L9IrAQnfb3_0fY-Q5YwDIOHMJtPqRYUKBo9SaZOCJ6dEz28YNUI_W7yQlafYNInBQmL6XyQ',
-        'folderId' => '1FLDpZhaJKE6HYVYPlRQZ6XYH9lCIN4e0',
+        'clientId' => '599470256795-h91h89tmuru45dr8764tsu60o4ssc40n.apps.googleusercontent.com',
+        'clientSecret' => 'ZPzmVuQlRZIMSfnISV76mG4z',
+        'refreshToken' => '1//04ebIpqv1MFv8CgYIARAAGAQSNwF-L9IrmNWofLpx6esqh_tD2p15rLNrTQSDPlboBjJ__euOAGwoW0c1o2sLREfd6Qh6Rm679wI',
+        'folderId' => '1mM4bpNRVxiIo5r3PTdJFH2Bu_0IZA6l9',
       ),
     ),
   ),
@@ -597,6 +707,116 @@
       'memory' => 1024,
       'threads' => 2,
       'time' => 2,
+    ),
+  ),
+  'larecipe' => 
+  array (
+    'docs' => 
+    array (
+      'route' => '/docs',
+      'path' => '/resources/docs',
+      'landing' => 'overview',
+      'middleware' => 
+      array (
+        0 => 'web',
+      ),
+    ),
+    'versions' => 
+    array (
+      'default' => '1.0',
+      'published' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'settings' => 
+    array (
+      'auth' => false,
+      'ga_id' => '',
+      'middleware' => 
+      array (
+        0 => 'web',
+      ),
+    ),
+    'cache' => 
+    array (
+      'enabled' => false,
+      'period' => 5,
+    ),
+    'search' => 
+    array (
+      'enabled' => false,
+      'default' => 'algolia',
+      'engines' => 
+      array (
+        'internal' => 
+        array (
+          'index' => 
+          array (
+            0 => 'h2',
+            1 => 'h3',
+          ),
+        ),
+        'algolia' => 
+        array (
+          'key' => '',
+          'index' => '',
+        ),
+      ),
+    ),
+    'ui' => 
+    array (
+      'code_theme' => 'dark',
+      'fav' => '',
+      'fa_v4_shims' => true,
+      'show_side_bar' => true,
+      'colors' => 
+      array (
+        'primary' => '#787AF6',
+        'secondary' => '#2b9cf2',
+      ),
+      'theme_order' => NULL,
+    ),
+    'seo' => 
+    array (
+      'author' => '',
+      'description' => '',
+      'keywords' => '',
+      'og' => 
+      array (
+        'title' => '',
+        'type' => 'article',
+        'url' => '',
+        'image' => '',
+        'description' => '',
+      ),
+    ),
+    'forum' => 
+    array (
+      'enabled' => false,
+      'default' => 'disqus',
+      'services' => 
+      array (
+        'disqus' => 
+        array (
+          'site_name' => '',
+        ),
+      ),
+    ),
+    'packages' => 
+    array (
+      'path' => 'larecipe-components',
+    ),
+    'blade-parser' => 
+    array (
+      'regex' => 
+      array (
+        'code-blocks' => 
+        array (
+          'match' => '/\\<pre\\>(.|\\n)*?<\\/pre\\>/',
+          'replacement' => '<code-block>',
+        ),
+      ),
     ),
   ),
   'logging' => 
@@ -1300,6 +1520,9 @@
     array (
       0 => 'web',
       1 => 'Laravel\\Telescope\\Http\\Middleware\\Authorize',
+    ),
+    'only_paths' => 
+    array (
     ),
     'ignore_paths' => 
     array (

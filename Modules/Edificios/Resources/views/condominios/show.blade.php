@@ -8,7 +8,6 @@
           <div class="card-tools">
               <button type="button" class="btn btn-info btn-sm capturarLecturas" ><i class="fas fa-list-ol"></i> Lecturas</button>
               <button type="button" class="btn btn-info btn-sm generarRecibos" ><i class="fas fa-money-check-alt"></i> Recibos</button>
-            
             @can('create departamentos')
             @endcan
             <button type="button" class="btn btn-primary btn-sm newDepartamento"><i class="fas fa-plus"></i> Nuevo</button>

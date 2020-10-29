@@ -39,3 +39,6 @@ Route::get('/home', function (){
     dd(\Storage::cloud()->listContents('/', false));
 })->name('home');
 
+
+Route::get('/exportar/{id}', 'ExportarLecturasExcelController@exportLecturasExcel')->name('home');
+
