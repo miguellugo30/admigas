@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\LecturasDepartamentosExport;
 use App\AdmigasDepartamentos;
 use App\Http\Controllers\ExportarLecturasExcelController;
+use Illuminate\Support\Facades\Log;
 
 class donwloadFotosLecturasController extends Controller
 {
@@ -34,19 +35,21 @@ class donwloadFotosLecturasController extends Controller
         $dirFotos = $e->where('type', '=', 'dir')->where('name', '=', 'Fotos')->first();
         if (!$dirFotos) {
             return 'No existe el directorio de las fotos!';
+            Log::debug('No existe el directorio de las fotos.');
         }
         /**
          * Obtenemos los contenidos de los directorios
          */
         $fotos = collect(Storage::cloud()->listContents($dirFotos['path'], false));
+        Log::debug($fotos);
         /**
          * Descargamos las fotos de las lecturas
          */
         foreach ($fotos as  $foto) {
             $rawData = Storage::cloud()->get($foto['path']);
-
             $infoDepto = AdmigasDepartamentos::select('id')->where('numero_departamento', str_replace('.jpeg', '', $foto['name'] ) )->first();
             $name = $infoDepto->id."_".$foto['name'];
+            Log::debug($name);
             Storage::put('/' . $empresa_id . '\/' . $condominio->id. '\/' . $fecha_lectura . '\/' . $name, $rawData);
         }
     }
@@ -90,11 +93,13 @@ class donwloadFotosLecturasController extends Controller
         $dirLecturas = $e->where('type', '=', 'dir')->where('name', '=', 'Lecturas')->first();
         if (!$dirLecturas) {
             return 'No existe el directorio de las lecturas!';
+            Log::debug('No existe el directorio de las lecturas.');
         }
         /**
          * Obtenemos el archivo
          */
         $lecturas = collect(Storage::cloud()->listContents($dirLecturas['path'], false));
+        Log::debug($lecturas);
         $rawData = Storage::cloud()->get($lecturas[0]['path']);
         /**
          * Descargamos el excel de las lecturas
@@ -181,7 +186,6 @@ class donwloadFotosLecturasController extends Controller
                 {
                     Storage::cloud()->makeDirectory($dir['path'] . '/Lecturas');
                 }
-                echo $dirLecturas['path'];
                 /**
                  * Creamamos el excel de las lecturas
                  */
