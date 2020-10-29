@@ -42,7 +42,7 @@ class GenerateDirectoriesDrive extends Command
      */
     public function handle()
     {
-        $condominios = DB::select("call SP_condominios_empresa( 1 )");
+        $condominios = DB::select("call SP_condominios_empresa( ". $this->argument('empresa_id')." )");
         $this->cloud->createDirectoriesCloud($condominios);
     }
 }

@@ -8,9 +8,19 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\LecturasDepartamentosExport;
 use App\AdmigasDepartamentos;
+use App\Http\Controllers\ExportarLecturasExcelController;
 
 class donwloadFotosLecturasController extends Controller
 {
+    private $exportar;
+
+    public function __construct(
+        ExportarLecturasExcelController $exportar
+    ) {
+
+        $this->exportar = $exportar;
+    }
+
     public function donwloadFotos($condominio, $empresa_id, $fecha_lectura)
     {
         $dirCondomino = $condominio->nombre . "_" . $condominio->id;
@@ -148,6 +158,11 @@ class donwloadFotosLecturasController extends Controller
                 $dir = $this->dirCloud($dirCondomino);
                 Storage::cloud()->makeDirectory( $dir['path'].'/Lecturas');
                 Storage::cloud()->makeDirectory( $dir['path'].'/Fotos');
+                $dirLecturas = $this->dirLecturas($dir['path'] . '/Fotos');
+                /**
+                 * Creamamos el excel de las lecturas
+                 */
+                $this->exportar->exportLecturasExcel( $c->id, $dirLecturas['path'] );
             }
             else
             {
@@ -161,10 +176,16 @@ class donwloadFotosLecturasController extends Controller
                 /**
                  * Validamos que exista el directorio de lecturas
                  */
-                if (!$this->dirLecturas($dir['path']))
+                $dirLecturas = $this->dirLecturas($dir['path']);
+                if (!$dirLecturas)
                 {
                     Storage::cloud()->makeDirectory($dir['path'] . '/Lecturas');
                 }
+                echo $dirLecturas['path'];
+                /**
+                 * Creamamos el excel de las lecturas
+                 */
+                $this->exportar->exportLecturasExcel($c->id, $dirLecturas['path']);
             }
         }
     }
