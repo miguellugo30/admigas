@@ -145,10 +145,13 @@ class DepartamentosController extends Controller
     public function show($id)
     {
         $depto = $this->departamentos->where('id', $id)->with('Medidores')->with('Contacto_Depto')->first();
-        $recibos = $this->recibos->select('clave_recibo', 'fecha_recibo', 'fecha_limite_pago', DB::raw('importe + gasto_admin + cargos_adicionales AS importe'))->where('admigas_departamentos_id', $id)->get();
-        $saldos = $this->saldos->select('total_recibos', 'total_pagos', 'saldo')->where('admigas_departamentos_id', $id)->first();
 
-        return view('edificios::departamentos.show', compact('depto', 'recibos', 'saldos'));
+        $estado_cuenta = \DB::select("call SP_estado_cuenta( $id )");
+
+        //$recibos = $this->recibos->select('clave_recibo', 'fecha_recibo', 'fecha_limite_pago', DB::raw('importe + gasto_admin + cargos_adicionales AS importe'))->where('admigas_departamentos_id', $id)->get();
+        //$saldos = $this->saldos->select('total_recibos', 'total_pagos', 'saldo')->where('admigas_departamentos_id', $id)->first();
+
+        return view('edificios::departamentos.show', compact('depto', 'estado_cuenta'));
     }
 
     /**

@@ -209,6 +209,7 @@ class RecibosController extends Controller
      */
     private function createPdf( $recibos, $opcion  )
     {
+        $empresa_id = $this->empresa_id;
          /**
          * Obtenemos el convenio cie de la empresa
          */
@@ -226,7 +227,7 @@ class RecibosController extends Controller
         }
         elseif( $opcion == 2 )
         {
-            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'cie' ) )
+            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'cie', 'empresa_id' ) )
                         ->setPaper('letter', 'landscape')
                         ->stream('archivo.pdf');
         }
