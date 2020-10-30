@@ -149,9 +149,18 @@ class QuerysJoinController extends Controller
     public function generarRecibos($deptos, $condominio, $empresa_id, $fecha_recibo)
     {
         /**
+         * Agregamos los dias de fecha limite
+         **/
+        $fecha = new Carbon( $fecha_recibo );
+        $fechaLimite = $fecha->addDays(7)->format('Y-m-d');
+        /**
          * Recuperamos el precio del gas de la empresa
          */
         $precio = $this->precio_gas->select('precio')->empresa( $empresa_id )->active()->first();
+        /**
+         * Recuperamos el numero consecutivo para el folio
+         */
+        $consecutivo = $this->folio_recibo();
         /**
          * Formateamos la informacion para poder ser insertada en la tabla de recibos
          */
@@ -162,7 +171,7 @@ class QuerysJoinController extends Controller
 
             $v = array();
 
-            $v['clave_recibo'] = "A-".( $i + 1 ) ;
+            $v['clave_recibo'] = "A-".( $consecutivo++ ) ;
             $v['unidad'] = $condominio->Unidades->nombre ;
             $v['condominio'] = $condominio->nombre ;
             $v['condomino'] = $depto->nombre." ".$depto->apellido_paterno." ".$depto->apellido_materno ;
@@ -180,7 +189,7 @@ class QuerysJoinController extends Controller
             $v['lectura_anterior'] = $depto->lectura_anterior;
             $v['fecha_lectura_actual'] = $depto->fecha_lectura_actual;
             $v['lectura_actual'] = $depto->lectura_actual;
-            $v['fecha_limite_pago'] = Carbon::now()->addDays(7);
+            $v['fecha_limite_pago'] = $fechaLimite;
             $v['precio_litro'] = $precio->precio;
             $v['importe'] = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio->precio - $condominio->descuento ) ;
             $v['gasto_admin'] = $condominio->gasto_admin;
@@ -197,5 +206,23 @@ class QuerysJoinController extends Controller
          * Creamos los recibos
          */
         DB::table('admigas_recibos')->insert( $info );
+    }
+
+    public function folio_recibo()
+    {
+        /**
+         * Obtenemos el folio del ultimo recibo
+         */
+        $folio = DB::select("call SP_folio_ultimo_recibo()");
+
+        if ( $folio == NULL || $folio == '' )
+        {
+                return 1;
+        }
+        else
+        {
+            $folio = explode( "-", $folio[0]->clave_recibo );
+            return (int)$folio[1];
+        }
     }
 }

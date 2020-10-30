@@ -189,6 +189,18 @@
                     </div>
                 </div>
             </div>
+            <div class="row invoice-info-images">
+                <div class="izq" style="text-align: center;">
+                    @if ( \Storage::exists( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) )
+                        <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                    @else
+                        <h3>SIN FOTO</h3>
+                    @endif
+                </div>
+                <div class="der" style="text-align: center;">
+                    <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                </div>
+            </div>
         </div>
         <div class="col2">
             <div class="col data-client">
@@ -259,6 +271,18 @@
                             <legend>$ {{ number_format( $historico[$i]->total_pagar,2 ) }}</legend><br>
                         @endfor
                     </div>
+                </div>
+            </div>
+            <div class="row invoice-info-images">
+                <div class="izq" style="text-align: center;">
+                    @if ( \Storage::exists( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) )
+                        <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                    @else
+                        <h3>SIN FOTO</h3>
+                    @endif
+                </div>
+                <div class="der" style="text-align: center;">
+                    <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
                 </div>
             </div>
         </div>
