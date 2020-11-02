@@ -17,6 +17,7 @@ use App\AdmigasRecibos;
 use App\AdmigasContactoDepartamentos;
 use App\AdmigasDepartamentos;
 use App\AdmigasEmpresas;
+use App\AdmigasPagos;
 
 class ClientesController extends Controller
 {
@@ -24,17 +25,18 @@ class ClientesController extends Controller
     private $departamentos;
     private $contactoDepartamento;
     private $empresas;
+    private $pagos;
 
     public function __construct(
         Dispatcher $events,
         AdmigasRecibos $recibos,
         AdmigasDepartamentos $departamentos,
         AdmigasContactoDepartamentos $contactoDepartamento,
-        AdmigasEmpresas $empresas
+        AdmigasEmpresas $empresas,
+        AdmigasPagos $pagos
         )
     {
 
-        $this->middleware('auth');
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
 
             $event->menu->add([
@@ -64,6 +66,7 @@ class ClientesController extends Controller
         $this->departamentos = $departamentos;
         $this->contactoDepartamento = $contactoDepartamento;
         $this->empresas = $empresas;
+        $this->pagos = $pagos;
     }
     /**
      * Display a listing of the resource.
@@ -116,6 +119,57 @@ class ClientesController extends Controller
         $data['litros'] = $litros;
 
         return response()->json($data, 200);
+    }
+    /**
+     * codigo = 0 éxito , 3 pagado por CLABE y cualquier otro número es un error
+     * mensaje = "Pago exitoso" o mensaje de error
+     * autorizacion = Valor numérico de la autorización del pago
+     * referencia = REF001
+     * importe = 1.00
+     * mediopago = Medio de pago utilizado para realizar la transacción
+     * financiado = Indica en el pago aplicó financiamiento
+     * plazos = Número de meses en que aplica el financiamiento
+     * s_transm = Identificador único del pago
+     * hash = Cadena de identificación del pago utilizado por Multipagos
+     * tarjetahabiente = Propietario de la tarjeta utilizada para el pago
+     * cveTipoPago = ID del tipo de pago, estos valores son propios de un catálogo del SAT.(Solo pagos tarjeta)
+     * signature = Se calcula con el algoritmo SHA256 concatenando los valores (referencia + importe + idexpress) y la llave otorgada.
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function store(Request $request)
+    {
+
+        $hash = hash( 'sha256', $request->referencia." ".$request->importe." 1842" );
+
+        \Log::info($request);
+
+        if ( $request->codigo== 0 )
+        {
+            $pago = $this->pagos->create([
+                                            'referencia' => $request->referencia,
+                                            'referencia_completa' => $request->s_transm."_".$request->referencia,
+                                            'importe' => $request->importe,
+                                            'fecha_pago' => \DB::raw('NOW()'),
+                                            'estatus' => 1,
+                                            'modo' => 1,
+                                        ]);
+
+            return response()->json( "Pago exitoso" );
+        }
+        else if( $request->codigo== 3 )
+        {
+            return response()->json( "El pago se realizo por clabe, el cobro se realizara de 1 0 2 dias habiles, si el cobro no se realiza en este tiempo favor de comunicarse." );
+        }
+        else
+        {
+            return response()->json( "Tuvimos un problema con su pago, favor de comunicase a los siguientes numeros." );
+        }
+
+
+
+        return response()->json( $hash   );
     }
 
     /**

@@ -191,15 +191,13 @@ class RecibosController extends Controller
     {
 
         $recibos = $this->recibos->where('admigas_condominios_id', $id)->take(1)->get();
-
         foreach ($recibos as $recibo )
         {
-
-            //$this->createPdf( $recibo, 1 );
-
+            
+            $this->createPdf( $recibo, 1 );
             $total_pagar = $recibo->cargos_adicionales + $recibo->adeudo_anterior + $recibo->importe +  $recibo->gasto_admin;
 
-            Mail::to('mchlugo@hotmail.com')->send(new EnvioRecibos( $recibo, $total_pagar ));
+            //Mail::to('mchlugo@hotmail.com')->send(new EnvioRecibos( $recibo, $total_pagar ));
         }
 
 
@@ -222,8 +220,18 @@ class RecibosController extends Controller
         if ( $opcion == 1 )
         {
             $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.png') );
-            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo', 'cie' ) )->setPaper('A5')->output();
+            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact('recibos', 'cie','empresa_id', 'url_recibo'))
+                        ->setPaper('A4')
+                        ->output();
             Storage::put('\public\recibo_'.$recibos->admigas_departamentos_id.'.pdf', $pdf);
+                /*
+            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo','cie', 'empresa_id' ) )->setPaper('A5')->output();
+            //return \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo','cie', 'empresa_id' ) )
+            //            ->setPaper('A5')
+            //            ->stream('archivo.pdf');
+
+
+            */
         }
         elseif( $opcion == 2 )
         {

@@ -36,8 +36,8 @@ class EnvioRecibos extends Mailable
     {
 
         return $this->from('administradora@administradora.com')
-                    ->subject("Recibo de Gas, ")
-                    ->view('show_mail')/*
+                    ->subject("Recibo de Gas, 2G Administradora de Gas LP en Condominios")
+                    ->view('send_recibo_depto')/*
                     ->attach( storage_path()."\app\public/recibo_".$this->recibo->admigas_departamentos_id.".pdf", [
                         'as' => 'recibo_gas.pdf',
                         'mime' => 'application/pdf',

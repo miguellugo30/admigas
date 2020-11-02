@@ -20,3 +20,6 @@ Route::group(['prefix' => 'clientes', 'middleware' => 'auth'], function() {
     Route::get('/showRecibo/{id}/{option}', 'ClientesController@showRecibo')->where(array('id' => '[0-9]+'));
     Route::post('/update_departamento/{id}', 'ClientesController@update');
 });
+Route::group(['prefix' => 'clientes'], function() {
+    Route::post('/registro-pago', 'ClientesController@store')->name('registro_pago');
+});

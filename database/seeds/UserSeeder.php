@@ -26,9 +26,14 @@ class UserSeeder extends Seeder
                 'email' => 'ingmchlugo@gmail.com',
                 'email_verified_at' => NULL,
                 'password' => Hash::make('admin'),
-                'admigas_empresas_id' => 1,
+                'tipo' => 1,
                 'remember_token' => '',
             ]);
+
+        DB::table('admigas_users_empresas')->insert([
+            'user_id' => 1,
+            'admigas_empresas_id' => 1
+        ]);
 
             DB::table('model_has_roles')->insert([
                 'role_id' => 1,
