@@ -1,7 +1,6 @@
 @extends('adminlte::master')
 
 @section('adminlte_css_pre')
-    <link rel="stylesheet" href="{{ asset('vendor/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/auth.css') }}">
 @stop
 

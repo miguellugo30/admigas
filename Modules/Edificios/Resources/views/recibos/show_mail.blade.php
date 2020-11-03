@@ -7,7 +7,7 @@
 }
 
     body{
-        background-image: url( {{\Storage::url(/recibo/recibo_2G-v2.png) }} )
+        background-image: url( {{\Storage::url("/\recibo/\recibo_2G-v2.png") }} )
     }
 
     .page-break {
@@ -16,23 +16,23 @@
     .cols {
         width: 100%;
         overflow: auto;
+        position: absolute;
+        left: 0;
+        top: 0;
     }
     .cols div {
         flex: 1;
     }
     .col1 {
         float: left;
-        width: 50%;
+        width: 100%;
         clear: both;
     }
-    .col2 {
-        width: 50%;
-        float: right;
-    }
+
     .data-client{
         /*width: 100%;*/
-        margin-top: 140px;
-        margin-left: 160px;
+        margin-top: 100px;
+        margin-left: 110px;
         font-size: 14px;
     }
     .cie{
@@ -111,13 +111,14 @@
         font-size: 10px;
     }
     .invoice-info-history{
-        margin-top: 50px;
+        margin-top: 60px;
         font-size: 12px;
     }
     </style>
     @php
         $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
     @endphp
+    <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
     <div class="cols">
         <div class="col1">
             <div class="col data-client">

@@ -239,13 +239,13 @@ class ClientesController extends Controller
          */
         $convenio = $this->empresas->where('id', $depto->condominios->Unidades->Zonas->admigas_empresas_id)->first();
         $cie =  $convenio->Cuentas->convenio_cie;
-        $recibos = $this->recibos->where('id', $id)->get();
-	$empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
+        $recibos = $this->recibos->where('id', $id)->first();
+        $empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
 
         $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
 
         if ( $option == 1 ) {
-            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
+            return \PDF::loadView('edificios::recibos.show_mail', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
                 ->setPaper('A5')
                 ->stream('archivo.pdf');
         } else {
