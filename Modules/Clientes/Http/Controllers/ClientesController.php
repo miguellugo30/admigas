@@ -245,11 +245,11 @@ class ClientesController extends Controller
         $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
 
         if ( $option == 1 ) {
-            return \PDF::loadView('edificios::recibos.show_mail', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
+            return \PDF::loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
                 ->setPaper('A5')
                 ->stream('archivo.pdf');
         } else {
-            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
+            return \PDF::loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
             //Storage::put('\public\recibo_' . $depto->id . '.pdf', $pdf);
         }
     }

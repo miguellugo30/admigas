@@ -5,33 +5,34 @@
        font-size: 16px;
        font-family: Arial, Helvetica, sans-serif;
    }
-   </style>
 
-   @foreach ($recibos as $recibo)
-       <style>
+       body{
+           background-image: url( {{\Storage::url("/\recibo/\recibo_2G-v2.png") }} )
+       }
+
        .page-break {
            page-break-after: always;
        }
        .cols {
            width: 100%;
            overflow: auto;
+           position: absolute;
+           left: 0;
+           top: 0;
        }
        .cols div {
            flex: 1;
        }
        .col1 {
            float: left;
-           width: 50%;
+           width: 100%;
            clear: both;
        }
-       .col2 {
-           width: 50%;
-           float: right;
-       }
+
        .data-client{
            /*width: 100%;*/
-           margin-top: 140px;
-           margin-left: 160px;
+           margin-top: 100px;
+           margin-left: 110px;
            font-size: 14px;
        }
        .cie{
@@ -110,26 +111,27 @@
            font-size: 10px;
        }
        .invoice-info-history{
-           margin-top: 50px;
+           margin-top: 60px;
            font-size: 12px;
        }
        </style>
        @php
-           $historico = \DB::select('call SP_consumo_recibos( '.$recibo->admigas_departamentos_id.' );');
+           $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
        @endphp
+       <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
        <div class="cols">
            <div class="col1">
                <div class="col data-client">
-                   <p class="nombre">{{ $recibo->condomino }}</p>
-                   <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
-                   <p class="address">{{ $recibo->colonia.", ".$recibo->delegacion.", C.P.:".$recibo->cp }}</p>
-                   <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibo->referencia }}</legend>
+                   <p class="nombre">{{ $recibos->condomino }}</p>
+                   <p class="address">{{ $recibos->calle." Num. Ext.: ".$recibos->numero_exterior." Num. Int.:".$recibos->numero_interior }}</p>
+                   <p class="address">{{ $recibos->colonia.", ".$recibos->delegacion.", C.P.:".$recibos->cp }}</p>
+                   <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibos->referencia }}</legend>
                </div>
                <div class="col data-total-pay">
                    <br>
-                   <p><b>{{ "$ ".number_format( ( $recibo->total_pagar ),2 )  }}</b></p>
-                   <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
-                   <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
+                   <p><b>{{ "$ ".number_format( ( $recibos->total_pagar ),2 )  }}</b></p>
+                   <p><b>{{ date('d-m-Y', strtotime($recibos->fecha_limite_pago)) }}</b></p>
+                   <p><b>{{ date('d-m-Y', strtotime($recibos->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibos->fecha_lectura_actual)) }}</b></p>
                </div>
                <div class="row invoice-info-page">
                    <div class="izq">
@@ -140,10 +142,10 @@
                            <legend>Consumo en litros</legend><br>
                        </div>
                        <div class="hijo-der">
-                           <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
-                           <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
-                           <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
-                           <legend>{{$recibo->importe }}</legend><br>
+                           <legend>{{ number_format( $recibos->lectura_anterior, 2 ) }}</legend><br>
+                           <legend>{{ number_format( $recibos->lectura_actual, 2 ) }}</legend><br>
+                           <legend>{{ number_format( ( $recibos->lectura_actual - $recibos->lectura_anterior ), 2 ) }}</legend><br>
+                           <legend>{{$recibos->importe }}</legend><br>
                        </div>
                    </div>
                    <div class="der">
@@ -155,11 +157,11 @@
                            <legend>Cuota de Admin.</legend>
                        </div>
                        <div class="hijo-der">
-                           <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
+                           <legend>$ {{ number_format( $recibos->importe , 2 ) }}</legend><br>
                            <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
-                           <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
-                           <legend>$ {{ number_format( $recibo->cargos_adicionales , 2 ) }}</legend><br>
-                           <legend>$ {{ number_format( $recibo->gasto_admin , 2 ) }}</legend>
+                           <legend>$ {{ number_format( $recibos->adeduo_anterior , 2 ) }}</legend><br>
+                           <legend>$ {{ number_format( $recibos->cargos_adicionales , 2 ) }}</legend><br>
+                           <legend>$ {{ number_format( $recibos->gasto_admin , 2 ) }}</legend>
                        </div>
                    </div>
                </div>
@@ -191,19 +193,11 @@
                </div>
                <div class="row invoice-info-images">
                    <div class="izq" style="text-align: center;">
-                       @if ( \Storage::exists( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) )
-                           <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
-                       @else
                            <h3>SIN FOTO</h3>
-                       @endif
                    </div>
                    <div class="der" style="text-align: center;">
-                       <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                           <h3>SIN FOTO</h3>
                    </div>
                </div>
            </div>
        </div>
-       @if (!$loop->last)
-           <div class="page-break"></div>
-       @endif
-   @endforeach
