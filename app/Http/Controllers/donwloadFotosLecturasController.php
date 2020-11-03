@@ -47,7 +47,7 @@ class donwloadFotosLecturasController extends Controller
          */
         foreach ($fotos as  $foto) {
             $rawData = Storage::cloud()->get($foto['path']);
-            $infoDepto = AdmigasDepartamentos::select('id')->where('numero_departamento', str_replace('.jpeg', '', $foto['name'] ) )->first();
+            $infoDepto = AdmigasDepartamentos::select('id')->where('numero_departamento', str_replace('.jpeg', '', $foto['name'] ) )->where('admigas_condominios_id', $condominio->id )->first();
             $name = $infoDepto->id."_".$foto['name'];
             Log::debug($name);
             Storage::put('/' . $empresa_id . '\/' . $condominio->id. '\/' . $fecha_lectura . '\/' . $name, $rawData);
