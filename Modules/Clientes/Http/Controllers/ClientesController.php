@@ -240,15 +240,16 @@ class ClientesController extends Controller
         $convenio = $this->empresas->where('id', $depto->condominios->Unidades->Zonas->admigas_empresas_id)->first();
         $cie =  $convenio->Cuentas->convenio_cie;
         $recibos = $this->recibos->where('id', $id)->get();
+	$empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
 
         $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
 
         if ( $option == 1 ) {
-            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie'))
+            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
                 ->setPaper('A5')
                 ->stream('archivo.pdf');
         } else {
-            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
+            return \PDF::loadView('edificios::recibos.show', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
             //Storage::put('\public\recibo_' . $depto->id . '.pdf', $pdf);
         }
     }

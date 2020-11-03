@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
             if (Auth::user()->tipo == 1 ) {
                 return redirect('/clientes');
             } else {
-                return redirect('/home');
+                return redirect('/edificios');
             }
         }
 

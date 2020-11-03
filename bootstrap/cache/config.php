@@ -221,7 +221,7 @@
     'name' => 'Admigas',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://admigas.lo',
+    'url' => 'https://administradora.2gadmin.com.mx/',
     'asset_url' => NULL,
     'timezone' => 'America/Mexico_City',
     'locale' => 'es',
@@ -673,7 +673,7 @@
       array (
         'driver' => 'local',
         'root' => '/var/www/html/Administradora/storage/app/public',
-        'url' => 'http://admigas.lo/storage',
+        'url' => 'https://administradora.2gadmin.com.mx//storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -1449,7 +1449,7 @@
   ),
   'sentry' => 
   array (
-    'dsn' => NULL,
+    'dsn' => 'https://1e00be1daf7648f7b6f1c059e6c1bb17@o448052.ingest.sentry.io/5428826',
     'environment' => NULL,
     'breadcrumbs' => 
     array (
