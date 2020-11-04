@@ -30,12 +30,12 @@
     }
     .data-client{
         /*width: 100%;*/
-        margin-top: 140px;
+        margin-top: 130px;
         margin-left: 160px;
         font-size: 14px;
     }
     .cie{
-        margin-top: 15px;
+        margin-top: 18px;
         margin-left: 45px;
     }
     .referencia{
@@ -45,7 +45,8 @@
         margin-left: 18px;
     }
     .data-client .address{
-       margin-top: -15px;
+       margin-top: -10px;
+	font-size: 11px;
     }
     .data-total-pay{
         text-align: center;
@@ -62,7 +63,7 @@
     }
     .row{
         width: 100%;
-        height: 100px;
+        height: 50px;
         overflow: auto;
     }
     .row div {
@@ -110,8 +111,9 @@
         font-size: 10px;
     }
     .invoice-info-history{
-        margin-top: 50px;
+        margin-top: 100px;
         font-size: 12px;
+	height: 120px;
     }
     </style>
     @php
@@ -192,13 +194,13 @@
             <div class="row invoice-info-images">
                 <div class="izq" style="text-align: center;">
                     @if ( \Storage::exists( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) )
-                        <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                        <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="70px">
                     @else
                         <h3>SIN FOTO</h3>
                     @endif
                 </div>
                 <div class="der" style="text-align: center;">
-                    <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                    <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="70px">
                 </div>
             </div>
         </div>
@@ -276,13 +278,13 @@
             <div class="row invoice-info-images">
                 <div class="izq" style="text-align: center;">
                     @if ( \Storage::exists( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) )
-                        <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                        <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="70px">
                     @else
                         <h3>SIN FOTO</h3>
                     @endif
                 </div>
                 <div class="der" style="text-align: center;">
-                    <img src="{{ \Storage::url( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) }}" alt="" width="140px">
+                    <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="70px">
                 </div>
             </div>
         </div>

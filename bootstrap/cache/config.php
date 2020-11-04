@@ -221,13 +221,13 @@
     'name' => 'Admigas',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://admigas.lo',
+    'url' => 'https://administradora.2gadmin.com.mx/',
     'asset_url' => NULL,
     'timezone' => 'America/Mexico_City',
     'locale' => 'es',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:V61Xts4Mtf4Ke7WutE2DZw==',
+    'key' => 'base64:9rWC+ZnH+GkiKGmTjYtY/w==',
     'cipher' => 'AES-128-CBC',
     'providers' => 
     array (
@@ -399,7 +399,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/cache/data',
+        'path' => '/var/www/html/Administradora/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -449,7 +449,7 @@
       array (
         'driver' => 'sqlite',
         'url' => NULL,
-        'database' => 'admigas',
+        'database' => 'administradora_condominios',
         'prefix' => '',
         'foreign_key_constraints' => true,
       ),
@@ -459,12 +459,12 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'admigas',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'administradora_condominios',
+        'username' => 'admigas',
+        'password' => 'Adm!G@$2019#MX',
         'unix_socket' => '',
-        'charset' => 'utf8mb4',
-        'collation' => 'utf8mb4_unicode_ci',
+        'charset' => 'utf8',
+        'collation' => 'utf8_unicode_ci',
         'prefix' => '',
         'prefix_indexes' => true,
         'strict' => true,
@@ -479,9 +479,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'admigas',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'administradora_condominios',
+        'username' => 'admigas',
+        'password' => 'Adm!G@$2019#MX',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -494,9 +494,9 @@
         'url' => NULL,
         'host' => '127.0.0.1',
         'port' => '3306',
-        'database' => 'admigas',
-        'username' => 'root',
-        'password' => '',
+        'database' => 'administradora_condominios',
+        'username' => 'admigas',
+        'password' => 'Adm!G@$2019#MX',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -535,10 +535,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\fonts/',
-      'font_cache' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\mchlu\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas',
+      'font_dir' => '/var/www/html/Administradora/storage/fonts/',
+      'font_cache' => '/var/www/html/Administradora/storage/fonts/',
+      'temp_dir' => '/tmp',
+      'chroot' => '/var/www/html/Administradora',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -652,7 +652,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/laravel-excel',
+      'local_path' => '/var/www/html/Administradora/storage/framework/laravel-excel',
       'remote_disk' => NULL,
       'remote_prefix' => NULL,
       'force_resync_remote' => NULL,
@@ -667,13 +667,13 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\app',
+        'root' => '/var/www/html/Administradora/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\app/public',
-        'url' => 'http://admigas.lo/storage',
+        'root' => '/var/www/html/Administradora/storage/app/public',
+        'url' => 'https://administradora.2gadmin.com.mx//storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -688,10 +688,10 @@
       'google' => 
       array (
         'driver' => 'google',
-        'clientId' => '944808039382-d5kuljo255hmirfe238qu603mp5gf4cp.apps.googleusercontent.com',
-        'clientSecret' => 'VTZTRhW6yCdfEyF812uwVc0L',
-        'refreshToken' => '1//04LT8u9Dnv5e9CgYIARAAGAQSNwF-L9IrAQnfb3_0fY-Q5YwDIOHMJtPqRYUKBo9SaZOCJ6dEz28YNUI_W7yQlafYNInBQmL6XyQ',
-        'folderId' => '1FLDpZhaJKE6HYVYPlRQZ6XYH9lCIN4e0',
+        'clientId' => '599470256795-h91h89tmuru45dr8764tsu60o4ssc40n.apps.googleusercontent.com',
+        'clientSecret' => 'ZPzmVuQlRZIMSfnISV76mG4z',
+        'refreshToken' => '1//04ebIpqv1MFv8CgYIARAAGAQSNwF-L9IrmNWofLpx6esqh_tD2p15rLNrTQSDPlboBjJ__euOAGwoW0c1o2sLREfd6Qh6Rm679wI',
+        'folderId' => '1mM4bpNRVxiIo5r3PTdJFH2Bu_0IZA6l9',
       ),
     ),
   ),
@@ -707,6 +707,116 @@
       'memory' => 1024,
       'threads' => 2,
       'time' => 2,
+    ),
+  ),
+  'larecipe' => 
+  array (
+    'docs' => 
+    array (
+      'route' => '/docs',
+      'path' => '/resources/docs',
+      'landing' => 'overview',
+      'middleware' => 
+      array (
+        0 => 'web',
+      ),
+    ),
+    'versions' => 
+    array (
+      'default' => '1.0',
+      'published' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    'settings' => 
+    array (
+      'auth' => false,
+      'ga_id' => '',
+      'middleware' => 
+      array (
+        0 => 'web',
+      ),
+    ),
+    'cache' => 
+    array (
+      'enabled' => false,
+      'period' => 5,
+    ),
+    'search' => 
+    array (
+      'enabled' => false,
+      'default' => 'algolia',
+      'engines' => 
+      array (
+        'internal' => 
+        array (
+          'index' => 
+          array (
+            0 => 'h2',
+            1 => 'h3',
+          ),
+        ),
+        'algolia' => 
+        array (
+          'key' => '',
+          'index' => '',
+        ),
+      ),
+    ),
+    'ui' => 
+    array (
+      'code_theme' => 'dark',
+      'fav' => '',
+      'fa_v4_shims' => true,
+      'show_side_bar' => true,
+      'colors' => 
+      array (
+        'primary' => '#787AF6',
+        'secondary' => '#2b9cf2',
+      ),
+      'theme_order' => NULL,
+    ),
+    'seo' => 
+    array (
+      'author' => '',
+      'description' => '',
+      'keywords' => '',
+      'og' => 
+      array (
+        'title' => '',
+        'type' => 'article',
+        'url' => '',
+        'image' => '',
+        'description' => '',
+      ),
+    ),
+    'forum' => 
+    array (
+      'enabled' => false,
+      'default' => 'disqus',
+      'services' => 
+      array (
+        'disqus' => 
+        array (
+          'site_name' => '',
+        ),
+      ),
+    ),
+    'packages' => 
+    array (
+      'path' => 'larecipe-components',
+    ),
+    'blade-parser' => 
+    array (
+      'regex' => 
+      array (
+        'code-blocks' => 
+        array (
+          'match' => '/\\<pre\\>(.|\\n)*?<\\/pre\\>/',
+          'replacement' => '<code-block>',
+        ),
+      ),
     ),
   ),
   'logging' => 
@@ -726,13 +836,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\logs/laravel.log',
+        'path' => '/var/www/html/Administradora/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\logs/laravel.log',
+        'path' => '/var/www/html/Administradora/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -801,7 +911,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\resources\\views/vendor/mail',
+        0 => '/var/www/html/Administradora/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -809,7 +919,7 @@
   'maileclipse' => 
   array (
     'path' => 'maileclipse',
-    'mailables_dir' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\app\\Mail/',
+    'mailables_dir' => '/var/www/html/Administradora/app/Mail/',
     'factory' => true,
     'allowed_environments' => 
     array (
@@ -1004,7 +1114,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas/vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => '/var/www/html/Administradora/vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'Routes/web.php',
@@ -1068,9 +1178,9 @@
     ),
     'paths' => 
     array (
-      'modules' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\Modules',
-      'assets' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\public\\modules',
-      'migration' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\database/migrations',
+      'modules' => '/var/www/html/Administradora/Modules',
+      'assets' => '/var/www/html/Administradora/public/modules',
+      'migration' => '/var/www/html/Administradora/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -1205,7 +1315,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\vendor/*/*',
+        0 => '/var/www/html/Administradora/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -1233,7 +1343,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\modules_statuses.json',
+        'statuses-file' => '/var/www/html/Administradora/modules_statuses.json',
         'cache-key' => 'activator.installed',
         'cache-lifetime' => 604800,
       ),
@@ -1339,7 +1449,7 @@
   ),
   'sentry' => 
   array (
-    'dsn' => NULL,
+    'dsn' => 'https://1e00be1daf7648f7b6f1c059e6c1bb17@o448052.ingest.sentry.io/5428826',
     'environment' => NULL,
     'breadcrumbs' => 
     array (
@@ -1376,7 +1486,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/sessions',
+    'files' => '/var/www/html/Administradora/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1480,9 +1590,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\resources\\views',
+      0 => '/var/www/html/Administradora/resources/views',
     ),
-    'compiled' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework\\views',
+    'compiled' => '/var/www/html/Administradora/storage/framework/views',
   ),
   'flare' => 
   array (

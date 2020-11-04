@@ -19,6 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'http://admigas.lo/clientes/registro-pago'
+        'https://administradora.2gadmin.com.mx/clientes/registro-pago'
     ];
 }
