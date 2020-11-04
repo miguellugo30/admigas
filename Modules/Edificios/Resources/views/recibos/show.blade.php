@@ -113,7 +113,19 @@
     .invoice-info-history{
         margin-top: 100px;
         font-size: 12px;
-	height: 120px;
+	    height: 120px;
+    }
+    .invoice-info-history .izq .hijo-izq{
+       text-align: left;
+       margin-left: 15px;
+    }
+    .invoice-info-history .izq .hijo-der{
+       text-align: left;
+       margin-left: 145px;
+    }
+    .invoice-info-history .der .hijo-der{
+       text-align: left;
+       margin-left: 145px;
     }
     </style>
     @php
