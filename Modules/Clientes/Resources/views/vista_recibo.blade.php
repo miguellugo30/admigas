@@ -2,7 +2,7 @@
     @page {
        margin: 0px 0px 0px 0px !important;
        padding: 0px 0px 0px 0px !important;
-       font-size: 16px;
+       font-size: 14px;
        font-family: Arial, Helvetica, sans-serif;
    }
 
@@ -27,22 +27,23 @@
 
        .data-client{
            /*width: 100%;*/
-           margin-top: 100px;
+           margin-top: 105px;
+	   margin-bottom: 5px;
            margin-left: 110px;
-           font-size: 14px;
+           font-size: 12px;
        }
        .cie{
-           margin-top: 15px;
+           margin-top: 12px;
            margin-left: 45px;
        }
        .referencia{
-           margin-left: 119px;
+           margin-left: 135px;
        }
        .data-client .nombre, .data-client .address{
            margin-left: 18px;
        }
        .data-client .address{
-          margin-top: -15px;
+          margin-top: -10px;
        }
        .data-total-pay{
            text-align: center;
@@ -107,9 +108,22 @@
            font-size: 10px;
        }
        .invoice-info-history{
-           margin-top: 60px;
+           margin-top: 55px;
+           margin-bottom: 30px;
            font-size: 12px;
        }
+	.invoice-info-history .izq .hijo-izq{
+       text-align: left;
+       margin-left: 35px;
+    }
+    .invoice-info-history .izq .hijo-der{
+       text-align: left;
+       margin-left: 175px;
+    }
+    .invoice-info-history .der .hijo-der{
+       text-align: left;
+       margin-left: 145px;
+    }
        </style>
        @php
            $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
@@ -191,13 +205,18 @@
                 <div class="row invoice-info-images">
                     <div class="izq" style="text-align: center;">
                         @if ( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
-                            <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" }}" alt="" width="70px">
+				<img src="{{'data:image/jpeg;base64,' . base64_encode($foto_anterior)}}" alt="" width="100px" >
                         @else
                             <h3>SIN FOTO</h3>
                         @endif
                     </div>
                     <div class="der" style="text-align: center;">
-                        <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" }}" alt="" width="70px">
+			
+                        @if ( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
+				<img src="{{'data:image/jpeg;base64,' . base64_encode($foto_actual)}}" alt="" width="100px" >
+			@else
+				<h3>SIN FOTO</h3>
+			@endif
                     </div>
                 </div>
            </div>

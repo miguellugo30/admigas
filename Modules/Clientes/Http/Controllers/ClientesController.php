@@ -243,13 +243,33 @@ class ClientesController extends Controller
         $empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
 
         $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
+		
+	if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
+	{
+		$foto_anterior = file_get_contents(public_path('storage/'.$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg"));
+	}
+	else
+	{
+		$foto_anterior = "";
+	}        
+
+
+	if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
+	{
+		$foto_actual = file_get_contents(public_path('storage/'.$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg"));
+	}
+	else
+	{
+		$foto_actual = "";
+	}
+
 
         if ( $option == 1 ) {
-            return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
+            return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id', 'foto_actual', 'foto_anterior'))
                 ->setPaper('A5')
                 ->stream('archivo.pdf');
         } else {
-            return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
+            return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id', 'foto_actual', 'foto_anterior'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
             //Storage::put('\public\recibo_' . $depto->id . '.pdf', $pdf);
         }
     }
