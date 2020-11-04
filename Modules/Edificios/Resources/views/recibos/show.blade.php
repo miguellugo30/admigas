@@ -35,7 +35,7 @@
         font-size: 14px;
     }
     .cie{
-        margin-top: 18px;
+        margin-top: 12px;
         margin-left: 45px;
     }
     .referencia{
@@ -51,7 +51,7 @@
     .data-total-pay{
         text-align: center;
         margin-left: 145px;
-        margin-top: -19px;
+        margin-top: -10px;
         height: 150px;
     }
     .data-total-pay p{
@@ -117,7 +117,7 @@
     }
     .invoice-info-history .izq .hijo-izq{
        text-align: left;
-       margin-left: 15px;
+       margin-left: 25px;
     }
     .invoice-info-history .izq .hijo-der{
        text-align: left;
@@ -126,6 +126,12 @@
     .invoice-info-history .der .hijo-der{
        text-align: left;
        margin-left: 145px;
+    }
+    .invoice-info-images .izq{
+        margin-left: -45px;
+    }
+    .invoice-info-images .der{
+        margin-left: 285px;
     }
     </style>
     @php
