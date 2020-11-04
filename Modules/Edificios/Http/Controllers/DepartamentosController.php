@@ -241,7 +241,8 @@ class DepartamentosController extends Controller
 
         $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
 
-        return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
+        return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+            ->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
             ->setPaper('A5')
             ->stream('archivo.pdf');
     }
