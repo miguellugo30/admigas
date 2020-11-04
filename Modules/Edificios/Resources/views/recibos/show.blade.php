@@ -30,7 +30,7 @@
     }
     .data-client{
         /*width: 100%;*/
-        margin-top: 140px;
+        margin-top: 130px;
         margin-left: 160px;
         font-size: 14px;
     }
@@ -113,6 +113,7 @@
     .invoice-info-history{
         margin-top: 100px;
         font-size: 12px;
+	height: 120px;
     }
     </style>
     @php

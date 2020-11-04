@@ -118,7 +118,8 @@
        @php
            $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
        @endphp
-       <img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
+	<img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
+       <!--img src="https://administradora.2gadmin.com.mx/storage/recibo/recibo_2G-v2.png" alt="imagen_recibo" width="560" height="750"-->
        <div class="cols">
            <div class="col1">
                <div class="col data-client">
