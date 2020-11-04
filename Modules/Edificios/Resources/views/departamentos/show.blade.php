@@ -49,7 +49,7 @@
                                     <tr>
                                         <td>{{ date('d-m-Y', strtotime( $ec->fecha )) }}</td>
                                         <td>{{ $ec->concepto }}</td>
-                                        <td>{{ $ec->referencia_completa }}</td>
+                                        <td class="viewRecibo" data-id_recibo="{{ $ec->referencia_completa }}">{{ $ec->referencia_completa }}</td>
                                         <td>$ {{ number_format($ec->importe, 2) }}</td>
                                         <td></td>
                                         <td>

@@ -856,6 +856,17 @@ $(function () {
     });
   });
   /**
+   * Evento para visualizar los recibos
+   */
+
+  $(document).on('click', '.viewRecibo', function (event) {
+    var departamentos_id = $("#idSeleccionado").val();
+    var recibos_id = $(this).data('id_recibo');
+    console.log(departamentos_id + " " + recibos_id);
+    var url = currentURL + '/departamentos/show_recibo/' + departamentos_id + '/' + recibos_id;
+    window.open(url, '_blank');
+  });
+  /**
    * Eliminamos las clases agregadas dinamicamente
    */
 

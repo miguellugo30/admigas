@@ -6,11 +6,7 @@
        font-family: Arial, Helvetica, sans-serif;
    }
 
-       body{
-           background-image: url( {{\Storage::url("/\recibo/\recibo_2G-v2.png") }} )
-       }
-
-       .page-break {
+      .page-break {
            page-break-after: always;
        }
        .cols {

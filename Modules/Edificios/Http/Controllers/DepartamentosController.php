@@ -18,6 +18,7 @@ use App\AdmigasMedidores;
 use App\AdmigasLecturasMedidores;
 use App\AdmigasRecibos;
 use App\AdmigasSaldos;
+use App\AdmigasEmpresas;
 
 class DepartamentosController extends Controller
 {
@@ -27,6 +28,7 @@ class DepartamentosController extends Controller
     private $lecturasMedidores;
     private $saldos;
     private $recibos;
+    private $empresa;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -37,7 +39,8 @@ class DepartamentosController extends Controller
         AdmigasMedidores $medidores,
         AdmigasLecturasMedidores $lecturasMedidores,
         AdmigasSaldos $saldos,
-        AdmigasRecibos $recibos
+        AdmigasRecibos $recibos,
+        AdmigasEmpresas $empresa
     )
     {
 
@@ -47,6 +50,7 @@ class DepartamentosController extends Controller
         $this->lecturasMedidores = $lecturasMedidores;
         $this->saldos = $saldos;
         $this->recibos = $recibos;
+        $this->empresa = $empresa;
     }
     /**
      * Display a listing of the resource.
@@ -148,9 +152,6 @@ class DepartamentosController extends Controller
 
         $estado_cuenta = \DB::select("call SP_estado_cuenta( $id )");
 
-        //$recibos = $this->recibos->select('clave_recibo', 'fecha_recibo', 'fecha_limite_pago', DB::raw('importe + gasto_admin + cargos_adicionales AS importe'))->where('admigas_departamentos_id', $id)->get();
-        //$saldos = $this->saldos->select('total_recibos', 'total_pagos', 'saldo')->where('admigas_departamentos_id', $id)->first();
-
         return view('edificios::departamentos.show', compact('depto', 'estado_cuenta'));
     }
 
@@ -222,5 +223,26 @@ class DepartamentosController extends Controller
     public function codigo()
     {
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8);
+    }
+
+    public function show_recibo( $id_departamentos, $id_recibo )
+    {
+        /**
+         * Recuperamos los datos del cliente
+         */
+        $depto =  $this->departamentos->find( $id_departamentos);
+        /**
+         * Obtenemos el convenio cie de la empresa
+         */
+        $convenio = $this->empresa->where('id', $depto->condominios->Unidades->Zonas->admigas_empresas_id)->first();
+        $cie =  $convenio->Cuentas->convenio_cie;
+        $recibos = $this->recibos->where('clave_recibo', $id_recibo)->where('admigas_departamentos_id', $id_departamentos)->first();
+        $empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
+
+        $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
+
+        return \PDF::loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id'))
+            ->setPaper('A5')
+            ->stream('archivo.pdf');
     }
 }

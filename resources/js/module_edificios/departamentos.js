@@ -222,6 +222,19 @@ $(function() {
         });
     });
     /**
+     * Evento para visualizar los recibos
+     */
+    $(document).on('click', '.viewRecibo', function(event) {
+        let departamentos_id = $("#idSeleccionado").val();
+        let recibos_id = $(this).data('id_recibo');
+
+        console.log(departamentos_id+" "+recibos_id);
+
+        let url = currentURL + '/departamentos/show_recibo/'+departamentos_id+'/'+recibos_id;
+        window.open(url, '_blank');
+
+    });
+    /**
      * Eliminamos las clases agregadas dinamicamente
      */
     $("#modal-edificios").on("hide.bs.modal", function() {
