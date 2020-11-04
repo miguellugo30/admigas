@@ -128,7 +128,7 @@
        margin-left: 145px;
     }
     .invoice-info-images .izq{
-        margin-left: -45px;
+        margin-left: -30px;
     }
     .invoice-info-images .der{
         margin-left: 285px;
@@ -212,13 +212,13 @@
             <div class="row invoice-info-images">
                 <div class="izq" style="text-align: center;">
                     @if ( \Storage::exists( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) )
-                        <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="140px">
+                        <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="100px">
                     @else
                         <h3>SIN FOTO</h3>
                     @endif
                 </div>
                 <div class="der" style="text-align: center;">
-                    <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="140px">
+                    <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="100px">
                 </div>
             </div>
         </div>
@@ -296,13 +296,13 @@
             <div class="row invoice-info-images">
                 <div class="izq" style="text-align: center;">
                     @if ( \Storage::exists( $empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" ) )
-                        <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="140px">
+                        <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_anterior)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="100px">
                     @else
                         <h3>SIN FOTO</h3>
                     @endif
                 </div>
                 <div class="der" style="text-align: center;">
-                    <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="140px">
+                    <img src="{{ public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" }}" alt="" width="100px">
                 </div>
             </div>
         </div>
