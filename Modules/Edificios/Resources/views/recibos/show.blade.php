@@ -51,7 +51,7 @@
     .data-total-pay{
         text-align: center;
         margin-left: 145px;
-        margin-top: -10px;
+        margin-top: -20px;
         height: 150px;
     }
     .data-total-pay p{
