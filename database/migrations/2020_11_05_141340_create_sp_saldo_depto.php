@@ -17,12 +17,13 @@ class CreateSpSaldoDepto extends Migration
                         CREATE PROCEDURE `SP_saldo_recibo`(IN referencia VARCHAR(50))
                             BEGIN
                                 SELECT
-                                    sum(admigas_recibos.importe) as total_recibos,
+                                    sum(admigas_recibos.total_pagar) as total_recibos,
                                     (SELECT sum( admigas_pagos.importe ) FROM admigas_pagos WHERE admigas_pagos.referencia = referencia) AS total_pagos
                                 FROM
                                     admigas_recibos
                                 WHERE
-                                admigas_recibos.referencia = referencia;
+                                    admigas_recibos.referencia = referencia
+                                AND admigas_recibos.activo = 1;
                             END
                         ");
     }
