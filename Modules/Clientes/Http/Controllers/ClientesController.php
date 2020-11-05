@@ -82,7 +82,7 @@ class ClientesController extends Controller
         /**
          * Contacto Depto
          */
-        //$contacto = $depto->Contacto_Depto;
+        $saldo = \DB::select("call SP_saldo_recibo( $depto->numero_referencia )");
         /**
          * Recibos
          */
@@ -92,7 +92,12 @@ class ClientesController extends Controller
          */
         $ultimosRecibos = \DB::select('call SP_consumo_recibos( ' . \Auth::user()->Departamentos->first()->id . ' );');
 
-        return view('clientes::index', compact('modulo', 'depto', 'recibos', 'ultimosRecibos'));
+        $data = $recibos->first()->referencia."_".$recibos->first()->clave_recibo;
+        $data .= number_format(  ( (int)$saldo[0]->total_recibos - (int)$saldo[0]->total_pagos ) ,2 );
+        $data .= 1842;
+        $signature = hash_hmac("sha256", $data, 'l5dSMMeQCyZua-zH22Tx');
+
+        return view('clientes::index', compact('modulo', 'depto', 'recibos', 'ultimosRecibos', 'saldo', 'signature'));
     }
 
     /**
@@ -243,7 +248,7 @@ class ClientesController extends Controller
         $empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
 
         $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
-		
+
 	if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
 	{
 		$foto_anterior = file_get_contents(public_path('storage/'.$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg"));
@@ -251,7 +256,7 @@ class ClientesController extends Controller
 	else
 	{
 		$foto_anterior = "";
-	}        
+	}
 
 
 	if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )

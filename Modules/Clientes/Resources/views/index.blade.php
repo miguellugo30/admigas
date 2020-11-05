@@ -20,7 +20,7 @@
                     <div class="card-body text-center">
                         <div class="col">
                             @if ( count( $recibos ) > 0 )
-                                <h1>$ {{ number_format( $recibos->first()->total_pagar,2 ) }}</h1>
+                                <h1>$ {{ number_format( ( (int)$saldo[0]->total_recibos - (int)$saldo[0]->total_pagos ),2 ) }}</h1>
                             @else
                                 <h1>$ 0.00</h1>
                             @endif
@@ -32,21 +32,19 @@
                                         <button type="button" class="btn btn-info viewDetail">Ver detalle</button>
                                     </div>
                                     <div class="col text-right">
-					<!--
-                                        <button type="button" class="btn btn-primary ">Pagar ahora</button>
-                                   	<form action="https://www.adquiramexico.com.mx:443/mExpress/pago/avanzado" method="post" target="_blank"/>
-						<input type="hidden" name="importe" value="1"/>
-						<input type="hidden" name="referencia" value="REF003"/>
-						<input type="hidden" name="urlretorno" value="https://administradora.2gadmin.com.mx/clientes/registro-pago/"/>
-						<input type="hidden" name="idexpress" value="1842"/>
-						<input type="hidden" name="financiamiento" value="0"/>
-						<input type="hidden" name="plazos" value=""/>
-						<input type="hidden" name="mediospago" value="111000"/>
-						<input type="hidden" name="signature" value="441f896396838d1a9993e8ff4248c8aa0583cbb1002a09ddde8c8761f3720e04"/>
-						<input type="image" src="https://dicff9jl33o1o.cloudfront.net/verticales/bexpress/resources/img/icon/paybutton_4.png" />
-					</form> 
-					-->
-				   </div>
+
+                                        <form action="https://www.adquiramexico.com.mx:443/mExpress/pago/avanzado" method="post" target="_blank"/>
+                                            <input type="hidden" name="importe" value="{{ number_format( ( (int)$saldo[0]->total_recibos - (int)$saldo[0]->total_pagos ),2 ) }}"/>
+                                            <input type="hidden" name="referencia" value="{{ $recibos->first()->referencia."_".$recibos->first()->clave_recibo }}"/>
+                                            <input type="hidden" name="urlretorno" value="https://administradora.2gadmin.com.mx/clientes/registro-pago/"/>
+                                            <input type="hidden" name="idexpress" value="1842"/>
+                                            <input type="hidden" name="financiamiento" value="0"/>
+                                            <input type="hidden" name="plazos" value=""/>
+                                            <input type="hidden" name="mediospago" value="111000"/>
+                                            <input type="hidden" name="signature" value="{{ $signature }}"/>
+                                            <button type="submit" class="btn btn-primary ">Pagar ahora</button>
+                                        </form>
+				                </div>
                                 @else
                                     <div class="col text-left">
                                         <button type="button" class="btn btn-info viewDetail" disabled>Ver detalle</button>
