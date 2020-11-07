@@ -27,9 +27,16 @@ Route::get('/clientes/registro/', function () {
     return view('auth.register_clientes');
 })->name('registro_cliente');
 
+Route::get('/clientes/recuperar-password/', function () {
+    return view('auth.passwords.email');
+})->name('recuperar_cliente');
+
+
 Route::get('/clientes/registro-pagina/', function () {
     return view('auth.register_clientes_pagina');
 })->name('registro_cliente_pagina');
+
+
 
 Route::post('/clientes/registro/', 'Auth\RegisterController@register')->name('registro_cliente_form');
 

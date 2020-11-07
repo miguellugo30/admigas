@@ -156,7 +156,7 @@
                            <legend>{{ number_format( $recibos->lectura_anterior, 2 ) }}</legend><br>
                            <legend>{{ number_format( $recibos->lectura_actual, 2 ) }}</legend><br>
                            <legend>{{ number_format( ( $recibos->lectura_actual - $recibos->lectura_anterior ), 2 ) }}</legend><br>
-                           <legend>{{$recibos->importe }}</legend><br>
+                           <legend>{{ number_format( ( $recibos->lectura_actual - $recibos->lectura_anterior ) * $recibos->Condominios->factor, 2 ) }}</legend><br>
                        </div>
                    </div>
                    <div class="der">
@@ -185,7 +185,7 @@
                        </div>
                        <div class="hijo-der">
                            @for ($i = 0; $i < count( $historico ); $i++)
-                               <legend>{{ number_format( $historico[$i]->litros, 2) }}</legend><br>
+                               <legend>{{ number_format( $historico[$i]->litros, 2) }} L</legend><br>
                            @endfor
                        </div>
                    </div>
@@ -211,7 +211,7 @@
                         @endif
                     </div>
                     <div class="der" style="text-align: center;">
-			
+
                         @if ( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
 				<img src="{{'data:image/jpeg;base64,' . base64_encode($foto_actual)}}" alt="" width="100px" >
 			@else

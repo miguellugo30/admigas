@@ -163,7 +163,7 @@
                         <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
                         <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
                         <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
-                        <legend>{{$recibo->importe }}</legend><br>
+                        <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ) * $recibo->Condominios->factor, 2 ) }}</legend><br>
                     </div>
                 </div>
                 <div class="der">
@@ -247,7 +247,7 @@
                         <legend>{{ number_format( $recibo->lectura_anterior, 2 ) }}</legend><br>
                         <legend>{{ number_format( $recibo->lectura_actual, 2 ) }}</legend><br>
                         <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ), 2 ) }}</legend><br>
-                        <legend>{{$recibo->importe }}</legend><br>
+                        <legend>{{ number_format( ( $recibo->lectura_actual - $recibo->lectura_anterior ) * $recibo->Condominios->factor, 2 ) }}</legend><br>
                     </div>
                 </div>
                 <div class="der">
@@ -276,7 +276,7 @@
                     </div>
                     <div class="hijo-der">
                         @for ($i = 0; $i < count( $historico ); $i++)
-                            <legend>{{ number_format( $historico[$i]->litros, 2) }}</legend><br>
+                            <legend>{{ number_format( $historico[$i]->litros, 2) }} L</legend><br>
                         @endfor
                     </div>
                 </div>

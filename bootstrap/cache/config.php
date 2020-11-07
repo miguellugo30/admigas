@@ -218,14 +218,14 @@
   ),
   'app' => 
   array (
-    'name' => 'Admigas',
+    'name' => '2G Administradora',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://admigas.lo',
+    'url' => 'http://administradora.2gadmin.com.mx',
     'asset_url' => NULL,
     'timezone' => 'America/Mexico_City',
     'locale' => 'es',
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'es',
     'faker_locale' => 'en_US',
     'key' => 'base64:V61Xts4Mtf4Ke7WutE2DZw==',
     'cipher' => 'AES-128-CBC',
@@ -438,7 +438,7 @@
         'endpoint' => NULL,
       ),
     ),
-    'prefix' => 'admigas_cache',
+    'prefix' => '2g_administradora_cache',
   ),
   'database' => 
   array (
@@ -509,7 +509,7 @@
       'options' => 
       array (
         'cluster' => 'redis',
-        'prefix' => 'admigas_database_',
+        'prefix' => '2g_administradora_database_',
       ),
       'default' => 
       array (
@@ -673,7 +673,7 @@
       array (
         'driver' => 'local',
         'root' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\app/public',
-        'url' => 'http://admigas.lo/storage',
+        'url' => 'http://administradora.2gadmin.com.mx/storage',
         'visibility' => 'public',
       ),
       's3' => 
@@ -900,7 +900,7 @@
     'from' => 
     array (
       'address' => 'administradora@administradora.com',
-      'name' => 'Admigas',
+      'name' => '2G Administradora',
     ),
     'encryption' => 'tls',
     'username' => 'ingmchlugo@gmail.com',
@@ -1495,7 +1495,7 @@
       0 => 2,
       1 => 100,
     ),
-    'cookie' => 'admigas_session',
+    'cookie' => '2g_administradora_session',
     'path' => '/',
     'domain' => NULL,
     'secure' => false,
