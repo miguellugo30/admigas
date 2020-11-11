@@ -1,0 +1,13 @@
+{
+    "name": "CreditoCobranza",
+    "alias": "creditocobranza",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\CreditoCobranza\\Providers\\CreditoCobranzaServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
