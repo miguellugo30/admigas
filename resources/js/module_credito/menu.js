@@ -8,10 +8,10 @@ $(function() {
         e.preventDefault();
         let id = $(this).attr("id");
 
-        if (id == '8') {
+        if (id == '11') {
             url = currentURL + '/pagos-portal';
             table = ' #table-usuarios';
-        } else if (id == '9') {
+        } else if (id == '12') {
             url = currentURL + '/conciliacion';
             table = ' #table-precio-gas';
         }
