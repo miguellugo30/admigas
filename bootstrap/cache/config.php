@@ -895,16 +895,16 @@
   'mail' => 
   array (
     'driver' => 'smtp',
-    'host' => 'smtp.gmail.com',
-    'port' => '587',
+    'host' => 'c1371149.ferozo.com',
+    'port' => '465',
     'from' => 
     array (
-      'address' => 'administradora@administradora.com',
+      'address' => 'atencionclientes@2gadmin.mx',
       'name' => '2G Administradora',
     ),
-    'encryption' => 'tls',
-    'username' => 'ingmchlugo@gmail.com',
-    'password' => 'erxebihxtqgcvjwe',
+    'encryption' => 'ssl',
+    'username' => 'atencionclientes@2gadmin.mx',
+    'password' => 'W*Vsa*u3iZ',
     'sendmail' => '/usr/sbin/sendmail -bs',
     'markdown' => 
     array (

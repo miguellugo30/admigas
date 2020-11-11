@@ -16,6 +16,20 @@ class AdmigasPagos extends Model
      * Nombre de la tabla
      */
     protected $table = 'admigas_pagos';
+     /**
+     * Funcion para obtener solo los registros activos
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('estatus', 1 );
+    }
+    /**
+    * Funcion para obtener solo los registros activos
+    */
+   public function scopeModo($query, $modo)
+   {
+       return $query->where('modo', $modo );
+   }
     /*
     |--------------------------------------------------------------------------
     | RELACIONES DE BASE DE DATOS
@@ -26,6 +40,6 @@ class AdmigasPagos extends Model
      */
     public function Departamento()
     {
-        return $this->belongsTo('App\AdmigasDepartamentos', 'id', 'admigas_departamentos_id');
+        return $this->belongsToMany('App\AdmigasDepartamentos', 'admigas_departamentos_pagos');
     }
 }

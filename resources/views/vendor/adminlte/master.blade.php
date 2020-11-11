@@ -60,9 +60,11 @@
     @if ( $modulo == 1 )
         <script src="{{ asset('js/edificios.js') }}"></script>
     @elseif( $modulo == 4 )
-        <script src="{{ asset('js/configuracion.js') }}"></script> 
+        <script src="{{ asset('js/configuracion.js') }}"></script>
     @elseif( $modulo == 5 )
         <script src="{{ asset('js/cliente.js') }}"></script>
+    @elseif( $modulo == 2 )
+        <script src="{{ asset('js/credito.js') }}"></script>
     @endif
 @endif
 

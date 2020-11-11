@@ -33,7 +33,10 @@ mix.js([
     ], 'public/js/edificios.js')
     .js([
         'resources/js/module_cliente/acciones_cliente.js',
-    ], 'public/js/cliente.js');
+    ], 'public/js/cliente.js')
+    .js([
+        'resources/js/module_credito/menu.js',
+    ], 'public/js/credito.js');
 /*
     .sass('resources/sass/app.scss', 'public/css');
 */
