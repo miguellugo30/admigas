@@ -1637,6 +1637,10 @@
   array (
     'name' => 'Configuracion',
   ),
+  'creditocobranza' => 
+  array (
+    'name' => 'CreditoCobranza',
+  ),
   'edificios' => 
   array (
     'name' => 'Edificios',
