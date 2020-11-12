@@ -5,7 +5,7 @@ namespace Modules\CreditoCobranza\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\CreditoCobranza\Http\Requests\conciliacionRequest;
+use Modules\CreditoCobranza\Http\Requests\ConciliacionRequest;
 use Illuminate\Support\Facades\Auth;
 
 use App\AdmigasDepartamentos;
@@ -49,7 +49,7 @@ class ConciliacionController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(conciliacionRequest $request)
+    public function store(ConciliacionRequest $request)
     {
         $tmp = $request->archivoConciliar->path();
         $content = array_chunk( explode( '|' ,\File::get( $tmp )), 6);
