@@ -2,10 +2,10 @@
     <div class="card-header">
         <h3 class="card-title">
             <i class="fas fa-desktop"></i>
-            Pagos Portal Cliente
-        </h3>
-        <div class="card-tools">
-            <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
+            Pagos Conciliados por Archivo
+          </h3>
+          <div class="card-tools">
+                <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
         </div>
     </div>
     <div class="card-body table-responsive">

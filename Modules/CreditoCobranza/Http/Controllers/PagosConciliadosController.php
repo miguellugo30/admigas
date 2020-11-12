@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
  */
 use App\AdmigasPagos;
 
-class PagosPortalController extends Controller
+
+class PagosConciliadosController extends Controller
 {
     private $empresa_id;
     /**
@@ -32,9 +33,8 @@ class PagosPortalController extends Controller
      */
     public function index()
     {
-
-        $pagos = AdmigasPagos::active(1)->modo(1)->get();
-        return view('creditocobranza::pagosPortal.index', compact('pagos'));
+        $pagos = AdmigasPagos::active(1)->modo(2)->get();
+        return view('creditocobranza::pagosConciliados.index', compact('pagos'));
     }
 
     /**

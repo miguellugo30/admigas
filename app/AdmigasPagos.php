@@ -7,10 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class AdmigasPagos extends Model
 {
     /**
+     * estatus
+     *
+     * 1 conciliado
+     * 0 no conciliado
+     *
+     * modo
+     *
+     * 1 portal cliente
+     * 2 archivo conciliacion
+     */
+    /**
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'referencia', 'referencia_completa', 'importe', 'fecha_pago', 'estatus', 'modo', 'admigas_empresas_id'
+        'referencia', 'referencia_completa', 'importe', 'fecha_pago', 'autorizacion', 'medio_pago', 's_transm', 'tarjeta_habiente', 'cve_tipo_pago', 'estatus', 'modo', 'admigas_empresas_id'
     ];
     /**
      * Nombre de la tabla
@@ -19,9 +30,9 @@ class AdmigasPagos extends Model
      /**
      * Funcion para obtener solo los registros activos
      */
-    public function scopeActive($query)
+    public function scopeActive($query, $estatus)
     {
-        return $query->where('estatus', 1 );
+        return $query->where('estatus', $estatus );
     }
     /**
     * Funcion para obtener solo los registros activos

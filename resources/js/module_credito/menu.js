@@ -14,6 +14,12 @@ $(function() {
         } else if (id == '12') {
             url = currentURL + '/conciliacion';
             table = ' #table-precio-gas';
+        } else if (id == '13') {
+            url = currentURL + '/pagos-conciliados';
+            table = ' #table-precio-gas';
+        } else if (id == '14') {
+            url = currentURL + '/pagos-no-conciliados';
+            table = ' #table-precio-gas';
         }
 
         $.get(url, function(data, textStatus, jqXHR) {

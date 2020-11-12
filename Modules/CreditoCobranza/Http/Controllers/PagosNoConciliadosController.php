@@ -5,36 +5,16 @@ namespace Modules\CreditoCobranza\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-/**
- * Modelos
- */
-use App\AdmigasPagos;
 
-class PagosPortalController extends Controller
+class PagosNoConciliadosController extends Controller
 {
-    private $empresa_id;
-    /**
-     * Constructor para obtener el id empresa
-     * con base al usuario que esta usando la sesion
-     */
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            $this->empresa_id = Auth::user()->Empresas->first()->id;
-
-            return $next($request);
-        });
-    }
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-
-        $pagos = AdmigasPagos::active(1)->modo(1)->get();
-        return view('creditocobranza::pagosPortal.index', compact('pagos'));
+        return view('creditocobranza::index');
     }
 
     /**

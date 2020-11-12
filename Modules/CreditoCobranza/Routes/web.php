@@ -16,8 +16,26 @@ Route::prefix('credito-cobranza')->group(function() {
 });
 
 /*
- * Rutas para CRUD de Usuarios
+ * Rutas para CRUD de Portal Pagos
  */
 Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {
     Route::resource('pagos-portal','PagosPortalController');
+});
+/*
+ * Rutas para CRUD conciliacion
+ */
+Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {
+    Route::resource('conciliacion','ConciliacionController');
+});
+/*
+ * Rutas para CRUD de pagos conciliados
+ */
+Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {
+    Route::resource('pagos-conciliados','PagosConciliadosController');
+});
+/*
+ * Rutas para CRUD de pagos no conciliados
+ */
+Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {
+    Route::resource('pagos-no-conciliados','PagosNoConciliadosController');
 });
