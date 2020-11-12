@@ -4,7 +4,7 @@ namespace Modules\CreditoCobranza\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class conciliacionRequest extends FormRequest
+class ConciliacionRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
