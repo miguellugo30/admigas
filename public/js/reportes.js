@@ -81,79 +81,15 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/module_credito/conciliacion.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/module_credito/conciliacion.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(function () {
-  var currentURL = window.location.href;
-  /**
-   * Evento para conciliar el archivo
-   */
-
-  $(document).on("click", "#conciliar", function (e) {
-    e.preventDefault();
-    var formData = new FormData(document.getElementById("formConciliacion"));
-    var archivoConciliacion = $("#archivoConciliar").val();
-
-    var _token = $("input[name=_token]").val();
-
-    formData.append("archivoConciliacion", archivoConciliacion);
-    formData.append("_token", _token);
-    var url = currentURL + '/conciliacion';
-    $.ajax({
-      url: url,
-      type: "POST",
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false
-    }).done(function (data) {
-      $('.viewResult').html(data);
-      /*
-      Swal.fire(
-          'Correcto!',
-          'El registro ha sido guardado.',
-          'success'
-      )
-      */
-    }).fail(function (data) {
-      printErrorMsg(data.responseJSON.errors);
-    });
-  });
-  /**
-   * Funcion para mostrar los errores de los formularios
-   */
-
-  function printErrorMsg(msg) {
-    $(".print-error-msg").find("ul").html('');
-    $(".print-error-msg").css('display', 'block');
-    $(".form-control").removeClass('is-invalid');
-
-    for (var clave in msg) {
-      $("#" + clave).addClass('is-invalid');
-
-      if (msg.hasOwnProperty(clave)) {
-        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
-      }
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./resources/js/module_credito/menu.js":
-/*!*********************************************!*\
-  !*** ./resources/js/module_credito/menu.js ***!
-  \*********************************************/
+/***/ "./resources/js/module_reportes/menu.js":
+/*!**********************************************!*\
+  !*** ./resources/js/module_reportes/menu.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -167,17 +103,14 @@ $(function () {
     e.preventDefault();
     var id = $(this).attr("id");
 
-    if (id == '11') {
-      url = currentURL + '/pagos-portal';
+    if (id == '15') {
+      url = currentURL + '/saldos';
       table = ' #table-usuarios';
-    } else if (id == '12') {
-      url = currentURL + '/conciliacion';
+    } else if (id == '16') {
+      url = currentURL + '/antiguedad';
       table = ' #table-precio-gas';
-    } else if (id == '13') {
-      url = currentURL + '/pagos-conciliados';
-      table = ' #table-precio-gas';
-    } else if (id == '14') {
-      url = currentURL + '/pagos-no-conciliados';
+    } else if (id == '17') {
+      url = currentURL + '/estado-cuenta';
       table = ' #table-precio-gas';
     }
 
@@ -194,15 +127,14 @@ $(function () {
 
 /***/ }),
 
-/***/ 4:
-/*!*************************************************************************************************!*\
-  !*** multi ./resources/js/module_credito/menu.js ./resources/js/module_credito/conciliacion.js ***!
-  \*************************************************************************************************/
+/***/ 3:
+/*!****************************************************!*\
+  !*** multi ./resources/js/module_reportes/menu.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_credito\menu.js */"./resources/js/module_credito/menu.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_credito\conciliacion.js */"./resources/js/module_credito/conciliacion.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\menu.js */"./resources/js/module_reportes/menu.js");
 
 
 /***/ })

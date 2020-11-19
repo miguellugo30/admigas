@@ -63,6 +63,8 @@
         <script src="{{ asset('js/configuracion.js') }}"></script>
     @elseif( $modulo == 5 )
         <script src="{{ asset('js/cliente.js') }}"></script>
+    @elseif( $modulo == 3 )
+        <script src="{{ asset('js/reportes.js') }}"></script>
     @elseif( $modulo == 2 )
         <script src="{{ asset('js/credito.js') }}"></script>
     @endif
