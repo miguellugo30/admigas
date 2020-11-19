@@ -14,7 +14,7 @@ class CreateSpReporteSaldos extends Migration
     public function up()
     {
         \DB::unprepared("
-                        CREATE DEFINER=`administradora_condominios`@`localhost` PROCEDURE `SP_reporte_saldos`()
+                        CREATE PROCEDURE `SP_reporte_saldos`()
                         BEGIN
                             SELECT
                                 AU.nombre AS unidad,
