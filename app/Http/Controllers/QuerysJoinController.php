@@ -121,7 +121,7 @@ class QuerysJoinController extends Controller
 
             $depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
             $depto->litros = ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor;
-            $depto->consumo = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio->precio - $condominio->first()->descuento );
+            $depto->consumo = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio->precio - $condominio->first()->descuento ) );
             $depto->cargos = $this->cargosDepto( $depto->departamento_id );
             $depto->gasto_admin = $condominio->first()->gasto_admin ;
         }
@@ -171,7 +171,12 @@ class QuerysJoinController extends Controller
 
             $v = array();
 
-            $v['clave_recibo'] = "A-".( $consecutivo++ ) ;
+            /**
+             * Obtenemos los cargos adicionales
+             */
+            $cargos_adicionales = $this->cargosDepto( $depto->departamento_id );
+
+            $v['clave_recibo'] = "A-".( $consecutivo++ );
             $v['unidad'] = $condominio->Unidades->nombre ;
             $v['condominio'] = $condominio->nombre ;
             $v['condomino'] = $depto->nombre." ".$depto->apellido_paterno." ".$depto->apellido_materno ;
@@ -191,16 +196,20 @@ class QuerysJoinController extends Controller
             $v['lectura_actual'] = $depto->lectura_actual;
             $v['fecha_limite_pago'] = $fechaLimite;
             $v['precio_litro'] = $precio->precio;
-            $v['importe'] = ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio->precio - $condominio->descuento ) ;
+            $v['importe'] = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio->precio - $condominio->descuento ) );
             $v['gasto_admin'] = $condominio->gasto_admin;
             $v['adeudo_anterior'] = $depto->saldo;
-            $v['cargos_adicionales'] = $this->cargosDepto( $depto->departamento_id );
-            $v['total_pagar'] = $this->cargosDepto( $depto->departamento_id ) + $depto->saldo + $condominio->gasto_admin + $condominio->gasto_admin + (($depto->lectura_actual - $depto->lectura_anterior) * $condominio->factor) * ($precio->precio - $condominio->descuento) ;
+            $v['cargos_adicionales'] = $cargos_adicionales;
+            $v['total_pagar'] = round( $cargos_adicionales + $depto->saldo + $condominio->gasto_admin + (($depto->lectura_actual - $depto->lectura_anterior) * $condominio->factor) * ($precio->precio - $condominio->descuento) );
             $v['referencia'] = $depto->numero_referencia;
             $v['admigas_departamentos_id'] = $depto->departamento_id;
             $v['admigas_condominios_id'] = $condominio->id;
 
-            array_push( $info, $v );
+            if( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) >= 2 )
+            {
+                array_push( $info, $v );
+            }
+
         }
         /**
          * Creamos los recibos
@@ -222,7 +231,7 @@ class QuerysJoinController extends Controller
         else
         {
             $folio = explode( "-", $folio[0]->clave_recibo );
-            return (int)$folio[1];
+            return (int)$folio[1] + 1;
         }
     }
 }
