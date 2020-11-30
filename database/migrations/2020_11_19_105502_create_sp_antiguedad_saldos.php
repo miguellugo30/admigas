@@ -17,8 +17,8 @@ class CreateSpAntiguedadSaldos extends Migration
                         CREATE PROCEDURE `SP_antiguedad_saldos` ()
                         BEGIN
                             SELECT
-                                AU.nombre,
-                                AC.nombre,
+                                AU.nombre AS unidad,,
+                                AC.nombre as edificio,
                                 AD.numero_departamento,
                                 AD.numero_referencia,
                                 DATE_FORMAT( (SELECT admigas_recibos.fecha_limite_pago FROM admigas_recibos WHERE admigas_recibos.referencia = AD.numero_referencia AND admigas_recibos.activo = 1 ORDER BY admigas_recibos.id DESC limit 1), '%d-%m-%Y' ) AS fecha_limite_pago,
