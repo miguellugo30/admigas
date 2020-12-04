@@ -10,6 +10,7 @@ use Modules\Edificios\Http\Requests\TanquesRequest;
  * Modelo
  */
 use App\AdmigasTanques;
+use App\AdmigasUnidades;
 
 class TanquesController extends Controller
 {
@@ -59,7 +60,12 @@ class TanquesController extends Controller
      */
     public function show($id)
     {
-        return view('edificios::tanques.show');
+
+        $unidad = AdmigasUnidades::where('id', $id)
+                                    ->with('Tanques')
+                                    ->first();
+        //dd( $unidad );
+        return view('edificios::tanques.show', compact('unidad'));
     }
 
     /**

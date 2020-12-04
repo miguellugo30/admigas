@@ -1312,6 +1312,14 @@ $(function () {
         $('.breadcrumb').html(result);
       }
     });
+    var urlc = currentURL + "/tanques/" + id;
+    $.ajax({
+      url: urlc,
+      type: 'GET',
+      success: function success(result) {
+        $('.viewResult').html(result);
+      }
+    });
   });
   /**
    * Evento para mostrar regresar a zonas

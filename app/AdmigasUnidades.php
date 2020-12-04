@@ -54,6 +54,6 @@ class AdmigasUnidades extends Model
      */
     public function Tanques()
     {
-        return $this->hasMany('App\AdmigasTanques', 'admigas_unidades_id', 'id');
+        return $this->hasMany('App\AdmigasTanques', 'admigas_unidades_id', 'id')->where('activo', 1);
     }
 }
