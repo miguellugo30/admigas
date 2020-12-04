@@ -664,11 +664,66 @@ $(function () {
     $('#tituloModal').html('Nuevo Departamento');
     $('#action').removeClass('updateDepartamento');
     $('#action').addClass('saveDepartamento');
-    var url = currentURL + '/departamentos/create';
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var url = currentURL + '/departamentos/create/' + admigas_condominios_id;
     $.get(url, function (data, textStatus, jqXHR) {
       $('#modal').modal('show');
       $("#modal-body").html(data);
     });
+  });
+  /**
+   * Evento para completar la referencia
+   */
+
+  $(document).on('blur', '#numero_departamento', function (event) {
+    var num_depto = $(this).val();
+    var referencia = $("#referencia_digitos").val();
+    var clasificacion = $('input:radio[name=clasificacion]:checked').val();
+    var medio = $('input:radio[name=medio]:checked').val();
+
+    if (clasificacion == 'propio') {
+      clas = 'P';
+    } else if (clasificacion == 'arrendado') {
+      clas = 'A';
+    }
+
+    if (medio == 'digital') {
+      med = 'E';
+    } else if (medio == 'fisico') {
+      med = 'I';
+    }
+
+    ref = referencia + num_depto.padStart(4, '0') + clas + med;
+    $("#basic-addon1").text(ref);
+    $("#referencia_digitos").val(ref);
+  });
+  $(document).on('change', 'input:radio[name=clasificacion]', function (event) {
+    var clasificacion = $(this).val();
+    var referencia = $("#referencia_digitos").val();
+
+    if (clasificacion == 'propio') {
+      ref = referencia.replace('A', 'P');
+    } else if (clasificacion == 'arrendado') {
+      ref = referencia.replace('P', 'A');
+    } //ref = referencia + num_depto.padStart(4, '0') + clas + med;
+
+
+    $("#basic-addon1").text(ref);
+    $("#referencia_digitos").val(ref);
+  });
+  $(document).on('change', 'input:radio[name=medio]', function (event) {
+    var clasificacion = $(this).val();
+    var referencia = $("#referencia_digitos").val();
+
+    if (clasificacion == 'digital') {
+      ref = referencia.replace('I', 'E');
+    } else if (clasificacion == 'fisico') {
+      ref = referencia.replace('E', 'I');
+    } //ref = referencia + num_depto.padStart(4, '0') + clas + med;
+
+
+    $("#basic-addon1").text(ref);
+    $("#referencia_digitos").val(ref);
   });
   /**
    * Evento para guardar el nuevo modulo
@@ -677,7 +732,8 @@ $(function () {
   $(document).on('click', '.saveDepartamento', function (event) {
     event.preventDefault();
     var numero_departamento = $("#numero_departamento").val();
-    var numero_referencia = $("#numero_referencia").val();
+    var referencia_digitos = $("#referencia_digitos").val();
+    var digito_banco = $("#digito_banco").val();
     var nombre = $("#nombre").val();
     var apellido_paterno = $("#apellido_paterno").val();
     var apellido_materno = $("#apellido_materno").val();
@@ -689,7 +745,10 @@ $(function () {
     var numero_serie = $("#numero_serie").val();
     var lectura = $("#lectura").val();
     var fecha_lectura = $("#fecha_lectura").val();
+    var clasificacion = $("input:radio[name=clasificacion]").val();
+    var medio = $("input:radio[name=medio]").val();
     var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var numero_referencia = referencia_digitos + digito_banco;
 
     var _token = $("input[name=_token]").val();
 
@@ -708,6 +767,8 @@ $(function () {
       numero_serie: numero_serie,
       lectura: lectura,
       fecha_lectura: fecha_lectura,
+      clasificacion: clasificacion,
+      medio: medio,
       admigas_condominios_id: admigas_condominios_id,
       _token: _token
     }, function (data, textStatus, xhr) {
@@ -765,6 +826,8 @@ $(function () {
     var correo_electronico = $("#correo_electronico").val();
     var admigas_departamentos_id = $("#admigas_departamentos_id").val();
     var id_condominio = $("#id_condominio").val();
+    var clasificacion = $("input:radio[name=clasificacion]").val();
+    var medio = $("input:radio[name=medio]").val();
 
     var _token = $("input[name=_token]").val();
 
@@ -782,6 +845,8 @@ $(function () {
         telefono: telefono,
         celular: celular,
         correo_electronico: correo_electronico,
+        clasificacion: clasificacion,
+        medio: medio,
         admigas_departamentos_id: admigas_departamentos_id,
         id_condominio: id_condominio,
         _token: _token,

@@ -29,7 +29,7 @@ class AlterTableAdmigasPagos extends Migration
      */
     public function down()
     {
-        Schema::table('admigas_contacto_departamentos', function (Blueprint $table) {
+        Schema::table('admigas_pagos', function (Blueprint $table) {
             $table->dropColumn(['autorizacion']);
             $table->dropColumn(['medio_pago']);
             $table->dropColumn(['s_transm']);

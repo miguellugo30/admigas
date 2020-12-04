@@ -10,7 +10,16 @@ class AdmigasContactoDepartamentos extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'apellido_paterno', 'apellido_materno', 'telefono', 'celular', 'correo_electronico', 'codigo_verificacion', 'admigas_departamentos_id',
+        'nombre',
+        'apellido_paterno',
+        'apellido_materno',
+        'telefono',
+        'celular',
+        'correo_electronico',
+        'codigo_verificacion',
+        'clasficacion',
+        'medio',
+        'admigas_departamentos_id',
     ];
     /**
      * Nombre de la tabla

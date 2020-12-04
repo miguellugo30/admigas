@@ -113,6 +113,12 @@
 
                         <dt class="col-sm-4">Referencia de pago:</dt>
                         <dd class="col-sm-8">{{ $depto->numero_referencia }}</dd>
+
+                        <dt class="col-sm-4">Clasificación:</dt>
+                        <dd class="col-sm-8">{{ Str::ucfirst( $depto->Contacto_Depto->clasficacion ) }}</dd>
+
+                        <dt class="col-sm-4">Medio Recepción Recibo:</dt>
+                        <dd class="col-sm-8">{{ Str::ucfirst( $depto->Contacto_Depto->medio ) }}</dd>
                     </dl>
                 </div>
                 <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">

@@ -10,7 +10,13 @@ class AdmigasDepartamentos extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'numero_departamento', 'numero_referencia', 'factor', 'descuento', 'fecha_lectura', 'suministro', 'admigas_condominios_id',
+        'numero_departamento',
+        'numero_referencia',
+        'factor',
+        'descuento',
+        'fecha_lectura',
+        'suministro',
+        'admigas_condominios_id',
     ];
     /**
      * Nombre de la tabla

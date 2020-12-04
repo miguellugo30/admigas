@@ -11,7 +11,8 @@ $(function() {
         $('#action').removeClass('updateDepartamento');
         $('#action').addClass('saveDepartamento');
 
-        let url = currentURL + '/departamentos/create';
+        let admigas_condominios_id = $("#admigas_condominios_id").val();
+        let url = currentURL + '/departamentos/create/'+admigas_condominios_id;
 
         $.get(url, function(data, textStatus, jqXHR) {
             $('#modal').modal('show');
@@ -19,13 +20,70 @@ $(function() {
         });
     });
     /**
+     * Evento para completar la referencia
+     */
+    $(document).on('blur', '#numero_departamento', function(event) {
+        let num_depto = $(this).val();
+        let referencia = $("#referencia_digitos").val();
+        let clasificacion = $('input:radio[name=clasificacion]:checked').val();
+        let medio = $('input:radio[name=medio]:checked').val();
+
+        if ( clasificacion == 'propio' ) {
+            clas = 'P';
+        } else if( clasificacion == 'arrendado' ) {
+            clas = 'A';
+        }
+
+        if ( medio == 'digital' ) {
+            med = 'E';
+        } else if( medio == 'fisico' ) {
+            med = 'I';
+        }
+
+        ref = referencia + num_depto.padStart(4, '0') + clas + med;
+        $("#basic-addon1").text( ref );
+        $("#referencia_digitos").val( ref );
+    });
+
+    $(document).on('change', 'input:radio[name=clasificacion]', function(event) {
+        let clasificacion = $(this).val();
+        let referencia = $("#referencia_digitos").val();
+
+        if ( clasificacion == 'propio' ) {
+            ref = referencia.replace('A', 'P');
+        } else if( clasificacion == 'arrendado' ) {
+            ref = referencia.replace('P', 'A');
+        }
+        //ref = referencia + num_depto.padStart(4, '0') + clas + med;
+        $("#basic-addon1").text( ref );
+        $("#referencia_digitos").val( ref );
+
+    });
+
+    $(document).on('change', 'input:radio[name=medio]', function(event) {
+        let clasificacion = $(this).val();
+        let referencia = $("#referencia_digitos").val();
+
+        if ( clasificacion == 'digital' ) {
+            ref = referencia.replace('I', 'E');
+        } else if( clasificacion == 'fisico' ) {
+            ref = referencia.replace('E', 'I');
+        }
+        //ref = referencia + num_depto.padStart(4, '0') + clas + med;
+        $("#basic-addon1").text( ref );
+        $("#referencia_digitos").val( ref );
+
+    });
+
+    /**
      * Evento para guardar el nuevo modulo
      */
     $(document).on('click', '.saveDepartamento', function(event) {
         event.preventDefault();
 
         let numero_departamento = $("#numero_departamento").val();
-        let numero_referencia = $("#numero_referencia").val();
+        let referencia_digitos = $("#referencia_digitos").val();
+        let digito_banco = $("#digito_banco").val();
         let nombre = $("#nombre").val();
         let apellido_paterno = $("#apellido_paterno").val();
         let apellido_materno = $("#apellido_materno").val();
@@ -37,7 +95,10 @@ $(function() {
         let numero_serie = $("#numero_serie").val();
         let lectura = $("#lectura").val();
         let fecha_lectura = $("#fecha_lectura").val();
+        let clasificacion = $("input:radio[name=clasificacion]").val();
+        let medio = $("input:radio[name=medio]").val();
         let admigas_condominios_id = $("#admigas_condominios_id").val();
+        let numero_referencia = referencia_digitos+digito_banco;
 
         let _token = $("input[name=_token]").val();
         let url = currentURL + '/departamentos';
@@ -56,6 +117,8 @@ $(function() {
             numero_serie: numero_serie,
             lectura: lectura,
             fecha_lectura: fecha_lectura,
+            clasificacion: clasificacion,
+            medio: medio,
             admigas_condominios_id: admigas_condominios_id,
             _token: _token
         }, function(data, textStatus, xhr) {
@@ -122,6 +185,8 @@ $(function() {
         let correo_electronico = $("#correo_electronico").val();
         let admigas_departamentos_id = $("#admigas_departamentos_id").val();
         let id_condominio = $("#id_condominio").val();
+        let clasificacion = $("input:radio[name=clasificacion]").val();
+        let medio = $("input:radio[name=medio]").val();
 
         let _token = $("input[name=_token]").val();
         let _method = "PUT";
@@ -139,6 +204,8 @@ $(function() {
                 telefono: telefono,
                 celular: celular,
                 correo_electronico: correo_electronico,
+                clasificacion: clasificacion,
+                medio: medio,
                 admigas_departamentos_id: admigas_departamentos_id,
                 id_condominio: id_condominio,
                 _token: _token,

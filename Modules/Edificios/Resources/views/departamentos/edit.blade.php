@@ -58,6 +58,28 @@
                 <label for="correo_electronico">Correo Electronico *:</label>
                 <input type="text" class="form-control form-control-sm" id="correo_electronico" placeholder="Correo Electronico" value="{{ $depto->Contacto_Depto->correo_electronico }}">
             </div>
+            <div class="form-group">
+                <label for="">Clasificación *:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="clasificacion" id="clasificacion1" value="propio" checked>
+                    <label class="form-check-label" for="clasificacion1">Propio</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="clasificacion" id="clasificacion2" value="arrendado">
+                    <label class="form-check-label" for="clasificacion2">Arrendado</label>
+                  </div>
+            </div>
+            <div class="form-group">
+                <label for="">Medio de Recepción de recibo *:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medio" id="medio1" value="digital" checked>
+                    <label class="form-check-label" for="medio1">Electronico</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="medio" id="medio2" value="fisico">
+                    <label class="form-check-label" for="medio2">Impreso</label>
+                  </div>
+            </div>
         </fieldset>
     </div>
 

@@ -11,7 +11,7 @@
             <li id="{{ $zona->id }}" class="nav-item viewZonas context-zona">
                 <a class="nav-link ">
                     <i class="fas fa-map-marker "></i>
-                    <p>{{$zona->nombre}}</p>
+                    <p>{{ $zona->id.".- ".$zona->nombre}}</p>
                 </a>
             </li>
         @endforeach

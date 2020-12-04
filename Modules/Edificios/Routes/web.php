@@ -48,6 +48,7 @@ Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 
  */
 Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
     Route::resource('departamentos','DepartamentosController');
+    Route::get('departamentos/create/{id_edificio}', 'DepartamentosController@create' )->name('departamentos.create');
     Route::get('departamentos/show_recibo/{id_departamentos}/{id_recibo}', 'DepartamentosController@show_recibo' )->name('mostrar_recibo.departamentos');
 });
 /*

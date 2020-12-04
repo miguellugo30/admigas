@@ -2,23 +2,24 @@
 
 namespace Modules\Edificios\Http\Controllers;
 
+use App\Mail\RegisterDepto;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Edificios\Http\Requests\DepartamentosRequest;
-use DB;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RegisterDepto;
+use Illuminate\Support\Facades\Auth;
+use Modules\Edificios\Http\Requests\DepartamentosRequest;
 /**
  * Modelos
  */
-use App\AdmigasDepartamentos;
-use App\AdmigasContactoDepartamentos;
-use App\AdmigasMedidores;
-use App\AdmigasLecturasMedidores;
-use App\AdmigasRecibos;
 use App\AdmigasSaldos;
+use App\AdmigasRecibos;
 use App\AdmigasEmpresas;
+use App\AdmigasEdificios;
+use App\AdmigasMedidores;
+use App\AdmigasDepartamentos;
+use App\AdmigasLecturasMedidores;
+use App\AdmigasContactoDepartamentos;
 
 class DepartamentosController extends Controller
 {
@@ -29,6 +30,7 @@ class DepartamentosController extends Controller
     private $saldos;
     private $recibos;
     private $empresa;
+    private $edificios;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -40,7 +42,8 @@ class DepartamentosController extends Controller
         AdmigasLecturasMedidores $lecturasMedidores,
         AdmigasSaldos $saldos,
         AdmigasRecibos $recibos,
-        AdmigasEmpresas $empresa
+        AdmigasEmpresas $empresa,
+        AdmigasEdificios $edificios
     )
     {
 
@@ -51,6 +54,7 @@ class DepartamentosController extends Controller
         $this->saldos = $saldos;
         $this->recibos = $recibos;
         $this->empresa = $empresa;
+        $this->edificios = $edificios;
     }
     /**
      * Display a listing of the resource.
@@ -65,9 +69,26 @@ class DepartamentosController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('edificios::departamentos.create');
+        /**
+         * Recuperamos el ultimo id de departamento creado
+         */
+        $edificio = $this->edificios->with('Unidades')->find( $id );
+        /**
+         * Generamos la referencia
+         *
+         * Zona 2 Digitos
+         * Unidad 3 Digitos
+         * Edificio 2 Digitos
+         */
+        $zona_id = str_pad( $edificio->Unidades->admigas_zonas_id, 2, '0', STR_PAD_LEFT);
+        $unidad_id = str_pad( $edificio->admigas_unidades_id, 3, '0', STR_PAD_LEFT);
+        $edificio_id = str_pad( $edificio->id, 2, '0', STR_PAD_LEFT);
+
+        $referencia = $zona_id.$unidad_id.$edificio_id;
+
+        return view('edificios::departamentos.create', compact('referencia'));
     }
 
     /**
@@ -89,6 +110,21 @@ class DepartamentosController extends Controller
          * Creamos el contacto del departamento
          */
         $codigo = $this->codigo();
+        /**
+         * Validamos que el correo y celular vengan con datos
+         */
+        if ( $request->telefono == '' )
+        {
+            $request->telefono = '1234567890';
+        }
+        if ( $request->celular == '' )
+        {
+            $request->celular = '1234567890';
+        }
+        if ( $request->correo_electronico == '' )
+        {
+            $request->correo_electronico = 'fake@2gadmin.com.mx';
+        }
 
         $this->contactoDepartamento->create([
                                                 'nombre' => $request->nombre,
@@ -98,6 +134,8 @@ class DepartamentosController extends Controller
                                                 'celular' => $request->celular,
                                                 'correo_electronico' => $request->correo_electronico,
                                                 'codigo_verificacion' => $codigo,
+                                                'clasficacion' => $request->clasificacion,
+                                                'medio' => $request->medio,
                                                 'admigas_departamentos_id' => $depto->id
                                             ]);
         /**
@@ -132,8 +170,11 @@ class DepartamentosController extends Controller
         /**
          * Enviamos correo de registro
          */
-        $nombre = $request->nombre." ".$request->apellido_paterno." ".$request->apellido_materno;
-        Mail::to($request->correo_electronico)->send(new RegisterDepto($nombre, $codigo));
+        if ( $request->correo_electronico != '' )
+        {
+            $nombre = $request->nombre." ".$request->apellido_paterno." ".$request->apellido_materno;
+            Mail::to($request->correo_electronico)->send(new RegisterDepto($nombre, $codigo));
+        }
         /**
          * Redirigimos a la ruta index
          */
@@ -192,7 +233,9 @@ class DepartamentosController extends Controller
                                         'apellido_materno' =>  $request->apellido_materno,
                                         'telefono' => $request->telefono,
                                         'celular' => $request->celular,
-                                        'correo_electronico' => $request->correo_electronico
+                                        'correo_electronico' => $request->correo_electronico,
+                                        'clasficacion' => $request->clasificacion,
+                                        'medio' => $request->medio,
                                     ]);
         /**
          * Redirigimos a la ruta index
@@ -247,7 +290,7 @@ class DepartamentosController extends Controller
         else
         {
                 $foto_anterior = "";
-        }        
+        }
 
 
         if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )

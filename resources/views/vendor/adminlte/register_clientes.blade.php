@@ -109,7 +109,7 @@
                     <div class="icheck-primary">
                         <input type="checkbox" class="terms" id="agreeContract" name="terms" value="agree">
                         <label for="agreeContract">
-                            Acepto <a href="{{ \Storage::url('terminos\Contrato_2G') }}.pdf" target="_blank">Contrato de Condomino</a>
+                            Acepto <a href="{{ \Storage::url('terminos\Contrato_2G') }}.pdf" target="_blank">Contrato de Servicio</a>
                         </label>
                     </div>
                 </div>
