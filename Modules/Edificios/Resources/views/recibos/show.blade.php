@@ -136,6 +136,10 @@
     </style>
     @php
         $historico = \DB::select('call SP_consumo_recibos( '.$recibo->admigas_departamentos_id.' );');
+	$saldo_favor = \DB::select('call SP_saldo_favor_depto( "'.$recibo->referencia.'", "'.$recibo->fecha_recibo.'" );');
+
+	$saldo_favor = ( round( $saldo_favor[0]->total_recibos) - $saldo_favor[0]->total_pagos ) - round($recibo->adeudo_anterior);
+	
     @endphp
     <div class="cols">
         <div class="col1">
@@ -147,7 +151,7 @@
             </div>
             <div class="col data-total-pay">
                 <br>
-                <p><b>{{ "$ ".number_format( ( $recibo->total_pagar ),2 )  }}</b></p>
+                <p><b>{{ "$ ".number_format( ( $recibo->total_pagar + $saldo_favor ),2 )  }}</b></p>
                 <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
                 <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
             </div>
@@ -176,8 +180,8 @@
                     </div>
                     <div class="hijo-der">
                         <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
-                        <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
-                        <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $saldo_favor , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->adeudo_anterior , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( $recibo->cargos_adicionales , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( $recibo->gasto_admin , 2 ) }}</legend>
                     </div>
@@ -231,7 +235,7 @@
             </div>
             <div class="col data-total-pay">
                 <br>
-                <p><b>{{ "$ ".number_format( ( $recibo->total_pagar ),2 )  }}</b></p>
+                <p><b>{{ "$ ".number_format( ( $recibo->total_pagar + $saldo_favor ),2 )  }}</b></p>
                 <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
                 <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
             </div>
@@ -260,8 +264,8 @@
                     </div>
                     <div class="hijo-der">
                         <legend>$ {{ number_format( $recibo->importe , 2 ) }}</legend><br>
-                        <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
-                        <legend>$ {{ number_format( $recibo->adeduo_anterior , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $saldo_favor , 2 ) }}</legend><br>
+                        <legend>$ {{ number_format( $recibo->adeudo_anterior , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( $recibo->cargos_adicionales , 2 ) }}</legend><br>
                         <legend>$ {{ number_format( $recibo->gasto_admin , 2 ) }}</legend>
                     </div>

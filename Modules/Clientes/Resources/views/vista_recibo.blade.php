@@ -127,6 +127,10 @@
        </style>
        @php
            $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
+	   $saldo_favor = \DB::select('call SP_saldo_favor_depto( "'.$recibos->referencia.'", "'.$recibos->fecha_recibo.'" );');
+
+           $saldo_favor = ( round( $saldo_favor[0]->total_recibos) - $saldo_favor[0]->total_pagos ) - round($recibos->adeudo_anterior);
+
        @endphp
 	<img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
        <!--img src="https://administradora.2gadmin.com.mx/storage/recibo/recibo_2G-v2.png" alt="imagen_recibo" width="560" height="750"-->
@@ -140,7 +144,7 @@
                </div>
                <div class="col data-total-pay">
                    <br>
-                   <p><b>{{ "$ ".number_format( ( $recibos->total_pagar ),2 )  }}</b></p>
+                   <p><b>{{ "$ ".number_format( ( $recibos->total_pagar + $saldo_favor ),2 )  }}</b></p>
                    <p><b>{{ date('d-m-Y', strtotime($recibos->fecha_limite_pago)) }}</b></p>
                    <p><b>{{ date('d-m-Y', strtotime($recibos->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibos->fecha_lectura_actual)) }}</b></p>
                </div>
@@ -169,8 +173,8 @@
                        </div>
                        <div class="hijo-der">
                            <legend>$ {{ number_format( $recibos->importe , 2 ) }}</legend><br>
-                           <legend>$ {{ number_format( 0 , 2 ) }}</legend><br>
-                           <legend>$ {{ number_format( $recibos->adeduo_anterior , 2 ) }}</legend><br>
+                           <legend>$ {{ number_format( $saldo_favor , 2 ) }}</legend><br>
+                           <legend>$ {{ number_format( $recibos->adeudo_anterior , 2 ) }}</legend><br>
                            <legend>$ {{ number_format( $recibos->cargos_adicionales , 2 ) }}</legend><br>
                            <legend>$ {{ number_format( $recibos->gasto_admin , 2 ) }}</legend>
                        </div>
