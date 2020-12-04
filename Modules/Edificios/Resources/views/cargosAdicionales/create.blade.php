@@ -39,7 +39,7 @@
                                 @php
                                     $depto = $deptos[$i]
                                 @endphp
-                                <option value="{{ $depto->departamento_id }}">{{ $depto->numero_departamento." -- ".$depto->nombre." ".$depto->apellidos }}</option>
+                                <option value="{{ $depto->departamento_id }}">{{ $depto->numero_departamento." -- ".$depto->nombre." ".$depto->apellido_paterno." ".$depto->apellido_materno }}</option>
                             
                             @endfor
                             
