@@ -67,7 +67,7 @@
                         <td>{{ $depto->lectura_actual }}</td>
                         <td>{{ "$ ".number_format( $depto->consumo, 2 ) }} </td>
                         <td><a class="viewCargo" data-id_depto="{{ $depto->departamento_id }}" style="cursor: pointer">{{ "$ ".number_format( $depto->cargos , 2 ) }}</a></td>
-                        <td>{{ "$ ".number_format( $depto->saldo , 2) }}</td>
+                        <td>{{ "$ ".number_format( $depto->adeudo , 2) }}</td>
                         <td>{{ "$ ".number_format( $depto->consumo + $depto->saldo + $depto->cargos + $depto->gasto_admin , 2 )  }}</td>
                         <td class="reciboCancel" style="display: none">
                             <button type="button" class="btn btn-danger btn-sm reciboCancelOne" data-id-depto='{{ $depto->departamento_id }}'><i class="fas fa-trash-alt"></i></button>

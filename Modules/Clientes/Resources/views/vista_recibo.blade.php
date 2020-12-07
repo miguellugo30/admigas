@@ -129,7 +129,7 @@
            $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
 	   $saldo_favor = \DB::select('call SP_saldo_favor_depto( "'.$recibos->referencia.'", "'.$recibos->fecha_recibo.'" );');
 
-           $saldo_favor = ( round( $saldo_favor[0]->total_recibos) - $saldo_favor[0]->total_pagos ) - round($recibos->adeudo_anterior);
+           $saldo_favor = ( round( $saldo_favor[0]->total_recibos) - round( $saldo_favor[0]->total_pagos ) ) - round($recibos->adeudo_anterior);
 
        @endphp
 	<img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">

@@ -119,11 +119,20 @@ class QuerysJoinController extends Controller
         {
             $depto = $deptos[$i];
 
+            $sp_saldo = DB::select("call SP_saldo_recibo('".$depto->numero_referencia."')");
+            $adeudo = round( $sp_saldo[0]->total_recibos ) - round( $sp_saldo[0]->total_pagos );
+
+            if( $adeudo < 0 )
+            {
+                $adeudo = 0;
+            }
+
             $depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
             $depto->litros = ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor;
             $depto->consumo = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio->precio - $condominio->first()->descuento ) );
             $depto->cargos = $this->cargosDepto( $depto->departamento_id );
             $depto->gasto_admin = $condominio->first()->gasto_admin ;
+            $depto->adeudo = $adeudo;
         }
 
         return $deptos;
@@ -175,6 +184,16 @@ class QuerysJoinController extends Controller
              * Obtenemos los cargos adicionales
              */
             $cargos_adicionales = $this->cargosDepto( $depto->departamento_id );
+            /**
+             * Validamos si tiene algun adeudo el departamento
+             */
+            $sp_saldo = DB::select("call SP_saldo_recibo('".$depto->numero_referencia."')");
+            $adeudo = round( $sp_saldo[0]->total_recibos ) - round( $sp_saldo[0]->total_pagos );
+
+            if( $adeudo < 0 )
+            {
+                $adeudo = 0;
+            }
 
             $v['clave_recibo'] = "A-".( $consecutivo++ );
             $v['unidad'] = $condominio->Unidades->nombre ;
@@ -198,9 +217,9 @@ class QuerysJoinController extends Controller
             $v['precio_litro'] = $precio->precio;
             $v['importe'] = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio->precio - $condominio->descuento ) );
             $v['gasto_admin'] = $condominio->gasto_admin;
-            $v['adeudo_anterior'] = $depto->saldo;
+            $v['adeudo_anterior'] = $adeudo;
             $v['cargos_adicionales'] = $cargos_adicionales;
-            $v['total_pagar'] = round( $cargos_adicionales + $depto->saldo + $condominio->gasto_admin + (($depto->lectura_actual - $depto->lectura_anterior) * $condominio->factor) * ($precio->precio - $condominio->descuento) );
+            $v['total_pagar'] = round( $cargos_adicionales + $adeudo + $condominio->gasto_admin + (($depto->lectura_actual - $depto->lectura_anterior) * $condominio->factor) * ($precio->precio - $condominio->descuento) );
             $v['referencia'] = $depto->numero_referencia;
             $v['admigas_departamentos_id'] = $depto->departamento_id;
             $v['admigas_condominios_id'] = $condominio->id;

@@ -192,7 +192,7 @@ class RecibosController extends Controller
         $recibos = $this->recibos->where('admigas_condominios_id', $id)->take(1)->get();
         foreach ($recibos as $recibo )
         {
-            
+
             $this->createPdf( $recibo, 1 );
             $total_pagar = $recibo->cargos_adicionales + $recibo->adeudo_anterior + $recibo->importe +  $recibo->gasto_admin;
 

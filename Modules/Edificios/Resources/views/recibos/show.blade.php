@@ -138,8 +138,8 @@
         $historico = \DB::select('call SP_consumo_recibos( '.$recibo->admigas_departamentos_id.' );');
 	$saldo_favor = \DB::select('call SP_saldo_favor_depto( "'.$recibo->referencia.'", "'.$recibo->fecha_recibo.'" );');
 
-	$saldo_favor = ( round( $saldo_favor[0]->total_recibos) - $saldo_favor[0]->total_pagos ) - round($recibo->adeudo_anterior);
-	
+	$saldo_favor = ( round( $saldo_favor[0]->total_recibos ) -  round( $saldo_favor[0]->total_pagos ) ) - round($recibo->adeudo_anterior);
+
     @endphp
     <div class="cols">
         <div class="col1">
