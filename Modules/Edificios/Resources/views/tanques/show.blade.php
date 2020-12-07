@@ -5,6 +5,9 @@
             <b>Tanques</b>
           </h3>
           <div class="card-tools">
+              <button type="button" class="btn btn-warning btn-sm editTanque" style="display:none"><i class="fas fa-edit"></i> Editar</button>
+            <button type="button" class="btn btn-danger btn-sm deleteTanque" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
+            <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
         </div>
     </div>
     <div class="card-body">

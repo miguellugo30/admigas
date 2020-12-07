@@ -31,16 +31,16 @@
                         <td>{{ $e->edificio }}</td>
                         <td>{{ $e->numero_departamento }}</td>
                         <td>{{ $e->numero_referencia }}</td>
-                        <td>{{ number_format( $e->total_gasto_admin, 2) }}</td>
-                        <td>{{ number_format( $e->total_importe, 2) }}</td>
-                        <td>{{ number_format( $e->total_cargos, 2) }}</td>
-                        <td>{{ number_format( $e->total_recibos, 2) }}</td>
-                        <td>{{ number_format( $e->total_pagos, 2) }}</td>
+                        <td>{{ number_format( round($e->total_gasto_admin), 2) }}</td>
+                        <td>{{ number_format( round($e->total_importe), 2) }}</td>
+                        <td>{{ number_format( round($e->total_cargos), 2) }}</td>
+                        <td>{{ number_format( round($e->total_recibos), 2) }}</td>
+                        <td>{{ number_format( round($e->total_pagos), 2) }}</td>
                         <td>
                             @if ( ($e->total_recibos - $e->total_pagos) < 0 )
-                            <p class="text-danger"> {{ number_format( $e->total_recibos - $e->total_pagos, 2) }}</p>
+                            <p class="text-danger"> {{ number_format( round($e->total_recibos - $e->total_pagos), 2) }}</p>
                             @else
-                                {{ number_format( $e->total_recibos - $e->total_pagos, 2) }}
+                                {{ number_format( round($e->total_recibos - $e->total_pagos), 2) }}
                             @endif
                         </td>
                     </tr>

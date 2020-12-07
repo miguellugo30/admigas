@@ -50,6 +50,7 @@ class donwloadFotosLecturasController extends Controller
             $infoDepto = AdmigasDepartamentos::select('id')->where('numero_departamento', str_replace('.jpeg', '', $foto['name'] ) )->where('admigas_condominios_id', $condominio->id )->first();
             $name = $infoDepto->id."_".$foto['name'];
             Log::debug($name);
+            Log::debug('/' . $empresa_id . '\/' . $condominio->id. '\/' . $fecha_lectura . '\/' . $name);
             Storage::put('/' . $empresa_id . '\/' . $condominio->id. '\/' . $fecha_lectura . '\/' . $name, $rawData);
         }
     }

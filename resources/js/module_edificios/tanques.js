@@ -2,6 +2,21 @@ $(function() {
 
     let currentURL = window.location.href;
     /**
+     * Evento para mostrar el formulario editar modulo
+     */
+    $(document).on('click', '#table-tanques tbody tr', function(event) {
+        event.preventDefault();
+
+        let id = $(this).data("id");
+        $(".editTanque").slideDown();
+        $(".deleteTanque").slideDown();
+
+        $("#idSeleccionado").val(id);
+
+        $("#table-tanques tbody tr").removeClass('table-primary');
+        $(this).addClass('table-primary');
+    });
+    /**
      * Evento para mostrar el formulario de crear un nuevo modulo
      */
     $(document).on("click", ".newTanque", function(e) {
@@ -46,12 +61,71 @@ $(function() {
             admigas_unidades_id: admigas_unidades_id,
             _token: _token
         }, function(data, textStatus, xhr) {
-
-            //$('.sidebar').html(data);
-
+            $('.viewResult').html(data);
         }).done(function() {
             $('.modal-backdrop ').css('display', 'none');
             $('#modal-edificios').modal('hide');
+            Swal.fire(
+                'Correcto!',
+                'El registro ha sido guardado.',
+                'success'
+            )
+        }).fail(function(data) {
+            printErrorMsg(data.responseJSON.errors);
+        });
+    });
+    /**
+     * Evento para mostrar el formulario de edicion de un canal
+     */
+    $(document).on("click", ".editTanque", function(e) {
+
+        e.preventDefault();
+        $('#modal-file-foto #tituloModal').html('Editar Tanque');
+        $('#modal-file-foto #action').removeClass('saveTanque');
+        $('#modal-file-foto #action').addClass('updateTanque');
+
+        let id = $("#idSeleccionado").val();
+
+        let url = currentURL + "/tanques/" + id + "/edit";
+
+        $.get(url, function(data, textStatus, jqXHR) {
+            $('#modal-file-foto').modal('show');
+            $("#modal-file-foto #modal-body").html(data);
+        });
+    });
+    /**
+     * Evento para guardar el nuevo modulo
+     */
+    $(document).on('click', '.updateTanque', function(event) {
+        event.preventDefault();
+
+        let tanque_id = $("#tanque_id").val();
+        let admigas_unidades_id = $("#admigas_unidades_id").val();
+        let num_serie = $("#num_serie").val();
+        let marca = $("#marca").val();
+        let fecha_fabricacion = $("#fecha_fabricacion").val();
+        let estado_al_recibir = $("#estado_al_recibir").val();
+        let capacidad = $("#capacidad").val();
+        let inventario = $('input:radio[name=inventario]:checked').val();
+        let _token = $("input[name=_token]").val();
+        let url = currentURL + '/tanques/' + tanque_id;
+
+        $.post(url, {
+            tanque_id: tanque_id,
+            admigas_unidades_id: admigas_unidades_id,
+            num_serie: num_serie,
+            marca: marca,
+            fecha_fabricacion: fecha_fabricacion,
+            estado_al_recibir: estado_al_recibir,
+            capacidad: capacidad,
+            inventario: inventario,
+            _token: _token,
+            _method: 'PUT',
+        }, function(data, textStatus, xhr) {
+            $('.viewResult').html(data);
+        }).done(function() {
+            $('.modal-backdrop ').css('display', 'none');
+            $('#modal-file-foto').modal('hide');
             Swal.fire(
                 'Correcto!',
                 'El registro ha sido guardado.',
@@ -76,7 +150,47 @@ $(function() {
                 $('.sidebar').html(result);
             }
         });
+    });
+    /**
+     * Evento para eliminar el modulo
+     */
+    $(document).on('click', '.deleteTanque', function(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "Deseas eliminar el registro seleccionado!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                let id = $("#idSeleccionado").val();
+                let _token = $("input[name=_token]").val();
+                let _method = "DELETE";
+                let url = currentURL + '/tanques/' + id;
 
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        _token: _token,
+                        _method: _method
+                    },
+                    success: function(result) {
+                        $('.viewResult').html(result);
+                        $('.viewCreate').slideUp();
+                        Swal.fire(
+                            'Eliminado!',
+                            'El registro ha sido eliminado.',
+                            'success'
+                        )
+                    }
+                });
+            }
+        });
     });
     /**
      * Eliminamos las clases agregadas dinamicamente

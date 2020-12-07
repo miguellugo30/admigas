@@ -77,7 +77,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3" style="margin-bottom: 0px !important;">
                     <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
                            placeholder="{{ __('adminlte::adminlte.password') }}">
                     <div class="input-group-append">
@@ -91,6 +91,8 @@
                         </div>
                     @endif
                 </div>
+                <div id="passwordHelp" class="form-text"><small><em>Minimo 8 caracteres.</em></small></div>
+
                 <div class="input-group mb-3">
                     <input type="password" name="password_confirmation" class="form-control {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
                            placeholder="{{ __('adminlte::adminlte.retype_password') }}">

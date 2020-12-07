@@ -51,6 +51,10 @@ class TanquesController extends Controller
             'inventario' =>  $request->inventario,
             'admigas_unidades_id' => $request->admigas_unidades_id
         ]);
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('tanques.show', [$request->admigas_unidades_id]);
     }
 
     /**
@@ -64,7 +68,6 @@ class TanquesController extends Controller
         $unidad = AdmigasUnidades::where('id', $id)
                                     ->with('Tanques')
                                     ->first();
-        //dd( $unidad );
         return view('edificios::tanques.show', compact('unidad'));
     }
 
@@ -75,7 +78,9 @@ class TanquesController extends Controller
      */
     public function edit($id)
     {
-        return view('edificios::tanques.edit');
+        $tanque = AdmigasTanques::find( $id );
+
+        return view('edificios::tanques.edit', compact('tanque'));
     }
 
     /**
@@ -84,9 +89,21 @@ class TanquesController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(TanquesRequest $request, $id)
     {
-        //
+        AdmigasTanques::where('id', $id)
+        ->update([
+            'num_serie' => $request->num_serie,
+            'marca' =>  $request->marca,
+            'fecha_fabricacion' =>  $request->fecha_fabricacion,
+            'estado_al_recibir' =>  $request->estado_al_recibir,
+            'capacidad' =>  $request->capacidad,
+            'inventario' =>  $request->inventario
+        ]);
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('tanques.show', [$request->admigas_unidades_id]);
     }
 
     /**
@@ -96,6 +113,13 @@ class TanquesController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $tanque = AdmigasTanques::find( $id );
+        $tanque->activo = 0;
+        $tanque->save();
+        /**
+         * Redirigimos a la ruta index
+         */
+        return redirect()->route('tanques.show', [$tanque->admigas_unidades_id]);
     }
 }
