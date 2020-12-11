@@ -68,7 +68,7 @@ class AdmigasRecibos extends Model
      */
     public function Departamento()
     {
-        return $this->belongsTo('App\AdmigasDepartamentos', 'id', 'admigas_departamentos_id');
+        return $this->belongsTo('App\AdmigasDepartamentos', 'admigas_departamentos_id', 'id');
     }
     /**
      * Relacion muchos a uno con unidad

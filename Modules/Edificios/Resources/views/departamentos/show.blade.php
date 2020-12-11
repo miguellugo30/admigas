@@ -15,14 +15,14 @@
 </div>
 <div class="card-body">
     <div class="row">
-        <div class="col-3">
+        <div class="col-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Estado de Cuenta</a>
                 <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Contacto</a>
                 <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Medidor</a>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-10">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                    <table class="table text-nowrap">
@@ -50,12 +50,12 @@
                                         <td>{{ date('d-m-Y', strtotime( $ec->fecha )) }}</td>
                                         <td>{{ $ec->concepto }}</td>
                                         <td class="viewRecibo" data-id_recibo="{{ $ec->referencia_completa }}">{{ $ec->referencia_completa }}</td>
-                                        <td>$ {{ number_format($ec->importe, 2) }}</td>
+                                        <td>$ {{ number_format( round($ec->importe), 2) }}</td>
                                         <td></td>
                                         <td>
                                             @php
-                                                $saldo = $saldo + $ec->importe;
-                                                $recibos = $recibos + $ec->importe;
+                                                $saldo = $saldo + round( $ec->importe );
+                                                $recibos = $recibos + round( $ec->importe );
                                             @endphp
                                             $ {{ number_format( $saldo, 2 ) }}
                                         </td>
@@ -68,11 +68,11 @@
                                         <td>{{ $ec->concepto }}</td>
                                         <td>{{ $ec->referencia_completa }}</td>
                                         <td></td>
-                                        <td>$ {{ number_format($ec->importe, 2) }}</td>
+                                        <td>$ {{ number_format( round( $ec->importe) , 2) }}</td>
                                         <td>
                                             @php
-                                                $saldo = $saldo - $ec->importe;
-                                                $pagos = $pagos + $ec->importe;
+                                                $saldo = $saldo -  round( $ec->importe) ;
+                                                $pagos = $pagos +  round( $ec->importe) ;
                                             @endphp
                                             $ {{ number_format( $saldo, 2 ) }}
                                         </td>

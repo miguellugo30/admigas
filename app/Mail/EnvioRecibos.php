@@ -2,19 +2,18 @@
 
 namespace App\Mail;
 
-use Carbon\Carbon;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Exception;
 use Illuminate\Mail\Mailable;
+use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
-use ReeceM\Mocker\Mocked;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-
-class EnvioRecibos extends Mailable
+class EnvioRecibos extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
     private $recibo;
-    public $total_pagar;
+    private $total_pagar;
 
     /**
      * Create a new message instance.
@@ -34,14 +33,16 @@ class EnvioRecibos extends Mailable
      */
     public function build()
     {
-
-        return $this->from('administradora@administradora.com')
+        return $this->from('administradora@2gadmin.com')
                     ->subject("Recibo de Gas, 2G Administradora de Gas LP en Condominios")
-                    ->view('send_recibo_depto')/*
-                    ->attach( storage_path()."\app\public/recibo_".$this->recibo->admigas_departamentos_id.".pdf", [
-                        'as' => 'recibo_gas.pdf',
-                        'mime' => 'application/pdf',
-                    ] )*/
+                    ->view('send_recibo_depto')
+                    ->attach(
+                        storage_path()."/app/public/tmp/recibo_".$this->recibo->admigas_departamentos_id.".pdf",
+                        [
+                            'as' => 'recibo_gas.pdf',
+                            'mime' => 'application/pdf',
+                        ]
+                    )
                     ->with([
                         'nombre' => $this->recibo->condomino,
                         'fecha_limite_pago' => date('d-m-Y', strtotime( $this->recibo->fecha_limite_pago ) ),
@@ -51,6 +52,13 @@ class EnvioRecibos extends Mailable
                         'gasto_admin' =>  $this->recibo->gasto_admin,
                         'total_pagar' => $this->total_pagar,
                         'referencia' => $this->recibo->referencia,
+                        'clave_recibo' => $this->recibo->clave_recibo,
                     ]);
+    }
+
+    public function failed(Exception $exception)
+    {
+        // usually would send new notification to admin/user
+        Log::info($exception);
     }
 }

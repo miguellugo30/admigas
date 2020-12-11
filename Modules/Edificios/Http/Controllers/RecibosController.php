@@ -9,13 +9,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\QuerysJoinController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use Modules\Edificios\Http\Controllers\DepartamentosController;
+use App\Jobs\CreatePdfEmail;
 use DB;
+use App\Events\eventoNotificacion;
+use App\Mail\EnvioRecibos;
+use App\Notifications\FechaLimiteAVencer;
 /**
  * Modelos
  */
 use App\AdmigasRecibos;
 use App\AdmigasEdificios;
-use App\Mail\EnvioRecibos;
 use App\AdmigasEmpresas;
 
 class RecibosController extends Controller
@@ -181,25 +185,53 @@ class RecibosController extends Controller
          * Redirigimos a la ruta index
          */
         return redirect()->route('vista.recibos', [$id]);
-
     }
     /**
      * Funcion para enviar lo recibos por correo electronico
      */
     public function sendRecibos($id)
     {
+        //$deptos = array(1,2,3,4,5);
+        //Auth::user()->notify(new FechaLimiteAVencer( $deptos ));
+        event(new eventoNotificacion('Se ha iniciado una tarea en segundo plano, para el envio de recibos'));
+        /**
+         * Obtenemos la fecha del ultimo recibo
+         */
+        $fecha = DB::select("call SP_fecha_ultimo_recibo( $id )");
+        /**
+         * Obtenemos los recibos del condominio
+         */
+        $recibos = $this->recibos
+                    ->where('admigas_condominios_id', $id)
+                    ->where('fecha_recibo', 'like',date('Y-m', strtotime($fecha[0]->fecha_recibo))."%"  )
+                    ->with('Departamento.Contacto_Depto')
+                    ->active()
+                    //->take(1)
+                    ->get();
+        /**
+         * Creamos el trabajo para crear los PDF
+         */
+        event(new eventoNotificacion('Se ha iniciado con la generacion de los PDF, para su envio'));
+        CreatePdfEmail::dispatch( $recibos, $this->empresa_id );
+        event(new eventoNotificacion('Se ha terminado con la generacion de los PDF, se incia el envio de correos'));
 
-        $recibos = $this->recibos->where('admigas_condominios_id', $id)->take(1)->get();
         foreach ($recibos as $recibo )
         {
-
-            $this->createPdf( $recibo, 1 );
-            $total_pagar = $recibo->cargos_adicionales + $recibo->adeudo_anterior + $recibo->importe +  $recibo->gasto_admin;
-
-            //Mail::to('mchlugo@hotmail.com')->send(new EnvioRecibos( $recibo, $total_pagar ));
+            /**
+             * Obtenemos el total a pagar
+             */
+            $saldo = \DB::select("call SP_saldo_recibo( '$recibo->referencia' )");
+            $total_pagar = number_format( ( round($saldo[0]->total_recibos) - round($saldo[0]->total_pagos) ),2 );
+            /**
+             * Obtenemos el correo del condominio
+             */
+            $correo =  $recibo->Departamento->Contacto_Depto->correo_electronico;
+            if ( ! \Str::contains($correo, 'fake') ) {
+                Mail::to($correo)->send(new EnvioRecibos( $recibo, $total_pagar ));
+                //Mail::to('mchlugo@hotmail.com')->send(new EnvioRecibos( $recibo, $total_pagar ));
+            }
         }
-
-
+        event(new eventoNotificacion('Se ha terminado con el envio de correos'));
     }
     /**
      * Funcion para crear los PDF de los recibos
@@ -223,14 +255,6 @@ class RecibosController extends Controller
                         ->setPaper('A4')
                         ->output();
             Storage::put('\public\recibo_'.$recibos->admigas_departamentos_id.'.pdf', $pdf);
-                /*
-            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo','cie', 'empresa_id' ) )->setPaper('A5')->output();
-            //return \PDF::loadView('edificios::recibos.show_mail', compact( 'recibos', 'url_recibo','cie', 'empresa_id' ) )
-            //            ->setPaper('A5')
-            //            ->stream('archivo.pdf');
-
-
-            */
         }
         elseif( $opcion == 2 )
         {

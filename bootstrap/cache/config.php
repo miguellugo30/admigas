@@ -347,19 +347,19 @@
   ),
   'broadcasting' => 
   array (
-    'default' => 'log',
+    'default' => 'pusher',
     'connections' => 
     array (
       'pusher' => 
       array (
         'driver' => 'pusher',
-        'key' => '',
-        'secret' => '',
-        'app_id' => '',
+        'key' => '258c580888a7319c866f',
+        'secret' => '9ab9efc99c662266aadf',
+        'app_id' => '1120814',
         'options' => 
         array (
-          'cluster' => 'mt1',
-          'useTLS' => true,
+          'cluster' => 'us2',
+          'useTLS' => false,
         ),
       ),
       'redis' => 
@@ -688,10 +688,10 @@
       'google' => 
       array (
         'driver' => 'google',
-        'clientId' => '944808039382-d5kuljo255hmirfe238qu603mp5gf4cp.apps.googleusercontent.com',
-        'clientSecret' => 'VTZTRhW6yCdfEyF812uwVc0L',
-        'refreshToken' => '1//04LT8u9Dnv5e9CgYIARAAGAQSNwF-L9IrAQnfb3_0fY-Q5YwDIOHMJtPqRYUKBo9SaZOCJ6dEz28YNUI_W7yQlafYNInBQmL6XyQ',
-        'folderId' => '1FLDpZhaJKE6HYVYPlRQZ6XYH9lCIN4e0',
+        'clientId' => '599470256795-h91h89tmuru45dr8764tsu60o4ssc40n.apps.googleusercontent.com',
+        'clientSecret' => 'ZPzmVuQlRZIMSfnISV76mG4z',
+        'refreshToken' => '1//04ebIpqv1MFv8CgYIARAAGAQSNwF-L9IrmNWofLpx6esqh_tD2p15rLNrTQSDPlboBjJ__euOAGwoW0c1o2sLREfd6Qh6Rm679wI',
+        'folderId' => '1mM4bpNRVxiIo5r3PTdJFH2Bu_0IZA6l9',
       ),
     ),
   ),
@@ -1400,7 +1400,7 @@
   ),
   'queue' => 
   array (
-    'default' => 'sync',
+    'default' => 'database',
     'connections' => 
     array (
       'sync' => 

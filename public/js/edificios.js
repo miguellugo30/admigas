@@ -1020,6 +1020,18 @@ $(function () {
    * Evento para imprimir los recibos
    */
 
+  $(document).on("click", ".sendRecibos", function (e) {
+    e.preventDefault();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+    var url = currentURL + '/enviar-recibos/' + admigas_condominios_id;
+    $.get(url, function (data, textStatus, jqXHR) {//$(".list-deptos-capture").html(data);
+      //$(".list-deptos-capture").slideDown();
+    });
+  });
+  /**
+   * Evento para enviar los recibos
+   */
+
   $(document).on("click", ".printRecibos", function (e) {
     e.preventDefault();
     var admigas_condominios_id = $("#admigas_condominios_id").val();

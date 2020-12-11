@@ -82,7 +82,7 @@ class ClientesController extends Controller
         /**
          * Contacto Depto
          */
-        $saldo = \DB::select("call SP_saldo_recibo( $depto->numero_referencia )");
+        $saldo = \DB::select("call SP_saldo_recibo( '$depto->numero_referencia' )");
         /**
          * Recibos
          */

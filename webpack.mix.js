@@ -38,6 +38,9 @@ mix.js([
         'resources/js/module_reportes/menu.js',
     ], 'public/js/reportes.js')
     .js([
+        'resources/js/bootstrap.js',
+    ], 'public/js/app.js')
+    .js([
         'resources/js/module_credito/menu.js',
         'resources/js/module_credito/conciliacion.js',
     ], 'public/js/credito.js');

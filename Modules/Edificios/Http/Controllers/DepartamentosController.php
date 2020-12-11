@@ -8,7 +8,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Modules\Edificios\Http\Requests\DepartamentosRequest;
+use App\Http\Controllers\GenerarPDFControler;
 /**
  * Modelos
  */
@@ -30,6 +32,7 @@ class DepartamentosController extends Controller
     private $saldos;
     private $recibos;
     private $empresa;
+    private $empresa_id;
     private $edificios;
     /**
      * Constructor para obtener el id empresa
@@ -46,6 +49,11 @@ class DepartamentosController extends Controller
         AdmigasEdificios $edificios
     )
     {
+        $this->middleware(function ($request, $next) {
+            $this->empresa_id = Auth::user()->Empresas->first()->id;
+
+            return $next($request);
+        });
 
         $this->departamentos = $departamentos;
         $this->contactoDepartamento = $contactoDepartamento;
@@ -270,42 +278,12 @@ class DepartamentosController extends Controller
 
     public function show_recibo( $id_departamentos, $id_recibo )
     {
-        /**
-         * Recuperamos los datos del cliente
-         */
-        $depto =  $this->departamentos->find( $id_departamentos);
-        /**
-         * Obtenemos el convenio cie de la empresa
-         */
-        $convenio = $this->empresa->where('id', $depto->condominios->Unidades->Zonas->admigas_empresas_id)->first();
-        $cie =  $convenio->Cuentas->convenio_cie;
-        $recibos = $this->recibos->where('clave_recibo', $id_recibo)->where('admigas_departamentos_id', $id_departamentos)->first();
-        $empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
 
-        $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
+        $recibos = AdmigasRecibos::where('clave_recibo', $id_recibo)->where('admigas_departamentos_id', $id_departamentos)->first();
+        //dd( $recibos );
+        $e = new GenerarPDFControler;
+        $pdf = $e->generate( $id_departamentos, 1, $recibos,$this->empresa_id );
+        return $pdf;
 
-	if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
-        {                $foto_anterior = file_get_contents(public_path('storage/'.$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg"));
-        }
-        else
-        {
-                $foto_anterior = "";
-        }
-
-
-        if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
-        {                $foto_actual = file_get_contents(public_path('storage/'.$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg"));
-        }
-        else
-        {
-                $foto_actual = "";
-        }
-
-
-
-        return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-            ->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id', 'foto_actual', 'foto_anterior'))
-            ->setPaper('A5')
-            ->stream('archivo.pdf');
     }
 }

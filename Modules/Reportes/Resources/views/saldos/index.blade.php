@@ -37,7 +37,7 @@
                         <td>{{ number_format( round($e->total_recibos), 2) }}</td>
                         <td>{{ number_format( round($e->total_pagos), 2) }}</td>
                         <td>
-                            @if ( ($e->total_recibos - $e->total_pagos) < 0 )
+                            @if ( ( round($e->total_recibos - $e->total_pagos)) < 0 )
                             <p class="text-danger"> {{ number_format( round($e->total_recibos - $e->total_pagos), 2) }}</p>
                             @else
                                 {{ number_format( round($e->total_recibos - $e->total_pagos), 2) }}

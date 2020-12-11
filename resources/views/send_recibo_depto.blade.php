@@ -288,7 +288,7 @@
                                                             <tr style="border-collapse:collapse">
                                                                 <td class="es-m-txt-c" align="left" style="padding:0;Margin:0">
                                                                     <a target="_blank" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;font-size:20px;text-decoration:none;display:block;color:#FFFFFF" href="https://2gadmin.com.mx/">
-                                                                        <img src="https://2gadmin.com.mx/wp-content/uploads/2020/10/cropped-Logo-1.png" alt title height="66" align="absmiddle" width="216" style="display:inline-block !important;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;padding-bottom:5px"><br></a>
+                                                                        <img src="https://2gadmin.com.mx/wp-content/uploads/2020/10/Logo-1-2.png" alt title height="66" align="absmiddle" width="216" style="display:inline-block !important;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;padding-bottom:5px"><br></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -333,7 +333,7 @@
                                                             <tr style="border-collapse:collapse">
                                                                 <td class="es-m-txt-l" align="left" style="padding:0;Margin:0;padding-top:15px">
                                                                     <h3 style="Margin:0;line-height:22px;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;font-style:normal;font-weight:bold;color:#333333">
-                                                                        Hola {{$nombre}},</h3>
+                                                                        Hola {{ \Str::title( $nombre ) }}.</h3>
                                                                 </td>
                                                             </tr>
                                                             <tr style="border-collapse:collapse">
@@ -401,7 +401,7 @@
                                                             <tr style="border-collapse:collapse">
                                                                 <td align="center" style="padding:0;Margin:0;padding-bottom:15px;padding-top:30px">
                                                                     <span class="es-button-border" style="border-style:solid;border-color:transparent;background:#01549E none repeat scroll 0% 0%;border-width:0px;display:inline-block;border-radius:5px;width:auto;">
-                                                                        <a href="http://administradora.2gadmin.com.mx/clientes/login" class="es-button" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#01549E;border-width:15px 30px;display:inline-block;background:#01549E none repeat scroll 0% 0%;border-radius:5px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center">PAGAR AHORA</a></span>
+                                                                      <a href="http://administradora.2gadmin.com.mx/clientes/login" class="es-button" target="_blank" style="mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#01549E;border-width:15px 30px;display:inline-block;background:#01549E none repeat scroll 0% 0%;border-radius:5px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center">PAGAR AHORA</a></span>
                                                                 </td>
                                                             </tr>
                                                         </table>
