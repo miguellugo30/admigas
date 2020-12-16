@@ -102,16 +102,20 @@ $(function () {
   $(document).on("click", ".menu", function (e) {
     e.preventDefault();
     var id = $(this).attr("id");
+    console.log(id);
 
     if (id == '15') {
       url = currentURL + '/saldos';
-      table = ' #table-usuarios';
+      table = ' #table-saldos';
     } else if (id == '16') {
       url = currentURL + '/antiguedad';
-      table = ' #table-precio-gas';
+      table = ' #table-antiguedad';
     } else if (id == '17') {
       url = currentURL + '/estado-cuenta';
-      table = ' #table-precio-gas';
+      table = ' #table-estado-cuenta';
+    } else if (id == '18') {
+      url = currentURL + '/cargos-adicionales';
+      table = ' #table-cargos-adicionales';
     }
 
     $.get(url, function (data, textStatus, jqXHR) {
@@ -127,14 +131,44 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_reportes/reporte_cargos.js":
+/*!********************************************************!*\
+  !*** ./resources/js/module_reportes/reporte_cargos.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  $(document).on("click", ".generateReportCargo", function (e) {
+    e.preventDefault();
+    var desde = $("#desde").val();
+    var hasta = $("#hasta").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/cargos-adicionales';
+    $.post(url, {
+      desde: desde,
+      hasta: hasta,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.showResult').html(data);
+    });
+  });
+});
+
+/***/ }),
+
 /***/ 3:
-/*!****************************************************!*\
-  !*** multi ./resources/js/module_reportes/menu.js ***!
-  \****************************************************/
+/*!*****************************************************************************************************!*\
+  !*** multi ./resources/js/module_reportes/menu.js ./resources/js/module_reportes/reporte_cargos.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\menu.js */"./resources/js/module_reportes/menu.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\menu.js */"./resources/js/module_reportes/menu.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_cargos.js */"./resources/js/module_reportes/reporte_cargos.js");
 
 
 /***/ })

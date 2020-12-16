@@ -15,24 +15,24 @@ class CreateSpConsumoRecibos extends Migration
     {
 	\DB::unprepared("
                     CREATE PROCEDURE `SP_consumo_recibos`( IN departamento_id INT )
-BEGIN
-SELECT 
-AR.id,
-AR.fecha_recibo,
-( AR.lectura_actual - AR.lectura_anterior ) * AC.factor AS litros,
-AR.precio_litro,
-(AR.total_pagar - AR.adeudo_anterior) AS total_pagar
-FROM
-admigas_recibos AR
-INNER JOIN admigas_condominios AC
-ON
-AR.admigas_condominios_id = AC.id
-WHERE
-AR.admigas_departamentos_id = departamento_id
-AND
-AR.activo = 1
-ORDER BY AR.fecha_recibo ASC LIMIT 6;
-END
+                    BEGIN
+                    SELECT
+                    AR.id,
+                    AR.fecha_recibo,
+                    ( AR.lectura_actual - AR.lectura_anterior ) * AC.factor AS litros,
+                    AR.precio_litro,
+                    (AR.total_pagar - AR.adeudo_anterior) AS total_pagar
+                    FROM
+                    admigas_recibos AR
+                    INNER JOIN admigas_condominios AC
+                    ON
+                    AR.admigas_condominios_id = AC.id
+                    WHERE
+                    AR.admigas_departamentos_id = departamento_id
+                    AND
+                    AR.activo = 1
+                    ORDER BY AR.fecha_recibo ASC LIMIT 6;
+                    END
 			");
     }
 

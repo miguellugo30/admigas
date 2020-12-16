@@ -39,3 +39,11 @@ Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefi
 Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {
     Route::resource('pagos-no-conciliados','PagosNoConciliadosController');
 });
+/*
+ * Rutas para CRUD de conciliacion manual
+ */
+Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {
+    Route::get('buscar-edificio/{id_unidad}', 'ConciliacionManualController@search_edificio' )->name('search.unidad');
+    Route::get('buscar-depto/{id_edificio}', 'ConciliacionManualController@search_departamento' )->name('search.depto');
+    Route::resource('conciliacion-manual','ConciliacionManualController');
+});

@@ -19,6 +19,9 @@ $(function() {
             table = ' #table-precio-gas';
         } else if (id == '14') {
             url = currentURL + '/pagos-no-conciliados';
+            table = ' #table-precio-gas'
+        } else if (id == '19') {
+            url = currentURL + '/conciliacion-manual';
             table = ' #table-precio-gas';
         }
 

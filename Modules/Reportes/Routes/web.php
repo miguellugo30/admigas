@@ -26,3 +26,9 @@ Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => '
 Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {
     Route::resource('antiguedad','AntiguedadController');
 });
+/*
+ * Rutas para CRUD de Cargos Adicionales
+ */
+Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {
+    Route::resource('cargos-adicionales','CargosController');
+});

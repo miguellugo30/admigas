@@ -36,6 +36,7 @@ mix.js([
     ], 'public/js/cliente.js')
     .js([
         'resources/js/module_reportes/menu.js',
+        'resources/js/module_reportes/reporte_cargos.js',
     ], 'public/js/reportes.js')
     .js([
         'resources/js/bootstrap.js',
@@ -43,6 +44,7 @@ mix.js([
     .js([
         'resources/js/module_credito/menu.js',
         'resources/js/module_credito/conciliacion.js',
+        'resources/js/module_credito/conciliacion_manual.js',
     ], 'public/js/credito.js');
 /*
     .sass('resources/sass/app.scss', 'public/css');

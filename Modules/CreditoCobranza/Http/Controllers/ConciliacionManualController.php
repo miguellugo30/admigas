@@ -2,6 +2,8 @@
 
 namespace Modules\CreditoCobranza\Http\Controllers;
 
+use App\AdmigasDepartamentos;
+use App\AdmigasEdificios;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -10,10 +12,12 @@ use Illuminate\Support\Facades\Auth;
  * Modelos
  */
 use App\AdmigasPagos;
+use App\AdmigasUnidades;
 
-class PagosNoConciliadosController extends Controller
+class ConciliacionManualController extends Controller
 {
     private $empresa_id;
+    private $user_id;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -22,6 +26,7 @@ class PagosNoConciliadosController extends Controller
     {
         $this->middleware(function ($request, $next) {
             $this->empresa_id = Auth::user()->Empresas->first()->id;
+            $this->user_id = Auth::user()->id;
 
             return $next($request);
         });
@@ -32,9 +37,11 @@ class PagosNoConciliadosController extends Controller
      */
     public function index()
     {
+        $unidades = AdmigasUnidades::active()->get();
+
         $pagos = AdmigasPagos::active(0)->modo(1)->get();
 
-        return view('creditocobranza::pagosNoConciliados.index',compact('pagos'));
+        return view('creditocobranza::conciliacionManual.index',compact('pagos', 'unidades'));
     }
 
     /**
@@ -53,7 +60,20 @@ class PagosNoConciliadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        /**
+         * Relacionamos el pago con el departamento
+         **/
+        \DB::table('admigas_departamentos_pagos')->insert([
+            'admigas_departamentos_id' => $request->depto_id,
+            'admigas_pagos_id' => $request->pago_id,
+            'user_id' => $this->user_id,
+            'fecha_aplicacion' => date('Y-m-d'),
+        ]);
+
+        AdmigasPagos::where( 'id', $request->pago_id )->update(['estatus' => 1]);
+
+        return redirect()->route('conciliacion-manual.index');
     }
 
     /**
@@ -95,5 +115,20 @@ class PagosNoConciliadosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function search_edificio($id)
+    {
+        $edificios = AdmigasEdificios::unidad($id)->get();
+
+        return view('creditocobranza::conciliacionManual.result_search_unidad', compact('edificios'));
+    }
+
+    public function search_departamento($id)
+    {
+        $departamentos = AdmigasDepartamentos::condominio($id)->get();
+
+        return view('creditocobranza::conciliacionManual.result_search_depto', compact('departamentos'));
     }
 }

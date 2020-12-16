@@ -150,6 +150,50 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_credito/conciliacion_manual.js":
+/*!************************************************************!*\
+  !*** ./resources/js/module_credito/conciliacion_manual.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para conciliar el archivo
+   */
+
+  $(document).on("change", "#unidad_no_conciliado", function (e) {
+    var url = currentURL + '/buscar-edificio/' + $(this).val();
+    $.get(url, function (data, textStatus, xhr) {
+      $('.result-search-edificio').html(data);
+    });
+  });
+  $(document).on("change", "#edificio_no_conciliado", function (e) {
+    var url = currentURL + '/buscar-depto/' + $(this).val();
+    $.get(url, function (data, textStatus, xhr) {
+      $('.result-search-depto').html(data);
+    });
+  });
+  $(document).on("click", ".conciliar-button", function (e) {
+    var depto_id = $('#depto_no_conciliado').val();
+    var pago_id = $('input[name=pago_no_conciliado]').val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/conciliacion-manual';
+    $.post(url, {
+      depto_id: depto_id,
+      pago_id: pago_id,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.viewResult').html(data);
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/module_credito/menu.js":
 /*!*********************************************!*\
   !*** ./resources/js/module_credito/menu.js ***!
@@ -179,6 +223,9 @@ $(function () {
     } else if (id == '14') {
       url = currentURL + '/pagos-no-conciliados';
       table = ' #table-precio-gas';
+    } else if (id == '19') {
+      url = currentURL + '/conciliacion-manual';
+      table = ' #table-precio-gas';
     }
 
     $.get(url, function (data, textStatus, jqXHR) {
@@ -195,14 +242,15 @@ $(function () {
 /***/ }),
 
 /***/ 5:
-/*!*************************************************************************************************!*\
-  !*** multi ./resources/js/module_credito/menu.js ./resources/js/module_credito/conciliacion.js ***!
-  \*************************************************************************************************/
+/*!******************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_credito/menu.js ./resources/js/module_credito/conciliacion.js ./resources/js/module_credito/conciliacion_manual.js ***!
+  \******************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_credito\menu.js */"./resources/js/module_credito/menu.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_credito\conciliacion.js */"./resources/js/module_credito/conciliacion.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_credito\conciliacion.js */"./resources/js/module_credito/conciliacion.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_credito\conciliacion_manual.js */"./resources/js/module_credito/conciliacion_manual.js");
 
 
 /***/ })

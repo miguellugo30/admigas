@@ -1,19 +1,17 @@
 <?php
 
-namespace Modules\CreditoCobranza\Http\Controllers;
+namespace Modules\Reportes\Http\Controllers;
 
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-/**
- * Modelos
- */
-use App\AdmigasPagos;
 
-class PagosNoConciliadosController extends Controller
+class CargosController extends Controller
 {
     private $empresa_id;
+
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -25,6 +23,7 @@ class PagosNoConciliadosController extends Controller
 
             return $next($request);
         });
+
     }
     /**
      * Display a listing of the resource.
@@ -32,9 +31,7 @@ class PagosNoConciliadosController extends Controller
      */
     public function index()
     {
-        $pagos = AdmigasPagos::active(0)->modo(1)->get();
-
-        return view('creditocobranza::pagosNoConciliados.index',compact('pagos'));
+        return view('reportes::cargos.index');
     }
 
     /**
@@ -43,7 +40,7 @@ class PagosNoConciliadosController extends Controller
      */
     public function create()
     {
-        return view('creditocobranza::create');
+            return view('reportes::create');
     }
 
     /**
@@ -53,7 +50,10 @@ class PagosNoConciliadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $data =  DB::select("call SP_reporte_cargos_adicionales( '$request->desde', '$request->hasta', $this->empresa_id )");
+
+        return view('reportes::cargos.show', compact('data'));
     }
 
     /**
@@ -63,7 +63,7 @@ class PagosNoConciliadosController extends Controller
      */
     public function show($id)
     {
-        return view('creditocobranza::show');
+        return view('reportes::show');
     }
 
     /**
@@ -73,7 +73,7 @@ class PagosNoConciliadosController extends Controller
      */
     public function edit($id)
     {
-        return view('creditocobranza::edit');
+        return view('reportes::edit');
     }
 
     /**
