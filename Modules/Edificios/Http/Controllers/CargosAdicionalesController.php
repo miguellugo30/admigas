@@ -29,7 +29,7 @@ class CargosAdicionalesController extends Controller
         )
         {
         $this->middleware(function ($request, $next) {
-        $this->empresa_id = Auth::user()->admigas_empresas_id;
+        $this->empresa_id = Auth::user()->Empresas->first()->id;
 
         return $next($request);
         });
@@ -56,7 +56,7 @@ class CargosAdicionalesController extends Controller
         /**
          * Obtenemos los servicios de la empresa
          */
-        $servicios = $this->servicios->active()->get();
+        $servicios = $this->servicios->active()->empresa($this->empresa_id)->get();
         /**
          * Obtenemos los departamentos del condominios
          */

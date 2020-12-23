@@ -14,7 +14,6 @@
                 <th class="buscar">Fecha Pago</th>
                 <th class="buscar">Referencia</th>
                 <th class="buscar">Importe</th>
-                <th>Autorizacion</th>
                 <th>Medio Pago</th>
                 <th>Condominio</th>
                 <th>Departamento</th>
@@ -25,7 +24,6 @@
                         <td>{{ date('d-m-Y', strtotime( $pago->fecha_pago )) }}</td>
                         <td>{{ $pago->referencia }}</td>
                         <td>$ {{ number_format( $pago->importe, 2) }}</td>
-                        <td>{{ $pago->autorizacion }}</td>
                         <td>{{ $pago->medio_pago }}</td>
                         <td>{{ $pago->Departamento->first()->Condominios->nombre }}</td>
                         <td>{{ $pago->Departamento->first()->numero_departamento }}</td>
@@ -36,7 +34,6 @@
                 <th>Fecha Pago</th>
                 <th>Referencia</th>
                 <th>Importe</th>
-                <th>Autorizacion</th>
                 <th>Medio Pago</th>
                 <th>Condominio</th>
                 <th>Departamento</th>

@@ -9,21 +9,19 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RegisterDepto extends Mailable implements ShouldQueue
+class DeptoFechaPorVencer extends Mailable  implements ShouldQueue
 {
     use Queueable, SerializesModels;
     private $nombre;
-    private $codigo;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct( $nombre, $codigo )
+    public function __construct( $nombre )
     {
         $this->nombre = $nombre;
-        $this->codigo = $codigo;
     }
 
     /**
@@ -34,11 +32,10 @@ class RegisterDepto extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from('administradora@2gadmin.com')
-        ->subject("Registro 2G Admin")
-        ->view('register_depto')
+        ->subject("Tu fecha limite estar por vencerse")
+        ->view('depto_fecha')
         ->with([
-            'nombre' => $this->nombre,
-            'codigo' => $this->codigo
+            'nombre' => $this->nombre
         ]);
     }
 

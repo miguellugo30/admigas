@@ -42,6 +42,14 @@ Route::post('/clientes/registro/', 'Auth\RegisterController@register')->name('re
 
 Auth::routes();
 Route::get('/home', 'HomeController@directorios');
+Route::get('/deptos', 'DeptosFechaLimite@DeptosProximoVencer');
+
+/*
+ * Rutas para CRUD de Zonas
+ */
+Route::group([ 'middleware' => 'auth'], function() {
+    Route::resource('notificaciones','NotificacionesController');
+});
 
 /*
 Route::get('/exportar/{id}', 'ExportarLecturasExcelController@exportLecturasExcel')->name('home');

@@ -70,10 +70,7 @@ $(function() {
 
        let url = currentURL + '/enviar-recibos/' + admigas_condominios_id;
 
-        $.get(url, function(data, textStatus, jqXHR) {
-            //$(".list-deptos-capture").html(data);
-            //$(".list-deptos-capture").slideDown();
-        });
+        $.get(url, function(data, textStatus, jqXHR) {});
 
     });
     /**
@@ -175,18 +172,17 @@ $(function() {
             cancelButtonText: 'No, cancelar'
         }).then((result) => {
             if (result.value) {
-                Swal.fire({
-                    title: 'Motivo de cancelación',
-                    input: 'text',
-                    inputAttributes: {
-                        autocapitalize: 'off'
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Cancelar Recibos',
-                    showLoaderOnConfirm: true,
-                }).then((result) => {
 
-                })
+                $('#tituloModal').html('Editar Recibo');
+                $('#action').addClass('updateRecibo');
+
+                let url = currentURL + '/recibos/' + departamento_id + "/edit";
+
+                $.get(url, function(data, textStatus, jqXHR) {
+                    $('#modal').modal('show');
+                    $("#modal-body").html(data);
+                });
+
             }
         })
     });

@@ -1024,9 +1024,7 @@ $(function () {
     e.preventDefault();
     var admigas_condominios_id = $("#admigas_condominios_id").val();
     var url = currentURL + '/enviar-recibos/' + admigas_condominios_id;
-    $.get(url, function (data, textStatus, jqXHR) {//$(".list-deptos-capture").html(data);
-      //$(".list-deptos-capture").slideDown();
-    });
+    $.get(url, function (data, textStatus, jqXHR) {});
   });
   /**
    * Evento para enviar los recibos
@@ -1115,16 +1113,13 @@ $(function () {
       cancelButtonText: 'No, cancelar'
     }).then(function (result) {
       if (result.value) {
-        Swal.fire({
-          title: 'Motivo de cancelación',
-          input: 'text',
-          inputAttributes: {
-            autocapitalize: 'off'
-          },
-          showCancelButton: true,
-          confirmButtonText: 'Cancelar Recibos',
-          showLoaderOnConfirm: true
-        }).then(function (result) {});
+        $('#tituloModal').html('Editar Recibo');
+        $('#action').addClass('updateRecibo');
+        var url = currentURL + '/recibos/' + departamento_id + "/edit";
+        $.get(url, function (data, textStatus, jqXHR) {
+          $('#modal').modal('show');
+          $("#modal-body").html(data);
+        });
       }
     });
   });

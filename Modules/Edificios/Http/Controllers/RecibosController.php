@@ -21,6 +21,8 @@ use App\Notifications\FechaLimiteAVencer;
 use App\AdmigasRecibos;
 use App\AdmigasEdificios;
 use App\AdmigasEmpresas;
+use App\AdmigasDepartamentos;
+use App\AdmigasServicios;
 
 class RecibosController extends Controller
 {
@@ -29,6 +31,8 @@ class RecibosController extends Controller
     private $query;
     private $recibos;
     private $empresa;
+    private $departamento;
+    private $servicios;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -37,7 +41,9 @@ class RecibosController extends Controller
                                     AdmigasEdificios $condominio,
                                     QuerysJoinController $query,
                                     AdmigasRecibos $recibos,
-                                    AdmigasEmpresas $empresa
+                                    AdmigasEmpresas $empresa,
+                                    AdmigasDepartamentos $departamento,
+                                    AdmigasServicios $servicios
                                 )
     {
         $this->middleware(function ($request, $next) {
@@ -50,6 +56,8 @@ class RecibosController extends Controller
         $this->query = $query;
         $this->recibos = $recibos;
         $this->empresa = $empresa;
+        $this->departamento = $departamento;
+        $this->servicios = $servicios;
     }
     /**
      * Display a listing of the resource.
@@ -82,6 +90,7 @@ class RecibosController extends Controller
         } else {
             return view('edificios::recibos.create', compact('condominio', 'data'));
         }
+
 
     }
 
@@ -139,7 +148,28 @@ class RecibosController extends Controller
      */
     public function edit($id)
     {
-        return view('edificios::edit');
+        /**
+         * Buscamos el departamento
+         */
+        $depto = $this->departamento::find( $id );
+        /**
+         * Obtenemos la fecha del ultimo recibo
+         */
+        $fecha = DB::select("call SP_fecha_ultimo_recibo( $depto->admigas_condominios_id )");
+        /**
+         * Obtenemos el ultimo recibo
+         */
+        $recibo = $this->recibos
+                        ->where('admigas_departamentos_id', $id)
+                        ->where('fecha_recibo', 'like',date('Y-m', strtotime($fecha[0]->fecha_recibo))."%"  )
+                        ->active()
+                        ->first();
+        /**
+         * Obtenemos los cargos adicionales
+         */
+        $servicios = $this->servicios->active()->empresa($this->empresa_id)->get();
+
+        return view('edificios::recibos.edit', compact('recibo', 'servicios'));
     }
 
     /**
@@ -150,7 +180,7 @@ class RecibosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $recibo = $this->recibos::find( $id );
     }
 
     /**

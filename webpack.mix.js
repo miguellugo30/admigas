@@ -40,6 +40,7 @@ mix.js([
     ], 'public/js/reportes.js')
     .js([
         'resources/js/bootstrap.js',
+        'resources/js/notificaciones.js',
     ], 'public/js/app.js')
     .js([
         'resources/js/module_credito/menu.js',
