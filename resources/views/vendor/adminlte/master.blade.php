@@ -53,8 +53,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
-<!--script src="https://js.pusher.com/7.0/pusher.min.js"></script-->
-<!--script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+<script>
 
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
@@ -88,7 +88,7 @@
 
 
     });
-  </script-->
+  </script>
 
 @include('adminlte::plugins', ['type' => 'js'])
 
