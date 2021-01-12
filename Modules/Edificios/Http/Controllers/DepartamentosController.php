@@ -8,9 +8,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Modules\Edificios\Http\Requests\DepartamentosRequest;
 use App\Http\Controllers\GenerarPDFControler;
+use Modules\Edificios\Http\Requests\DepartamentosRequest;
 /**
  * Modelos
  */
@@ -280,7 +279,6 @@ class DepartamentosController extends Controller
     {
 
         $recibos = AdmigasRecibos::where('clave_recibo', $id_recibo)->where('admigas_departamentos_id', $id_departamentos)->first();
-        //dd( $recibos );
         $e = new GenerarPDFControler;
         $pdf = $e->generate( $id_departamentos, 1, $recibos,$this->empresa_id );
         return $pdf;

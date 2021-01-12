@@ -111,6 +111,9 @@
                         <dt class="col-sm-4">Correo Electronico</dt>
                         <dd class="col-sm-8">{{ $depto->Contacto_Depto->correo_electronico }}</dd>
 
+                        <dt class="col-sm-4">Código Confirmación</dt>
+                        <dd class="col-sm-8">{{ $depto->Contacto_Depto->codigo_verificacion }}</dd>
+
                         <dt class="col-sm-4">Referencia de pago:</dt>
                         <dd class="col-sm-8">{{ $depto->numero_referencia }}</dd>
 

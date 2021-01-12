@@ -2,13 +2,13 @@
 
 namespace Modules\Clientes\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Contracts\Events\Dispatcher;
+use App\Http\Controllers\GenerarPDFControler;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
 /**
  * Modelos
  */
@@ -240,42 +240,13 @@ class ClientesController extends Controller
          */
         $depto =  $this->departamentos->find(\Auth::user()->Departamentos->first()->id);
         /**
-         * Obtenemos el convenio cie de la empresa
+         * Recuperamos el recibo a mostrar
          */
-        $convenio = $this->empresas->where('id', $depto->condominios->Unidades->Zonas->admigas_empresas_id)->first();
-        $cie =  $convenio->Cuentas->convenio_cie;
         $recibos = $this->recibos->where('id', $id)->first();
-        $empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
 
-        $url_recibo = file_get_contents(public_path('storage/recibo/recibo_2G-v2.png'));
+        $e = new GenerarPDFControler;
+        $pdf = $e->generate( $depto->id, 1, $recibos,$depto->condominios->Unidades->Zonas->admigas_empresas_id );
 
-	if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
-	{
-		$foto_anterior = file_get_contents(public_path('storage/'.$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_anterior)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg"));
-	}
-	else
-	{
-		$foto_anterior = "";
-	}
-
-
-	if( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
-	{
-		$foto_actual = file_get_contents(public_path('storage/'.$empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg"));
-	}
-	else
-	{
-		$foto_actual = "";
-	}
-
-
-        if ( $option == 1 ) {
-            return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id', 'foto_actual', 'foto_anterior'))
-                ->setPaper('A5')
-                ->stream('archivo.pdf');
-        } else {
-            return \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('clientes::vista_recibo', compact('recibos', 'url_recibo', 'cie', 'empresa_id', 'foto_actual', 'foto_anterior'))->setPaper('A5')->download('recibo_'.$recibos->first()->fecha_recibo.'.pdf');
-            //Storage::put('\public\recibo_' . $depto->id . '.pdf', $pdf);
-        }
+        return $pdf;
     }
 }

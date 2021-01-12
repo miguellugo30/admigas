@@ -2,19 +2,18 @@
 
 namespace Modules\Edificios\Http\Controllers;
 
+use DB;
+use App\Mail\EnvioRecibos;
+use App\Jobs\CreatePdfEmail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Events\eventoNotificacion;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\QuerysJoinController;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\QuerysJoinController;
 use Modules\Edificios\Http\Controllers\DepartamentosController;
-use App\Jobs\CreatePdfEmail;
-use DB;
-use App\Events\eventoNotificacion;
-use App\Mail\EnvioRecibos;
-use App\Notifications\FechaLimiteAVencer;
 /**
  * Modelos
  */
@@ -281,14 +280,16 @@ class RecibosController extends Controller
         if ( $opcion == 1 )
         {
             $url_recibo = file_get_contents( public_path('storage/recibo/recibo_2G-v2.png') );
-            $pdf = \PDF::loadView('edificios::recibos.show_mail', compact('recibos', 'cie','empresa_id', 'url_recibo'))
+            $pdf = \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+                        ->loadView('edificios::recibos.show_mail', compact('recibos', 'cie','empresa_id', 'url_recibo'))
                         ->setPaper('A4')
                         ->output();
             Storage::put('\public\recibo_'.$recibos->admigas_departamentos_id.'.pdf', $pdf);
         }
         elseif( $opcion == 2 )
         {
-            return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'cie', 'empresa_id' ) )
+            return  \PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+                        ->loadView('edificios::recibos.show', compact( 'recibos', 'cie', 'empresa_id' ) )
                         ->setPaper('letter', 'landscape')
                         ->setOptions(['defaultFont' => 'verdana'])
                         ->stream('archivo.pdf');

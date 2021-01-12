@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
  */
 use App\AdmigasEmpresas;
 use App\AdmigasDepartamentos;
+use App\Http\Controllers\TestigosFotograaficosController;
 
 class GenerarPDFControler extends Controller
 {
@@ -21,8 +22,6 @@ class GenerarPDFControler extends Controller
          */
         $convenio = AdmigasEmpresas::where('id', $empresa_id)->first();
         $cie =  $convenio->Cuentas->convenio_cie;
-
-        //$empresa_id = $depto->condominios->Unidades->Zonas->admigas_empresas_id;
         /**
          * Obtenemos el codigo de la foto de fondo
          */
@@ -56,7 +55,6 @@ class GenerarPDFControler extends Controller
 
             \Storage::put('\tmp\recibo_'.$recibos->admigas_departamentos_id.'.pdf', $pdf);
 
-            $pdf = true;
         }
 
         return $pdf;
