@@ -6,10 +6,10 @@
           <button type="button" class="btn btn-info btn-sm returnCondominio" ><i class="fas fa-arrow-left"></i> Regresar</button>
           @can('delete departamentos')
             @endcan
-            <button type="button" class="btn btn-danger btn-sm deleteDepartamento" ><i class="fas fa-trash-alt"></i> Elminar</button>
+            <button type="button" class="btn btn-warning btn-sm editDepartamento"><i class="fas fa-edit"></i> Editar Depto.</button>
+            <button type="button" class="btn btn-danger btn-sm deleteDepartamento" ><i class="fas fa-trash-alt"></i> Elminar Depto.</button>
             @can('edit departamentos')
             @endcan
-            <button type="button" class="btn btn-warning btn-sm editDepartamento"><i class="fas fa-edit"></i> Editar</button>
             <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="{{$depto->id}}">
     </div>
 </div>

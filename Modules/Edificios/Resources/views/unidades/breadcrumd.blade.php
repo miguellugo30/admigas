@@ -6,19 +6,14 @@
     </ol>
 </div><!-- /.col -->
 <div class="col-sm-6">
-    <div class="dropdown float-sm-right dropleft">
-        <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fas fa-cogs"></i>
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item editUnidad" href="#">
-                <i class="fas fa-pencil-alt"></i>
+    <div class="btn-group btn-group-sm float-right" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-warning editUnidad">
+            <i class="fas fa-pencil-alt"></i>
                 Editar Unidad
-            </a>
-            <a class="dropdown-item deleteUnidad" href="#">
-                <i class="fas fa-trash-alt"></i>
+        </button>
+        <button type="button" class="btn btn-danger deleteUnidad">
+            <i class="fas fa-trash-alt"></i>
                 Eliminar Unidad
-            </a>
-        </div>
+        </button>
     </div>
 </div><!-- /.col -->

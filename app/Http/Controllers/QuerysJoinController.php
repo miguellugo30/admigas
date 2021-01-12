@@ -9,20 +9,23 @@ use DB;
  */
 use App\AdmigasPrecioGas;
 use App\AdmigasCargosAdicionales;
+use App\AdmigasUnidades;
 
 class QuerysJoinController extends Controller
 {
 
     private $precio_gas;
     private $cargos;
+    private $unidades;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
      */
-    public function __construct( AdmigasPrecioGas $precio_gas, AdmigasCargosAdicionales $cargos  )
+    public function __construct( AdmigasPrecioGas $precio_gas, AdmigasCargosAdicionales $cargos, AdmigasUnidades $unidades  )
     {
         $this->precio_gas = $precio_gas;
         $this->cargos = $cargos;
+        $this->unidades = $unidades;
     }
     /**
      * Query para mostrar los departamentos y su ultima lectura
@@ -106,7 +109,7 @@ class QuerysJoinController extends Controller
         /**
          * Recuperamos el precio del gas de la empresa
          */
-        $precio = $this->precio_gas->select('precio')->empresa( $empresa_id )->active()->first();
+        $precio = $this->precio_gas($empresa_id, $condominio->first()->admigas_unidades_id);
 
         if (  $precio == NULL) {
             return collect([ 'error' => 1]);
@@ -129,7 +132,7 @@ class QuerysJoinController extends Controller
 
             $depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
             $depto->litros = ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor;
-            $depto->consumo = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio->precio - $condominio->first()->descuento ) );
+            $depto->consumo = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio - $condominio->first()->descuento ) );
             $depto->cargos = $this->cargosDepto( $depto->departamento_id );
             $depto->gasto_admin = $condominio->first()->gasto_admin ;
             $depto->adeudo = $adeudo;
@@ -252,5 +255,19 @@ class QuerysJoinController extends Controller
             $folio = explode( "-", $folio[0]->clave_recibo );
             return (int)$folio[1] + 1;
         }
+    }
+
+    public function precio_gas($empresa_id, $unidad_id)
+    {
+
+        $precio_unidad = $this->unidades->select('precio_gas')->where('id', $unidad_id)->first();
+
+        if ( $precio_unidad->precio_gas != 0 ) {
+            return $precio_unidad->precio_gas;
+        }
+
+        $precio = $this->precio_gas->select('precio')->empresa( $empresa_id )->active()->first();
+        return $precio->precio ;
+
     }
 }

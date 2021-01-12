@@ -290,6 +290,7 @@ class RecibosController extends Controller
         {
             return  \PDF::loadView('edificios::recibos.show', compact( 'recibos', 'cie', 'empresa_id' ) )
                         ->setPaper('letter', 'landscape')
+                        ->setOptions(['defaultFont' => 'verdana'])
                         ->stream('archivo.pdf');
         }
     }

@@ -1377,6 +1377,7 @@ $(function () {
     var cp = $("#cp").val();
     var estado = $("#estado").val();
     var entre_calles = $("#entre_calles").val();
+    var precio_gas = $("#precio_gas").val();
     var admigas_zonas_id = $("#admigas_zonas_id").val();
 
     var _token = $("input[name=_token]").val();
@@ -1391,6 +1392,7 @@ $(function () {
       cp: cp,
       estado: estado,
       entre_calles: entre_calles,
+      precio_gas: precio_gas,
       admigas_zonas_id: admigas_zonas_id,
       _token: _token
     }, function (data, textStatus, xhr) {
@@ -1503,6 +1505,7 @@ $(function () {
     var cp = $("#cp").val();
     var estado = $("#estado").val();
     var entre_calles = $("#entre_calles").val();
+    var precio_gas = $("#precio_gas").val();
     var id = $("#unidad_id").val();
 
     var _token = $("input[name=_token]").val();
@@ -1521,6 +1524,7 @@ $(function () {
         cp: cp,
         estado: estado,
         entre_calles: entre_calles,
+        precio_gas: precio_gas,
         _token: _token,
         _method: _method
       },

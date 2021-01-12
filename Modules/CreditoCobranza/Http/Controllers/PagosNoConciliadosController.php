@@ -32,7 +32,7 @@ class PagosNoConciliadosController extends Controller
      */
     public function index()
     {
-        $pagos = AdmigasPagos::active(0)->modo(1)->get();
+        $pagos = AdmigasPagos::active(0)->modo(2)->get();
 
         return view('creditocobranza::pagosNoConciliados.index',compact('pagos'));
     }

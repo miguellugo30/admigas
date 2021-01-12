@@ -39,7 +39,7 @@ class ConciliacionManualController extends Controller
     {
         $unidades = AdmigasUnidades::active()->get();
 
-        $pagos = AdmigasPagos::active(0)->modo(1)->get();
+        $pagos = AdmigasPagos::active(0)->modo(2)->get();
 
         return view('creditocobranza::conciliacionManual.index',compact('pagos', 'unidades'));
     }

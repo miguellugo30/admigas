@@ -59,10 +59,11 @@ class UnidadesController extends Controller
                                     'numero' =>  $request->numero,
                                     'colonia' =>  $request->colonia,
                                     'delegacion_municipio' =>  $request->municipio,
-                                    'cp' =>  $request->cp,
-                                    'estado' =>  $request->estado,
-                                    'entre_calle' =>  $request->entre_calles,
-                                    'fecha_alta' =>  Carbon::now(),
+                                    'cp' => $request->cp,
+                                    'estado' => $request->estado,
+                                    'entre_calle' => $request->entre_calles,
+                                    'fecha_alta' => Carbon::now(),
+                                    'precio_gas' => $request->precio_gas,
                                     'admigas_zonas_id' => $request->admigas_zonas_id
                                 ]);
         /**
@@ -123,6 +124,7 @@ class UnidadesController extends Controller
             'cp' =>  $request->cp,
             'estado' =>  $request->estado,
             'entre_calle' =>  $request->entre_calles,
+            'precio_gas' => $request->precio_gas
         ]);
 
         return redirect()->route('unidades.breadcrumb', ['id_unidad' => $id]);

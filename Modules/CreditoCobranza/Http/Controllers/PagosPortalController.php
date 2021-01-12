@@ -33,7 +33,8 @@ class PagosPortalController extends Controller
     public function index()
     {
 
-        $pagos = AdmigasPagos::active(1)->modo(1)->get();
+        $pagos = AdmigasPagos::active(1)->modo(1)->with('Departamento')->get();
+        dd($pagos);
         return view('creditocobranza::pagosPortal.index', compact('pagos'));
     }
 

@@ -10,7 +10,7 @@ class AdmigasUnidades extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'nombre', 'calle', 'numero', 'colonia', 'delegacion_municipio', 'cp', 'estado', 'entre_calle', 'fecha_alta', 'admigas_zonas_id',
+        'nombre', 'calle', 'numero', 'colonia', 'delegacion_municipio', 'cp', 'estado', 'entre_calle', 'fecha_alta', 'precio_gas', 'admigas_zonas_id',
     ];
     /**
      * Nombre de la tabla

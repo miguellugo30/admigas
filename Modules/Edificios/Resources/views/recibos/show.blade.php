@@ -3,7 +3,7 @@
     margin: 0px 0px 0px 0px !important;
     padding: 0px 0px 0px 0px !important;
     font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Helvetica, sans-serif;*/
 }
 </style>
 

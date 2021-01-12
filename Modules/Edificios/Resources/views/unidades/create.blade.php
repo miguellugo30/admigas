@@ -37,6 +37,13 @@
     <label for="entre_calles">Entre calles :</label>
     <input type="text" class="form-control form-control-sm" id="entre_calles" placeholder="Entre calles">
 </div>
+<div class="alert alert-primary" role="alert">
+    <i class="fas fa-dollar-sign"></i> Precio de Gas
+</div>
+<div class="form-group">
+    <label for="entre_calles">Precio de Gas :</label>
+    <input type="number" min="0" value="0"  class="form-control form-control-sm" id="precio_gas" placeholder="Precio de Gas">
+</div>
 <div class="form-group">
     <small class="form-text text-muted"> <b>*Campos obligatorios.</b></small>
 </div>
