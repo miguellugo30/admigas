@@ -83,6 +83,7 @@ class ClientesController extends Controller
          * Contacto Depto
          */
         $saldo = \DB::select("call SP_saldo_recibo( '$depto->numero_referencia' )");
+        //dd($saldo);
         /**
          * Recibos
          */
@@ -93,7 +94,8 @@ class ClientesController extends Controller
         $ultimosRecibos = \DB::select('call SP_consumo_recibos( ' . \Auth::user()->Departamentos->first()->id . ' );');
 
         $data = $recibos->first()->referencia."_".$recibos->first()->clave_recibo;
-        $data .= number_format(  ( (int)$saldo[0]->total_recibos - (int)$saldo[0]->total_pagos ) ,2 );
+        //$data .=  number_format( round( (float)$saldo[0]->total_recibos - (float)$saldo[0]->total_pagos ), 2);
+        $data .=  number_format( 1 , 2);
         $data .= 1842;
         $signature = hash_hmac("sha256", $data, 'l5dSMMeQCyZua-zH22Tx');
 

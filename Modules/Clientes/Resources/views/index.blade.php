@@ -20,7 +20,7 @@
                     <div class="card-body text-center">
                         <div class="col">
                             @if ( count( $recibos ) > 0 )
-                                <h1>$ {{ number_format( ( (int)$saldo[0]->total_recibos - (int)$saldo[0]->total_pagos ),2 ) }}</h1>
+                                <h1>$ {{ number_format( round( (float)$saldo[0]->total_recibos - (float)$saldo[0]->total_pagos ), 2) }}</h1>
                             @else
                                 <h1>$ 0.00</h1>
                             @endif
@@ -34,7 +34,7 @@
                                     <div class="col text-right">
 
                                         <form action="https://www.adquiramexico.com.mx:443/mExpress/pago/avanzado" method="post" target="_blank"/>
-                                            <input type="hidden" name="importe" value="{{ number_format( ( (int)$saldo[0]->total_recibos - (int)$saldo[0]->total_pagos ),2 ) }}"/>
+                                            <input type="hidden" name="importe" value="{{  number_format( 1, 2) }}"/>
                                             <input type="hidden" name="referencia" value="{{ $recibos->first()->referencia."_".$recibos->first()->clave_recibo }}"/>
                                             <input type="hidden" name="urlretorno" value="https://administradora.2gadmin.com.mx/clientes/registro-pago/"/>
                                             <input type="hidden" name="idexpress" value="1842"/>

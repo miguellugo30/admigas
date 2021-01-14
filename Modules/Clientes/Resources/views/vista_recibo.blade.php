@@ -126,10 +126,14 @@
     }
        </style>
        @php
-           $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
-	   $saldo_favor = \DB::select('call SP_saldo_favor_depto( "'.$recibos->referencia.'", "'.$recibos->fecha_recibo.'" );');
+            $historico = \DB::select('call SP_consumo_recibos( '.$recibos->admigas_departamentos_id.' );');
+	        $saldo_favor = \DB::select('call SP_saldo_favor_depto( "'.$recibos->referencia.'", "'.$recibos->fecha_recibo.'" );');
 
-           $saldo_favor = ( round( $saldo_favor[0]->total_recibos) - round( $saldo_favor[0]->total_pagos ) ) - round($recibos->adeudo_anterior);
+            $saldo_favor = ( round( $saldo_favor[0]->total_recibos) - round( $saldo_favor[0]->total_pagos ) ) - round($recibos->adeudo_anterior);
+
+            if ($saldo_favor > 0) {
+                $saldo_favor = 0;
+            }
 
        @endphp
 	<img src="{{'data:image/jpeg;base64,' . base64_encode($url_recibo)}}" alt="" width="560" height="750">
@@ -144,7 +148,7 @@
                </div>
                <div class="col data-total-pay">
                    <br>
-                   <p><b>{{ "$ ".number_format( ( $recibos->total_pagar + $saldo_favor ),2 )  }}</b></p>
+                   <p><b>{{ "$ ".number_format( round( $recibos->total_pagar + $saldo_favor ),2 )  }}</b></p>
                    <p><b>{{ date('d-m-Y', strtotime($recibos->fecha_limite_pago)) }}</b></p>
                    <p><b>{{ date('d-m-Y', strtotime($recibos->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibos->fecha_lectura_actual)) }}</b></p>
                </div>

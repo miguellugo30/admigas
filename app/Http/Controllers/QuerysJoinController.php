@@ -168,7 +168,8 @@ class QuerysJoinController extends Controller
         /**
          * Recuperamos el precio del gas de la empresa
          */
-        $precio = $this->precio_gas->select('precio')->empresa( $empresa_id )->active()->first();
+        $precio = $this->precio_gas($empresa_id, $condominio->admigas_unidades_id);
+        //$precio = $this->precio_gas->select('precio')->empresa( $empresa_id )->active()->first();
         /**
          * Recuperamos el numero consecutivo para el folio
          */
@@ -198,6 +199,8 @@ class QuerysJoinController extends Controller
                 $adeudo = 0;
             }
 
+            $importe = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio - $condominio->descuento ) );
+
             $v['clave_recibo'] = "A-".( $consecutivo++ );
             $v['unidad'] = $condominio->Unidades->nombre ;
             $v['condominio'] = $condominio->nombre ;
@@ -217,12 +220,12 @@ class QuerysJoinController extends Controller
             $v['fecha_lectura_actual'] = $depto->fecha_lectura_actual;
             $v['lectura_actual'] = $depto->lectura_actual;
             $v['fecha_limite_pago'] = $fechaLimite;
-            $v['precio_litro'] = $precio->precio;
-            $v['importe'] = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio->precio - $condominio->descuento ) );
+            $v['precio_litro'] = $precio;
+            $v['importe'] = $importe;
             $v['gasto_admin'] = $condominio->gasto_admin;
             $v['adeudo_anterior'] = $adeudo;
             $v['cargos_adicionales'] = $cargos_adicionales;
-            $v['total_pagar'] = round( $cargos_adicionales + $adeudo + $condominio->gasto_admin + (($depto->lectura_actual - $depto->lectura_anterior) * $condominio->factor) * ($precio->precio - $condominio->descuento) );
+            $v['total_pagar'] =$cargos_adicionales + $adeudo + $condominio->gasto_admin + $importe;
             $v['referencia'] = $depto->numero_referencia;
             $v['admigas_departamentos_id'] = $depto->departamento_id;
             $v['admigas_condominios_id'] = $condominio->id;
