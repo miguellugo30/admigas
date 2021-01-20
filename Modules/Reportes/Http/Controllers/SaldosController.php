@@ -16,8 +16,7 @@ class SaldosController extends Controller
     public function index()
     {
 
-        $data = DB::select("call SP_reporte_saldos()");
-        return view('reportes::saldos.index', compact('data'));
+        return view('reportes::saldos.index');
     }
 
     /**
@@ -36,7 +35,8 @@ class SaldosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = DB::select("call SP_reporte_saldos('$request->desde')");
+        return view('reportes::saldos.show', compact('data'));
     }
 
     /**
@@ -46,6 +46,7 @@ class SaldosController extends Controller
      */
     public function show($id)
     {
+
         return view('reportes::show');
     }
 

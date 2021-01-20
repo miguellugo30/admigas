@@ -12,7 +12,7 @@
             @endcan
             <button type="button" class="btn btn-primary btn-sm newDepartamento"><i class="fas fa-plus"></i> Nuevo</button>
             <div class="dropdown float-sm-right dropleft ml-1">
-                <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="menuCondominio btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-cogs"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

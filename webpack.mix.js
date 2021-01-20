@@ -37,6 +37,7 @@ mix.js([
     .js([
         'resources/js/module_reportes/menu.js',
         'resources/js/module_reportes/reporte_cargos.js',
+        'resources/js/module_reportes/reporte_saldos.js',
     ], 'public/js/reportes.js')
     .js([
         'resources/js/bootstrap.js',

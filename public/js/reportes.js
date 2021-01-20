@@ -160,15 +160,43 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_reportes/reporte_saldos.js":
+/*!********************************************************!*\
+  !*** ./resources/js/module_reportes/reporte_saldos.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  $(document).on("click", ".generateReportSaldo", function (e) {
+    e.preventDefault();
+    var desde = $("#desde").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/saldos';
+    $.post(url, {
+      desde: desde,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.showResult').html(data);
+    });
+  });
+});
+
+/***/ }),
+
 /***/ 3:
-/*!*****************************************************************************************************!*\
-  !*** multi ./resources/js/module_reportes/menu.js ./resources/js/module_reportes/reporte_cargos.js ***!
-  \*****************************************************************************************************/
+/*!******************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_reportes/menu.js ./resources/js/module_reportes/reporte_cargos.js ./resources/js/module_reportes/reporte_saldos.js ***!
+  \******************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\menu.js */"./resources/js/module_reportes/menu.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_cargos.js */"./resources/js/module_reportes/reporte_cargos.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_cargos.js */"./resources/js/module_reportes/reporte_cargos.js");
+module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_saldos.js */"./resources/js/module_reportes/reporte_saldos.js");
 
 
 /***/ })

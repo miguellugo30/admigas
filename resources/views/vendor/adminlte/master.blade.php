@@ -88,6 +88,12 @@
 
 
     });
+    $(function () {
+        $(document).on('click', '.menuCondominio', function(event) {
+            console.log('clic toggle');
+            $(this).dropdown('toggle')
+        });
+    });
   </script>
 
 @include('adminlte::plugins', ['type' => 'js'])
