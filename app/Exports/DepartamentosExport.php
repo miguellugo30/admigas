@@ -23,6 +23,7 @@ class DepartamentosExport implements FromCollection, WithHeadings
     {
         return  $this->deptos;
     }
+
     public function headings(): array
     {
         return [

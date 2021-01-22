@@ -36,5 +36,12 @@ Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => '
  * Rutas para CRUD de Cargos Adicionales
  */
 Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {
+    Route::get('litros/export/{fecha_inicial}/{fecja_final}', 'ListrosController@export' );
+    Route::resource('litros','ListrosController');
+});
+/*
+ * Rutas para CRUD de Cargos Adicionales
+ */
+Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {
     Route::resource('estado-cuenta','EstadoCuentaController');
 });

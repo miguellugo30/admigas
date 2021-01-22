@@ -116,6 +116,9 @@ $(function () {
     } else if (id == '18') {
       url = currentURL + '/cargos-adicionales';
       table = ' #table-cargos-adicionales';
+    } else if (id == '20') {
+      url = currentURL + '/litros';
+      table = ' #table-cargos-adicionales';
     }
 
     $.get(url, function (data, textStatus, jqXHR) {
@@ -160,6 +163,43 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_reportes/reporte_litros.js":
+/*!********************************************************!*\
+  !*** ./resources/js/module_reportes/reporte_litros.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  $(document).on("click", ".generateReportLitros", function (e) {
+    e.preventDefault();
+    $(".exportReportLitros").slideDown();
+    var desde = $("#desde").val();
+    var hasta = $("#hasta").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/litros';
+    $.post(url, {
+      desde: desde,
+      hasta: hasta,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.showResult').html(data);
+    });
+  });
+  $(document).on("click", ".exportReportLitros", function (e) {
+    e.preventDefault();
+    var desde = $("#desde").val();
+    var hasta = $("#hasta").val();
+    var url = currentURL + '/litros/export/' + desde + '/' + hasta;
+    window.open(url);
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/module_reportes/reporte_saldos.js":
 /*!********************************************************!*\
   !*** ./resources/js/module_reportes/reporte_saldos.js ***!
@@ -188,14 +228,15 @@ $(function () {
 /***/ }),
 
 /***/ 3:
-/*!******************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/module_reportes/menu.js ./resources/js/module_reportes/reporte_cargos.js ./resources/js/module_reportes/reporte_saldos.js ***!
-  \******************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_reportes/menu.js ./resources/js/module_reportes/reporte_cargos.js ./resources/js/module_reportes/reporte_litros.js ./resources/js/module_reportes/reporte_saldos.js ***!
+  \*******************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\menu.js */"./resources/js/module_reportes/menu.js");
 __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_cargos.js */"./resources/js/module_reportes/reporte_cargos.js");
+__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_litros.js */"./resources/js/module_reportes/reporte_litros.js");
 module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_saldos.js */"./resources/js/module_reportes/reporte_saldos.js");
 
 

@@ -20,6 +20,9 @@ $(function() {
         } else if (id == '18') {
             url = currentURL + '/cargos-adicionales';
             table = ' #table-cargos-adicionales';
+        } else if (id == '20') {
+            url = currentURL + '/litros';
+            table = ' #table-cargos-adicionales';
         }
 
         $.get(url, function(data, textStatus, jqXHR) {
