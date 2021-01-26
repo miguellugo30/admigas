@@ -20,7 +20,7 @@
                 <td>{{ $e->unidad }}</td>
                 <td>{{ $e->condominio }}</td>
                 <td>{{ $e->numero_departamento }}</td>
-                <td>{{ $e->fecha_lectura_anterior." - ".$e->fecha_lectura_actual }}</td>
+                <td>{{ $e->periodo }}</td>
                 <td>{{ $e->lectura_anterior }}</td>
                 <td>{{ $e->lectura_actual }}</td>
                 <td>{{ number_format( $e->m3, 2 ) }}</td>

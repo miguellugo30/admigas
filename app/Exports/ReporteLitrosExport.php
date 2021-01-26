@@ -34,6 +34,7 @@ class ReporteLitrosExport implements FromArray, WithHeadings
             'Unidad',
             'Edificio',
             'Departamento',
+            'Periodo',
             'Lectura Inicial',
             'Lectura Final',
             'M 3',
