@@ -1,9 +1,10 @@
 <table class="table">
     <thead class="thead-light">
-        <tr>
+        <tr class="text-center">
             <th>Unidad</th>
             <th>Edificio</th>
             <th>Departamento</th>
+            <th>Periodo</th>
             <th>Lectura Inicial</th>
             <th>Lectura Final</th>
             <th>M 3</th>
@@ -19,13 +20,14 @@
                 <td>{{ $e->unidad }}</td>
                 <td>{{ $e->condominio }}</td>
                 <td>{{ $e->numero_departamento }}</td>
+                <td>{{ $e->fecha_lectura_anterior." - ".$e->fecha_lectura_actual }}</td>
                 <td>{{ $e->lectura_anterior }}</td>
                 <td>{{ $e->lectura_actual }}</td>
                 <td>{{ number_format( $e->m3, 2 ) }}</td>
                 @php
-                    $total = $total + ( $e->m3 * $e->factor ) * $e->precio_litro;
+                    $total = $total + ( $e->m3 * $e->factor );
                 @endphp
-                <td>{{ number_format( ( $e->m3 * $e->factor ) * $e->precio_litro, 2) }}</td>
+                <td>{{ number_format( ( $e->m3 * $e->factor ) , 2) }}</td>
             </tr>
         @endforeach
             <tr>

@@ -93,7 +93,7 @@ class ListrosController extends Controller
         $result = array();
         foreach ($data as $e)
         {
-            $litros = ( $e->m3 * $e->factor ) * $e->precio_litro;
+            $litros = ( $e->m3 * $e->factor );
             $e->litros = number_format($litros, 2);
             $e->m3 = number_format($e->m3, 2);
             unset( $e->factor );
