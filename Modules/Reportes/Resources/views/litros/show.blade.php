@@ -36,6 +36,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th>Total</th>
                 <th>{{ number_format( $total, 2) }}</th>
             </tr>
