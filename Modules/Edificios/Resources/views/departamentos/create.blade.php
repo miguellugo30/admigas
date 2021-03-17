@@ -86,6 +86,12 @@
                     <label class="form-check-label" for="medio2">Impreso</label>
                   </div>
             </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="celular">Gasto de Administracion :</label>
+                    <input type="text" class="form-control form-control-sm" id="gasto_admin" placeholder="Gasto de Administracion" value="10">
+                </div>
+            </div>
         </fieldset>
     </div>
 

@@ -14,6 +14,7 @@ class AdmigasDepartamentos extends Model
         'numero_referencia',
         'factor',
         'descuento',
+        'gasto_admin',
         'fecha_lectura',
         'suministro',
         'admigas_condominios_id',

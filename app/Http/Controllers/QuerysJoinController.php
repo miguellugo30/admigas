@@ -86,6 +86,7 @@ class QuerysJoinController extends Controller
                                 'admigas_departamentos.id AS departamento_id',
                                 'admigas_departamentos.numero_departamento',
                                 'admigas_departamentos.numero_referencia',
+                                'admigas_departamentos.gasto_admin',
                                 'admigas_contacto_departamentos.nombre',
                                 'admigas_contacto_departamentos.apellido_materno',
                                 'admigas_contacto_departamentos.apellido_paterno',
@@ -129,12 +130,24 @@ class QuerysJoinController extends Controller
             {
                 $adeudo = 0;
             }
+            /**
+             * Validamos que gasto de admin usaremos
+             */
+            if ($depto->gasto_admin != NULL)
+            {
+                $depto->gasto_admin = $depto->gasto_admin ;
+            }
+            else
+            {
+                $depto->gasto_admin = $condominio->first()->gasto_admin ;
+            }
+
 
             $depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
             $depto->litros = ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor;
             $depto->consumo = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->first()->factor ) * ( $precio - $condominio->first()->descuento ) );
             $depto->cargos = $this->cargosDepto( $depto->departamento_id );
-            $depto->gasto_admin = $condominio->first()->gasto_admin ;
+            //$depto->gasto_admin = $condominio->first()->gasto_admin ;
             $depto->adeudo = $adeudo;
         }
 
@@ -222,10 +235,10 @@ class QuerysJoinController extends Controller
             $v['fecha_limite_pago'] = $fechaLimite;
             $v['precio_litro'] = $precio;
             $v['importe'] = $importe;
-            $v['gasto_admin'] = $condominio->gasto_admin;
+            $v['gasto_admin'] = $depto->gasto_admin;
             $v['adeudo_anterior'] = $adeudo;
             $v['cargos_adicionales'] = $cargos_adicionales;
-            $v['total_pagar'] =$cargos_adicionales + $adeudo + $condominio->gasto_admin + $importe;
+            $v['total_pagar'] =$cargos_adicionales + $adeudo + $depto->gasto_admin + $importe;
             $v['referencia'] = $depto->numero_referencia;
             $v['admigas_departamentos_id'] = $depto->departamento_id;
             $v['admigas_condominios_id'] = $condominio->id;

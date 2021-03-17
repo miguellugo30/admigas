@@ -111,6 +111,7 @@ class DepartamentosController extends Controller
         $depto = $this->departamentos->create([
                                                 'numero_departamento' => $request->numero_departamento,
                                                 'numero_referencia' =>  $request->numero_referencia,
+                                                'gasto_admin' =>  $request->gasto_admin,
                                                 'admigas_condominios_id' => $request->admigas_condominios_id
                                             ]);
         /**
@@ -228,7 +229,8 @@ class DepartamentosController extends Controller
         $this->departamentos->where('id', $request->admigas_departamentos_id)
                                     ->update([
                                             'numero_departamento' => $request->numero_departamento,
-                                            'numero_referencia' =>  $request->numero_referencia
+                                            'numero_referencia' =>  $request->numero_referencia,
+                                            'gasto_admin' =>  $request->gasto_admin
                                         ]);
         /**
         * Creamos el contacto del departamento

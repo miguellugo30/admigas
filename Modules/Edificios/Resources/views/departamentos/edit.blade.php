@@ -80,34 +80,14 @@
                     <label class="form-check-label" for="medio2">Impreso</label>
                   </div>
             </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="celular">Gasto de Administracion :</label>
+                    <input type="text" class="form-control form-control-sm" id="gasto_admin" placeholder="Gasto de Administracion" value="{{ $depto->gasto_admin }}">
+                </div>
+            </div>
         </fieldset>
     </div>
-
-    <!--div class="col-4">
-        <fieldset>
-            <legend>Datos Medidor</legend>
-            <--div class="form-group">
-                <label for="tipo">Tipo *:</label>
-            </div>
-            <input type="hidden" class="form-control form-control-sm" id="tipo" placeholder="tipo" value="1">
-            <div class="form-group">
-                <label for="marca">Marca :</label>
-                <input type="text" class="form-control form-control-sm" id="marca" placeholder="Marca" value="{{-- $depto->Medidores->marca --}}">
-            </div>
-            <div class="form-group">
-                <label for="numero_serie">Numero de Serie *:</label>
-                <input type="text" class="form-control form-control-sm" id="numero_serie" placeholder="Numero de Serie" value="{{-- $depto->Medidores->numero_serie --}}">
-            </div>
-            <div class="form-group">
-                <label for="lectura">Lectura Inicial *:</label>
-                <input type="text" class="form-control form-control-sm" id="lectura" placeholder="Lectura Inicial" value="{{-- $depto->Medidores->lectura --}}">
-            </div>
-            <div class="form-group">
-                <label for="fecha_lectura">Fecha Lectura Inicial *:</label>
-                <input type="date" class="form-control form-control-sm" id="fecha_lectura" placeholder="Fecha Lectura Inicial" value="">
-            </div>
-        </fieldset>
-    </div-->
 </div>
 <div class="form-group">
     <small class="form-text text-muted"> <b>*Campos obligatorios.</b></small>

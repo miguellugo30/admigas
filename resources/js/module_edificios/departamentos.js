@@ -66,8 +66,10 @@ $(function() {
 
         if ( clasificacion == 'digital' ) {
             ref = referencia.replace('I', 'E');
+            $("#gasto_admin").val(10);
         } else if( clasificacion == 'fisico' ) {
             ref = referencia.replace('E', 'I');
+            $("#gasto_admin").val(15);
         }
         //ref = referencia + num_depto.padStart(4, '0') + clas + med;
         $("#basic-addon1").text( ref );
@@ -97,6 +99,7 @@ $(function() {
         let fecha_lectura = $("#fecha_lectura").val();
         let clasificacion = $("input:radio[name=clasificacion]").val();
         let medio = $("input:radio[name=medio]").val();
+        let gasto_admin = $("#gasto_admin").val();
         let admigas_condominios_id = $("#admigas_condominios_id").val();
         let numero_referencia = referencia_digitos+digito_banco;
 
@@ -119,6 +122,7 @@ $(function() {
             fecha_lectura: fecha_lectura,
             clasificacion: clasificacion,
             medio: medio,
+            gasto_admin: gasto_admin,
             admigas_condominios_id: admigas_condominios_id,
             _token: _token
         }, function(data, textStatus, xhr) {
@@ -187,6 +191,7 @@ $(function() {
         let id_condominio = $("#id_condominio").val();
         let clasificacion = $("input:radio[name=clasificacion]").val();
         let medio = $("input:radio[name=medio]").val();
+        let gasto_admin = $("#gasto_admin").val();
 
         let _token = $("input[name=_token]").val();
         let _method = "PUT";
@@ -206,6 +211,7 @@ $(function() {
                 correo_electronico: correo_electronico,
                 clasificacion: clasificacion,
                 medio: medio,
+                gasto_admin: gasto_admin,
                 admigas_departamentos_id: admigas_departamentos_id,
                 id_condominio: id_condominio,
                 _token: _token,
