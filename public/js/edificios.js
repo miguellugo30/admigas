@@ -229,6 +229,28 @@ $(function () {
     }
   });
   /**
+   * Funcion para actualizar el excel en Google Drive
+   */
+
+  $(document).on('click', '.actualizarExcel', function (event) {
+    event.preventDefault();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + "/actualizar-excel";
+    $.post(url, {
+      admigas_condominios_id: admigas_condominios_id,
+      _token: _token
+    }, function (data, textStatus, xhr) {//$(".list-deptos-capture").html(data);
+      //  $("#fecha_lectura").val(fecha_lectura);
+    }).done(function () {
+      Swal.fire('Correcto!', 'Se ha actualizado el Excel.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
    * Funcion para mostrar los errores de los formularios
    */
 

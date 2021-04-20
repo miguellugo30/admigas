@@ -27,7 +27,12 @@ class CapturaLecturaController extends Controller
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
      */
-    public function __construct(AdmigasEdificios $edificio, QuerysJoinController $query, AdmigasLecturistas $lecturistas, donwloadFotosLecturasController $donwload)
+    public function __construct(
+                                    AdmigasEdificios $edificio,
+                                    QuerysJoinController $query,
+                                    AdmigasLecturistas $lecturistas,
+                                    donwloadFotosLecturasController $donwload
+                                    )
     {
         $this->middleware(function ($request, $next) {
 
@@ -168,9 +173,12 @@ class CapturaLecturaController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function updateExcel(Request $request)
     {
-        //
+        $condominio = $this->edificio->where('id', $request->admigas_condominios_id)->get();
+
+        $this->donwload->createDirectoriesCloud($condominio);
+
     }
 
     /**

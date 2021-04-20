@@ -174,6 +174,11 @@ class donwloadFotosLecturasController extends Controller
                 Storage::cloud()->makeDirectory( $dir['path'].'/Fotos');
                 $dirLecturas = $this->dirLecturas($dir['path'] . '/Fotos');
                 /**
+                 * Eliminamos el excel existente
+                 */
+                //Storage::cloud()->allFiles($dirLecturas['path']);
+                //Log::debug($dirLecturas['path']);
+                /**
                  * Creamamos el excel de las lecturas
                  */
                 $this->exportar->exportLecturasExcel( $c->id, $dirLecturas['path'] );
@@ -194,6 +199,15 @@ class donwloadFotosLecturasController extends Controller
                 if (!$dirLecturas)
                 {
                     Storage::cloud()->makeDirectory($dir['path'] . '/Lecturas');
+                }
+                /**
+                 * Eliminamos el excel existente
+                 */
+                $archivos = collect(Storage::cloud()->listContents($dirLecturas['path'], false));
+                foreach ($archivos as $e)
+                {
+                    Storage::cloud()->delete($e['path']);
+                    Log::debug($e['path']);
                 }
                 /**
                  * Creamamos el excel de las lecturas

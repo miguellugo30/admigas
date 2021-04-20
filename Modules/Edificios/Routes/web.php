@@ -57,6 +57,7 @@ Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 
 Route::group(['namespace' => '\Modules\Edificios\Http\Controllers', 'prefix' => 'edificios', 'middleware' => 'auth'], function() {
     Route::get('captura-lecturas/{id_condominios}', 'CapturaLecturaController@create' )->name('captura.lectura');
     Route::post('sincroniza-lecturas', 'CapturaLecturaController@syncData' )->name('sincroniza.lectura');
+    Route::post('actualizar-excel', 'CapturaLecturaController@updateExcel' )->name('actualizar.excel');
     Route::post('captura-lecturas', 'CapturaLecturaController@store' )->name('captura.lectura.create');
 });
 /*

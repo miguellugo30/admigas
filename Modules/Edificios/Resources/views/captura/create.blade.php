@@ -5,6 +5,7 @@
       </h3>
       <div class="card-tools">
           <button type="button" class="btn btn-info btn-sm returnCondominio" ><i class="fas fa-arrow-left"></i> Regresar</button>
+          <button type="button" class="btn btn-info btn-sm actualizarExcel" ><i class="far fa-file-excel"></i> Actualizar Excel</button>
           <button type="button" class="btn btn-info btn-sm sincronizarLecturas" ><i class="fas fa-sync-alt"></i> Sincronizar Lecturas</button>
           <button type="button" class="btn btn-info btn-sm saveLecturas" ><i class="fas fa-list-ol"></i> Guardar Lecturas</button>
           <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
