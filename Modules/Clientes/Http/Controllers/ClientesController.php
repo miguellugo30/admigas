@@ -93,11 +93,17 @@ class ClientesController extends Controller
          */
         $ultimosRecibos = \DB::select('call SP_consumo_recibos( ' . \Auth::user()->Departamentos->first()->id . ' );');
 
-        $data = $recibos->first()->referencia."_".$recibos->first()->clave_recibo;
-        $data .=  number_format( round( (float)$saldo[0]->total_recibos - (float)$saldo[0]->total_pagos ), 2, '.', '');
-        //$data .=  number_format( 1 , 2);
-        $data .= 1842;
-        $signature = hash_hmac("sha256", $data, 'l5dSMMeQCyZua-zH22Tx');
+        $signature = NULL;
+
+        if ( count( $recibos ) > 0 )
+        {
+            $data = $depto->numero_referencia."_".$recibos->first()->clave_recibo;
+            $data .=  number_format( round( (float)$saldo[0]->total_recibos - (float)$saldo[0]->total_pagos ), 2, '.', '');
+            //$data .=  number_format( 1 , 2);
+            $data .= 1842;
+            $signature = hash_hmac("sha256", $data, 'l5dSMMeQCyZua-zH22Tx');
+        }
+
 
         return view('clientes::index', compact('modulo', 'depto', 'recibos', 'ultimosRecibos', 'saldo', 'signature'));
     }
