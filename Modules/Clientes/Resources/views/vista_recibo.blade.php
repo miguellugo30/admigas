@@ -142,7 +142,11 @@
            <div class="col1">
                <div class="col data-client">
                    <p class="nombre">{{ $recibos->condomino }}</p>
-                   <p class="address">{{ $recibos->calle." Num. Ext.: ".$recibos->numero_exterior." Num. Int.:".$recibos->numero_interior }}</p>
+                   @if ($recibo->admigas_condominios_id == 7 || $recibo->admigas_condominios_id == 8)
+                        <p class="address">{{ $recibo->calle." ".$recibo->condominio." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
+                    @else
+                        <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
+                    @endif
                    <p class="address">{{ $recibos->colonia.", ".$recibos->delegacion.", C.P.:".$recibos->cp }}</p>
                    <legend class="cie">{{ $cie }}</legend>  <legend class="referencia">{{ $recibos->referencia }}</legend>
                </div>
