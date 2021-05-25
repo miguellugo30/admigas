@@ -145,7 +145,12 @@
         <div class="col1">
             <div class="col data-client">
                 <p class="nombre">{{ $recibo->condomino }}</p>
-                @if ($recibo->admigas_condominios_id == 7 || $recibo->admigas_condominios_id == 8)
+                @if (
+                        $recibo->admigas_condominios_id == 7 ||
+                        $recibo->admigas_condominios_id == 8 ||
+                        $recibo->admigas_condominios_id == 11 ||
+                        $recibo->admigas_condominios_id == 12
+                    )
                     <p class="address">{{ $recibo->calle." ".$recibo->condominio." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
                 @else
                     <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
@@ -239,7 +244,12 @@
         <div class="col2">
             <div class="col data-client">
                 <p class="nombre">{{ $recibo->condomino }}</p>
-                @if ($recibo->admigas_condominios_id == 7 || $recibo->admigas_condominios_id == 8)
+                @if (
+                    $recibo->admigas_condominios_id == 7 ||
+                    $recibo->admigas_condominios_id == 8 ||
+                    $recibo->admigas_condominios_id == 11 ||
+                    $recibo->admigas_condominios_id == 12
+                )
                     <p class="address">{{ $recibo->calle." ".$recibo->condominio." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
                 @else
                     <p class="address">{{ $recibo->calle." Num. Ext.: ".$recibo->numero_exterior." Num. Int.:".$recibo->numero_interior }}</p>
