@@ -143,10 +143,10 @@
                <div class="col data-client">
                    <p class="nombre">{{ $recibos->condomino }}</p>
                    @if (
-                       $recibo->admigas_condominios_id == 7 ||
-                        $recibo->admigas_condominios_id == 8 ||
-                        $recibo->admigas_condominios_id == 11 ||
-                        $recibo->admigas_condominios_id == 12
+                       $recibos->admigas_condominios_id == 7 ||
+                        $recibos->admigas_condominios_id == 8 ||
+                        $recibos->admigas_condominios_id == 11 ||
+                        $recibos->admigas_condominios_id == 12
                    )
                         <p class="address">{{ $recibos->calle." ".$recibos->condominio." Num. Ext.: ".$recibos->numero_exterior." Num. Int.:".$recibos->numero_interior }}</p>
                     @else
