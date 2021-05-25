@@ -234,10 +234,10 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\menu.js */"./resources/js/module_reportes/menu.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_cargos.js */"./resources/js/module_reportes/reporte_cargos.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_litros.js */"./resources/js/module_reportes/reporte_litros.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_reportes\reporte_saldos.js */"./resources/js/module_reportes/reporte_saldos.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/menu.js */"./resources/js/module_reportes/menu.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_cargos.js */"./resources/js/module_reportes/reporte_cargos.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_litros.js */"./resources/js/module_reportes/reporte_litros.js");
+module.exports = __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_saldos.js */"./resources/js/module_reportes/reporte_saldos.js");
 
 
 /***/ })

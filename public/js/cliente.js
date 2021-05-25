@@ -11141,7 +11141,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_cliente\acciones_cliente.js */"./resources/js/module_cliente/acciones_cliente.js");
+module.exports = __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_cliente/acciones_cliente.js */"./resources/js/module_cliente/acciones_cliente.js");
 
 
 /***/ })

@@ -10,6 +10,7 @@ use App\Http\Controllers\QuerysJoinController;
 use Illuminate\Support\Facades\Log;
 use DB;
 use App\Http\Controllers\donwloadFotosLecturasController;
+
 /**
  * Modelos
  */
@@ -178,6 +179,18 @@ class CapturaLecturaController extends Controller
         $condominio = $this->edificio->where('id', $request->admigas_condominios_id)->get();
 
         $this->donwload->createDirectoriesCloud($condominio);
+
+    }
+
+    public function syncFotosInicales(Request $request)
+    {
+        $condominio = $this->edificio->where('id', $request->admigas_condominios_id)->first();
+        $fecha = explode('/', $request->fecha_lectura);
+
+        //dd($condominio);
+        Log::info($condominio->nombre);
+
+        $this->donwload->donwloadFotos($condominio, $this->empresa_id, $fecha[1]."-".$fecha[2], 'Iniciales');
 
     }
 

@@ -43618,8 +43618,8 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\bootstrap.js */"./resources/js/bootstrap.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\notificaciones.js */"./resources/js/notificaciones.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/bootstrap.js */"./resources/js/bootstrap.js");
+module.exports = __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/notificaciones.js */"./resources/js/notificaciones.js");
 
 
 /***/ })

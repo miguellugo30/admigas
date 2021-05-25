@@ -399,7 +399,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/cache/data',
+        'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -461,7 +461,7 @@
         'port' => '3306',
         'database' => 'administradora_condominios',
         'username' => 'root',
-        'password' => '',
+        'password' => 'mch@v3s3',
         'unix_socket' => '',
         'charset' => 'utf8',
         'collation' => 'utf8_unicode_ci',
@@ -481,7 +481,7 @@
         'port' => '3306',
         'database' => 'administradora_condominios',
         'username' => 'root',
-        'password' => '',
+        'password' => 'mch@v3s3',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -496,7 +496,7 @@
         'port' => '3306',
         'database' => 'administradora_condominios',
         'username' => 'root',
-        'password' => '',
+        'password' => 'mch@v3s3',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -535,10 +535,10 @@
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\fonts/',
-      'font_cache' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\fonts/',
-      'temp_dir' => 'C:\\Users\\mchlu\\AppData\\Local\\Temp',
-      'chroot' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas',
+      'font_dir' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/fonts/',
+      'font_cache' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/fonts/',
+      'temp_dir' => '/var/folders/8p/k19rc1cn16g1g59myqpsg7300000gn/T',
+      'chroot' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -652,7 +652,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/laravel-excel',
+      'local_path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/laravel-excel',
       'remote_disk' => NULL,
       'remote_prefix' => NULL,
       'force_resync_remote' => NULL,
@@ -667,12 +667,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\app',
+        'root' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\app/public',
+        'root' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/app/public',
         'url' => 'http://administradora.2gadmin.com.mx/storage',
         'visibility' => 'public',
       ),
@@ -836,13 +836,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\logs/laravel.log',
+        'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\logs/laravel.log',
+        'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -911,7 +911,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\resources\\views/vendor/mail',
+        0 => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -919,7 +919,7 @@
   'maileclipse' => 
   array (
     'path' => 'maileclipse',
-    'mailables_dir' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\app\\Mail/',
+    'mailables_dir' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/app/Mail/',
     'factory' => true,
     'allowed_environments' => 
     array (
@@ -1114,7 +1114,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas/vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'Routes/web.php',
@@ -1178,9 +1178,9 @@
     ),
     'paths' => 
     array (
-      'modules' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\Modules',
-      'assets' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\public\\modules',
-      'migration' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\database/migrations',
+      'modules' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/Modules',
+      'assets' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/public/modules',
+      'migration' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -1315,7 +1315,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\vendor/*/*',
+        0 => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -1343,7 +1343,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\modules_statuses.json',
+        'statuses-file' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/modules_statuses.json',
         'cache-key' => 'activator.installed',
         'cache-lifetime' => 604800,
       ),
@@ -1486,7 +1486,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework/sessions',
+    'files' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1590,9 +1590,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\resources\\views',
+      0 => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/views',
     ),
-    'compiled' => 'C:\\Users\\mchlu\\Documents\\Desarrollos\\Personales\\admigas\\storage\\framework\\views',
+    'compiled' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/views',
   ),
   'flare' => 
   array (

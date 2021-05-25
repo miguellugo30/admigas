@@ -251,6 +251,41 @@ $(function () {
     });
   });
   /**
+   * Funcion para sincronizar las lecturas iniciales de Google Drive
+   */
+
+  $(document).on('click', '.sincronizarFotosIniciales', function (event) {
+    event.preventDefault();
+    var admigas_condominios_id = $("#admigas_condominios_id").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + "/sincronizar-fotos-iniciales";
+    Swal.fire({
+      title: 'Fecha de lectura inicial',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      inputPlaceholder: 'DD/MM/YYYY',
+      showCancelButton: true,
+      confirmButtonText: 'Sincronizar',
+      showLoaderOnConfirm: true
+    }).then(function (result) {
+      $.post(url, {
+        admigas_condominios_id: admigas_condominios_id,
+        fecha_lectura: result.value,
+        _token: _token
+      }, function (data, textStatus, xhr) {//$(".list-deptos-capture").html(data);
+        //  $("#fecha_lectura").val(fecha_lectura);
+      }).done(function () {
+        Swal.fire('Correcto!', 'Se han sincronizado las fotos iniciales.', 'success');
+      }).fail(function (data) {
+        printErrorMsg(data.responseJSON.errors);
+      });
+    });
+  });
+  /**
    * Funcion para mostrar los errores de los formularios
    */
 
@@ -1874,14 +1909,14 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\zonas.js */"./resources/js/module_edificios/zonas.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\unidades.js */"./resources/js/module_edificios/unidades.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\condominios.js */"./resources/js/module_edificios/condominios.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\tanques.js */"./resources/js/module_edificios/tanques.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\departamentos.js */"./resources/js/module_edificios/departamentos.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
-__webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\recibos.js */"./resources/js/module_edificios/recibos.js");
-module.exports = __webpack_require__(/*! C:\Users\mchlu\Documents\Desarrollos\Personales\admigas\resources\js\module_edificios\cargos_adicionales.js */"./resources/js/module_edificios/cargos_adicionales.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/zonas.js */"./resources/js/module_edificios/zonas.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/unidades.js */"./resources/js/module_edificios/unidades.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/condominios.js */"./resources/js/module_edificios/condominios.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/tanques.js */"./resources/js/module_edificios/tanques.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/departamentos.js */"./resources/js/module_edificios/departamentos.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/captura_lectura.js */"./resources/js/module_edificios/captura_lectura.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/recibos.js */"./resources/js/module_edificios/recibos.js");
+module.exports = __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_edificios/cargos_adicionales.js */"./resources/js/module_edificios/cargos_adicionales.js");
 
 
 /***/ })

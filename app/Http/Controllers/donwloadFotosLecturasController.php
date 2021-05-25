@@ -22,7 +22,7 @@ class donwloadFotosLecturasController extends Controller
         $this->exportar = $exportar;
     }
 
-    public function donwloadFotos($condominio, $empresa_id, $fecha_lectura)
+    public function donwloadFotos($condominio, $empresa_id, $fecha_lectura, $tipo = 'Fotos')
     {
         $dirCondomino = str_replace(" ", "_", $condominio->nombre . "_" . $condominio->id);
 
@@ -32,7 +32,16 @@ class donwloadFotosLecturasController extends Controller
          * Obtenemos los directorios del condominio
          **/
         $e = collect(Storage::cloud()->listContents($dir['path'], false));
+        Log::debug($e);
+
         $dirFotos = $e->where('type', '=', 'dir')->where('name', '=', 'Fotos')->first();
+        if ( $tipo == 'Iniciales')
+        {
+            $dirFotos = $e->where('type', '=', 'dir')->where('name', '=', 'Iniciales')->first();
+            Log::debug($dirFotos);
+
+        }
+
         if (!$dirFotos) {
             return 'No existe el directorio de las fotos!';
             Log::debug('No existe el directorio de las fotos.');
@@ -152,6 +161,18 @@ class donwloadFotosLecturasController extends Controller
     {
         $e = collect(Storage::cloud()->listContents($path, false));
         $dirFotos = $e->where('type', '=', 'dir')->where('name', '=', 'Fotos')->first();
+        if (!$dirFotos) {
+            return false;
+        }
+        return $dirFotos;
+    }
+    /**
+     * Validamos que exsite el directorio de las fotos iniciales
+     */
+    public function dirFotosIniciales($path)
+    {
+        $e = collect(Storage::cloud()->listContents($path, false));
+        $dirFotos = $e->where('type', '=', 'dir')->where('name', '=', 'Iniciales')->first();
         if (!$dirFotos) {
             return false;
         }
