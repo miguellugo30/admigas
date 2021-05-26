@@ -23,7 +23,7 @@ class ActualizarSaldosController extends Controller
     public function __construct(
         AdmigasEmpresas $empresas,
         AdmigasDepartamentos $deptos,
-        AdmigasSaldos $saldo,
+        AdmigasSaldos $saldo
     )
     {
         $this->empresas = $empresas;
