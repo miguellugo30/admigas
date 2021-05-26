@@ -43,6 +43,7 @@ Route::post('/clientes/registro/', 'Auth\RegisterController@register')->name('re
 Auth::routes();
 Route::get('/home', 'HomeController@directorios');
 Route::get('/deptos', 'DeptosFechaLimite@DeptosProximoVencer');
+Route::get('/update', 'ActualizarSaldosController@updateSaldos');
 
 /*
  * Rutas para CRUD de Zonas
