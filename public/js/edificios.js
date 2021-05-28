@@ -805,7 +805,7 @@ $(function () {
     var lectura = $("#lectura").val();
     var fecha_lectura = $("#fecha_lectura").val();
     var clasificacion = $("input:radio[name=clasificacion]").val();
-    var medio = $("input:radio[name=medio]").val();
+    var medio = $("input:radio[name=medio]:checked").val();
     var gasto_admin = $("#gasto_admin").val();
     var admigas_condominios_id = $("#admigas_condominios_id").val();
     var numero_referencia = referencia_digitos + digito_banco;
@@ -888,7 +888,7 @@ $(function () {
     var admigas_departamentos_id = $("#admigas_departamentos_id").val();
     var id_condominio = $("#id_condominio").val();
     var clasificacion = $("input:radio[name=clasificacion]").val();
-    var medio = $("input:radio[name=medio]").val();
+    var medio = $("input:radio[name=medio]:checked").val();
     var gasto_admin = $("#gasto_admin").val();
 
     var _token = $("input[name=_token]").val();

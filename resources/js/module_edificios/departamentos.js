@@ -98,7 +98,7 @@ $(function() {
         let lectura = $("#lectura").val();
         let fecha_lectura = $("#fecha_lectura").val();
         let clasificacion = $("input:radio[name=clasificacion]").val();
-        let medio = $("input:radio[name=medio]").val();
+        let medio = $("input:radio[name=medio]:checked").val();
         let gasto_admin = $("#gasto_admin").val();
         let admigas_condominios_id = $("#admigas_condominios_id").val();
         let numero_referencia = referencia_digitos+digito_banco;
@@ -190,7 +190,7 @@ $(function() {
         let admigas_departamentos_id = $("#admigas_departamentos_id").val();
         let id_condominio = $("#id_condominio").val();
         let clasificacion = $("input:radio[name=clasificacion]").val();
-        let medio = $("input:radio[name=medio]").val();
+        let medio = $("input:radio[name=medio]:checked").val();
         let gasto_admin = $("#gasto_admin").val();
 
         let _token = $("input[name=_token]").val();
