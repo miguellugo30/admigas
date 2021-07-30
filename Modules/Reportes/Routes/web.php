@@ -45,3 +45,10 @@ Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => '
 Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {
     Route::resource('estado-cuenta','EstadoCuentaController');
 });
+/*
+ * Rutas para CRUD de Reporte Recibos Generados Mensualmente
+ */
+Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {
+    Route::get('litros/export/{fecha_inicial}/{fecja_final}', 'ReporteRecibosGeneradosMensualController@export' );
+    Route::resource('recibos-generados','ReporteRecibosGeneradosMensualController');
+});

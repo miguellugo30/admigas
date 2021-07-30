@@ -119,6 +119,9 @@ $(function () {
     } else if (id == '20') {
       url = currentURL + '/litros';
       table = ' #table-cargos-adicionales';
+    } else if (id == '21') {
+      url = currentURL + '/recibos-generados';
+      table = ' #table-cargos-adicionales';
     }
 
     $.get(url, function (data, textStatus, jqXHR) {
@@ -200,6 +203,43 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_reportes/reporte_recibos_generados.js":
+/*!*******************************************************************!*\
+  !*** ./resources/js/module_reportes/reporte_recibos_generados.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  $(document).on("click", ".generateReporteRecibosGenerados", function (e) {
+    e.preventDefault();
+    $(".exportReporteRecibosGenerados").slideDown();
+    var desde = $("#desde").val();
+    var hasta = $("#hasta").val();
+
+    var _token = $("input[name=_token]").val();
+
+    var url = currentURL + '/recibos-generados';
+    $.post(url, {
+      desde: desde,
+      hasta: hasta,
+      _token: _token
+    }, function (data, textStatus, xhr) {
+      $('.showResult').html(data);
+    });
+  });
+  $(document).on("click", ".exportReporteRecibosGenerados", function (e) {
+    e.preventDefault();
+    var desde = $("#desde").val();
+    var hasta = $("#hasta").val();
+    var url = currentURL + '/litros/export/' + desde + '/' + hasta;
+    window.open(url);
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/module_reportes/reporte_saldos.js":
 /*!********************************************************!*\
   !*** ./resources/js/module_reportes/reporte_saldos.js ***!
@@ -228,16 +268,17 @@ $(function () {
 /***/ }),
 
 /***/ 3:
-/*!*******************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/module_reportes/menu.js ./resources/js/module_reportes/reporte_cargos.js ./resources/js/module_reportes/reporte_litros.js ./resources/js/module_reportes/reporte_saldos.js ***!
-  \*******************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_reportes/menu.js ./resources/js/module_reportes/reporte_cargos.js ./resources/js/module_reportes/reporte_litros.js ./resources/js/module_reportes/reporte_saldos.js ./resources/js/module_reportes/reporte_recibos_generados.js ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/menu.js */"./resources/js/module_reportes/menu.js");
 __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_cargos.js */"./resources/js/module_reportes/reporte_cargos.js");
 __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_litros.js */"./resources/js/module_reportes/reporte_litros.js");
-module.exports = __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_saldos.js */"./resources/js/module_reportes/reporte_saldos.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_saldos.js */"./resources/js/module_reportes/reporte_saldos.js");
+module.exports = __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_reportes/reporte_recibos_generados.js */"./resources/js/module_reportes/reporte_recibos_generados.js");
 
 
 /***/ })

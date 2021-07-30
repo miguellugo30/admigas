@@ -23,6 +23,9 @@ $(function() {
         } else if (id == '20') {
             url = currentURL + '/litros';
             table = ' #table-cargos-adicionales';
+        } else if (id == '21') {
+            url = currentURL + '/recibos-generados';
+            table = ' #table-cargos-adicionales';
         }
 
         $.get(url, function(data, textStatus, jqXHR) {
