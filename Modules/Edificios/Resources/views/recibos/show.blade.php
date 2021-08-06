@@ -163,7 +163,7 @@
                 </div>
                 <div class="col data-total-pay">
                     <br>
-                    <p><b>{{ "$ ".number_format( ( $recibo->total_pagar + $saldo_favor ),2 )  }}</b></p>
+                    <p><b>{{ "$ ".number_format( round( ( $recibo->total_pagar + $saldo_favor ) ),2 )  }}</b></p>
                     <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_limite_pago)) }}</b></p>
                     <p><b>{{ date('d-m-Y', strtotime($recibo->fecha_lectura_anterior))." -- ".date('d-m-Y', strtotime($recibo->fecha_lectura_actual)) }}</b></p>
                 </div>
