@@ -26,6 +26,7 @@ $(function() {
 
         let admigas_condominios_id = $("#admigas_condominios_id").val();
         let fecha_recibo = $("#fecha_recibo").val();
+        let mensaje = $("#mensaje").val();
 
         let _token = $("input[name=_token]").val();
         let url = currentURL + '/recibos';
@@ -40,6 +41,7 @@ $(function() {
             $.post(url, {
                 admigas_condominios_id: admigas_condominios_id,
                 fecha_recibo: fecha_recibo,
+                mensaje: mensaje,
                 _token: _token
             }, function(data, textStatus, xhr) {
 

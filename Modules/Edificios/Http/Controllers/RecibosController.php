@@ -22,6 +22,8 @@ use App\AdmigasEdificios;
 use App\AdmigasEmpresas;
 use App\AdmigasDepartamentos;
 use App\AdmigasServicios;
+use App\AdmigasMensajes;
+use App\AdmigasMenus;
 
 class RecibosController extends Controller
 {
@@ -32,6 +34,7 @@ class RecibosController extends Controller
     private $empresa;
     private $departamento;
     private $servicios;
+    private $mensajes;
     /**
      * Constructor para obtener el id empresa
      * con base al usuario que esta usando la sesion
@@ -42,7 +45,8 @@ class RecibosController extends Controller
                                     AdmigasRecibos $recibos,
                                     AdmigasEmpresas $empresa,
                                     AdmigasDepartamentos $departamento,
-                                    AdmigasServicios $servicios
+                                    AdmigasServicios $servicios,
+                                    AdmigasMensajes $mensajes
                                 )
     {
         $this->middleware(function ($request, $next) {
@@ -56,7 +60,7 @@ class RecibosController extends Controller
         $this->recibos = $recibos;
         $this->empresa = $empresa;
         $this->departamento = $departamento;
-        $this->servicios = $servicios;
+        $this->mensajes = $mensajes;
     }
     /**
      * Display a listing of the resource.
@@ -78,6 +82,10 @@ class RecibosController extends Controller
          */
         $condominio = $this->condominio->where('id', $id)->get();
         /**
+         * Obtenemos los mensajes activos
+         */
+        $mensajes = $this->mensajes->empresa( $this->empresa_id )->active()->get();
+        /**
          * Obtenemos los departamentos del condominios
          */
         $deptos = $this->query->queryRecibos( $id );
@@ -87,7 +95,7 @@ class RecibosController extends Controller
         if ( $data->has('error')  ) {
             return '<div class="alert alert-danger text-center" role="alert">No se ha dado de alta un <b>precio de gas<b></div>';
         } else {
-            return view('edificios::recibos.create', compact('condominio', 'data'));
+            return view('edificios::recibos.create', compact('condominio', 'data', 'mensajes'));
         }
 
 
@@ -109,7 +117,7 @@ class RecibosController extends Controller
          */
         $deptos = $this->query->queryRecibos( $request->admigas_condominios_id );
 
-        $this->query->generarRecibos( $deptos, $condominio, $this->empresa_id, $request->fecha_recibo );
+        $this->query->generarRecibos( $deptos, $condominio, $this->empresa_id, $request->fecha_recibo, $request->mensaje );
         /**
          * Redirigimos a la ruta index
          */
@@ -134,6 +142,7 @@ class RecibosController extends Controller
         $recibos = $this->recibos
                     ->where('admigas_condominios_id', $id)
                     ->where('fecha_recibo', 'like',date('Y-m', strtotime($fecha[0]->fecha_recibo))."%"  )
+                    ->with('Mensajes')
                     ->active()
                     ->get();
         return $this->createPdf( $recibos, 2 );

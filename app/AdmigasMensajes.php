@@ -38,4 +38,9 @@ class AdmigasMensajes extends Model
     {
         return $this->belongsTo('App\AdmigasEmpresas', 'admigas_empresas_id', 'id');
     }
+
+    public function Recibos()
+    {
+        return $this->belongsTo('App\AdmigasRecibos', 'admigas_mensajes_recibos', 'admigas_recibos_id', 'admigas_mensajes_id');
+    }
 }

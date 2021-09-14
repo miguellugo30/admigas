@@ -85,4 +85,9 @@ class AdmigasRecibos extends Model
         return $this->belongsToMany('App\AdmigasCargosAdicionales', 'admigas_cargos_recibos');
     }
 
+    public function Mensajes()
+    {
+        return $this->belongsToMany('App\AdmigasMensajes', 'admigas_mensajes_recibos', 'admigas_recibos_id')->select('mensaje');
+    }
+
 }

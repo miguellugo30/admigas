@@ -25,12 +25,26 @@
 </div>
 <div class="card-body">
     <div class="row">
-        <div class="col-10">
+        <div class="col-5">
             <div class="form-group row">
-                <label for="nombre" class="col-sm-3 col-form-label text-right">Fecha de Recibos*:</label>
-                <div class="col-sm-9">
+                <label for="nombre" class="col-sm-6 col-form-label text-right">Fecha de Recibos*:</label>
+                <div class="col-sm-6">
                     <input type="date" class="form-control form-control-sm" id="fecha_recibo" name="fecha_recibo" placeholder="Fecha de Lectura">
                     @csrf
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-group row">
+                <label for="nombre" class="col-sm-3 col-form-label text-right">Mensaje:</label>
+                <div class="col-sm-9">
+                    <select name="mensaje" id="mensaje" class="form-control form-control-sm">
+                        <option value="">Selecciona una opcion</option>
+                        <option value="0">Sin Mensaje</option>
+                        @foreach ($mensajes as $mensaje)
+                            <option value="{{$mensaje->id}}">{{ $mensaje->nombre }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>

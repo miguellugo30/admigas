@@ -171,7 +171,7 @@ class QuerysJoinController extends Controller
     /**
      * Funcion para poder almacenar los recibos del periodo
      */
-    public function generarRecibos($deptos, $condominio, $empresa_id, $fecha_recibo)
+    public function generarRecibos($deptos, $condominio, $empresa_id, $fecha_recibo, $mensaje)
     {
         /**
          * Agregamos los dias de fecha limite
@@ -245,14 +245,21 @@ class QuerysJoinController extends Controller
 
             if( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) >= 2 )
             {
-                array_push( $info, $v );
+                $id = DB::table('admigas_recibos')->insertGetId( $v );
+
+                DB::table('admigas_mensajes_recibos')->insert([
+                    'admigas_mensajes_id' => $mensaje,
+                    'admigas_recibos_id' => $id
+                ]);
+
+                //array_push( $info, $v );
             }
 
         }
         /**
          * Creamos los recibos
          */
-        DB::table('admigas_recibos')->insert( $info );
+        //$ids = DB::table('admigas_recibos')->insertGetId( $info );
     }
 
     public function folio_recibo()

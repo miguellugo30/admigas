@@ -238,10 +238,18 @@
                     </div>
                     <div class="der" style="text-align: center;">
                         @php
-                            $foto = file_get_contents( public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" );
+                            //$foto = file_get_contents( public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" );
+                            $foto = '';
                         @endphp
                         <img src="{{'data:image/jpeg;base64,' . base64_encode($foto)}}" alt="" width="100px">
                     </div>
+                </div>
+                <div class="row data-client" style="font-size: 12px; margin-top: 50px; margin-left: 50px ">
+                    <p>
+                        @if ( $recibo->Mensajes->isNotEmpty() )
+                            {{$recibo->Mensajes->first()->mensaje}}
+                        @endif
+                    </p>
                 </div>
             </div>
             <div class="col2">
@@ -337,10 +345,18 @@
                     </div>
                     <div class="der" style="text-align: center;">
                         @php
-                            $foto = file_get_contents( public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" );
+                            //$foto = file_get_contents( public_path()."/storage/".$empresa_id.'/'.$recibo->admigas_condominios_id.'/'.date('m-Y', strtotime($recibo->fecha_lectura_actual)).'/'.$recibo->admigas_departamentos_id."_".$recibo->numero_departamento.".jpeg" );
+                            $foto = '';
                         @endphp
                         <img src="{{'data:image/jpeg;base64,' . base64_encode($foto)}}" alt="" width="100px">
                     </div>
+                </div>
+                <div class="row data-client" style="font-size: 12px; margin-top: 50px; margin-left: 50px;">
+                    <p>
+                        @if ( $recibo->Mensajes->isNotEmpty() )
+                            {{$recibo->Mensajes->first()->mensaje}}
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>

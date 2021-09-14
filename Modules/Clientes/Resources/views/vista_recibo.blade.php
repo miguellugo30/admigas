@@ -230,11 +230,18 @@
                     <div class="der" style="text-align: center;">
 
                         @if ( \Storage::exists( $empresa_id.'/'.$recibos->admigas_condominios_id.'/'.date('m-Y', strtotime($recibos->fecha_lectura_actual)).'/'.$recibos->admigas_departamentos_id."_".$recibos->numero_departamento.".jpeg" ) )
-				<img src="{{'data:image/jpeg;base64,' . base64_encode($foto_actual)}}" alt="" width="100px" >
-			@else
-				<h3>SIN FOTO</h3>
-			@endif
+				            <img src="{{'data:image/jpeg;base64,' . base64_encode($foto_actual)}}" alt="" width="100px" >
+                        @else
+                            <h3>SIN FOTO</h3>
+                        @endif
                     </div>
+                </div>
+                <div class="row data-client" style="font-size: 12px; margin-top: -20px; margin-left: 50px;">
+                    <p>
+                        @if ( $recibos->Mensajes->isNotEmpty() )
+                            {{$recibos->Mensajes->first()->mensaje}}
+                        @endif
+                    </p>
                 </div>
            </div>
        </div>

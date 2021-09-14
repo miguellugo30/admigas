@@ -280,7 +280,7 @@ class DepartamentosController extends Controller
     public function show_recibo( $id_departamentos, $id_recibo )
     {
 
-        $recibos = AdmigasRecibos::active()->where('clave_recibo', $id_recibo)->where('admigas_departamentos_id', $id_departamentos)->first();
+        $recibos = AdmigasRecibos::active()->where('clave_recibo', $id_recibo)->where('admigas_departamentos_id', $id_departamentos)->with('Mensajes')->first();
         $e = new GenerarPDFControler;
         $pdf = $e->generate( $id_departamentos, 1, $recibos,$this->empresa_id );
         return $pdf;

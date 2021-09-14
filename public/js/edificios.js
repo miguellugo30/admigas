@@ -1054,6 +1054,7 @@ $(function () {
     event.preventDefault();
     var admigas_condominios_id = $("#admigas_condominios_id").val();
     var fecha_recibo = $("#fecha_recibo").val();
+    var mensaje = $("#mensaje").val();
 
     var _token = $("input[name=_token]").val();
 
@@ -1065,6 +1066,7 @@ $(function () {
       $.post(url, {
         admigas_condominios_id: admigas_condominios_id,
         fecha_recibo: fecha_recibo,
+        mensaje: mensaje,
         _token: _token
       }, function (data, textStatus, xhr) {
         $('.viewResult').html(data);
