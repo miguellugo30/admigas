@@ -46,6 +46,12 @@ Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => '
     Route::resource('estado-cuenta','EstadoCuentaController');
 });
 /*
+ * Rutas para CRUD de Reporte Pagos Manual
+ */
+Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {
+    Route::resource('reporte-pagos-manual','PagosManualController');
+});
+/*
  * Rutas para CRUD de Reporte Recibos Generados Mensualmente
  */
 Route::group(['namespace' => '\Modules\Reportes\Http\Controllers', 'prefix' => 'reportes', 'middleware' => 'auth'], function() {

@@ -40,6 +40,12 @@ Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefi
     Route::resource('pagos-no-conciliados','PagosNoConciliadosController');
 });
 /*
+ * Rutas para CRUD de pagos manual
+ */
+Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {
+    Route::resource('pagos-manual','PagosManualController');
+});
+/*
  * Rutas para CRUD de conciliacion manual
  */
 Route::group(['namespace' => '\Modules\CreditoCobranza\Http\Controllers', 'prefix' => 'credito-cobranza', 'middleware' => 'auth'], function() {

@@ -48,6 +48,7 @@ mix.js([
     .js([
         'resources/js/module_credito/menu.js',
         'resources/js/module_credito/conciliacion.js',
+        'resources/js/module_credito/pago-manual.js',
         'resources/js/module_credito/conciliacion_manual.js',
     ], 'public/js/credito.js');
 /*

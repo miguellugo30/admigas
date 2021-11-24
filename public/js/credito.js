@@ -226,6 +226,9 @@ $(function () {
     } else if (id == '19') {
       url = currentURL + '/conciliacion-manual';
       table = ' #table-precio-gas';
+    } else if (id == '22') {
+      url = currentURL + '/pagos-manual';
+      table = ' #table-precio-gas';
     }
 
     $.get(url, function (data, textStatus, jqXHR) {
@@ -241,15 +244,84 @@ $(function () {
 
 /***/ }),
 
+/***/ "./resources/js/module_credito/pago-manual.js":
+/*!****************************************************!*\
+  !*** ./resources/js/module_credito/pago-manual.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var currentURL = window.location.href;
+  /**
+   * Evento para conciliar el archivo
+   */
+
+  $(document).on("click", ".aplicar-pago-button", function (e) {
+    e.preventDefault();
+    var formData = new FormData(document.getElementById("formConciliacion"));
+    var archivoConciliacion = $("#archivoConciliar").val();
+    var importe = $("#importe").val();
+    var fecha = $("#fecha").val();
+    var unidad = $("#unidad_no_conciliado").val();
+    var edificio = $("#edificio_no_conciliado").val();
+    var depto = $("#depto_no_conciliado").val();
+
+    var _token = $("input[name=_token]").val();
+
+    formData.append("archivoConciliacion", archivoConciliacion);
+    formData.append("importe", importe);
+    formData.append("fecha", fecha);
+    formData.append("unidad", unidad);
+    formData.append("edificio", edificio);
+    formData.append("depto", depto);
+    formData.append("_token", _token);
+    var url = currentURL + '/pagos-manual';
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false
+    }).done(function (data) {
+      $('.viewResult').html(data);
+      Swal.fire('Correcto!', 'El pago se ha registro correctamente.', 'success');
+    }).fail(function (data) {
+      printErrorMsg(data.responseJSON.errors);
+    });
+  });
+  /**
+   * Funcion para mostrar los errores de los formularios
+   */
+
+  function printErrorMsg(msg) {
+    $(".print-error-msg").find("ul").html('');
+    $(".print-error-msg").css('display', 'block');
+    $(".form-control").removeClass('is-invalid');
+
+    for (var clave in msg) {
+      $("#" + clave).addClass('is-invalid');
+
+      if (msg.hasOwnProperty(clave)) {
+        $(".print-error-msg").find("ul").append('<li>' + msg[clave][0] + '</li>');
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ 5:
-/*!******************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/module_credito/menu.js ./resources/js/module_credito/conciliacion.js ./resources/js/module_credito/conciliacion_manual.js ***!
-  \******************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/module_credito/menu.js ./resources/js/module_credito/conciliacion.js ./resources/js/module_credito/pago-manual.js ./resources/js/module_credito/conciliacion_manual.js ***!
+  \***************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_credito/menu.js */"./resources/js/module_credito/menu.js");
 __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_credito/conciliacion.js */"./resources/js/module_credito/conciliacion.js");
+__webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_credito/pago-manual.js */"./resources/js/module_credito/pago-manual.js");
 module.exports = __webpack_require__(/*! /Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/js/module_credito/conciliacion_manual.js */"./resources/js/module_credito/conciliacion_manual.js");
 
 
