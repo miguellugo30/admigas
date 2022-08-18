@@ -236,7 +236,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="row data-client" style="font-size: 12px; margin-top: -20px; margin-left: 50px;">
+                <div class="row data-client" style="font-size: 12px; margin-top: -10px; margin-left: 35px;">
                     <p>
                         @if ( $recibos->Mensajes->isNotEmpty() )
                             {{$recibos->Mensajes->first()->mensaje}}

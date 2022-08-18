@@ -9,14 +9,14 @@
                             <div class="form-group">
                                 <label for="numero_departamento">Numero de Departamento *:</label>
                                 <input type="hidden" name="admigas_departamentos_id" id="admigas_departamentos_id" value="{{ $depto->id }}">
-                                <input type="text" class="form-control form-control-sm" id="numero_departamento" placeholder="Numero de Departamento" value="{{ $depto->numero_departamento }}">
+                                <input type="text" class="form-control form-control-sm" id="numero_departamento" placeholder="Numero de Departamento" value="{{ $depto->numero_departamento }}" readonly>
                                 @csrf
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="numero_referencia">Numero de Referencia *:</label>
-                                <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia" value="{{ $depto->numero_referencia }}">
+                                <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia" value="{{ $depto->numero_referencia }}" readonly>
                             </div>
                         </div>
                     </div>
@@ -84,6 +84,20 @@
                 <div class="form-group">
                     <label for="celular">Gasto de Administracion :</label>
                     <input type="text" class="form-control form-control-sm" id="gasto_admin" placeholder="Gasto de Administracion" value="{{ $depto->gasto_admin }}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="telefono">Lectura Inicial :</label>
+                        <input type="text" class="form-control form-control-sm" id="lectura_inicial" placeholder="Lectura Inicial" value="{{ $depto->Contacto_Depto->telefono }}">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="celular">Fecha Lectura Inicial:</label>
+                        <input type="date" class="form-control form-control-sm" id="fecha_lectura_inical" placeholder="Fecha Lectura Inicial" value="{{ $depto->Contacto_Depto->celular }}">
+                    </div>
                 </div>
             </div>
         </fieldset>
