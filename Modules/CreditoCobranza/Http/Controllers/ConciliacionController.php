@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\CreditoCobranza\Http\Requests\ConciliacionRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 use App\AdmigasDepartamentos;
 use App\AdmigasPagos;
@@ -52,37 +53,37 @@ class ConciliacionController extends Controller
     public function store(ConciliacionRequest $request)
     {
         $tmp = $request->archivoConciliar->path();
-        $content = array_chunk( explode( '|' ,\File::get( $tmp )), 6);
+        $content = explode("\n", \File::get( $tmp ));
 
         $data = $this->formatearInformacion( $content );
+
         for ($i=0; $i < count( $data ); $i++)
         {
-            /**
+            /*
              * Validamos que la referencia exista
              */
             if( AdmigasDepartamentos::where('numero_referencia', $data[$i]['referencia'])->exists() )
             {
-                /**
+                /*
                  * Validamos que no exista un pago igual
                  */
                 if (
                     !AdmigasPagos::where('referencia', $data[$i]['referencia'])
-                                ->where('referencia_completa', $data[$i]['referencia']."_".$data[$i]['guia_cie'])
                                 ->where('importe', $data[$i]['importe'])
                                 ->where('fecha_pago', $data[$i]['fecha'])
                                 ->exists()
                     )
                 {
-                    /**
+                    /*
                      * Recuperamos le id del departamento
                      **/
                     $id = AdmigasDepartamentos::select('id')->where('numero_referencia', $data[$i]['referencia'])->first();
-                    /**
+                    /*
                      * Insertamos el pago
                      **/
                     $pago = AdmigasPagos::create([
                                                     'referencia' => $data[$i]['referencia'],
-                                                    'referencia_completa' => $data[$i]['referencia']."_".$data[$i]['guia_cie'],
+                                                    'referencia_completa' => $data[$i]['guia_cie'],
                                                     'importe' => $data[$i]['importe'],
                                                     'fecha_pago' => $data[$i]['fecha'],
                                                     'medio_pago' => 'EFE',
@@ -90,7 +91,7 @@ class ConciliacionController extends Controller
                                                     'modo' => 2,
                                                 ]);
 
-                    /**
+                    /*
                      * Relacionamos el pago con el departamento
                      **/
                     \DB::table('admigas_departamentos_pagos')->insert([
@@ -99,7 +100,7 @@ class ConciliacionController extends Controller
                         'user_id' => $this->user_id,
                         'fecha_aplicacion' => date('Y-m-d'),
                     ]);
-                    /**
+                    /*
                      * Marcamos el pago como conciliado
                      */
                     $data[$i]['conciliado'] = 1 ;
@@ -107,33 +108,38 @@ class ConciliacionController extends Controller
             }
             else
             {
-                if ( strpos( $data[$i]['referencia'], '3300' ) === false )
+                if ( $data[$i]['importe'] != '' )
                 {
-                    /**
-                     * Insertamos el pago
-                     **/
-                    AdmigasPagos::create([
-                        'referencia' => $data[$i]['referencia'],
-                        'referencia_completa' => $data[$i]['referencia']."_".$data[$i]['guia_cie'],
-                        'importe' => $data[$i]['importe'],
-                        'fecha_pago' => $data[$i]['fecha'],
-                        'medio_pago' => 'EFE',
-                        'estatus' => 0,
-                        'modo' => 2,
-                    ]);
-                    /**
-                     * Marcamos el pago como conciliado
-                     */
-                    $data[$i]['conciliado'] = 0 ;
+                    if (!Str::contains( $data[$i]['referencia'], 'VENTAS')                        )
+                    {
+                        /*
+                         * Insertamos el pago
+                         **/
+                        AdmigasPagos::create([
+                            'referencia' => 'SIN REFERENCIA',
+                            'referencia_completa' => $data[$i]['guia_cie'],
+                            'importe' => $data[$i]['importe'],
+                            'fecha_pago' => $data[$i]['fecha'],
+                            'medio_pago' => 'EFE',
+                            'estatus' => 0,
+                            'modo' => 2,
+                        ]);
+                        /*
+                         * Marcamos el pago como conciliado
+                         */
+                        $data[$i]['conciliado'] = 0 ;
+                    }
+                    else
+                    {
+                        $data[$i]['conciliado'] = 2 ;
+                    }
                 }//IF coincidencia 3300
-                $data[$i]['conciliado'] = 2 ;
             }//IF existe referencia
         }//FOR
 
         $data = collect($data);
 
         return view('creditocobranza::conciliacion.resultado', compact('data'));
-
     }
 
     /**
@@ -182,36 +188,28 @@ class ConciliacionController extends Controller
 
         $info = array();
 
-        for ($i=0; $i < count( $data ); $i++)
+        for ($i=1; $i < count( $data ); $i++)
         {
-            /**
-             * Validamos que cada elemento contenga 6 datos
-             */
-            if ( count( $data[$i] ) == 6  )
+            $datos = explode("\t", $data[$i]);
+
+            if ( count($datos) > 1 )
             {
-                $d =  $data[$i];
-                $fecha = preg_replace('([^A-Za-z0-9])', '', $d[0] );
-                if ( strlen( $fecha ) == 6 )
-                {
-                    $fecha =  date('Y-m-d', strtotime( $fecha[4].$fecha[5]."-".$fecha[2].$fecha[3]."-".$fecha[0].$fecha[1] ));
-                }
-                else
-                {
-                    $fecha =  date('Y-m-d', strtotime( $fecha[3].$fecha[4]."-".$fecha[1].$fecha[2]."-0".$fecha[0] ));
-                }
+                $referenciaCompleta = explode('/', $datos[1]);
+                $referencia = str_replace('CE', '', $referenciaCompleta[0]);
+                $fecha = date('Y-m-d', strtotime($datos[0]));
 
-                $c['fecha'] = $fecha;
-                $c['tipo_pago'] = $d[1];
-                $c['guia_cie'] = $d[2];
-                $c['referencia'] = $d[3];
-                $c['concepto'] = $d[4];
-                $c['importe'] = $d[5];
+                    $c['fecha'] = $fecha;
+                    $c['guia_cie'] = $datos[1];
+                    $c['referencia'] = $referencia;
+                    $c['concepto'] = 'Pago recibo';
+                    $c['tipo_pago'] = 'EFE';
+                    $c['importe'] = str_replace(',', '', $datos[3]);
+                    $c['conciliado'] = 2;
 
-                array_push( $info, $c );
+                    array_push( $info, $c );
             }
+
         }
-
         return $info;
-
     }
 }

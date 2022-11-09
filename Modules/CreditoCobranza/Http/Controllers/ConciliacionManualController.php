@@ -60,7 +60,10 @@ class ConciliacionManualController extends Controller
      */
     public function store(Request $request)
     {
-
+        /**
+         * Recuperamos la referencia del departamento
+         */
+        $departamento = AdmigasDepartamentos::where( 'id', $request->depto_id )->first();
         /**
          * Relacionamos el pago con el departamento
          **/
@@ -71,7 +74,7 @@ class ConciliacionManualController extends Controller
             'fecha_aplicacion' => date('Y-m-d'),
         ]);
 
-        AdmigasPagos::where( 'id', $request->pago_id )->update(['estatus' => 1]);
+        AdmigasPagos::where( 'id', $request->pago_id )->update(['estatus' => 1, 'referencia' => $departamento->numero_referencia]);
 
         return redirect()->route('conciliacion-manual.index');
     }

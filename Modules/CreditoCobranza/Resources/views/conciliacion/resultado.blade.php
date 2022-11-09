@@ -32,7 +32,7 @@
                             <td>{{ $item['guia_cie'] }}</td>
                             <td>{{ $item['referencia'] }}</td>
                             <td>{{ $item['concepto'] }}</td>
-                            <td>$ {{ number_format( $item['importe'], 2) }}</td>
+                            <td>$ {{ $item['importe'] == '' ? 0 : number_format( $item['importe'], 2) }}</td>
                         </tr>
                     @endforeach
                 @else
@@ -65,7 +65,7 @@
                             <td>{{ $item['guia_cie'] }}</td>
                             <td>{{ $item['referencia'] }}</td>
                             <td>{{ $item['concepto'] }}</td>
-                            <td>$ {{ number_format( $item['importe'], 2) }}</td>
+                            <td>$ {{ $item['importe'] == '' ? 0 : number_format( $item['importe'], 2) }}</td>
                         </tr>
                     @endforeach
                 @else
@@ -98,7 +98,7 @@
                             <td>{{ $item['guia_cie'] }}</td>
                             <td>{{ $item['referencia'] }}</td>
                             <td>{{ $item['concepto'] }}</td>
-                            <td>$ {{ number_format( $item['importe'], 2) }}</td>
+                            <td>$ {{ $item['importe'] == '' ? 0 :  number_format( $item['importe'], 2) }}</td>
                         </tr>
                     @endforeach
                 @else
