@@ -6,12 +6,40 @@
     'title_postfix' => '',
     'use_ico_only' => false,
     'use_full_favicon' => false,
+    'google_fonts' => 
+    array (
+      'allowed' => true,
+    ),
     'logo' => '2G<b>Admin</b>',
     'logo_img' => '../storage/Logo.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => '../storage/Logo.png',
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => '2g-admin-logo',
+    'auth_logo' => 
+    array (
+      'enabled' => false,
+      'img' => 
+      array (
+        'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+        'alt' => 'Auth Logo',
+        'class' => '',
+        'width' => 50,
+        'height' => 50,
+      ),
+    ),
+    'preloader' => 
+    array (
+      'enabled' => true,
+      'img' => 
+      array (
+        'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+        'alt' => 'AdminLTE Preloader Image',
+        'effect' => 'animation__shake',
+        'width' => 60,
+        'height' => 60,
+      ),
+    ),
     'usermenu_enabled' => true,
     'usermenu_header' => false,
     'usermenu_header_class' => 'bg-primary',
@@ -23,6 +51,7 @@
     'layout_fixed_sidebar' => NULL,
     'layout_fixed_navbar' => NULL,
     'layout_fixed_footer' => NULL,
+    'layout_dark_mode' => NULL,
     'classes_auth_card' => 'card-outline card-primary',
     'classes_auth_header' => '',
     'classes_auth_body' => '',
@@ -214,6 +243,29 @@
         ),
       ),
     ),
+    'iframe' => 
+    array (
+      'default_tab' => 
+      array (
+        'url' => NULL,
+        'title' => NULL,
+      ),
+      'buttons' => 
+      array (
+        'close' => true,
+        'close_all' => true,
+        'close_all_other' => true,
+        'scroll_left' => true,
+        'scroll_right' => true,
+        'fullscreen' => true,
+      ),
+      'options' => 
+      array (
+        'loading_screen' => 1000,
+        'auto_show_new_tab' => true,
+        'use_navbar_items' => true,
+      ),
+    ),
     'livewire' => false,
   ),
   'app' => 
@@ -399,7 +451,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/cache/data',
+        'path' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -460,8 +512,8 @@
         'host' => '127.0.0.1',
         'port' => '8889',
         'database' => 'administradora_condominios',
-        'username' => 'root',
-        'password' => 'mch@v3s3',
+        'username' => 'admigas',
+        'password' => '@o9ZbhzWkN8hLd^EQ^af',
         'unix_socket' => '',
         'charset' => 'utf8',
         'collation' => 'utf8_unicode_ci',
@@ -480,8 +532,8 @@
         'host' => '127.0.0.1',
         'port' => '8889',
         'database' => 'administradora_condominios',
-        'username' => 'root',
-        'password' => 'mch@v3s3',
+        'username' => 'admigas',
+        'password' => '@o9ZbhzWkN8hLd^EQ^af',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -495,8 +547,8 @@
         'host' => '127.0.0.1',
         'port' => '8889',
         'database' => 'administradora_condominios',
-        'username' => 'root',
-        'password' => 'mch@v3s3',
+        'username' => 'admigas',
+        'password' => '@o9ZbhzWkN8hLd^EQ^af',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -532,13 +584,56 @@
   'dompdf' => 
   array (
     'show_warnings' => false,
+    'public_path' => NULL,
+    'convert_entities' => true,
+    'options' => 
+    array (
+      'font_dir' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/fonts',
+      'font_cache' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/fonts',
+      'temp_dir' => '/var/folders/8p/k19rc1cn16g1g59myqpsg7300000gn/T',
+      'chroot' => '/Users/miguellugo/Documents/Desarrollos/admigas',
+      'allowed_protocols' => 
+      array (
+        'file://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'http://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+        'https://' => 
+        array (
+          'rules' => 
+          array (
+          ),
+        ),
+      ),
+      'log_output_file' => NULL,
+      'enable_font_subsetting' => false,
+      'pdf_backend' => 'CPDF',
+      'default_media_type' => 'screen',
+      'default_paper_size' => 'a4',
+      'default_paper_orientation' => 'portrait',
+      'default_font' => 'serif',
+      'dpi' => 96,
+      'enable_php' => false,
+      'enable_javascript' => true,
+      'enable_remote' => true,
+      'font_height_ratio' => 1.1,
+      'enable_html5_parser' => true,
+    ),
     'orientation' => 'portrait',
     'defines' => 
     array (
-      'font_dir' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/fonts/',
-      'font_cache' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/fonts/',
+      'font_dir' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/fonts/',
+      'font_cache' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/fonts/',
       'temp_dir' => '/var/folders/8p/k19rc1cn16g1g59myqpsg7300000gn/T',
-      'chroot' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas',
+      'chroot' => '/Users/miguellugo/Documents/Desarrollos/admigas',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
       'default_media_type' => 'screen',
@@ -652,7 +747,7 @@
     ),
     'temporary_files' => 
     array (
-      'local_path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/laravel-excel',
+      'local_path' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/framework/laravel-excel',
       'remote_disk' => NULL,
       'remote_prefix' => NULL,
       'force_resync_remote' => NULL,
@@ -667,12 +762,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/app',
+        'root' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/app/public',
+        'root' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/app/public',
         'url' => 'http://administradora.2gadmin.com.mx/storage',
         'visibility' => 'public',
       ),
@@ -836,13 +931,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/logs/laravel.log',
+        'path' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/logs/laravel.log',
+        'path' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -911,7 +1006,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/views/vendor/mail',
+        0 => '/Users/miguellugo/Documents/Desarrollos/admigas/resources/views/vendor/mail',
       ),
     ),
     'log_channel' => NULL,
@@ -919,7 +1014,7 @@
   'maileclipse' => 
   array (
     'path' => 'maileclipse',
-    'mailables_dir' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/app/Mail/',
+    'mailables_dir' => '/Users/miguellugo/Documents/Desarrollos/admigas/app/Mail/',
     'factory' => true,
     'allowed_environments' => 
     array (
@@ -1114,7 +1209,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => '/Users/miguellugo/Documents/Desarrollos/admigas/vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'Routes/web.php',
@@ -1178,9 +1273,9 @@
     ),
     'paths' => 
     array (
-      'modules' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/Modules',
-      'assets' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/public/modules',
-      'migration' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/database/migrations',
+      'modules' => '/Users/miguellugo/Documents/Desarrollos/admigas/Modules',
+      'assets' => '/Users/miguellugo/Documents/Desarrollos/admigas/public/modules',
+      'migration' => '/Users/miguellugo/Documents/Desarrollos/admigas/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -1315,7 +1410,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/vendor/*/*',
+        0 => '/Users/miguellugo/Documents/Desarrollos/admigas/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -1343,7 +1438,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/modules_statuses.json',
+        'statuses-file' => '/Users/miguellugo/Documents/Desarrollos/admigas/modules_statuses.json',
         'cache-key' => 'activator.installed',
         'cache-lifetime' => 604800,
       ),
@@ -1369,29 +1464,19 @@
     array (
       'model_morph_key' => 'model_id',
     ),
+    'register_permission_check_method' => true,
+    'register_octane_reset_listener' => false,
+    'teams' => false,
+    'use_passport_client_credentials' => false,
     'display_permission_in_exception' => false,
     'display_role_in_exception' => false,
     'enable_wildcard_permission' => false,
     'cache' => 
     array (
       'expiration_time' => 
-      DateInterval::__set_state(array(
-         'y' => 0,
-         'm' => 0,
-         'd' => 0,
-         'h' => 24,
-         'i' => 0,
-         's' => 0,
-         'f' => 0.0,
-         'weekday' => 0,
-         'weekday_behavior' => 0,
-         'first_last_day_of' => 0,
-         'invert' => 0,
-         'days' => false,
-         'special_type' => 0,
-         'special_amount' => 0,
-         'have_weekday_relative' => 0,
-         'have_special_relative' => 0,
+      \DateInterval::__set_state(array(
+         'from_string' => true,
+         'date_string' => '24 hours',
       )),
       'key' => 'spatie.permission.cache',
       'model_key' => 'name',
@@ -1486,7 +1571,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/sessions',
+    'files' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1590,44 +1675,112 @@
   array (
     'paths' => 
     array (
-      0 => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/resources/views',
+      0 => '/Users/miguellugo/Documents/Desarrollos/admigas/resources/views',
     ),
-    'compiled' => '/Users/miguellugo/Documents/Desarrollos/Personales/admigas/storage/framework/views',
+    'compiled' => '/Users/miguellugo/Documents/Desarrollos/admigas/storage/framework/views',
   ),
   'flare' => 
   array (
     'key' => NULL,
-    'reporting' => 
+    'flare_middleware' => 
     array (
-      'anonymize_ips' => true,
-      'collect_git_information' => false,
-      'report_queries' => true,
-      'maximum_number_of_collected_queries' => 200,
-      'report_query_bindings' => true,
-      'report_view_data' => true,
-      'grouping_type' => NULL,
+      0 => 'Spatie\\FlareClient\\FlareMiddleware\\RemoveRequestIp',
+      1 => 'Spatie\\FlareClient\\FlareMiddleware\\AddGitInformation',
+      2 => 'Spatie\\LaravelIgnition\\FlareMiddleware\\AddNotifierName',
+      3 => 'Spatie\\LaravelIgnition\\FlareMiddleware\\AddEnvironmentInformation',
+      4 => 'Spatie\\LaravelIgnition\\FlareMiddleware\\AddExceptionInformation',
+      5 => 'Spatie\\LaravelIgnition\\FlareMiddleware\\AddDumps',
+      'Spatie\\LaravelIgnition\\FlareMiddleware\\AddLogs' => 
+      array (
+        'maximum_number_of_collected_logs' => 200,
+      ),
+      'Spatie\\LaravelIgnition\\FlareMiddleware\\AddQueries' => 
+      array (
+        'maximum_number_of_collected_queries' => 200,
+        'report_query_bindings' => true,
+      ),
+      'Spatie\\LaravelIgnition\\FlareMiddleware\\AddJobs' => 
+      array (
+        'max_chained_job_reporting_depth' => 5,
+      ),
+      'Spatie\\FlareClient\\FlareMiddleware\\CensorRequestBodyFields' => 
+      array (
+        'censor_fields' => 
+        array (
+          0 => 'password',
+          1 => 'password_confirmation',
+        ),
+      ),
+      'Spatie\\FlareClient\\FlareMiddleware\\CensorRequestHeaders' => 
+      array (
+        'headers' => 
+        array (
+          0 => 'API-KEY',
+        ),
+      ),
     ),
     'send_logs_as_events' => true,
   ),
   'ignition' => 
   array (
     'editor' => 'phpstorm',
-    'theme' => 'light',
+    'theme' => 'auto',
     'enable_share_button' => true,
     'register_commands' => false,
+    'solution_providers' => 
+    array (
+      0 => 'Spatie\\Ignition\\Solutions\\SolutionProviders\\BadMethodCallSolutionProvider',
+      1 => 'Spatie\\Ignition\\Solutions\\SolutionProviders\\MergeConflictSolutionProvider',
+      2 => 'Spatie\\Ignition\\Solutions\\SolutionProviders\\UndefinedPropertySolutionProvider',
+      3 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\IncorrectValetDbCredentialsSolutionProvider',
+      4 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\MissingAppKeySolutionProvider',
+      5 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\DefaultDbNameSolutionProvider',
+      6 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\TableNotFoundSolutionProvider',
+      7 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\MissingImportSolutionProvider',
+      8 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\InvalidRouteActionSolutionProvider',
+      9 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\ViewNotFoundSolutionProvider',
+      10 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\RunningLaravelDuskInProductionProvider',
+      11 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\MissingColumnSolutionProvider',
+      12 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UnknownValidationSolutionProvider',
+      13 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\MissingMixManifestSolutionProvider',
+      14 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\MissingViteManifestSolutionProvider',
+      15 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\MissingLivewireComponentSolutionProvider',
+      16 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\UndefinedViewVariableSolutionProvider',
+      17 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\GenericLaravelExceptionSolutionProvider',
+      18 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\OpenAiSolutionProvider',
+      19 => 'Spatie\\LaravelIgnition\\Solutions\\SolutionProviders\\SailNetworkSolutionProvider',
+    ),
     'ignored_solution_providers' => 
     array (
-      0 => 'Facade\\Ignition\\SolutionProviders\\MissingPackageSolutionProvider',
     ),
     'enable_runnable_solutions' => NULL,
-    'remote_sites_path' => '',
+    'remote_sites_path' => '/Users/miguellugo/Documents/Desarrollos/admigas',
     'local_sites_path' => '',
     'housekeeping_endpoint_prefix' => '_ignition',
-  ),
-  'trustedproxy' => 
-  array (
-    'proxies' => NULL,
-    'headers' => 30,
+    'settings_file_path' => '',
+    'recorders' => 
+    array (
+      0 => 'Spatie\\LaravelIgnition\\Recorders\\DumpRecorder\\DumpRecorder',
+      1 => 'Spatie\\LaravelIgnition\\Recorders\\JobRecorder\\JobRecorder',
+      2 => 'Spatie\\LaravelIgnition\\Recorders\\LogRecorder\\LogRecorder',
+      3 => 'Spatie\\LaravelIgnition\\Recorders\\QueryRecorder\\QueryRecorder',
+    ),
+    'open_ai_key' => NULL,
+    'with_stack_frame_arguments' => true,
+    'argument_reducers' => 
+    array (
+      0 => 'Spatie\\Backtrace\\Arguments\\Reducers\\BaseTypeArgumentReducer',
+      1 => 'Spatie\\Backtrace\\Arguments\\Reducers\\ArrayArgumentReducer',
+      2 => 'Spatie\\Backtrace\\Arguments\\Reducers\\StdClassArgumentReducer',
+      3 => 'Spatie\\Backtrace\\Arguments\\Reducers\\EnumArgumentReducer',
+      4 => 'Spatie\\Backtrace\\Arguments\\Reducers\\ClosureArgumentReducer',
+      5 => 'Spatie\\Backtrace\\Arguments\\Reducers\\DateTimeArgumentReducer',
+      6 => 'Spatie\\Backtrace\\Arguments\\Reducers\\DateTimeZoneArgumentReducer',
+      7 => 'Spatie\\Backtrace\\Arguments\\Reducers\\SymphonyRequestArgumentReducer',
+      8 => 'Spatie\\LaravelIgnition\\ArgumentReducers\\ModelArgumentReducer',
+      9 => 'Spatie\\LaravelIgnition\\ArgumentReducers\\CollectionArgumentReducer',
+      10 => 'Spatie\\Backtrace\\Arguments\\Reducers\\StringableArgumentReducer',
+    ),
   ),
   'clientes' => 
   array (

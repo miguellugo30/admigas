@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\GenerarPDFControler;
 use Modules\Edificios\Http\Requests\DepartamentosRequest;
 /**
@@ -199,7 +200,7 @@ class DepartamentosController extends Controller
     {
         $depto = $this->departamentos->where('id', $id)->with('Medidores')->with('Contacto_Depto')->first();
 
-        $estado_cuenta = \DB::select("call SP_estado_cuenta( $id )");
+        $estado_cuenta = DB::select("call SP_estado_cuenta( $id )");
 
         return view('edificios::departamentos.show', compact('depto', 'estado_cuenta'));
     }
@@ -223,6 +224,39 @@ class DepartamentosController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        /**
+         * Validamos que la referencia sea la misma
+         */
+        $depto = $this->departamentos
+                      ->where('id', $request->admigas_departamentos_id)
+                      ->first();
+
+        if ($depto->numero_referencia != $request->numero_referencia) {
+            /**
+             * Actualizamos la referencia en recibos
+             */
+            DB::table('admigas_recibos')
+                ->where('referencia', $depto->numero_referencia)
+                ->where('admigas_departamentos_id', $request->admigas_departamentos_id)
+                ->update(['referencia' => $request->numero_referencia]);
+            /**
+             * Actualizamos la referencia en pagos
+             */
+            DB::table('admigas_pagos')
+                ->where('referencia', $depto->numero_referencia)
+                ->update(['referencia' => $request->numero_referencia]);
+            /**
+             * Actualizamos la referencia en saldos
+             */
+            DB::table('admigas_saldos')
+                ->where('referencia', $depto->numero_referencia)
+                ->update(['referencia' => $request->numero_referencia]);
+
+
+        }
+
+
         /**
          * Creamos el nuevo departamento
          */
@@ -233,8 +267,8 @@ class DepartamentosController extends Controller
                                             'gasto_admin' =>  $request->gasto_admin
                                         ]);
         /**
-        * Creamos el contacto del departamento
-        */
+         * Creamos el contacto del departamento
+         */
         $this->contactoDepartamento->where('admigas_departamentos_id', $request->admigas_departamentos_id)
                                     ->update([
                                         'nombre' => $request->nombre,

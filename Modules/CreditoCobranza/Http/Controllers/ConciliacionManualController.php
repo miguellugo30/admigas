@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 /**
  * Modelos
  */
@@ -67,7 +68,7 @@ class ConciliacionManualController extends Controller
         /**
          * Relacionamos el pago con el departamento
          **/
-        \DB::table('admigas_departamentos_pagos')->insert([
+        DB::table('admigas_departamentos_pagos')->insert([
             'admigas_departamentos_id' => $request->depto_id,
             'admigas_pagos_id' => $request->pago_id,
             'user_id' => $this->user_id,

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\CreditoCobranza\Http\Requests\ConciliacionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 use App\AdmigasDepartamentos;
 use App\AdmigasPagos;
@@ -94,7 +95,7 @@ class ConciliacionController extends Controller
                     /*
                      * Relacionamos el pago con el departamento
                      **/
-                    \DB::table('admigas_departamentos_pagos')->insert([
+                    DB::table('admigas_departamentos_pagos')->insert([
                         'admigas_departamentos_id' => $id->id,
                         'admigas_pagos_id' => $pago->id,
                         'user_id' => $this->user_id,

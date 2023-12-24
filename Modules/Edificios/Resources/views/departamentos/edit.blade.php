@@ -16,7 +16,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label for="numero_referencia">Numero de Referencia *:</label>
-                                <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia" value="{{ $depto->numero_referencia }}" readonly>
+                                <input type="text" class="form-control form-control-sm" id="numero_referencia" placeholder="Numero de Referencia" value="{{ $depto->numero_referencia }}">
+                                <input type="hidden" name="referencia_anterior" id="referencia_anterior" value="{{ $depto->numero_referencia }}">
                             </div>
                         </div>
                     </div>

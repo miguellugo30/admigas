@@ -879,6 +879,7 @@ $(function () {
     event.preventDefault();
     var numero_departamento = $("#numero_departamento").val();
     var numero_referencia = $("#numero_referencia").val();
+    let referencia_anterior = $("#referencia_anterior").val();
     var nombre = $("#nombre").val();
     var apellido_paterno = $("#apellido_paterno").val();
     var apellido_materno = $("#apellido_materno").val();
@@ -895,37 +896,103 @@ $(function () {
 
     var _method = "PUT";
     var url = currentURL + '/departamentos/' + admigas_departamentos_id;
-    $.ajax({
-      url: url,
-      type: 'POST',
-      data: {
-        numero_departamento: numero_departamento,
-        numero_referencia: numero_referencia,
-        nombre: nombre,
-        apellido_paterno: apellido_paterno,
-        apellido_materno: apellido_materno,
-        telefono: telefono,
-        celular: celular,
-        correo_electronico: correo_electronico,
-        clasificacion: clasificacion,
-        medio: medio,
-        gasto_admin: gasto_admin,
-        admigas_departamentos_id: admigas_departamentos_id,
-        id_condominio: id_condominio,
-        _token: _token,
-        _method: _method
-      },
-      success: function success(result) {
-        $('.viewResult').html(result);
-        $('.viewCreate').slideUp();
-      }
-    }).done(function (data) {
-      $('.modal-backdrop ').css('display', 'none');
-      $('#modal').modal('hide');
-      Swal.fire('Correcto!', 'El registro ha sido actualizado.', 'success');
-    }).fail(function (data) {
-      printErrorMsg(data.responseJSON.errors);
-    });
+
+    console.log(numero_referencia + '!=' + referencia_anterior);
+
+        if (numero_referencia != referencia_anterior) {
+
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Se esta modificando el número de refencia!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, actualizar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.value) {
+
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            numero_departamento: numero_departamento,
+                            numero_referencia: numero_referencia,
+                            nombre: nombre,
+                            apellido_paterno: apellido_paterno,
+                            apellido_materno: apellido_materno,
+                            telefono: telefono,
+                            celular: celular,
+                            correo_electronico: correo_electronico,
+                            clasificacion: clasificacion,
+                            medio: medio,
+                            gasto_admin: gasto_admin,
+                            admigas_departamentos_id: admigas_departamentos_id,
+                            id_condominio: id_condominio,
+                            _token: _token,
+                            _method: _method
+                        },
+                        success: function(result) {
+                            $('.viewResult').html(result);
+                            $('.viewCreate').slideUp();
+                        }
+                    }).done(function(data) {
+                        $('.modal-backdrop ').css('display', 'none');
+                        $('#modal').modal('hide');
+                        Swal.fire(
+                            'Correcto!',
+                            'El registro ha sido actualizado.',
+                            'success'
+                        )
+                    }).fail(function(data) {
+                        printErrorMsg(data.responseJSON.errors);
+                    });
+
+                }
+
+            });
+
+        } else {
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    numero_departamento: numero_departamento,
+                    numero_referencia: numero_referencia,
+                    nombre: nombre,
+                    apellido_paterno: apellido_paterno,
+                    apellido_materno: apellido_materno,
+                    telefono: telefono,
+                    celular: celular,
+                    correo_electronico: correo_electronico,
+                    clasificacion: clasificacion,
+                    medio: medio,
+                    gasto_admin: gasto_admin,
+                    admigas_departamentos_id: admigas_departamentos_id,
+                    id_condominio: id_condominio,
+                    _token: _token,
+                    _method: _method
+                },
+                success: function(result) {
+                    $('.viewResult').html(result);
+                    $('.viewCreate').slideUp();
+                }
+            }).done(function(data) {
+                $('.modal-backdrop ').css('display', 'none');
+                $('#modal').modal('hide');
+                Swal.fire(
+                    'Correcto!',
+                    'El registro ha sido actualizado.',
+                    'success'
+                )
+            }).fail(function(data) {
+                printErrorMsg(data.responseJSON.errors);
+            });
+        }
+
   });
   /**
    * Evento para ver el detalle de un departamento
