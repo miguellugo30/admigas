@@ -1,0 +1,7 @@
+{
+    "Configuracion": true,
+    "Edificios": true,
+    "Clientes": true,
+    "CreditoCobranza": true,
+    "Reportes": true
+}
