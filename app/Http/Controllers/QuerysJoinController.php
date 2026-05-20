@@ -90,7 +90,7 @@ class QuerysJoinController extends Controller
                                 'admigas_departamentos.numero_departamento',
                                 'admigas_departamentos.numero_referencia',
                                 'admigas_departamentos.gasto_admin',
-				'admigas_departamentos.factor',
+				                'admigas_departamentos.factor',
                                 'admigas_contacto_departamentos.nombre',
                                 'admigas_contacto_departamentos.apellido_materno',
                                 'admigas_contacto_departamentos.apellido_paterno',
@@ -163,7 +163,7 @@ class QuerysJoinController extends Controller
 	    }
             else {
 		$depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
-	    } 
+	    }
 
             //$depto->me3 = ( $depto->lectura_actual - $depto->lectura_anterior );
             $depto->litros = ( $depto->me3 ) * $factor;
@@ -172,7 +172,7 @@ class QuerysJoinController extends Controller
             //$depto->gasto_admin = $condominio->first()->gasto_admin ;
             $depto->adeudo = $adeudo;
         }
-	
+
 	return $deptos;
     }
     /**
@@ -256,7 +256,7 @@ class QuerysJoinController extends Controller
             } else {
                 $factor = $condominio->first()->factor;
             }
-	
+
             //$importe = round( ( ( $depto->lectura_actual - $depto->lectura_anterior ) * $condominio->factor ) * ( $precio - $condominio->descuento ) );
 
             if($depto->lectura_actual < $depto->lectura_anterior) {

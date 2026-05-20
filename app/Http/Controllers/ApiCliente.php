@@ -129,14 +129,18 @@ class ApiCliente extends Controller
         $dataCliente = DB::select("call SP_DataCliente('".$departoId."')");
 
         $dataRecibo = AdmigasRecibos::where('admigas_departamentos_id', $departoId)
+                                    ->select('clave_recibo', 'total_pagar', 'fecha_limite_pago', 'admigas_departamentos_id')
                                     ->active()
                                     ->orderBy('id', 'desc')
                                     ->limit(1)
                                     ->get();
 
+        $consumoReciente = DB::select("call SP_consumo_recibos('".$departoId."')");
+
         $data = [
             'cliente' => $dataCliente,
-            'recibo' => $dataRecibo
+            'recibo' => $dataRecibo,
+            'consumo' => $consumoReciente
         ];
 
         return response()->json([
