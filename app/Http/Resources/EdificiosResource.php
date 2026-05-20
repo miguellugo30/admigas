@@ -19,7 +19,7 @@ class EdificiosResource extends JsonResource
             'nombre' => $this->nombre,
             'factor' => $this->factor,
             'unidad' => new UnidadesResource($this->Unidades),
-            //'departamentos' => DepartamentosResource::collection($this->Departamentos)
+            'departamentos' => DepartamentosResource::collection($this->Departamentos)
         ];
     }
 }

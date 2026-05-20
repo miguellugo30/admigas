@@ -64,34 +64,47 @@ class APIMobile extends Controller
 
         $date = date('m-Y');
         $dateComplete = date('Y-m-d');
+        $lecturas = $request->input('lecturas');
+        $edificio_id = $request->input('edificio_id');
 
-        $departamento = $this->departamentos->find($request->departamento_id);
-        $medidor = $this->medidores->where('admigas_departamentos_id',$request->departamento_id)->first();
-        /**
-         * Validamos que exista la ruta donde se guardara la foto
-         */
-        $this->path->validateRutaLocal($departamento->admigas_condominios_id, $date, '1');
-        /**
-         * Creamos el nombre de la imagen
-         */
-        //$name = "1039_101.jpeg";
-        $name = $request->departamento_id . "_" . $request->num_depto . ".jpeg";
-        /**
-         * Formateamos la imagen recibida y se guarda
-         */
         try {
-            $image = $request->foto;  // your base64 encoded
-            $image = str_replace('data:image/jpeg;base64,', '', $image);
-            $image = str_replace(' ', '+', $image);
-            Storage::put('/1\/' . $departamento->admigas_condominios_id. '\/' . $date . '\/' . $name, base64_decode($image));
+
+            foreach ($lecturas as $lectura) {
+
+                $departamento_id = $lectura['departamento_id'];
+                $base64Image = $lectura['lectura_foto'];
+                $lecturaActual = $lectura['lectura_actual'];
+
+                $departamento = $this->departamentos->find($departamento_id);
+                $medidor = $this->medidores->where('admigas_departamentos_id',$departamento_id)->first();
+                /**
+                 * Validamos que exista la ruta donde se guardara la foto
+                 */
+                $this->path->validateRutaLocal($edificio_id, $date, '1');
+                /**
+                 * Creamos el nombre de la imagen
+                 */
+                $name = $departamento_id . "_" . $departamento->numero_departamento . ".jpeg";
+
+                if ($base64Image) {
+
+                    // 2. Decodificar
+                    $imagenDecodificada = base64_decode($base64Image);
+
+                    $rutaStorage = "/1/{$departamento->admigas_condominios_id}/{$date}/{$name}";
+                    // Lo guardamos en storage/app/public/lecturas
+                   Storage::disk('public')->put($rutaStorage, $imagenDecodificada);
+
+                }
 
 
-            $this->lecturasMedidores->create([
-                'lectura' => $request->lectura,
-                'fecha_lectura' => $dateComplete,
-                'admigas_departamentos_id' => $request->departamento_id,
-                'admigas_medidores_id' => $medidor->id,
-            ]);
+                $this->lecturasMedidores->create([
+                    'lectura' => $lecturaActual,
+                    'fecha_lectura' => $dateComplete,
+                    'admigas_departamentos_id' => $departamento_id,
+                    'admigas_medidores_id' => $medidor->id,
+                ]);
+            }
 
             return response()->json([
                 'message' => 'Se ha guardado correctamente las lecturas',
@@ -101,15 +114,14 @@ class APIMobile extends Controller
 
         } catch (\Throwable $th) {
 
-            \Log::error('Error al guardar las lecturas desde la API:', ['message' => $th]);
-
+            \Log::error('Error al guardar las lecturas desde la API:', ['message' => $th->getMessage(), 'line' => $th->getLine()]);
             return response()->json([
                 'message' => 'Se ha tenido un error al guardar lecturas',
                 'data' => [],
                 'success' => false
-            ]);
-        }
+            ], 500); // Es buena práctica regresar el código HTTP 500 cuando hay un fallo
 
+        }
 
     }
 
